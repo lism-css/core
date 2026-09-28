@@ -1,6 +1,14 @@
-基準日: 2026-09-19・コミット9feef9fa0
+基準日: 2026-09-28・コミットc9321bcec
 
 # 意思決定の記録
+
+## 2026-09-28: 後方互換用の`lism-component`レイヤーを削除する
+
+v0.26.0で`c--`を`b--`へ移行したとき（#546, #559）、旧`c--`の配置先だった`lism-component`は宣言だけ残した。宣言から消すと、利用者CSSの`@layer lism-component`が初出の位置で登録され、優先度が変わるため。空のレイヤーが公開文書の6層の表記と食い違うという報告があり、v1へ持ち越さずに互換を切る。
+
+- 決定: `@layer`宣言から`lism-component`を外し、`lism-base → lism-block → lism-trait → lism-primitive → lism-custom → lism-utility`の6層にする。2026-08-15のレイヤー順の決定のうち`lism-component`の部分を覆す。
+- 却下: 宣言を残し、公開文書へ後方互換レイヤーの注記を足す案。v1へ持ち越したくない互換のために、利用者向けの説明を増やすことになる。
+- 受容: `@layer lism-component`を書いた利用者CSSや`@lism-css/ui` v0.26.0未満のCSSは、エラーにならず優先度だけが変わる（lism-cssより後に読み込むと`lism-utility`より強く、前に読み込むと最弱）。移行先はv0.26.0で案内済みの`lism-block` / `lism-custom`で、リリースノートに破壊的変更として書く。
 
 ## 2026-09-19: React版Tabsの手動構成はContextで状態を配り、`setTabs`は使わない
 

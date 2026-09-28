@@ -8,6 +8,12 @@ v1.0のリリースまでは大きな変更が続く可能性があるため、�
 
 <Divider bds="dashed" my="40" />
 
+## 未リリース
+
+- **破壊的変更:** 後方互換のために宣言だけ残していた`lism-component`レイヤーを削除しました。`@layer lism-component`に書いたCSSは優先度が変わるため、`lism-block`または`lism-custom`へ移してください。
+
+<Divider bds="dashed" my="40" />
+
 ## lism-css v0.30.0 (2026.09.22)
 
 - 公開パッケージの`.d.ts`が`config`を相対パスでimportしていたため、利用側でpropsの型が`any`に落ちる不具合を修正しました（#494, #639）。

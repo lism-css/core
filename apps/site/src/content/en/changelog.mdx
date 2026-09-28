@@ -8,6 +8,12 @@ Significant changes may continue until v1.0 is released, so all notable changes 
 
 <Divider bds="dashed" my="40" />
 
+## Unreleased
+
+- **Breaking:** Removed the `lism-component` layer, which had only been declared for backward compatibility. CSS written in `@layer lism-component` now has a different priority, so move it to `lism-block` or `lism-custom`.
+
+<Divider bds="dashed" my="40" />
+
 ## lism-css v0.30.0 (2026.09.22)
 
 - Fixed the published `.d.ts` files importing `config` via a relative path, which caused prop types to fall back to `any` in consuming projects (#494, #639).
