@@ -62,7 +62,7 @@ React/Astro 側の Props 実装は `src/components/` の `layout/` / `state/` / 
 | `utility-class.md` | `src/scss/utility/`。Property Class との違いの説明を維持 |
 | `property-class.md`, `property-class/*.md` | `config/defaults/props.ts`, `src/scss/_prop-config*.gen.scss`（生成物）, `src/scss/props/`（カテゴリ別 SCSS）, MDX `property-class/{同名}.mdx` |
 | `responsive.md` | `src/scss/_query.scss`（BP・コンテナクエリ）, `src/lib/`（レスポンシブ Props の正規化） |
-| `css-rules.md`, `naming.md` | `src/scss/_with_layer.scss`（Layer 宣言。`lism-component` は後方互換用に宣言のみ残存）, `src/scss/primitives/`・`src/scss/base/`（プレフィックス）, `config/defaults/props.ts`（省略ルール）, MDX `naming.mdx`。`b--` の実例は `packages/lism-ui/src/`、`c--` はユーザー独自クラスで本体に実装はない |
+| `css-rules.md`, `naming.md` | `src/scss/_with_layer.scss`（Layer 宣言）, `src/scss/primitives/`・`src/scss/base/`（プレフィックス）, `config/defaults/props.ts`（省略ルール）, MDX `naming.mdx`。`b--` の実例は `packages/lism-ui/src/`、`c--` はユーザー独自クラスで本体に実装はない |
 | `components-core.md` | `src/components/`, `src/lib/getLismProps.ts`, `config/`, `src/lib/helper/`。Atomic/Trait/Layout の対応表には `primitives/*.md` への詳細リンクを保持する。個別 Props・仕様の詳細は `primitives/*.md` / `trait-class/*.md` 側に置き、こちらへ戻さない |
 | `components-ui.md` | `packages/lism-ui/src/`, `packages/lism-cli/src/commands/`（`ui` 等のサブコマンド） |
 | `customize.md` | `src/scss/` 直下（`main*.scss` / `full*.scss` / `_with_layer.scss` / `_setting.scss` の `$lism-` 変数）, `packages/lism-cli/src/`（lism.config の読み込み）, `packages/plugin/src/`（`@lism-css/plugin`）, MDX `customize.mdx` |

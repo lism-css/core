@@ -4,7 +4,7 @@
 @use 'sass:meta';
 
 // レイヤー順序を明示的に宣言（詳細度: 上ほど弱い）
-@layer lism-base, lism-block, lism-trait, lism-primitive, lism-component, lism-custom, lism-utility;
+@layer lism-base, lism-block, lism-trait, lism-primitive, lism-custom, lism-utility;
 
 @layer lism-base {
   // resetは中でも layer定義済み。 lism-base.reset となる
@@ -33,10 +33,6 @@
   @layer atomic {
     @include meta.load-css('primitives/atomic');
   }
-}
-
-/* stylelint-disable-next-line block-no-empty -- 後方互換用レイヤー（旧 c-- の配置先・@lism-css/ui の旧版が使用）。宣言から消すと既存ユーザー CSS の @layer lism-component が初出扱いで最後尾に再配置され挙動が変わるため残している。 */
-@layer lism-component {
 }
 
 /* stylelint-disable-next-line block-no-empty -- ユーザーの独自分類クラス用レイヤー */
