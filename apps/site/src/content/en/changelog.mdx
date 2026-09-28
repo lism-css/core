@@ -11,6 +11,8 @@ Significant changes may continue until v1.0 is released, so all notable changes 
 ## Unreleased
 
 - **Breaking:** Removed the `lism-component` layer, which had only been declared for backward compatibility. CSS written in `@layer lism-component` now has a different priority, so move it to `lism-block` or `lism-custom`.
+  - If you use `@lism-css/ui` below v0.26.0, update it to v0.26.0 or later.
+  - For components added with `lism-cli ui add` before v0.26.0, change `@layer lism-component` to `lism-block` in their `_style.css`.
 
 <Divider bds="dashed" my="40" />
 
