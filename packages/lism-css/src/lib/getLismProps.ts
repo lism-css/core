@@ -30,7 +30,6 @@ export interface LismPropsBase extends TraitProps, PropValueTypes, CustomPropReg
   className?: string;
   primitiveClass?: string[];
   style?: StyleWithCustomProps;
-  _propConfig?: Record<string, PropConfig>;
   set?: SetPropValue;
   util?: UtilPropValue;
   hov?: boolean | string | Record<string, unknown>;
@@ -56,13 +55,11 @@ export class LismPropsData {
   propClasses: string[] = [];
   styles: StyleWithCustomProps = {};
   attrs: Record<string, unknown> = {};
-  _propConfig?: Record<string, PropConfig>;
 
   constructor(allProps: LismPropsBase & Record<string, unknown>) {
-    const { forwardedRef, class: astroClassName, className: userClassName, primitiveClass, style = {}, _propConfig = {}, ...others } = allProps;
+    const { forwardedRef, class: astroClassName, className: userClassName, primitiveClass, style = {}, ...others } = allProps;
 
     this.styles = { ...style };
-    this._propConfig = { ..._propConfig };
     if (primitiveClass && primitiveClass.length) {
       this.primitiveClass = [...primitiveClass];
     }
@@ -141,12 +138,8 @@ export class LismPropsData {
   analyzeLismProp(propName: string, propVal: unknown): void {
     if (null == propVal) return;
 
-    let propConfig: PropConfig | null = (PROPS as Record<string, PropConfig>)[propName] || null;
+    const propConfig: PropConfig | null = (PROPS as Record<string, PropConfig>)[propName] || null;
     if (null === propConfig) return;
-
-    if (this._propConfig?.[propName]) {
-      propConfig = Object.assign({}, propConfig, this._propConfig[propName]);
-    }
 
     const { base: baseValue, ...bpValues } = getBpData(propVal);
 
@@ -159,9 +152,7 @@ export class LismPropsData {
     this.setAttrs(propName, baseValue, propConfig);
 
     Object.keys(bpValues).forEach((bp) => {
-      if (propConfig) {
-        this.setAttrs(propName, bpValues[bp as keyof typeof bpValues], propConfig, bp);
-      }
+      this.setAttrs(propName, bpValues[bp as keyof typeof bpValues], propConfig, bp);
     });
   }
 
