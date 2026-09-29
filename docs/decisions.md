@@ -10,7 +10,7 @@
 - 却下: 6層すべてを宣言する案。レイヤーを増減するたびにui側も直すことになる（`lism-component`の削除がその例）。
 - 却下: コンポーネント側のCSSの自動読み込みをやめ、`style.css`に一本化する案。利用者に`style.css`の読み込みを求める破壊的変更になり、使うコンポーネントのCSSだけを読み込む利点も失う。
 - 却下: ビルド時に`dist`のCSSへ宣言を付与する案。Astro版は`src`の`_style.css`を読むため効かない。
-- 受容: `dist/style.css`には同じ宣言がコンポーネントの数だけ入る。`@layer`文は重複しても順序を変えないため、動作に影響しない。
+- 決定: `dist/style.css`は全コンポーネントの`_style.css`を結合するため、同じ宣言がコンポーネントの数だけ入る。`packages/lism-ui/build-css.js`がコンパイル後に先頭の1つだけ残し、1つも無ければビルドを失敗させる。共有の`compileCssTree`と`dist/components/*/_style.css`は変えない。
 
 ## 2026-09-28: 後方互換用の`lism-component`レイヤーを削除する
 
