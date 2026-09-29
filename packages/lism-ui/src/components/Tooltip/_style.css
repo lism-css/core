@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 /*
  * 表示は CSS（:hover / :focus-visible）、配置は CSS Anchor Positioning。
  * anchor 配置は @supports で囲い、非対応（部分対応の Chrome 128〜130 含む）はルート基準の absolute 配置に落とす。

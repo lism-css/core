@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 @layer lism-block {
   /* l--grid との併用が前提 */
   .b--tabs {
