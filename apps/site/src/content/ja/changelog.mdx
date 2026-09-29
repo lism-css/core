@@ -15,6 +15,7 @@ v1.0のリリースまでは大きな変更が続く可能性があるため、�
   - v0.26.0より前に`lism-cli ui add`で追加したコンポーネントは、`_style.css`の`@layer lism-component`を`lism-block`へ書き換えてください。
 - **破壊的変更:** 非推奨だったコンポーネントエイリアス`SideMain` / `FluidCols` / `SwitchCols`と`Dummy`コンポーネントを、`lism-css/react`と`lism-css/astro`から削除しました。それぞれ`WithSide` / `AutoColumns` / `SwitchColumns`と`@lism-css/ui`の`DummyText`へ移行してください（#646）。
 - **破壊的変更:** Lism Propsの変換設定をprop単位で上書きする`_propConfig`を、`getLismProps`と各コンポーネントのpropsから削除しました。変換設定を変えたい場合は、[`lism.config.js`の`props`](/docs/customize/config/)で設定してください（#225）。
+- `@lism-css/ui`: コンポーネントのCSSが`lism-css/main.css`より前に出力されると、`lism-base`のスタイルが`b--*`のスタイルより優先される不具合を修正しました（`a`要素の`Button`に下線とリンク色が残るなど）。各コンポーネントのCSSと`style.css`の先頭で、`lism-base`と`lism-block`の順序を宣言します（#644）。
 
 <Divider bds="dashed" my="40" />
 

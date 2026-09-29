@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 /* ::details-content と grid-template-rows: 0fr → 1fr のトランジションでアニメーション */
 @layer lism-block {
   .b--details {

@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 @layer lism-block {
   /* Note: l--stack と u--cbox との併用を前提としています. */
   .b--callout {

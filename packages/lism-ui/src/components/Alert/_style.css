@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 @layer lism-block {
   /* Note: u--cbox との併用を前提としています。layout="withSide" 指定時は l--withSide がレイアウトを上書きします. */
   .b--alert {
