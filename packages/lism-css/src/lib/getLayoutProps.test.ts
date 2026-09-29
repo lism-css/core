@@ -19,11 +19,6 @@ describe('getLayoutProps', () => {
       const result = getLayoutProps('grid', {});
       expect(result.primitiveClass).toEqual(['l--grid']);
     });
-
-    test('_propConfig は自動付与されない', () => {
-      const result = getLayoutProps('grid', {});
-      expect(result._propConfig).toBeUndefined();
-    });
   });
 
   describe('withSide レイアウト', () => {

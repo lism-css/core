@@ -14,6 +14,7 @@ Significant changes may continue until v1.0 is released, so all notable changes 
   - If you use `@lism-css/ui` below v0.26.0, update it to v0.26.0 or later.
   - For components added with `lism-cli ui add` before v0.26.0, change `@layer lism-component` to `lism-block` in their `_style.css`.
 - **Breaking:** Removed the deprecated component aliases `SideMain` / `FluidCols` / `SwitchCols` and the `Dummy` component from `lism-css/react` and `lism-css/astro`. Migrate to `WithSide` / `AutoColumns` / `SwitchColumns` and `DummyText` from `@lism-css/ui`, respectively (#646).
+- **Breaking:** Removed `_propConfig`, which overrode the Lism Props conversion settings per prop, from `getLismProps` and component props. To change the conversion settings, use [`props` in `lism.config.js`](/en/docs/customize/config/) instead (#225).
 
 <Divider bds="dashed" my="40" />
 

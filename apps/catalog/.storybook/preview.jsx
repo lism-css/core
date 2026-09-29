@@ -12,7 +12,6 @@ const preview = {
   ],
   argTypes: {
     forwardedRef: { table: { disable: true } },
-    _propConfig: { table: { disable: true } },
     tag: { table: { disable: true } },
     // --- Common Props ---
     as: { control: 'text', table: { category: 'Common Props' } },

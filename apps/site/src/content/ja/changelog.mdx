@@ -14,6 +14,7 @@ v1.0のリリースまでは大きな変更が続く可能性があるため、�
   - `@lism-css/ui` v0.26.0未満を使っている場合は、v0.26.0以上へ更新してください。
   - v0.26.0より前に`lism-cli ui add`で追加したコンポーネントは、`_style.css`の`@layer lism-component`を`lism-block`へ書き換えてください。
 - **破壊的変更:** 非推奨だったコンポーネントエイリアス`SideMain` / `FluidCols` / `SwitchCols`と`Dummy`コンポーネントを、`lism-css/react`と`lism-css/astro`から削除しました。それぞれ`WithSide` / `AutoColumns` / `SwitchColumns`と`@lism-css/ui`の`DummyText`へ移行してください（#646）。
+- **破壊的変更:** Lism Propsの変換設定をprop単位で上書きする`_propConfig`を、`getLismProps`と各コンポーネントのpropsから削除しました。変換設定を変えたい場合は、[`lism.config.js`の`props`](/docs/customize/config/)で設定してください（#225）。
 
 <Divider bds="dashed" my="40" />
 

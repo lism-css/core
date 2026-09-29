@@ -13,6 +13,15 @@ describe('getLismProps', () => {
       expect(result.className).toContain('l--flow');
     });
 
+    test('layout: grid で gtc が CSS変数として出力される', () => {
+      const result = getLismProps({
+        layout: 'grid',
+        gtc: '1fr 1fr',
+      });
+      expect(result.className).toContain('l--grid');
+      expect(result.style?.['--gtc']).toBe('1fr 1fr');
+    });
+
     test('classNameが正しく設定される', () => {
       const result = getLismProps({ className: 'custom-class' });
       expect(result.className).toBe('custom-class');
@@ -541,27 +550,6 @@ describe('getLismProps', () => {
       expect(result.className).toContain('-hov:shadowUp');
       expect(result.className).not.toContain('-hov:-c');
       expect(result.style?.['--hov-c']).toBeUndefined();
-    });
-  });
-
-  describe('_propConfig処理', () => {
-    test('_propConfigで設定を上書きできる', () => {
-      const result = getLismProps({
-        w: '200px',
-        _propConfig: {
-          w: { isVar: 1 },
-        },
-      });
-      expect(result.style?.['--w']).toBe('200px');
-    });
-
-    test('layout: grid で gtc が CSS変数として出力される', () => {
-      const result = getLismProps({
-        layout: 'grid',
-        gtc: '1fr 1fr',
-      });
-      expect(result.className).toContain('l--grid');
-      expect(result.style?.['--gtc']).toBe('1fr 1fr');
     });
   });
 
