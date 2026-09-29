@@ -178,7 +178,8 @@ export function setEvent(target: HTMLElement): void {
 
 const setModal = () => {
   // modalを開いたままClientRouterで遷移すると、closeイベントが発火せず予約状態だけが残る。
-  if (!document.querySelector('.b--modal[open]')) unlockScrollbarGutter();
+  // htmlの属性は遷移先の値に置き換わっているため、遷移元の値を書き戻さずに破棄する。
+  if (!document.querySelector('.b--modal[open]')) savedScrollbarGutter = null;
 
   const modals = document.querySelectorAll('.b--modal');
   modals?.forEach((target) => {

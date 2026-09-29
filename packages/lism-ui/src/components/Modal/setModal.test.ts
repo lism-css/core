@@ -429,8 +429,10 @@ describe('setModalForAstro', () => {
 
     // ClientRouter の遷移を模す: close イベントを経ずに body が入れ替わり、html の属性も遷移先のものになる
     document.body.innerHTML = FIXTURE;
-    root.removeAttribute('style');
+    root.setAttribute('style', 'scrollbar-gutter: stable both-edges');
     document.dispatchEvent(new Event('astro:page-load'));
+    // 遷移元の値で上書きしない
+    expect(root.style.scrollbarGutter).toBe('stable both-edges');
 
     document.querySelector<HTMLElement>('[data-modal-open="m1"]')!.click();
     expect(root.style.scrollbarGutter).toBe('stable');
