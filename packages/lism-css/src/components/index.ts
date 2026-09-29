@@ -1,6 +1,4 @@
 export * from './Lism';
-/** @deprecated DummyText (@lism-css/ui) を使用してください */
-export * from './Dummy';
 
 // semantic wrappers
 export * from './Text';
