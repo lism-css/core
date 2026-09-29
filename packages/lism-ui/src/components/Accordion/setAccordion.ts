@@ -79,11 +79,17 @@ function toggleAccordion(accordionItem: HTMLElement): void {
   }
 }
 
+// イベント登録済みのアイテム。再初期化で重ねて登録しないよう記録する。
+const registeredItems = new WeakSet<HTMLElement>();
+
 /**
  * 個別のアコーディオンにイベントをセット（React用にクリーンアップ関数を返す）
  */
 export const setEvent = (accordionItem: HTMLElement): (() => void) => {
+  if (registeredItems.has(accordionItem)) return () => undefined;
+
   const { button, panel } = getAccordionElements(accordionItem);
+  registeredItems.add(accordionItem);
 
   if (panel.hasAttribute('hidden')) {
     ACCORDION_HIDDEN_VALUE = panel.getAttribute('hidden') ?? 'until-found';
@@ -105,11 +111,13 @@ export const setEvent = (accordionItem: HTMLElement): (() => void) => {
   return () => {
     button.removeEventListener('click', _clickEvent);
     panel.removeEventListener('beforematch', _beforematchEvent);
+    // 解除後は再登録できるよう記録も消す（ReactのStrictModeは「登録→解除→登録」の順に呼ぶ）
+    registeredItems.delete(accordionItem);
   };
 };
 
 /**
- * ページ内の全アコーディオンにイベントをセット（Astro用）
+ * ページ内の全アコーディオンにイベントをセット
  */
 const setAccordion = (): void => {
   const accordionAll = document.querySelectorAll<HTMLElement>('.b--accordion_item');
@@ -117,4 +125,15 @@ const setAccordion = (): void => {
     setEvent(accordionItem);
   });
 };
+
+/**
+ * ページ内の全アコーディオンを初期化する（Astro用）
+ *   Point: ClientRouterでの遷移後は script が再実行されないため、astro:page-load でも初期化する。
+ *          ClientRouterが無いページでは astro:page-load が発火しないため、すぐ初期化する処理も必要。
+ */
+export const setAccordionForAstro = (): void => {
+  setAccordion();
+  document.addEventListener('astro:page-load', setAccordion);
+};
+
 export default setAccordion;
