@@ -16,6 +16,7 @@ Significant changes may continue until v1.0 is released, so all notable changes 
 - **Breaking:** Removed the deprecated component aliases `SideMain` / `FluidCols` / `SwitchCols` and the `Dummy` component from `lism-css/react` and `lism-css/astro`. Migrate to `WithSide` / `AutoColumns` / `SwitchColumns` and `DummyText` from `@lism-css/ui`, respectively (#646).
 - **Breaking:** Removed `_propConfig`, which overrode the Lism Props conversion settings per prop, from `getLismProps` and component props. To change the conversion settings, use [`props` in `lism.config.js`](/en/docs/customize/config/) instead (#225).
 - `@lism-css/ui`: Fixed `lism-base` styles taking priority over `b--*` styles when component CSS is output before `lism-css/main.css` (for example, a `Button` rendered as an `a` element kept its underline and link color). Each component's CSS and `style.css` now declare the order of `lism-base` and `lism-block` at the top (#644).
+- `@lism-css/ui`: Fixed the Astro `Tabs` / `Accordion` / `Modal` not working on pages reached through `ClientRouter` navigation. They are now initialized on `astro:page-load` as well as on load, and events are not registered twice on the same element (#640).
 
 <Divider bds="dashed" my="40" />
 

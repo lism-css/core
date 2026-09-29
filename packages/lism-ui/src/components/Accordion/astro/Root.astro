@@ -18,6 +18,6 @@ const { class: className, as = 'div', allowMultiple, ...props } = Astro.props;
 <Lism as={as} class={atts(className, 'b--accordion')} data-allow-multiple={allowMultiple ? '' : undefined} {...props}><slot /></Lism>
 
 <script>
-  import setAccordion from '../setAccordion';
-  setAccordion();
+  import { setAccordionForAstro } from '../setAccordion';
+  setAccordionForAstro();
 </script>

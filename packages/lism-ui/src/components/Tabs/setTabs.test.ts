@@ -1,20 +1,22 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import setTabs from './setTabs';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import setTabs, { setTabsForAstro } from './setTabs';
 
 // Tab.astro / Panel.astro が出力するマークアップを模したフィクスチャ
-beforeEach(() => {
-  document.body.innerHTML = `
-    <div class="b--tabs">
-      <div class="b--tabs_list" role="tablist">
-        <button class="b--tabs_tab" type="button" role="tab" id="panel1-tab" aria-controls="panel1" aria-selected="true" tabindex="0"></button>
-        <button class="b--tabs_tab" type="button" role="tab" id="panel2-tab" aria-controls="panel2" aria-selected="false" tabindex="-1"></button>
-        <button class="b--tabs_tab" type="button" role="tab" id="panel3-tab" aria-controls="panel3" aria-selected="false" tabindex="-1"></button>
-      </div>
-      <div id="panel1" class="b--tabs_panel" role="tabpanel" aria-labelledby="panel1-tab" tabindex="0"></div>
-      <div id="panel2" class="b--tabs_panel" role="tabpanel" aria-labelledby="panel2-tab" tabindex="0" hidden></div>
-      <div id="panel3" class="b--tabs_panel" role="tabpanel" aria-labelledby="panel3-tab" tabindex="0" hidden></div>
+const FIXTURE = `
+  <div class="b--tabs">
+    <div class="b--tabs_list" role="tablist">
+      <button class="b--tabs_tab" type="button" role="tab" id="panel1-tab" aria-controls="panel1" aria-selected="true" tabindex="0"></button>
+      <button class="b--tabs_tab" type="button" role="tab" id="panel2-tab" aria-controls="panel2" aria-selected="false" tabindex="-1"></button>
+      <button class="b--tabs_tab" type="button" role="tab" id="panel3-tab" aria-controls="panel3" aria-selected="false" tabindex="-1"></button>
     </div>
-  `;
+    <div id="panel1" class="b--tabs_panel" role="tabpanel" aria-labelledby="panel1-tab" tabindex="0"></div>
+    <div id="panel2" class="b--tabs_panel" role="tabpanel" aria-labelledby="panel2-tab" tabindex="0" hidden></div>
+    <div id="panel3" class="b--tabs_panel" role="tabpanel" aria-labelledby="panel3-tab" tabindex="0" hidden></div>
+  </div>
+`;
+
+beforeEach(() => {
+  document.body.innerHTML = FIXTURE;
   history.replaceState({}, '', '/');
 });
 
@@ -161,5 +163,62 @@ describe('setTabs / ディープリンク', () => {
     setTabs(tabs);
 
     expectSelected(0);
+  });
+});
+
+describe('setTabs / 二重初期化の防止', () => {
+  it('同じ要素を2回初期化しても、1回の click でハンドラは1回だけ動く', () => {
+    const { tabs, tabBtns } = getEls();
+    setTabs(tabs);
+    setTabs(tabs);
+
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+    const preventDefault = vi.spyOn(event, 'preventDefault');
+    tabBtns[1].dispatchEvent(event);
+
+    expect(preventDefault).toHaveBeenCalledTimes(1);
+    expectSelected(1);
+  });
+
+  it('初期化済みの要素を再初期化しても、ディープリンクで選択を戻さない', () => {
+    const { tabs, tabBtns } = getEls();
+
+    history.replaceState({}, '', '/?lism-tab=panel2');
+    setTabs(tabs);
+    tabBtns[2].click();
+    setTabs(tabs);
+
+    expectSelected(2);
+  });
+});
+
+describe('setTabsForAstro', () => {
+  it('読み込み時点の要素をすぐ初期化する', () => {
+    setTabsForAstro();
+
+    getEls().tabBtns[1].click();
+
+    expectSelected(1);
+  });
+
+  it('body を差し替えて astro:page-load を発火させると、新しい要素が動く', () => {
+    setTabsForAstro();
+
+    document.body.innerHTML = FIXTURE;
+    document.dispatchEvent(new Event('astro:page-load'));
+    getEls().tabBtns[1].click();
+
+    expectSelected(1);
+  });
+
+  it('astro:page-load で再初期化しても、1回の click でハンドラは1回だけ動く', () => {
+    setTabsForAstro();
+    document.dispatchEvent(new Event('astro:page-load'));
+
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+    const preventDefault = vi.spyOn(event, 'preventDefault');
+    getEls().tabBtns[1].dispatchEvent(event);
+
+    expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 });

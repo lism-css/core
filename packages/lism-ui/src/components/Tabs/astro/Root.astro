@@ -50,9 +50,6 @@ const hasItems = btns.length > 0;
 </Grid>
 
 <script>
-  import setTabs from '../setTabs';
-  const tabsAll = document.querySelectorAll('.b--tabs');
-  tabsAll.forEach((tabs) => {
-    setTabs(tabs as HTMLElement);
-  });
+  import { setTabsForAstro } from '../setTabs';
+  setTabsForAstro();
 </script>

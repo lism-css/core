@@ -17,6 +17,6 @@ const mergedStyle = duration ? { ...(style as object), '--duration': duration } 
 <Lism as="dialog" class={atts(className, 'b--modal')} set="plain" style={mergedStyle} {...props}><slot /></Lism>
 
 <script>
-  import setModal from '../setModal';
-  setModal();
+  import { setModalForAstro } from '../setModal';
+  setModalForAstro();
 </script>

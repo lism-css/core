@@ -41,6 +41,21 @@ const unlockScrollbarGutter = (): void => {
 const isInPageLink = (link: HTMLAnchorElement): boolean =>
   link.href.includes('#') && link.origin === location.origin && link.pathname === location.pathname && link.search === location.search;
 
+/*
+ * 再初期化で重ねて登録しないよう、登録済みの要素を記録する。
+ * modal外にある開くトリガーは、modalと別に記録する。
+ * transition:persist で片方だけが残っても、遷移先の新しい要素を登録するため。
+ */
+const modalOpeners = new WeakMap<HTMLDialogElement, (trigger: HTMLElement) => void>();
+const registeredOpenTriggers = new WeakSet<HTMLElement>();
+
+// 片方だけが入れ替わっても新しいmodalを開けるよう、対象のmodalはクリック時に探す。
+function onOpenTriggerClick(e: Event): void {
+  const trigger = e.currentTarget as HTMLElement;
+  const modal = document.getElementById(trigger.getAttribute('data-modal-open') ?? '');
+  if (modal instanceof HTMLDialogElement) modalOpeners.get(modal)?.(trigger);
+}
+
 /** dialogの開閉、トリガー状態の復元、背景クリック、ページ内リンク、Esc操作を設定する。 */
 export function setEvent(target: HTMLElement): void {
   // 対象がない、またはidがない場合は処理を終了
@@ -51,11 +66,19 @@ export function setEvent(target: HTMLElement): void {
 
   const modal = target;
 
+  // openボタンにイベント登録
+  document.querySelectorAll<HTMLElement>(`[data-modal-open="${modal.id}"]`).forEach((trigger) => {
+    if (registeredOpenTriggers.has(trigger)) return;
+    registeredOpenTriggers.add(trigger);
+    trigger.addEventListener('click', onOpenTriggerClick);
+  });
+
+  if (modalOpeners.has(modal)) return;
+
   // オープンした時のトリガー要素を記憶する（data属性を戻すため）
   let theTrigger: HTMLElement | null = null;
 
-  // モーダルを開くトリガーと閉じるトリガーを取得
-  const openTriggers = document.querySelectorAll<HTMLElement>(`[data-modal-open="${modal.id}"]`);
+  // モーダルを閉じるトリガーを取得
   const closeTriggers = modal.querySelectorAll<HTMLElement>(`[data-modal-close="${modal.id}"]`);
 
   // scrollbar幅を固定してdialogを開き、次フレームで開始属性を付ける。
@@ -92,16 +115,14 @@ export function setEvent(target: HTMLElement): void {
     unlockScrollbarGutter();
   };
 
-  // openボタンにイベント登録
-  openTriggers.forEach((trigger) => {
-    trigger?.addEventListener('click', () => {
-      // button側にもdata属性付与
-      trigger.dataset.targetOpened = '1';
-      theTrigger = trigger; // close() 時にdata属性削除するために記憶
+  // openボタンのクリックで呼ばれる処理
+  modalOpeners.set(modal, (trigger) => {
+    // button側にもdata属性付与
+    trigger.dataset.targetOpened = '1';
+    theTrigger = trigger; // close() 時にdata属性削除するために記憶
 
-      // モーダルを開く
-      openDialog();
-    });
+    // モーダルを開く
+    openDialog();
   });
 
   // closeボタンにイベント登録
@@ -156,9 +177,23 @@ export function setEvent(target: HTMLElement): void {
 }
 
 const setModal = () => {
+  // modalを開いたままClientRouterで遷移すると、closeイベントが発火せず予約状態だけが残る。
+  if (!document.querySelector('.b--modal[open]')) unlockScrollbarGutter();
+
   const modals = document.querySelectorAll('.b--modal');
   modals?.forEach((target) => {
     setEvent(target as HTMLElement);
   });
 };
+
+/**
+ * ページ内の全モーダルを初期化する（Astro用）
+ *   Point: ClientRouterでの遷移後は script が再実行されないため、astro:page-load でも初期化する。
+ *          ClientRouterが無いページでは astro:page-load が発火しないため、すぐ初期化する処理も必要。
+ */
+export const setModalForAstro = (): void => {
+  setModal();
+  document.addEventListener('astro:page-load', setModal);
+};
+
 export default setModal;
