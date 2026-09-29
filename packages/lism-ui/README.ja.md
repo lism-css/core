@@ -47,7 +47,15 @@ pnpm add @lism-css/ui
 
 ## セットアップ
 
-グローバルスタイルとしてCSSをインポートします:
+`lism-css` のCSSをグローバルスタイルとしてインポートします:
+
+```js
+import 'lism-css/main.css';
+```
+
+各コンポーネントのCSSは、コンポーネントをimportしたときに自動で読み込まれます。`@lism-css/ui/style.css` を別途インポートする必要はありません。
+
+コンポーネントを使わずに `b--button` などのクラスをHTMLで直接使う場合は、全コンポーネントのCSSをまとめた `@lism-css/ui/style.css` を読み込みます:
 
 ```js
 import 'lism-css/main.css';
