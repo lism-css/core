@@ -210,11 +210,17 @@ pnpm publish を実行してください:
 
 ### 10. デプロイ（ユーザー手動）
 
-案内して完了を待つ。
+`nr deploy` を案内する。次のどちらかに当てはまる場合は、続けて `nr deploy:templates` も案内する。テンプレプレビュー（`templates.lism-css.com`）はワークスペースのパッケージでビルドして配信しているため、デプロイしないと古い版のまま残る。
+
+- `lism-css` / `lism-ui` / `plugin` のリリース
+- ステップ4で `templates/` に変更がある
+
+`nr deploy:templates` は作業ツリーの内容でビルドするため、`nr deploy` の後（dev と main が揃った状態）に実行する。案内して完了を待つ。
 
 ```
 デプロイを実行してください:
   nr deploy
+  [nr deploy:templates]
 
 完了したら教えてください。
 ```
