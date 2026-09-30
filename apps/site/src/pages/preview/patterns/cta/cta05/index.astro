@@ -1,0 +1,30 @@
+---
+import DemoLayout from '@/layouts/DemoLayout.astro';
+import { Button } from '@lism-css/ui/astro/Button';
+
+import { Container, Frame, Flex, Grid, Layer, Media, Stack, Heading } from 'lism-css/astro';
+---
+
+<DemoLayout title="CTA05">
+  <Container bgc="base">
+    <Grid gtr={['auto', '100svh']} gtc="auto">
+      <Frame as="figure" gr="1 / -1" gc="1 / -1">
+        <Media src="https://cdn.lism-css.com/random/img?category=japan&r=1" alt="" width="960" height="640" />
+      </Frame>
+      <Grid pos="relative" gr="1 / -1" gc="1 / -1">
+        <Layer gr="1 / -1" gc="1 / -1" style={{ backdropFilter: 'blur(4px)' }} bgc="black:30%" z="0" />
+        <Grid gr="1 / -1" gc="1 / -1" ai="center" jc="center" p="40" z="1">
+          <Stack g="40" ai="center" w="stretch" max-w="450px" bgc="base" bdrs="10" p={['40', '50']} z="1">
+            <Heading level="2" class="u--trim">次の休日は、まだ知らない日本へ。</Heading>
+            <p>行きたい場所や、旅先でしてみたいことをお聞かせください。あなたに合った旅のプランをご提案します。</p>
+            <Flex w="stretch" jc="center">
+              <Button layout="grid" href="#" w="100%" max-w="250px" py="15" bdrs="10">
+                <span>旅の相談をする</span>
+              </Button>
+            </Flex>
+          </Stack>
+        </Grid>
+      </Grid>
+    </Grid>
+  </Container>
+</DemoLayout>

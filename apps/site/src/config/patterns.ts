@@ -422,33 +422,41 @@ const patterns = {
         id: 'cta01',
         title: 'CTA01',
         description: {
-          ja: 'CTA用のパターンです。breakpoint「md」以下は1カラムになり、アイテムが縦に並びます。',
-          en: 'A CTA pattern. Below the "md" breakpoint, it switches to a single column layout with items stacked vertically.',
+          ja: 'すりガラス風にぼかした背景写真の上に、見出し・説明・ボタンを中央揃えで配置したお問い合わせセクションです。',
+          en: 'A contact section with a heading, description and button centered over a frosted-glass style blurred background photo.',
         },
       },
       {
         id: 'cta02',
-        title: '02 - 横長の申し込みCTA',
+        title: '02 - 背景写真に重ねたお問い合わせ',
         description: {
-          ja: '写真を使わず、一言のメッセージとボタンで申し込みを促す横長のCTAです。',
-          en: 'A horizontal CTA encouraging sign-ups with a short message and a button, without photos.',
+          ja: '暗いオーバーレイを重ねた背景写真の上に、見出し・説明と2つのボタンを配置したお問い合わせセクションです。breakpoint「md」以下はボタンが縦に並びます。',
+          en: 'A contact section with a heading, description and two buttons over a background photo with a dark overlay. Below the "md" breakpoint, the buttons stack vertically.',
         },
-        titleEn: '02 - A horizontal sign-up CTA',
+        titleEn: '02 - Contact over a background photo',
       },
       {
         id: 'cta03',
-        draft: true,
-        title: '03 - ニュースレター登録',
+        title: '03 - 横長の申し込みCTA',
+        description: {
+          ja: '背景写真に黒のオーバーレイを重ね、一言のメッセージとボタンで申し込みを促す横長のCTAです。',
+          en: 'A horizontal CTA over a background photo with a black overlay, encouraging sign-ups with a short message and a button.',
+        },
+        titleEn: '03 - A horizontal sign-up CTA',
+      },
+      {
+        id: 'cta04',
+        title: '04 - ニュースレター登録',
         description: {
           ja: 'メール入力欄を備えた登録セクションです。入力の確認を試せますが、実際の送信や登録は行いません。',
           en: 'A sign-up section with an email field. Input validation can be tried, but no data is submitted or registered.',
         },
-        titleEn: '03 - Newsletter sign-up',
+        titleEn: '04 - Newsletter sign-up',
       },
       {
-        id: 'cta04',
+        id: 'cta05',
         draft: true,
-        title: 'CTA04',
+        title: 'CTA05',
         description: {
           ja: '1枚の背景写真の中央に見出し・説明・ボタンを置き、旅の相談へ案内するCTAです。',
           en: 'A CTA inviting visitors to discuss their travel plans, with a heading, description and button centered over a single background photo.',
