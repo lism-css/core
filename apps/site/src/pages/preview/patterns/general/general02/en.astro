@@ -7,20 +7,32 @@ import { Button } from '@lism-css/ui/astro/Button';
 
 <DemoLayout title="General02">
   <Container isWrapper="l" py="50" hasGutter>
-    <Grid gtc={['auto', null, '1fr minmax(20rem, 1fr)']} gtr={['1fr', null, '1fr auto auto 1fr']} g="40 60">
+    <Grid gtc={['auto', null, '1fr minmax(20rem, 1fr)']} gtr={['1fr', null, '1fr auto auto 1fr']} rg="40" cg="60">
       <Stack gr={[' 1', null, '2']} g="40">
-        <h2 class="u--trim">Enriching Everyday Life</h2>
+        <h2 class="u--trim">One Stitch at a Time</h2>
         <p class="u--trim">
-          My role is to design complex technology so that everyone can use it intuitively and comfortably. Through repeated user interviews and
-          testing, I listen thoroughly to the "voice of the user" while pursuing the best possible experience.
+          Every piece of our leather goods is made by hand in our workshop, from cutting and stitching to finishing the edges. We sew with a saddle
+          stitch, passing two needles through each hole, so the seam won't come undone even if a single thread breaks, making it sturdy enough for
+          everyday use.
         </p>
       </Stack>
       <Columns cols="2" gr={['2', null, '1 / -1']} gc={['1', null, '2']} g="20" min-h="min(70svw, 30rem)">
         <Frame as="figure" gr="1 / -1">
-          <Media src="https://cdn.lism-css.com/random/img?r=1" alt="" width="960" height="640" />
+          <Media
+            src="https://images.pexels.com/photos/11676700/pexels-photo-11676700.jpeg?auto=compress&cs=tinysrgb&w=1000"
+            alt=""
+            width="960"
+            height="640"
+          />
         </Frame>
         <Frame as="figure" gr="1 / -1">
-          <Media src="https://cdn.lism-css.com/random/img?r=2" alt="" width="960" height="640" />
+          <Media
+            src="https://images.unsplash.com/photo-1632107727999-8c23443472cb?auto=format&fit=max&w=1920&q=80"
+            alt=""
+            width="960"
+            height="640"
+            style={{ objectPosition: 'bottom' }}
+          />
         </Frame>
       </Columns>
       <Box gr="3">

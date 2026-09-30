@@ -82,6 +82,113 @@ const patterns = {
       },
     ],
   },
+  general: {
+    label: 'General',
+    description: {
+      ja: '特定の用途に限定しない汎用的なセクション構成。見出し・本文・画像の組み合わせ方の作例です。',
+      en: 'General-purpose section structures that are not tied to a specific use case. Examples of combining headings, body text and images.',
+    },
+    items: [
+      {
+        id: 'general01',
+        title: 'General01',
+        description: {
+          ja: 'セクション用のパターンです。',
+          en: 'A section pattern.',
+        },
+      },
+      {
+        id: 'general02',
+        title: 'General02',
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+        },
+      },
+      {
+        id: 'general03',
+        title: 'General03',
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+        },
+      },
+      {
+        id: 'general04',
+        title: 'General04',
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+        },
+      },
+      {
+        id: 'general05',
+        title: 'General05',
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
+          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
+        },
+      },
+      {
+        id: 'general06',
+        title: 'General06',
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
+          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
+        },
+      },
+      {
+        id: 'general07',
+        title: 'General07',
+        description: {
+          ja: 'セクション用のパターンです。',
+          en: 'A section pattern.',
+        },
+      },
+      {
+        id: 'general08',
+        title: 'General08',
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+        },
+      },
+      {
+        id: 'general09',
+        title: 'General09',
+        description: {
+          ja: 'セクション用のパターンです。',
+          en: 'A section pattern.',
+        },
+      },
+      {
+        id: 'general10',
+        title: 'General10',
+        description: {
+          ja: 'セクション用のパターンです。',
+          en: 'A section pattern.',
+        },
+      },
+      {
+        id: 'general11',
+        title: 'General11',
+        draft: true,
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+        },
+      },
+      {
+        id: 'general12',
+        title: 'General12',
+        draft: true,
+        description: {
+          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
+          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
+        },
+      },
+    ],
+  },
   feature: {
     label: 'Feature',
     description: {
@@ -168,6 +275,71 @@ const patterns = {
           en: 'A pricing comparison section that helps visitors choose a plan by comparing its features.',
         },
         titleEn: '03 - Compare plans by feature',
+      },
+    ],
+  },
+  'page-links': {
+    label: 'Page Links',
+    description: {
+      ja: '画像や説明文を添えて、関連ページやおすすめコンテンツへ案内するリンク集。',
+      en: 'Collections of links with images and descriptions that guide visitors to related pages and recommended content.',
+    },
+    items: [
+      {
+        id: 'page-links01',
+        title: 'PageLinks01',
+        description: {
+          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
+          en: 'A pattern for featured content. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
+        },
+      },
+      {
+        id: 'page-links02',
+        title: 'PageLinks02',
+        description: {
+          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下でレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A pattern for featured content. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+        },
+      },
+      {
+        id: 'page-links03',
+        title: 'PageLinks03',
+        description: {
+          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下は1カラムになり、アイテムが縦に並びます。',
+          en: 'A pattern for featured content. Below the "md" breakpoint, it switches to a single column layout with items stacked vertically.',
+        },
+      },
+      {
+        id: 'page-links04',
+        title: 'PageLinks04',
+        description: {
+          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A pattern for featured content. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+        },
+      },
+      {
+        id: 'page-links05',
+        title: 'PageLinks05',
+        description: {
+          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下は2カラム、「sm」以下は1カラムで表示されます。',
+          en: 'A pattern for featured content. Below the "md" breakpoint, it displays in 2 columns, and below "sm" it switches to a single column.',
+        },
+      },
+      {
+        id: 'page-links06',
+        title: 'PageLinks06',
+        description: {
+          ja: 'ナビゲーション用のパターンです。アイテムの最小幅が設定されており、コンテナ幅に応じてカラム数が変化します。',
+          en: 'A navigation pattern. Items have a minimum width set, and the number of columns changes according to the container width.',
+        },
+      },
+      {
+        id: 'page-links07',
+        title: 'PageLinks07',
+        description: {
+          ja: 'ナビゲーション用のパターンです。アイテムの最小幅が設定されており、コンテナ幅に応じてカラム数が変化します。breakpoint「md」以下は1カラムで表示されます。',
+          en: 'A navigation pattern. Items have a minimum width set, and the number of columns changes according to the container width. Below the "md" breakpoint, it displays in a single column.',
+        },
       },
     ],
   },
@@ -325,6 +497,49 @@ const patterns = {
         },
         titleEn: '02 - Customer results and feedback',
       },
+      {
+        id: 'testimonials03',
+        title: '03 - カードを使わずに並べるお客様の声',
+        description: {
+          ja: 'アイコン付きの見出し・本文・属性を、カードを使わずに並べたお客様の声です。subgridで各アイテムの行の位置を揃え、コンテナ幅に応じてカラム数が変化します。',
+          en: 'Testimonials that list a headline with an avatar, the comment and the customer details without cards. Subgrid aligns the rows across items, and the number of columns changes according to the container width.',
+        },
+        titleEn: '03 - Testimonials without cards',
+      },
+    ],
+  },
+  faq: {
+    label: 'FAQ',
+    description: {
+      ja: 'よくある質問と回答をまとめたセクション。質問と回答の対応関係を示す場合はdl・dt・ddでマークアップします。',
+      en: 'Sections that collect frequently asked questions and answers. Use dl, dt and dd to express the question-answer relationship.',
+    },
+    items: [
+      {
+        id: 'faq01',
+        title: 'FAQ01',
+        description: {
+          ja: '質問と回答を常に表示するシンプルなFAQセクションです。dl・dt・ddでマークアップしています。',
+          en: 'A simple FAQ section that always shows both questions and answers, marked up with dl, dt and dd.',
+        },
+      },
+      {
+        id: 'faq02',
+        title: '02 - 罫線で区切るアコーディオン',
+        description: {
+          ja: '罫線で区切ったAccordionで回答を開閉するFAQセクションです。質問にホバーすると背景色が付きます。',
+          en: 'An FAQ section with an Accordion separated by dividing lines. Questions get a background color on hover.',
+        },
+        titleEn: '02 - Accordion with dividing lines',
+      },
+      {
+        id: 'faq03',
+        title: 'FAQ03',
+        description: {
+          ja: 'Accordionを使って回答を開閉できるFAQセクションです。項目数が多い場合に適しています。',
+          en: 'An FAQ section using Accordion so answers can be expanded and collapsed. Suited to lists with many items.',
+        },
+      },
     ],
   },
   posts: {
@@ -368,31 +583,6 @@ const patterns = {
       },
     ],
   },
-  faq: {
-    label: 'FAQ',
-    description: {
-      ja: 'よくある質問と回答をまとめたセクション。質問と回答の対応関係を示す場合はdl・dt・ddでマークアップします。',
-      en: 'Sections that collect frequently asked questions and answers. Use dl, dt and dd to express the question-answer relationship.',
-    },
-    items: [
-      {
-        id: 'faq01',
-        title: 'FAQ01',
-        description: {
-          ja: '質問と回答を常に表示するシンプルなFAQセクションです。dl・dt・ddでマークアップしています。',
-          en: 'A simple FAQ section that always shows both questions and answers, marked up with dl, dt and dd.',
-        },
-      },
-      {
-        id: 'faq02',
-        title: 'FAQ02',
-        description: {
-          ja: 'Accordionを使って回答を開閉できるFAQセクションです。項目数が多い場合に適しています。',
-          en: 'An FAQ section using Accordion so answers can be expanded and collapsed. Suited to lists with many items.',
-        },
-      },
-    ],
-  },
   cta: {
     label: 'CTA',
     description: {
@@ -404,207 +594,36 @@ const patterns = {
         id: 'cta01',
         title: 'CTA01',
         description: {
-          ja: 'CTA用のパターンです。breakpoint「md」以下は1カラムになり、アイテムが縦に並びます。',
-          en: 'A CTA pattern. Below the "md" breakpoint, it switches to a single column layout with items stacked vertically.',
+          ja: 'すりガラス風にぼかした背景写真の上に、見出し・説明・ボタンを中央揃えで配置したお問い合わせセクションです。',
+          en: 'A contact section with a heading, description and button centered over a frosted-glass style blurred background photo.',
         },
       },
       {
         id: 'cta02',
-        title: '02 - 横長の申し込みCTA',
+        title: '02 - 背景写真に重ねたお問い合わせ',
         description: {
-          ja: '写真を使わず、一言のメッセージとボタンで申し込みを促す横長のCTAです。',
-          en: 'A horizontal CTA encouraging sign-ups with a short message and a button, without photos.',
+          ja: '暗いオーバーレイを重ねた背景写真の上に、見出し・説明と2つのボタンを配置したお問い合わせセクションです。breakpoint「md」以下はボタンが縦に並びます。',
+          en: 'A contact section with a heading, description and two buttons over a background photo with a dark overlay. Below the "md" breakpoint, the buttons stack vertically.',
         },
-        titleEn: '02 - A horizontal sign-up CTA',
+        titleEn: '02 - Contact over a background photo',
       },
       {
         id: 'cta03',
-        draft: true,
-        title: '03 - ニュースレター登録',
+        title: '03 - 横長の申し込みCTA',
+        description: {
+          ja: '背景写真に黒のオーバーレイを重ね、一言のメッセージとボタンで申し込みを促す横長のCTAです。',
+          en: 'A horizontal CTA over a background photo with a black overlay, encouraging sign-ups with a short message and a button.',
+        },
+        titleEn: '03 - A horizontal sign-up CTA',
+      },
+      {
+        id: 'cta04',
+        title: '04 - ニュースレター登録',
         description: {
           ja: 'メール入力欄を備えた登録セクションです。入力の確認を試せますが、実際の送信や登録は行いません。',
           en: 'A sign-up section with an email field. Input validation can be tried, but no data is submitted or registered.',
         },
-        titleEn: '03 - Newsletter sign-up',
-      },
-      {
-        id: 'cta04',
-        draft: true,
-        title: 'CTA04',
-        description: {
-          ja: '1枚の背景写真の中央に見出し・説明・ボタンを置き、旅の相談へ案内するCTAです。',
-          en: 'A CTA inviting visitors to discuss their travel plans, with a heading, description and button centered over a single background photo.',
-        },
-      },
-    ],
-  },
-  'page-links': {
-    label: 'Page Links',
-    description: {
-      ja: '画像や説明文を添えて、関連ページやおすすめコンテンツへ案内するリンク集。',
-      en: 'Collections of links with images and descriptions that guide visitors to related pages and recommended content.',
-    },
-    items: [
-      {
-        id: 'page-links01',
-        title: 'PageLinks01',
-        description: {
-          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
-          en: 'A pattern for featured content. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
-        },
-      },
-      {
-        id: 'page-links02',
-        title: 'PageLinks02',
-        description: {
-          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下でレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A pattern for featured content. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
-        },
-      },
-      {
-        id: 'page-links03',
-        title: 'PageLinks03',
-        description: {
-          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下は1カラムになり、アイテムが縦に並びます。',
-          en: 'A pattern for featured content. Below the "md" breakpoint, it switches to a single column layout with items stacked vertically.',
-        },
-      },
-      {
-        id: 'page-links04',
-        title: 'PageLinks04',
-        description: {
-          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A pattern for featured content. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
-        },
-      },
-      {
-        id: 'page-links05',
-        title: 'PageLinks05',
-        description: {
-          ja: '特徴・注目コンテンツ用のパターンです。breakpoint「md」以下は2カラム、「sm」以下は1カラムで表示されます。',
-          en: 'A pattern for featured content. Below the "md" breakpoint, it displays in 2 columns, and below "sm" it switches to a single column.',
-        },
-      },
-      {
-        id: 'page-links06',
-        title: 'PageLinks06',
-        description: {
-          ja: 'ナビゲーション用のパターンです。アイテムの最小幅が設定されており、コンテナ幅に応じてカラム数が変化します。',
-          en: 'A navigation pattern. Items have a minimum width set, and the number of columns changes according to the container width.',
-        },
-      },
-      {
-        id: 'page-links07',
-        title: 'PageLinks07',
-        description: {
-          ja: 'ナビゲーション用のパターンです。アイテムの最小幅が設定されており、コンテナ幅に応じてカラム数が変化します。breakpoint「md」以下は1カラムで表示されます。',
-          en: 'A navigation pattern. Items have a minimum width set, and the number of columns changes according to the container width. Below the "md" breakpoint, it displays in a single column.',
-        },
-      },
-    ],
-  },
-  general: {
-    label: 'General',
-    description: {
-      ja: '特定の用途に限定しない汎用的なセクション構成。見出し・本文・画像の組み合わせ方の作例です。',
-      en: 'General-purpose section structures that are not tied to a specific use case. Examples of combining headings, body text and images.',
-    },
-    items: [
-      {
-        id: 'general01',
-        title: 'General01',
-        description: {
-          ja: 'セクション用のパターンです。',
-          en: 'A section pattern.',
-        },
-      },
-      {
-        id: 'general02',
-        title: 'General02',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
-        },
-      },
-      {
-        id: 'general03',
-        title: 'General03',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
-        },
-      },
-      {
-        id: 'general04',
-        title: 'General04',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
-        },
-      },
-      {
-        id: 'general05',
-        title: 'General05',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
-          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
-        },
-      },
-      {
-        id: 'general06',
-        title: 'General06',
-        description: {
-          ja: 'セクション用のパターンです。',
-          en: 'A section pattern.',
-        },
-      },
-      {
-        id: 'general07',
-        title: 'General07',
-        description: {
-          ja: 'セクション用のパターンです。',
-          en: 'A section pattern.',
-        },
-      },
-      {
-        id: 'general08',
-        title: 'General08',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
-          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
-        },
-      },
-      {
-        id: 'general09',
-        title: 'General09',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
-        },
-      },
-      {
-        id: 'general10',
-        title: 'General10',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
-        },
-      },
-      {
-        id: 'general11',
-        title: 'General11',
-        description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
-          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
-        },
-      },
-      {
-        id: 'general12',
-        title: 'General12',
-        description: {
-          ja: 'セクション用のパターンです。',
-          en: 'A section pattern.',
-        },
+        titleEn: '04 - Newsletter sign-up',
       },
     ],
   },
@@ -700,16 +719,16 @@ export { patterns };
 
 export const categoryIds: PatternCategoryId[] = [
   'hero',
+  'general',
   'feature',
   'pricing',
+  'page-links',
   'about',
   'member',
   'testimonials',
-  'posts',
   'faq',
+  'posts',
   'cta',
-  'page-links',
-  'general',
   'process',
   'stats',
   'logos',

@@ -7,86 +7,83 @@ import { Stack, BoxLink, Container, Frame, Columns, Media, Flex, Text, Heading }
 <DemoLayout title="PageLinks05">
   <Container isWrapper="l" bgc="base-2" py="50" hasGutter>
     <Stack g="40">
-      <Stack ai="center" g="5">
-        <Heading level="2" fz="2xl" fw="bold">厳選された商品</Heading>
-        <Text fz="m" o="pp">Pickup Products</Text>
-      </Stack>
+      <Heading level="2" fz="2xl" fw="bold" ta="center">商品カテゴリ</Heading>
       <Stack g="40">
-        <BoxLink
-          href="#"
-          layout="tileGrid"
-          class="set--bdrsInner"
-          set="hov"
-          hasTransition
-          gc="1 / -1"
-          cols={['1', null, '2']}
-          bgc="base"
-          ov="hidden"
-          bdrs="20"
-          hov="-bxsh"
-        >
-          <Frame pos="relative" min-h="100%">
-            <Media src="https://cdn.lism-css.com/random/img?r=1" alt="" width="960" height="640" hasTransition hov="in:zoom" />
-          </Frame>
-          <Stack g="30" jc="center" p="40">
-            <Text class="u--trim" fz="l" fw="bold">期間限定コラボモデル</Text>
-            <Text class="u--trim" fz="s">
-              ここでしか出会えない特別な一品を。アーティストとのコラボなど、数量限定のモデル。自分を慈しむ時間を、もっと豊かに。毎日のセルフケアを、心地よい体験へと変える。
-            </Text>
-            <Flex bdrs="inner" jc="center" bd p="10" hasTransition hov="in:reverse">
-              <Text fz="m">View Detail</Text>
-            </Flex>
-          </Stack>
-        </BoxLink>
         <Columns cols={['1', '2', '4']} g="40">
           <BoxLink layout="grid" gtr="subgrid" gr="span 3" set="hov" g="30" href="#">
-            <Frame as="figure" ar="16/9" bdrs="20" pos="relative">
-              <Media src="/img/img-1.jpg" alt="" width="960" height="640" hasTransition hov="in:zoom" />
+            <Frame as="figure" ar="1/1" bdrs="10" pos="relative">
+              <Media
+                src="https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?auto=format&fit=max&w=1920&q=80"
+                alt=""
+                width="960"
+                height="640"
+                hasTransition
+                hov="in:zoom"
+              />
             </Frame>
             <Stack g="20">
-              <Text class="u--trim" fz="m" fw="bold">空調・生活家電</Text>
-              <Text class="u--trim" fz="s" o="p">空間に溶け込み、心地よい空気と時間を作り出す。日々の暮らしの質を高めるアイテム。</Text>
+              <Text class="u--trim" fz="m" fw="bold">アパレル</Text>
+              <Text class="u--trim" fz="s" o="p">素材とシルエットにこだわった、毎日のコーディネートの主役になる服。</Text>
             </Stack>
-            <Flex mbs="auto" jc="center" bd bdc="line" p="10" bdrs="20" hasTransition hov="in:reverse">
-              <Text fz="s">View Detail</Text>
+            <Flex mbs="auto" jc="center" bd bdc hl="xs" p="10" bdrs="10" hasTransition hov="in:reverse">
+              <Text fz="s">View More</Text>
             </Flex>
           </BoxLink>
           <BoxLink layout="grid" gtr="subgrid" gr="span 3" set="hov" g="30" href="#">
-            <Frame as="figure" ar="16/9" bdrs="20" pos="relative">
-              <Media src="https://cdn.lism-css.com/random/img?r=2" alt="" width="960" height="640" hasTransition hov="in:zoom" />
+            <Frame as="figure" ar="1/1" bdrs="10" pos="relative">
+              <Media
+                src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?auto=format&fit=max&w=1920&q=80"
+                alt=""
+                width="960"
+                height="640"
+                hasTransition
+                hov="in:zoom"
+              />
             </Frame>
             <Stack g="20">
-              <Text class="u--trim" fz="m" fw="bold">スマートホーム</Text>
-              <Text class="u--trim" fz="s" o="p">
-                家電たちが静かに連携し、暮らしをサポート。テクノロジーを意識させない、未来の日常をつくります。
-              </Text>
+              <Text class="u--trim" fz="m" fw="bold">シューズ</Text>
+              <Text class="u--trim" fz="s" o="p">歩きやすさと見た目の美しさを両立した、毎日履きたくなる一足。</Text>
             </Stack>
-            <Flex mbs="auto" jc="center" bd bdc="line" p="10" bdrs="20" hasTransition hov="in:reverse">
-              <Text fz="s">View Detail</Text>
+            <Flex mbs="auto" jc="center" bd bdc hl="xs" p="10" bdrs="10" hasTransition hov="in:reverse">
+              <Text fz="s">View More</Text>
             </Flex>
           </BoxLink>
           <BoxLink layout="grid" gtr="subgrid" gr="span 3" set="hov" g="30" href="#">
-            <Frame as="figure" ar="16/9" bdrs="20" pos="relative">
-              <Media src="https://cdn.lism-css.com/random/img?r=3" alt="" width="960" height="640" hasTransition hov="in:zoom" />
+            <Frame as="figure" ar="1/1" bdrs="10" pos="relative">
+              <Media
+                src="https://images.unsplash.com/photo-1591209608777-fb022eac7112?auto=format&fit=max&w=1920&q=80"
+                alt=""
+                width="960"
+                height="640"
+                hasTransition
+                hov="in:zoom"
+              />
             </Frame>
             <Stack g="20">
               <Text class="u--trim" fz="m" fw="bold">アクセサリ</Text>
-              <Text class="u--trim" fz="s" o="p">製品体験をさらに豊かにする専用アクセサリ。細部にまで、ブランドの美意識を宿します。</Text>
+              <Text class="u--trim" fz="s" o="p">さりげなく装いを引き立てる、長く使えるデザインのアクセサリ。</Text>
             </Stack>
-            <Flex mbs="auto" jc="center" bd bdc="line" p="10" bdrs="20" hasTransition hov="in:reverse">
-              <Text fz="s">View Detail</Text>
+            <Flex mbs="auto" jc="center" bd bdc hl="xs" p="10" bdrs="10" hasTransition hov="in:reverse">
+              <Text fz="s">View More</Text>
             </Flex>
           </BoxLink>
           <BoxLink layout="grid" gtr="subgrid" gr="span 3" set="hov" g="30" href="#">
-            <Frame as="figure" ar="16/9" bdrs="20" pos="relative">
-              <Media src="https://cdn.lism-css.com/random/img?r=4" alt="" width="960" height="640" hasTransition hov="in:zoom" />
+            <Frame as="figure" ar="1/1" bdrs="10" pos="relative">
+              <Media
+                src="https://images.unsplash.com/photo-1564836950275-14737b1b6af7?auto=format&fit=max&w=1920&q=80"
+                alt=""
+                width="960"
+                height="640"
+                hasTransition
+                hov="in:zoom"
+              />
             </Frame>
             <Stack g="20">
-              <Text class="u--trim" fz="m" fw="bold">美容健康</Text>
-              <Text class="u--trim" fz="s" o="p">自分を慈しむ時間を、もっと豊かに。毎日のセルフケアを、心地よい体験へと変える。</Text>
+              <Text class="u--trim" fz="m" fw="bold">コスメ</Text>
+              <Text class="u--trim" fz="s" o="p">肌にやさしい処方と上質な香りで、毎日のケアを心地よい時間に。</Text>
             </Stack>
-            <Flex mbs="auto" jc="center" bd bdc="line" p="10" bdrs="20" hasTransition hov="in:reverse">
-              <Text fz="s">View Detail</Text>
+            <Flex mbs="auto" jc="center" bd bdc hl="xs" p="10" bdrs="10" hasTransition hov="in:reverse">
+              <Text fz="s">View More</Text>
             </Flex>
           </BoxLink>
         </Columns>

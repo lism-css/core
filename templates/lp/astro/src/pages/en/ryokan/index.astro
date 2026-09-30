@@ -14,7 +14,7 @@ export const title = '静寂の宿';
 const logoLabel = title;
 
 const mvImages = [
-  'https://cdn.lism-css.com/img/japan/tsruUjCJipvG.webp',
+  'https://cdn.lism-css.com/img/ryokan/tsruUjCJipvG.webp',
   'https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?auto=format&fit=max&w=1920&q=80',
 ];
 const mvCopyLines = ["Away from the city's noise,", 'in the calm of nature,', 'a moment of pure bliss.'];
@@ -65,26 +65,26 @@ const mvLayeredKeyframesStyle = `@layer lism-custom {
 }`;
 
 const aboutImgLeft = {
-  src: 'https://images.unsplash.com/photo-1466354424719-343280fe118b?auto=format&fit=max&w=1920&q=80',
-  alt: 'Koi swimming in the garden pond',
-  width: 1920,
-  height: 1280,
+  src: 'https://images.unsplash.com/photo-1783094724116-ff5f8362a581?auto=format&fit=max&w=800&q=80',
+  alt: 'A private open-air bath',
+  width: 800,
+  height: 1126,
 };
 const aboutImgRight = {
-  src: 'https://images.unsplash.com/photo-1522623349500-de37a56ea2a5?auto=format&fit=max&w=1920&q=80',
-  alt: 'An autumn garden seen from the tatami room',
-  width: 1600,
-  height: 1200,
+  src: 'https://images.unsplash.com/photo-1758970081655-a9c08d367e68?auto=format&fit=max&w=2048&q=80',
+  alt: 'A tatami room with a round window framing fresh green leaves',
+  width: 2048,
+  height: 1365,
 };
 
 const aboutBodyCopy =
   'A stately presence shaped by more than a century of history. We welcome you into a space where the quiet charm of old Japan meets the comforts of today. Gaze out over a meticulously tended Japanese garden, wrapped in silence, as the hot spring waters offer a rare kind of healing. With a spirit of hospitality handed down through generations, we bring color to a journey unlike any other. In the garden, where the seasons turn, each day wears a different face: the scent of new leaves, the shade of deep summer green, the blazing beauty of autumn maples, the hushed elegance of fresh snow. The setting, the tableware, the kaiseki, the bath, and a hospitality that speaks softly. In every one of these, we hope to weave a moment that lingers long in your memory. Leave the city behind, and here at our quiet hidden retreat, let yourself unwind into pure bliss.';
 
 const featureImg = {
-  src: 'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?auto=format&fit=max&w=1920&q=80',
-  alt: 'A path lined with rows of vermilion torii gates',
+  src: 'https://images.unsplash.com/photo-1522623349500-de37a56ea2a5?auto=format&fit=max&w=1920&q=80',
+  alt: 'A figure seen from behind, gazing at an autumn garden from a tatami room',
   width: 1920,
-  height: 1280,
+  height: 1275,
 };
 
 const featureLead = 'Cherry blossoms in spring, maple leaves in autumn.';
@@ -92,19 +92,36 @@ const featureBody =
   'Framing the most beautiful moment of every passing season, our ryokan sits in harmony with nature like a single painted scroll. Enjoy the celebrated waters and the flavors of the moment with the people who matter most. In spring, pale petals drifting past the window; in summer, deep green and the sound of wind chimes; in autumn, blazing maples under a clear sky; in winter, a quiet blanket of snow and rising steam from the bath.';
 
 const seasonBg = {
-  src: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=max&w=1920&q=80',
+  src: 'https://images.pexels.com/photos/35449989/pexels-photo-35449989.jpeg?auto=compress&cs=tinysrgb&w=1920',
   width: 1920,
-  height: 1080,
+  height: 1280,
 };
 
 const seasonGalleryPhotos = [
-  { src: 'https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=max&w=1920&q=80', alt: 'Mount Fuji at sunrise' },
   {
-    src: 'https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?auto=format&fit=max&w=1920&q=80',
-    alt: 'Japanese mountain ridges above a sea of clouds',
+    src: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=max&w=1200&q=80',
+    alt: 'Cherry blossoms lit up at night along a canal',
+    width: 1200,
+    height: 800,
   },
-  { src: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=max&w=1920&q=80', alt: 'Evening light on the lakeshore' },
-  { src: 'https://images.unsplash.com/photo-1542640244-7e672d6cef4e?auto=format&fit=max&w=1920&q=80', alt: 'Snow-covered peaks' },
+  {
+    src: 'https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?auto=format&fit=max&w=1200&q=80',
+    alt: 'A garden pond framed by autumn maples',
+    width: 1200,
+    height: 802,
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=max&w=1200&q=80',
+    alt: 'Snow-capped Mount Fuji',
+    width: 1200,
+    height: 800,
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1612890877778-f7d9703c6023?auto=format&fit=max&w=1200&q=80',
+    alt: 'A lush green bamboo grove',
+    width: 1200,
+    height: 750,
+  },
 ] as const;
 
 const seasonIntroBody =
@@ -130,39 +147,39 @@ type Plan = {
 
 const plans = [
   {
-    title: 'Unhurried Stay with Dinner, Breakfast and Open-Air Bath',
-    roomType: { label: 'Room type', value: 'Japanese-style room with open-air bath' },
+    title: 'Suite Stay with Private Open-Air Bath',
+    roomType: { label: 'Room type', value: 'Suite with open-air bath' },
     description:
-      'A seasonal kaiseki dinner, a morning tray, and an open-air bath that keeps the warmth in: one unbroken stretch of time. Dine at your own pace in your room, and between soaks, linger over the garden. Extra drink orders and allergy accommodations are also possible, so please let us know when you book.',
-    stats: [
-      { label: 'Guests', value: '1–2 guests' },
-      { label: 'Rate', value: 'From ¥29,800' },
-    ],
-    image: {
-      src: 'https://cdn.lism-css.com/img/japan/xjDuCQM1LUyH.webp',
-      alt: 'The main building beside a garden in autumn colors',
-      width: 1920,
-      height: 1080,
-    },
-  },
-  {
-    title: 'Seasonal Kaiseki in a Suite with Semi-Open-Air Bath',
-    roomType: { label: 'Room type', value: 'Suite with semi-open-air bath' },
-    description:
-      "A seasonal kaiseki course built around the day's finest ingredients, and the layered gradations of the mountains seen from a semi-open-air bath. A slightly more lavish stretch of time, for anniversaries and family celebrations.",
+      "A spacious suite with its own open-air bath. Savor a seasonal kaiseki course built around the day's finest ingredients in your room, and take in the shifting mountain views through the rising steam. Ideal for anniversaries, family celebrations and other special occasions.",
     stats: [
       { label: 'Guests', value: '2–4 guests' },
       { label: 'Rate', value: 'From ¥39,800' },
     ],
     image: {
-      src: 'https://cdn.lism-css.com/img/japan/ZibLEz7bZgRa.webp',
-      alt: 'A path lined with rows of vermilion torii gates',
-      width: 1920,
-      height: 1280,
+      src: 'https://images.unsplash.com/photo-1644413638617-02369c89c156?auto=format&fit=max&w=1200&q=80',
+      alt: 'Steam rising from an open-air bath',
+      width: 1200,
+      height: 800,
     },
   },
   {
-    title: 'One Night with Breakfast: Easy Hot-Spring Hopping',
+    title: 'Unhurried Stay with Semi-Open-Air Bath',
+    roomType: { label: 'Room type', value: 'Japanese-style room with semi-open-air bath' },
+    description:
+      'A seasonal kaiseki dinner, a morning tray, and a semi-open-air bath that keeps the warmth in: one unbroken stretch of time. Dine at your own pace in your room, and between soaks, linger over the garden. Extra drink orders and allergy accommodations are also possible, so please let us know when you book.',
+    stats: [
+      { label: 'Guests', value: '1–2 guests' },
+      { label: 'Rate', value: 'From ¥29,800' },
+    ],
+    image: {
+      src: 'https://images.unsplash.com/photo-1783094724116-ff5f8362a581?auto=format&fit=max&w=1200&q=80',
+      alt: 'A wooden tub bath facing the trees',
+      width: 1200,
+      height: 1689,
+    },
+  },
+  {
+    title: 'Breakfast Only: Easy Hot-Spring Hopping',
     roomType: { label: 'Room type', value: '10-mat Japanese room with veranda' },
     description:
       'Dinner out on your own terms, and mornings with freshly cooked rice and soup from our kitchen. A light, unencumbered way to stay for anyone who wants to tour the public baths nearby or wander the town. We also hold luggage after checkout, so use it before or after sightseeing.',
@@ -171,26 +188,26 @@ const plans = [
       { label: 'Rate', value: 'From ¥18,500' },
     ],
     image: {
-      src: 'https://images.unsplash.com/photo-1466354424719-343280fe118b?auto=format&fit=max&w=1920&q=80',
-      alt: 'Koi swimming in the garden pond',
-      width: 1920,
-      height: 1280,
+      src: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=max&w=1200&q=80',
+      alt: 'Two people in kimono on a stone-paved lane below a five-story pagoda at dusk',
+      width: 1200,
+      height: 801,
     },
   },
   {
-    title: 'Multi-Night Value Plan: Nothing but Hot Springs',
+    title: 'Simple Room-Only Plan',
     roomType: { label: 'Room type', value: 'Japanese-Western twin room' },
     description:
-      'A trip to soak fully in famed waters and deep quiet, at a friendly multi-night rate. Meals are our simple signature trays, with a post-bath sweet delivered right to your room.',
+      'A simple, room-only stay for enjoying the famed waters and deep quiet with ease. Dinner and breakfast are up to you at eateries nearby. Also a good fit for late arrivals and solo travelers.',
     stats: [
-      { label: 'Guests', value: '2 guests or more' },
-      { label: 'Rate', value: 'From ¥52,000 / 2 nights' },
+      { label: 'Guests', value: '1–2 guests' },
+      { label: 'Rate', value: 'From ¥12,800' },
     ],
     image: {
-      src: 'https://cdn.lism-css.com/img/japan/RsgkJBxJFjDS.webp',
-      alt: 'An autumn garden seen from the tatami room',
-      width: 1600,
-      height: 1200,
+      src: 'https://images.unsplash.com/photo-1610375233775-6e0166927193?auto=format&fit=max&w=1200&q=80',
+      alt: 'A tatami guest room with a tea set on a low table',
+      width: 1200,
+      height: 803,
     },
   },
 ] as const satisfies readonly Plan[];
@@ -283,13 +300,6 @@ const faqItems: { question: string; answer: string; defaultOpen?: boolean }[] = 
   },
 ];
 
-const faqImage = {
-  src: 'https://images.unsplash.com/photo-1505440484611-23c171ad6e96?auto=format&fit=max&w=1920&q=80',
-  alt: 'A maiko seen from behind, walking a cobbled lane after rain under a red paper parasol',
-  width: 1920,
-  height: 1280,
-};
-
 /** ヘッダーと同一のナビ（アンカー） */
 const footerNavItems = [
   { href: '#about', ja: '当宿について', en: 'About' },
@@ -345,7 +355,7 @@ const footerSnsLinks = [
 const reservationBg = {
   src: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=max&w=1920&q=80',
   width: 1920,
-  height: 1080,
+  height: 1281,
 };
 
 type SiteCard = {
@@ -361,10 +371,10 @@ const reservationSites: readonly SiteCard[] = [
     body: 'Perk: an early-booking discount campaign is running now. Choose your dates from the availability calendar.',
     href: '#',
     image: {
-      src: 'https://cdn.lism-css.com/img/japan/GXg59AfSQPTM.webp',
+      src: 'https://images.unsplash.com/photo-1505440484611-23c171ad6e96?auto=format&fit=max&w=1920&q=80',
       alt: 'Promotional photo for Travel Trip',
       width: 1920,
-      height: 1080,
+      height: 1304,
     },
   },
   {
@@ -372,10 +382,10 @@ const reservationSites: readonly SiteCard[] = [
     body: "Perk: plans that come with local, on-the-ground support. Changes and cancellations follow each site's own terms.",
     href: '#',
     image: {
-      src: 'https://cdn.lism-css.com/img/japan/ZibLEz7bZgRa.webp',
+      src: 'https://images.unsplash.com/photo-1542640244-7e672d6cef4e?auto=format&fit=max&w=1920&q=80',
       alt: 'Promotional photo for Easy Travel Booking',
       width: 1920,
-      height: 1280,
+      height: 1281,
     },
   },
 ];
@@ -582,9 +592,9 @@ const reservationSites: readonly SiteCard[] = [
         <Lism isWrapper="xl" hasGutter pos="relative" z="1" pb="60">
           <Columns cols={[2, null, 4]} mbs="50" g={['20', null, '40']} ai="start">
             {
-              seasonGalleryPhotos.map(({ src, alt }, i) => (
+              seasonGalleryPhotos.map(({ src, alt, width, height }, i) => (
                 <Frame as="figure" ar="4/3" pos="relative" mbs={i % 2 === 1 ? [null, null, '40'] : undefined}>
-                  <Media src={src} alt={alt} width={800} height={600} loading="lazy" />
+                  <Media src={src} alt={alt} width={width} height={height} loading="lazy" />
                 </Frame>
               ))
             }
@@ -684,31 +694,24 @@ const reservationSites: readonly SiteCard[] = [
       <Lism as="section" id="faq" class="c--faq" isContainer set="light" bgc="base" c="text" py="60">
         <Lism isWrapper="l" hasGutter layout="stack" g={['40', null, null, '50']}>
           <SectionHeading en="FAQ" ja="よくあるご質問" ai="center" ta="center" />
-
-          <Columns cols={[1, null, 2]} g={['40', null, null, '50']}>
-            <Frame as="figure" order={[1, null, 0]} ar={['16/9', null, '1/1']} bdrs="10">
-              <Media src={faqImage.src} alt={faqImage.alt} width={faqImage.width} height={faqImage.height} loading="lazy" />
-            </Frame>
-
-            <Accordion.Root layout="stack" bd-b>
-              {
-                faqItems.map((item) => (
-                  <Accordion.Item isOpen={item.defaultOpen === true} bd-t>
-                    <Accordion.Heading>
-                      <Accordion.Button g="15" py="20" isOpen={item.defaultOpen === true}>
-                        {item.question}
-                      </Accordion.Button>
-                    </Accordion.Heading>
-                    <Accordion.Panel pt="0" pb="20" isOpen={item.defaultOpen === true}>
-                      <Text fz="s" c="text-2" hl="l">
-                        {item.answer}
-                      </Text>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                ))
-              }
-            </Accordion.Root>
-          </Columns>
+          <Accordion.Root layout="stack" bd-b>
+            {
+              faqItems.map((item) => (
+                <Accordion.Item isOpen={item.defaultOpen === true} bd-t>
+                  <Accordion.Heading>
+                    <Accordion.Button g="15" py="25" isOpen={item.defaultOpen === true}>
+                      {item.question}
+                    </Accordion.Button>
+                  </Accordion.Heading>
+                  <Accordion.Panel pt="0" pb="25" isOpen={item.defaultOpen === true}>
+                    <Text fz="s" c="text-2" hl="l">
+                      {item.answer}
+                    </Text>
+                  </Accordion.Panel>
+                </Accordion.Item>
+              ))
+            }
+          </Accordion.Root>
         </Lism>
       </Lism>
 

@@ -1,43 +1,36 @@
 ---
-import { ChatIcon, UserIcon } from '@lism-css/icons/astro';
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Stack, Grid, Container, Frame, Columns, Media, Layer, Icon, Text, Heading } from 'lism-css/astro';
+import { ArrowRightIcon } from '@lism-css/icons/astro';
+import { Stack, Grid, Container, Frame, Center, Media, Layer, Icon, Text, Inline, Heading } from 'lism-css/astro';
 import { Button } from '@lism-css/ui/astro/Button';
 ---
 
 <DemoLayout title="CTA01">
   <Stack pos="relative">
     <Frame isLayer>
-      <Media isLayer src="https://cdn.lism-css.com/img/2SvHdIk1KOOR.webp" alt="" width="960" height="640" />
-      <Layer style={{ backdropFilter: 'blur(4px)' }} bgc="black:50%" />
+      <Media
+        isLayer
+        src="https://images.pexels.com/photos/7130498/pexels-photo-7130498.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        alt=""
+        width="960"
+        height="640"
+      />
+      <Layer style={{ backdropFilter: 'blur(8px)' }} bgc="base:75%" />
     </Frame>
     <Container isWrapper="s" px="35" py="60" z="1">
       <Grid ai="center" g="40">
-        <Heading level="2" class="u--trim" fz="4xl" fw="bold" lts="l" c="white" ta="center">Contact</Heading>
-        <Text class="u--trim" fz="m" hl="l" c="white" ta="center">Feel free to reach out to us<br />Our team will respond promptly</Text>
-        <Columns cols={[1, null, 2]} g="25">
-          <Button href="#" g="15" variant="outline" jc="center" c="white" bdrs="10" py="15" fw="500" hasTransition hov={{ bgc: 'text', bdc: 'text' }}>
-            <Icon icon={ChatIcon} fz="1.4em" />
-            <span>Chat with us</span>
+        <Heading level="2" class="u--trim" fz="4xl" fw="bold" lts="l" ta="center">Contact</Heading>
+        <Text class="u--trim" fz="m" hl="l" ta="center"
+          >For questions about our services or quote requests, please contact us here.<br />After reviewing your inquiry, a member of our team will
+          get back to you.</Text
+        >
+        <Center jc="center">
+          <Button href="#" g="15" px="20" py="15" bgc="black" c="white" bdrs="99" hov={{ bgc: 'transparent', c: 'text', bdc: 'text' }} hasTransition>
+            <Inline ps="10" tt="uppercase" lts="l">Contact us</Inline>
+            <Icon icon={ArrowRightIcon} weight="bold" />
           </Button>
-          <Button
-            href="#"
-            g="15"
-            jc="center"
-            bgc="base"
-            c="text"
-            bdc="transparent"
-            bdrs="10"
-            py="15"
-            fw="500"
-            hasTransition
-            hov={{ bgc: 'text', c: 'base' }}
-          >
-            <Icon icon={UserIcon} fz="1.4em" />
-            <span>Contact us</span>
-          </Button>
-        </Columns>
+        </Center>
       </Grid>
     </Container>
   </Stack>

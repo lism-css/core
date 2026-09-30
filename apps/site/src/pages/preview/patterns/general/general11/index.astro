@@ -1,41 +1,44 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
-import { Container, Grid, Frame, Media, Stack, Flow, Layer, Center, Text, Inline, Heading } from 'lism-css/astro';
+
+import { Container, Grid, Frame, Media, Stack, Text, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General11">
-  <Container isWrapper="l" py="50" hasGutter>
-    <Grid gtc={['auto', null, 'auto 1fr']} g="50 60">
-      <Frame ar="5/2" gc="1 / -1" pos="relative">
-        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-        <Layer bgc="rgb(0 0 0 / 30%)">
-          <Center h="100%" c="white">
-            <Inline class="u--trim" fz="3xl" fw="light" ff="accent" lts="l" px="20" py="10">Concept</Inline>
-          </Center>
-        </Layer>
+  <Container py="50">
+    <Container isWrapper="m" hasGutter>
+      <Grid gtc={['auto', null, 'auto 1fr']} rg="50" cg="60">
+        <Stack g="30" min-w="16rem" ff="accent" fs="i" c="gray">
+          <Heading level="2" class="u--trim" fz="5xl" fw="bold">Relaxing</Heading>
+          <Text class="u--trim" fz="l">深呼吸したくなる、澄んだ空気</Text>
+        </Stack>
+        <Stack class="u--trimAll" g="40">
+          <p>
+            まるで高原の森にいるような、清々しく澄んだ空気を、あなたの部屋へ。
+            高性能フィルターが、目に見えない微細な粒子や生活臭をしっかりと除去し、空間を清浄に保ちます。
+            運転していることを忘れるほどの静音設計で、寝室や書斎にも最適。
+            日々の暮らしに、穏やかな安らぎと、健やかな深呼吸をもたらす、静かなパートナーです。
+          </p>
+          <p>
+            読書や仕事に集中したい時、ゆっくりとリラックスしたい夜。 あなたの過ごす時間に、最もふさわしい光の環境を創り出します。
+            光が、日々の暮らしに、より深い奥行きと彩りを与えます。
+          </p>
+        </Stack>
+      </Grid>
+    </Container>
+    <Grid gtc={['repeat(2, 1fr)', null, 'repeat(4, 1fr)']} g="20" mbs="50">
+      <Frame as="figure" ar="4/3" gr={['1', null, '1']} gc={['1', null, '1']}>
+        <Media src="https://cdn.lism-css.com/random/img?r=1" alt="" width="960" height="640" />
       </Frame>
-      <Stack g="40" max-w={['stretch', null, '24rem']}>
-        <Heading level="2" class="u--trim" fz="3xl" fw="bold">自然の素材を<br />日々の暮らしに</Heading>
-        <Text class="u--trim" fz="xl" o="pp">手仕事から生まれる、長く使える道具</Text>
-      </Stack>
-      <Flow class="u--trim" fz="m">
-        <p>
-          私たちの道具は、木や麻、鉄といった自然の素材から生まれます。 素材が持つ手ざわりや色の変化をそのまま活かし、余計な加工を加えないこと。
-          それが、長く使える道具をつくるための、いちばん大切な考え方です。
-        </p>
-        <p>「毎日手に取るものだからこそ、使うほどに愛着が増していくものを」——そんな思いから、ひとつひとつの形と大きさを決めています。</p>
-        <p>
-          製作を担うのは、それぞれの素材を長年扱ってきた職人たちです。
-          木の乾燥から仕上げの磨きまで、工程のほとんどを手作業で行うため、同じ品番でも木目や色味はひとつとして同じものがありません。
-          小さな傷や節も、その道具だけが持つ個性として残しています。
-          修理や部品の交換にも応じており、使い込んで古びた道具を直しながら、次の世代へ受け渡していくことができます。
-        </p>
-        <p>
-          道具は、使う人の暮らしの中で完成します。
-          台所や書斎、庭先など、毎日の小さな場面に自然の素材が加わることで、時間の流れが少しだけゆるやかに感じられるはずです。
-          私たちはこれからも、素材と向き合い、手の仕事を大切にしながら、暮らしに寄り添う道具をつくり続けていきます。
-        </p>
-      </Flow>
+      <Frame as="figure" ar="4/3" gr={['1', null, '1']} gc={['2', null, '2']}>
+        <Media src="https://cdn.lism-css.com/random/img?r=2" alt="" width="960" height="640" />
+      </Frame>
+      <Frame as="figure" ar="4/3" gr={['2', null, '1']} gc={['1', null, '3']}>
+        <Media src="https://cdn.lism-css.com/random/img?r=3" alt="" width="960" height="640" />
+      </Frame>
+      <Frame as="figure" ar="4/3" gr={['2', null, '1']} gc={['2', null, '4']}>
+        <Media src="https://cdn.lism-css.com/random/img?r=4" alt="" width="960" height="640" />
+      </Frame>
     </Grid>
   </Container>
 </DemoLayout>

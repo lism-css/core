@@ -40,7 +40,7 @@ const CONFIG = {
   baselineDir: join(ROOT_DIR, '_screenshots', 'baseline'),
   viewport: { width: 1440, height: 810 },
   // プレビューサーバーのポート
-  port: 4000,
+  port: 4002,
   // ページ読み込み後の待機時間（ミリ秒）
   waitAfterLoad: 500,
 };
