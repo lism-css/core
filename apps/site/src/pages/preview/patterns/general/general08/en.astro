@@ -1,38 +1,29 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Stack, Container, Frame, Grid, Media, Layer, Heading, Group } from 'lism-css/astro';
+import { Container, Columns, Frame, Flex, Media, Stack, Text, Heading } from 'lism-css/astro';
+import { Button } from '@lism-css/ui/astro/Button';
 ---
 
 <DemoLayout title="General08">
-  <Group as="section" pos="relative">
-    <Layer>
-      <Frame h="100%">
-        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-        <Layer bgc="black:30%" />
+  <Container isWrapper="l" py="50" hasGutter>
+    <Columns cols={[1, null, 3]} g={['30', null, '40']}>
+      <Stack g="30">
+        <Heading level="2" class="u--trim" fz={['4xl', '5xl']} ff="accent" fw="500" lts="l">Feature</Heading>
+        <Text class="u--trim" c="text-2" ta="right">Toward a Sustainable Future —</Text>
+      </Stack>
+      <Frame as="figure" ar={['4/3', null, '3/4']}>
+        <Media src="https://images.unsplash.com/photo-1675942870908-846af030c9d8?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
       </Frame>
-    </Layer>
-    <Container isWrapper="m" gr="1" gc="1" hasGutter pos="relative" z="1">
-      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="50">
-        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">Healing Moments Born<br />from Natural Materials</Heading>
-        <Stack class="u--trimAll" g="40">
-          <p>
-            Close your eyes, and you'll feel as if you're bathed in the dappled sunlight of a forest, with an overwhelming sense of immersion. This
-            speaker was created to reproduce recorded natural sounds in a three-dimensional and incredibly realistic way.
-          </p>
-          <p>
-            The enclosure is made from a porous natural material created by hardening diatomaceous earth, known for its moisture regulation and
-            deodorizing properties, using a special technique. This diatomaceous earth absorbs excess sound reverberation, achieving remarkably clear,
-            smooth, and natural acoustic characteristics. The dedicated app features numerous high-quality binaural recordings captured throughout
-            Japan, from the forests of Yakushima to the waves of Okinawa.
-          </p>
-          <p>
-            The slightly different sounds flowing from the left and right speakers form a three-dimensional sound image in your mind, guiding you into
-            deep relaxation. Distinct from speakers made for music, this is a device for bringing "soundscapes" into your daily life. Tune your mind
-            and body with the sounds of nature.
-          </p>
-        </Stack>
-      </Grid>
-    </Container>
-  </Group>
+      <Stack aslf="end" g="30" hl="l">
+        <p>
+          Leveraging innovative technology and design to enhance user experience, we strive for transparent communication and building trust. We will
+          continue our efforts to achieve both sustainable development and social contribution.
+        </p>
+        <Flex>
+          <Button href="#" variant="outline" w="stretch" min-w="8rem" py="15" bdrs="10">View Detail</Button>
+        </Flex>
+      </Stack>
+    </Columns>
+  </Container>
 </DemoLayout>

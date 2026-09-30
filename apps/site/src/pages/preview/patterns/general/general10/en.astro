@@ -1,43 +1,30 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Container, Grid, Frame, Media, Stack, Text, Heading } from 'lism-css/astro';
+import { Box, Stack, Container, Frame, Layer, Media, Text, Inline, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General10">
-  <Container py="50">
-    <Container isWrapper="m" hasGutter>
-      <Grid gtc={['auto', null, 'auto 1fr']} g="50 60">
-        <Stack g="30" min-w="16rem" ff="accent" fs="i" c="gray">
-          <Heading level="2" class="u--trim" fz="5xl" fw="bold">Relaxing</Heading>
-          <Text class="u--trim" fz="l">Crisp, clean air that makes you want to take a deep breath</Text>
-        </Stack>
-        <Stack class="u--trimAll" g="40">
-          <p>
-            Bring the refreshing, crisp air of a highland forest right into your room. The high-performance filter thoroughly removes invisible fine
-            particles and household odors, keeping your space clean and pure. With a whisper-quiet design you'll forget is even running, it's perfect
-            for bedrooms and studies. A quiet partner that brings gentle comfort and healthy deep breaths into your daily life.
-          </p>
-          <p>
-            When you want to focus on reading or work, or on a night when you want to fully relax. It creates the most suitable lighting environment
-            for your moment. Light adds deeper dimension and color to your everyday life.
-          </p>
-        </Stack>
-      </Grid>
-    </Container>
-    <Grid gtc={['repeat(2, 1fr)', null, 'repeat(4, 1fr)']} g="20" mbs="50">
-      <Frame as="figure" ar="4/3" gr={['1', null, '1']} gc={['1', null, '1']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=1" alt="" width="960" height="640" />
+  <Container isWrapper="m" py="50" hasGutter>
+    <Stack g="30">
+      <Frame as="figure" ar={['1/1', '3/2']} pos="relative">
+        <Media src="https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Layer>
+          <Stack jc="start" ai="flex-start" min-h="100%" g="20">
+            <Box bgc="base" py="20" px="25" mt={['30', '50']}>
+              <Heading level="2" fz={['l', 'xl', '3xl']} fw="normal" ff="accent" lts="xl" lh="s">Feel the Seasons</Heading>
+            </Box>
+          </Stack>
+          <Box as="figcaption" p="20" pos="absolute" b="0" r="0">
+            <Inline class="u--trim" fz="s" c="white" ff="accent" lts="l">Feel the seasons</Inline>
+          </Box>
+        </Layer>
       </Frame>
-      <Frame as="figure" ar="4/3" gr={['1', null, '1']} gc={['2', null, '2']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=2" alt="" width="960" height="640" />
-      </Frame>
-      <Frame as="figure" ar="4/3" gr={['2', null, '1']} gc={['1', null, '3']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=3" alt="" width="960" height="640" />
-      </Frame>
-      <Frame as="figure" ar="4/3" gr={['2', null, '1']} gc={['2', null, '4']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=4" alt="" width="960" height="640" />
-      </Frame>
-    </Grid>
+      <Text>
+        Fresh buds in spring, deep greens in summer, autumn leaves, and the stillness of winter. The garden spread out before you shows a completely
+        different face with each season. Sit down and simply watch the scenery change. Quiet moments like these create a little room to breathe in
+        your busy days. Take your time and enjoy the beauty of each passing season.
+      </Text>
+    </Stack>
   </Container>
 </DemoLayout>

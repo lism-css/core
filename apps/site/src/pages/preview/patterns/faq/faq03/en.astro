@@ -10,12 +10,12 @@ import { Button } from '@lism-css/ui/astro/Button';
 <DemoLayout title="FAQ03">
   <Container isWrapper="m" bgc="base" py="50" hasGutter>
     <Stack g="50">
-      {/* セクション見出し */}
+      {/* Section heading */}
       <Stack g="20" ai="center">
         <Heading level="2" class="u--trim" fz="2xl" fw="bold" ta="center">Frequently Asked Questions</Heading>
         <Inline class="u--trim" fz="s" o="ppp" ta="center">FAQ</Inline>
       </Stack>
-      {/* 開閉式のQ&Aリスト。1つ開くと他は閉じる */}
+      {/* Collapsible Q&A list. Opening one item closes the others */}
       <Accordion.Root layout="stack" g="15">
         <Accordion.Item bgc="base-2" bdrs="10">
           <Accordion.Heading>
@@ -94,7 +94,7 @@ import { Button } from '@lism-css/ui/astro/Button';
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion.Root>
-      {/* 解決しなかった人向けの導線 */}
+      {/* Next step for visitors who didn't find an answer */}
       <Stack g="25" ai="center">
         <Text class="u--trim" fz="s" ta="center" o="p">Can't find the answer you are looking for? Get in touch with us.</Text>
         <Flex jc="center">

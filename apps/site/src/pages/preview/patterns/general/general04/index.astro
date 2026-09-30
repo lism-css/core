@@ -1,30 +1,43 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Container, Frame, TileGrid, Media, Stack, Text, Heading } from 'lism-css/astro';
+import { Container, Frame, Media, Stack, Columns } from 'lism-css/astro';
+import { Button } from '@lism-css/ui/astro/Button';
 ---
 
 <DemoLayout title="General04">
-  <Container bgc="base" py="50">
-    <Stack g={['40', null, '50']}>
-      <Stack ai="center" g="30" ff="accent" hasGutter>
-        <Heading level="2" fz="clamp(1.5rem, 4.5vw, 2rem)" fw="bold" ta="center">大地の恵みを、あなたの毎日へ</Heading>
-        <Text>自然由来の環境負荷を抑えた製法で、一つひとつ丁寧に手作りしています。</Text>
+  <Container bgc="base">
+    <Columns cols={['1', null, '2']} g="5">
+      <Stack g="40" ai="center" jc="center" py="60" px={['30', '50']}>
+        <h2>感動をその手に</h2>
+        <Stack g="30">
+          <p>
+            あなたが住む街には、まだ知らない素敵な場所や物語が隠されています。
+            私たちのサービスは、地元の人だけが知る隠れ家カフェや、週末に楽しめる小さなイベントなど、 地域に根差した情報を丁寧にお届けします。
+          </p>
+          <p>いつもの帰り道が、新しい発見に満ちた冒険の道に変わる。そんな体験を、私たちと一緒に始めましょう。</p>
+        </Stack>
+        <Button href="#" min-w="250px" py="15" bdrs="10">View More</Button>
       </Stack>
-      <TileGrid cols={['2', null, '4']} rows={['12', null, '6']} g={['30', '40']}>
-        <Frame as="figure" gr={['1 / span 5', null, '1 / span 5']} gc={['1', null, '1']}>
-          <Media src="https://cdn.lism-css.com/random/img?r=1" alt="" width="960" height="640" />
+      <Columns cols="2" g="5">
+        <Frame as="figure">
+          <Media src="https://images.unsplash.com/photo-1633073490205-27c0ad419a84?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
         </Frame>
-        <Frame as="figure" gr={['2 / span 5', null, '2 / span 5']} gc={['2', null, '2']}>
-          <Media src="https://cdn.lism-css.com/random/img?r=2" alt="" width="960" height="640" />
+        <Frame as="figure">
+          <Media src="https://cdn.lism-css.com/img/BObC4emORTNt.webp" alt="" width="960" height="640" />
         </Frame>
-        <Frame as="figure" gr={['6 / span 5', null, '1 / span 5']} gc={['1', null, '3']}>
-          <Media src="https://cdn.lism-css.com/random/img?r=3" alt="" width="960" height="640" />
+        <Frame as="figure">
+          <Media src="https://images.unsplash.com/photo-1788109586841-882dc99fb30e?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
         </Frame>
-        <Frame as="figure" gr={['7 / span 5', null, '2 / span 5']} gc={['2', null, '4']}>
-          <Media src="https://cdn.lism-css.com/random/img?r=4" alt="" width="960" height="640" />
+        <Frame as="figure">
+          <Media
+            src="https://images.pexels.com/photos/26934147/pexels-photo-26934147.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            width="960"
+            height="640"
+          />
         </Frame>
-      </TileGrid>
-    </Stack>
+      </Columns>
+    </Columns>
   </Container>
 </DemoLayout>

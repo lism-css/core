@@ -1,30 +1,37 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Box, Stack, Container, Frame, Layer, Media, Text, Inline, Heading } from 'lism-css/astro';
+import { Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General06">
-  <Container isWrapper="m" py="50" hasGutter>
-    <Stack g="30">
-      <Frame as="figure" ar="16/9" pos="relative">
-        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-        <Layer p="40 0">
-          <Stack jc="center" ai="flex-start" min-h="100%" g="20">
-            <Box bgc="base" p="20 30">
-              <Heading level="2" class="u--trim" fz="min(4.5vw, 1.75rem)" fw="bold" ff="accent" lts="l">Feel the Beauty of Each Season</Heading>
-            </Box>
-          </Stack>
-          <Box as="figcaption" p="20" pos="absolute" b="0" r="0">
-            <Inline class="u--trim" fz="s" c="white" ff="accent" lts="l">Feel the beauty of each season</Inline>
-          </Box>
+  <Container>
+    <Stack>
+      <Frame as="figure" ar="16/9" pos="relative" max-h="32rem">
+        <Media src="https://cdn.lism-css.com/img/BObC4emORTNt.webp" alt="" width="960" height="640" />
+        <Layer bgc="black:25%">
+          <Container isWrapper="m" py="40" h="100%" hasGutter>
+            <Stack jc="flex-end" g="30" min-h="100%" c="white">
+              <Heading level="2" class="u--trim" fz="min(5vw, 2rem)" fw="bold">Inspiration at Your Fingertips</Heading>
+              <Text class="u--trim" fz="min(2.5vw, 1rem)">Inspiration at your fingertips</Text>
+            </Stack>
+          </Container>
         </Layer>
       </Frame>
-      <Text>
-        Handcrafted one by one using eco-friendly, naturally derived methods. Bringing nature's bounty to your everyday life. Our products harness the
-        full power of nature, aiming for a sustainable future. Delivering a comfortable life along with the ever-changing scenery of each season. We
-        hope you can enjoy precious moments while appreciating the beauty of the four seasons.
-      </Text>
+      <Container isWrapper="m" py="40" hasGutter>
+        <Stack g="30">
+          <Heading level="3" fz="xl" fw="bold">New Discoveries in Your Own Town</Heading>
+          <Text>
+            There are wonderful places and stories hidden in your city that you have yet to discover. Our service carefully delivers locally rooted
+            information, from hidden cafes known only to locals to small weekend events.
+          </Text>
+          <Text>
+            Save the shops and events that catch your eye to build a map of your own. Seasonal features and recommended walking routes are updated a
+            little every week. On your next day off, why not take a small detour?
+          </Text>
+          <Text>Your usual way home transforms into a road full of new discoveries. Let's start that experience together.</Text>
+        </Stack>
+      </Container>
     </Stack>
   </Container>
 </DemoLayout>

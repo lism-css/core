@@ -1,32 +1,40 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
-
-import { Container, Columns, Frame, Flex, Media, Stack, Heading } from 'lism-css/astro';
-import { Button } from '@lism-css/ui/astro/Button';
+import { Wrapper, Stack, Frame, Media, Box, Flow, Layer, Center, Inline, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General09">
-  <Container isWrapper="l" bgc="gray" py="50" hasGutter>
-    <Columns cols={[1, null, 3]} g={['30', null, '40']} c="white">
-      <Stack g="30">
-        <Heading level="2" class="u--trim" fz="5xl" ff="accent" fs="italic" fw="900" lts="l">Feature</Heading>
-        <p>
-          Our service aims to provide the best possible experience for our users. We have built a platform that combines ease of use with security,
-          leveraging the latest technology.
-        </p>
+  <Wrapper isContainer py="50">
+    <Frame ar={['4/3', '16/9', '21/9']} pos="relative" max-sz="full">
+      <Media src="https://images.unsplash.com/photo-1584412182057-c4c8a22ff533?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+      <Layer bgc="rgb(0 0 0 / 20%)" style={{ backdropFilter: 'blur(8px)' }}>
+        <Center h="100%" c="white">
+          <Inline fz={['3xl', '4xl']} fw="normal" ff="accent" fs="italic" lts="l" px="20" py="10" mbs={['-20', '-30']}>Story</Inline>
+        </Center>
+      </Layer>
+    </Frame>
+    <Box hasGutter mbs={['-45', '-50', '-60']} pos="relative">
+      <Stack bgc="base" p={['35', '40', '45']} g="40">
+        <Heading level="2" class="u--trim" aslf="center" fz={['xl', '2xl']}>A Town Where People and Nature Grow Together</Heading>
+        <Flow>
+          <p>
+            While passing on our rich natural environment to the next generation, we are promoting the creation of spaces where urban life and nature
+            coexist in harmony. We aim to contribute to the realization of a sustainable society. Together, we are building a sustainable future.
+          </p>
+          <p>
+            We are creating green paths throughout the town that are a joy to walk. By linking parks and plazas with trees, we have made it possible
+            to feel the changing seasons on a stroll or the daily commute.
+          </p>
+          <p>
+            Local residents also take part in caring for the plantings. Planting seedlings and tending flower beds with children has become a valuable
+            chance for people of every generation to meet.
+          </p>
+          <p>
+            Greenery is not finished on the day it is planted. Just as trees grow over many years, a town grows little by little together with the
+            people who live there. We will keep building a town where people and nature grow together.
+          </p>
+        </Flow>
       </Stack>
-      <Frame as="figure" ar={['4/3', null, '3/4']}>
-        <Media src="https://cdn.lism-css.com/random/img?category=v" alt="" width="960" height="640" />
-      </Frame>
-      <Stack aslf="end" g="30">
-        <p>
-          We have built a platform that combines ease of use with security, leveraging the latest technology. To accommodate diverse needs, we also
-          offer flexible customization options.
-        </p>
-        <Flex>
-          <Button href="#" variant="outline" c="white" w="stretch" min-w="8rem" py="15" bdrs="10">View Detail</Button>
-        </Flex>
-      </Stack>
-    </Columns>
-  </Container>
+    </Box>
+  </Wrapper>
 </DemoLayout>

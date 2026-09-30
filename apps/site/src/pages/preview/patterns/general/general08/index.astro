@@ -1,37 +1,29 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Group, Stack, Container, Frame, Grid, Media, Layer, Heading } from 'lism-css/astro';
+import { Container, Columns, Frame, Flex, Media, Stack, Text, Heading } from 'lism-css/astro';
+import { Button } from '@lism-css/ui/astro/Button';
 ---
 
 <DemoLayout title="General08">
-  <Group as="section" pos="relative">
-    <Layer>
-      <Frame h="100%">
-        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-        <Layer bgc="black:30%" />
+  <Container isWrapper="l" py="50" hasGutter>
+    <Columns cols={[1, null, 3]} g={['30', null, '40']}>
+      <Stack g="30">
+        <Heading level="2" class="u--trim" fz={['4xl', '5xl']} ff="accent" fw="500" lts="l">Feature</Heading>
+        <Text class="u--trim" c="text-2" ta="right">持続可能な未来を目指して ―</Text>
+      </Stack>
+      <Frame as="figure" ar={['4/3', null, '3/4']}>
+        <Media src="https://images.unsplash.com/photo-1675942870908-846af030c9d8?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
       </Frame>
-    </Layer>
-    <Container isWrapper="m" gr="1" gc="1" hasGutter pos="relative" z="1">
-      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="50">
-        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">自然素材が生み出す<br />癒やしのひととき</Heading>
-        <Stack class="u--trimAll" g="40">
-          <p>
-            目を閉じれば、まるで森の木漏れ日の中にいるかのような、圧倒的な臨場感。
-            このスピーカーは、録音された自然音を、立体的に、そして限りなくリアルに再現するために生まれました。
-          </p>
-          <p>
-            本体のエンクロージャー（筐体）には、調湿性や消臭性で知られる「珪藻土」を特殊な技術で固めた、
-            多孔質の自然素材を採用。この珪藻土が、音の余計な反響を吸収し、驚くほどクリアで、 角の取れた、柔らかく自然な音響特性を実現しました。
-            専用アプリには、屋久島の森や、沖縄の波音など、日本各地で収録された高音質なバイノーラル音源を多数用意。
-          </p>
-          <p>
-            左右のスピーカーから流れるわずかに異なる音が、脳内で立体的な音像を結び、
-            あなたを深いリラクゼーションへと導きます。音楽を聴くためのスピーカーとは一線を画す、
-            「音の風景」を日常に取り入れるための装置。自然の響きで、心と身体を調律する時間をお過ごしください。
-          </p>
-        </Stack>
-      </Grid>
-    </Container>
-  </Group>
+      <Stack aslf="end" g="30" hl="l">
+        <p>
+          革新的な技術とデザインを活用し、ユーザー体験の向上に努めるとともに、透明性の高い情報発信を行い、信頼関係の構築に努めています。
+          これからも、持続可能な発展と社会貢献を両立させるための取り組みを続けてまいります。
+        </p>
+        <Flex>
+          <Button href="#" variant="outline" w="stretch" min-w="8rem" py="15" bdrs="10">View Detail</Button>
+        </Flex>
+      </Stack>
+    </Columns>
+  </Container>
 </DemoLayout>

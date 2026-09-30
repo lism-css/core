@@ -580,48 +580,50 @@ const patterns = {
         id: 'general07',
         title: 'General07',
         description: {
-          ja: 'セクション用のパターンです。',
-          en: 'A section pattern.',
+          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
+          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
         },
       },
       {
         id: 'general08',
         title: 'General08',
         description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
-          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
+          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
         },
       },
       {
         id: 'general09',
         title: 'General09',
         description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+          ja: 'セクション用のパターンです。',
+          en: 'A section pattern.',
         },
       },
       {
         id: 'general10',
         title: 'General10',
         description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
-          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
+          ja: 'セクション用のパターンです。',
+          en: 'A section pattern.',
         },
       },
       {
         id: 'general11',
         title: 'General11',
+        draft: true,
         description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
-          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
+          ja: 'セクション用のパターンです。breakpoint「md」以下はレイアウトが変わり、アイテムの並びが変更されます。',
+          en: 'A section pattern. Below the "md" breakpoint, the layout changes and item arrangement is adjusted.',
         },
       },
       {
         id: 'general12',
         title: 'General12',
+        draft: true,
         description: {
-          ja: 'セクション用のパターンです。',
-          en: 'A section pattern.',
+          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
+          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
         },
       },
     ],

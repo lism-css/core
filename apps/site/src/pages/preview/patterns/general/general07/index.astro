@@ -1,39 +1,35 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
+import { Group, Stack, Container, Frame, Grid, Media, Layer, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General07">
-  <Container>
-    <Stack>
-      <Frame as="figure" ar="16/9" pos="relative" max-h="32rem">
-        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-        <Layer>
-          <Container isWrapper="m" py="40" h="100%" hasGutter>
-            <Stack jc="flex-end" g="30" min-h="100%" c="white">
-              <Heading level="2" class="u--trim" fz="min(5vw, 2rem)" fw="bold">まだ見ぬ世界をあなたに</Heading>
-              <Text class="u--trim" fz="min(2.5vw, 1rem)">A world you've never seen before</Text>
-            </Stack>
-          </Container>
-        </Layer>
+  <Group as="section" pos="relative">
+    <Layer>
+      <Frame h="100%">
+        <Media src="https://images.unsplash.com/photo-1669295384050-a1d4357bd1d7?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Layer bgc="black:30%" style={{ backdropFilter: 'blur(8px)' }} />
       </Frame>
-      <Container isWrapper="m" py="40" hasGutter>
-        <Stack g="30">
-          <Heading level="3" fz="xl" fw="bold">未知の世界を体感</Heading>
-          <Text>
-            自然由来の環境負荷を抑えた製法で、一つひとつ丁寧に手作りしています。
-            大地の恵みを、あなたの毎日へ。私たちの製品は、自然の力を最大限に活かし、持続可能な未来を目指しています。
-            季節ごとに変わる風景とともに、心地よい生活をお届けします。
-            四季折々の美しさを感じながら、豊かな時間を過ごしていただけることを願っています。
-          </Text>
-          <Text>
-            私たちの製品は、自然の恵みを活かし、心地よい生活を提供します。
-            四季の移ろいを感じながら、毎日を大切に過ごしていただけることを願っています。
-            環境に配慮した製法で作られた製品は、持続可能な未来を目指す私たちの使命の一環です。 自然の美しさと調和した生活をお楽しみください。
-          </Text>
+    </Layer>
+    <Container isWrapper="m" hasGutter pos="relative" z="1">
+      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="70">
+        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">暮らしを、<br />もっと豊かに</Heading>
+        <Stack class="u--trimAll" g="40">
+          <p>
+            私の役割は複雑なテクノロジーを誰もが直感的に、そして快適に使えるようにデザインすることです。
+            ユーザーインタビューやテストを繰り返し、徹底的に「ユーザーの声」に耳を傾けながら、最高の体験を追求しています。
+          </p>
+          <p>
+            プロジェクトの始まりは、いつも観察からです。実際に使う人の働く場所を訪ね、どんな場面で迷い、どこで手が止まるのかを一緒に確かめます。
+            画面の上だけでは見えてこない小さなつまずきに、改善のヒントが隠れています。
+          </p>
+          <p>
+            テクノロジーは、暮らしを便利にするための道具にすぎません。だからこそ、操作を意識せずに使える、自然でやさしいデザインを大切にしています。
+            これからも一人ひとりの声に耳を傾けながら、暮らしを少しずつ豊かにしていきます。
+          </p>
         </Stack>
-      </Container>
-    </Stack>
-  </Container>
+      </Grid>
+    </Container>
+  </Group>
 </DemoLayout>
