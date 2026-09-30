@@ -1,37 +1,28 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
+import { Group, Stack, Container, Frame, Grid, Media, Layer, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General06">
-  <Container>
-    <Stack>
-      <Frame as="figure" ar="16/9" pos="relative" max-h="32rem">
-        <Media src="https://cdn.lism-css.com/img/BObC4emORTNt.webp" alt="" width="960" height="640" />
-        <Layer bgc="black:25%">
-          <Container isWrapper="m" py="40" h="100%" hasGutter>
-            <Stack jc="flex-end" g="30" min-h="100%" c="white">
-              <Heading level="2" class="u--trim" fz="min(5vw, 2rem)" fw="bold">感動をその手に</Heading>
-              <Text class="u--trim" fz="min(2.5vw, 1rem)">Inspiration at your fingertips</Text>
-            </Stack>
-          </Container>
-        </Layer>
+  <Group as="section" pos="relative">
+    <Layer>
+      <Frame h="100%">
+        <Media src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Layer bgc="black:40%" style={{ backdropFilter: 'blur(8px)' }} />
       </Frame>
-      <Container isWrapper="m" py="40" hasGutter>
-        <Stack g="30">
-          <Heading level="3" fz="xl" fw="bold">いつもの街に、新しい発見を</Heading>
-          <Text>
-            あなたが住む街には、まだ知らない素敵な場所や物語が隠されています。
-            私たちのサービスは、地元の人だけが知る隠れ家カフェや、週末に楽しめる小さなイベントなど、 地域に根差した情報を丁寧にお届けします。
-          </Text>
-          <Text>
-            気になるお店やイベントは、お気に入りに保存して自分だけの地図に。季節ごとの特集やおすすめの散歩コースも、毎週少しずつ更新しています。
-            次の休日は、少しだけ遠回りをしてみませんか。
-          </Text>
-          <Text>いつもの帰り道が、新しい発見に満ちた冒険の道に変わる。そんな体験を、私たちと一緒に始めましょう。</Text>
+    </Layer>
+    <Container isWrapper="m" hasGutter pos="relative" z="1">
+      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="70">
+        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">行く道すべて、<br />旅になる</Heading>
+        <Stack class="u--trimAll" g="40">
+          <p>キャンピングカーなら、宿の予約も時刻表も気にせずに旅ができます。気になる景色を見つけたら車を止め、そのまま一晩過ごすのも自由です。</p>
+          <p>
+            私たちは、はじめての方でも安心して運転できるキャンピングカーを、全国12の拠点で貸し出しています。寝具やキッチン用品は車内にそろっているので、着替えだけ持って出発できます。
+          </p>
+          <p>おすすめのルートやキャンプ場の情報も、スタッフが一緒に考えます。いつもの休日を、少しだけ遠くまで走らせてみませんか。</p>
         </Stack>
-      </Container>
-    </Stack>
-  </Container>
+      </Grid>
+    </Container>
+  </Group>
 </DemoLayout>

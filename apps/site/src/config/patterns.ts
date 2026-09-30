@@ -571,16 +571,16 @@ const patterns = {
         id: 'general06',
         title: 'General06',
         description: {
-          ja: 'セクション用のパターンです。',
-          en: 'A section pattern.',
+          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
+          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
         },
       },
       {
         id: 'general07',
         title: 'General07',
         description: {
-          ja: 'セクション用のパターンです。breakpoint「md」以下は1カラムで表示され、アイテムが縦に並びます。',
-          en: 'A section pattern. Below the "md" breakpoint, it displays in a single column with items stacked vertically.',
+          ja: 'セクション用のパターンです。',
+          en: 'A section pattern.',
         },
       },
       {

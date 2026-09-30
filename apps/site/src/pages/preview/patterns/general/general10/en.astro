@@ -1,29 +1,26 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Box, Stack, Container, Frame, Layer, Media, Text, Inline, Heading } from 'lism-css/astro';
+import { Box, Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General10">
   <Container isWrapper="m" py="50" hasGutter>
     <Stack g="30">
       <Frame as="figure" ar={['1/1', '3/2']} pos="relative">
-        <Media src="https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Media src="https://cdn.lism-css.com/img/BObC4emORTNt.webp" alt="" width="960" height="640" />
         <Layer>
           <Stack jc="start" ai="flex-start" min-h="100%" g="20">
             <Box bgc="base" py="20" px="25" mt={['30', '50']}>
-              <Heading level="2" fz={['l', 'xl', '3xl']} fw="normal" ff="accent" lts="xl" lh="s">Feel the Seasons</Heading>
+              <Heading level="2" fz={['l', 'xl', '3xl']} fw="normal" ff="accent" lts="xl" lh="s">Watch the Sky Change</Heading>
             </Box>
           </Stack>
-          <Box as="figcaption" p="20" pos="absolute" b="0" r="0">
-            <Inline class="u--trim" fz="s" c="white" ff="accent" lts="l">Feel the seasons</Inline>
-          </Box>
         </Layer>
       </Frame>
       <Text>
-        Fresh buds in spring, deep greens in summer, autumn leaves, and the stillness of winter. The garden spread out before you shows a completely
-        different face with each season. Sit down and simply watch the scenery change. Quiet moments like these create a little room to breathe in
-        your busy days. Take your time and enjoy the beauty of each passing season.
+        As the sun begins to set, the sea and sky change color moment by moment, from orange to purple, and finally to a deep indigo. On our seaside
+        terrace, we set aside special seats just for the evening hours. With a warm drink in hand, listen to the sound of the waves and wait for the
+        sun to slowly sink below the horizon. Perhaps doing nothing at all is the greatest luxury.
       </Text>
     </Stack>
   </Container>

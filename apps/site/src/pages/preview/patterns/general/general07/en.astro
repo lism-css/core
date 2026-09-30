@@ -1,35 +1,41 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Group, Stack, Container, Frame, Grid, Media, Layer, Heading } from 'lism-css/astro';
+import { Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General07">
-  <Group as="section" pos="relative">
-    <Layer>
-      <Frame h="100%">
-        <Media src="https://images.unsplash.com/photo-1669295384050-a1d4357bd1d7?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
-        <Layer bgc="black:30%" style={{ backdropFilter: 'blur(8px)' }} />
+  <Container>
+    <Stack>
+      <Frame as="figure" ar="16/9" pos="relative" max-h="32rem">
+        <Media src="https://cdn.lism-css.com/img/kpwuzP15GeSP.webp" alt="" width="960" height="640" />
+        <Layer bgc="black:25%">
+          <Container isWrapper="m" py="40" h="100%" hasGutter>
+            <Stack jc="flex-end" g="30" min-h="100%" c="white">
+              <Heading level="2" class="u--trim" fz="min(5vw, 2rem)" fw="bold">Walk Through the Light</Heading>
+              <Text class="u--trim" fz="min(2.5vw, 1rem)">Walk through the light</Text>
+            </Stack>
+          </Container>
+        </Layer>
       </Frame>
-    </Layer>
-    <Container isWrapper="m" hasGutter pos="relative" z="1">
-      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="70">
-        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">Enriching<br />Everyday Life</Heading>
-        <Stack class="u--trimAll" g="40">
-          <p>
-            My role is to design complex technology so that everyone can use it intuitively and comfortably. Through repeated user interviews and
-            testing, I listen thoroughly to the "voice of the user" while pursuing the best possible experience.
-          </p>
-          <p>
-            Every project starts with observation. I visit the places where people actually work and see for myself where they hesitate and where
-            their hands stop. The small stumbles you can't see on a screen alone hold the clues for improvement.
-          </p>
-          <p>
-            Technology is only a tool for making life more convenient. That's why I value natural, gentle design that people can use without thinking
-            about the controls. I will keep listening to each voice and make everyday life a little richer, step by step.
-          </p>
+      <Container isWrapper="m" py="40" hasGutter>
+        <Stack g="30">
+          <Heading level="3" fz="xl" fw="bold">An Immersive Exhibition of Light and Shadow</Heading>
+          <Text>
+            A single line of light moves quietly through the darkened gallery. Its color and brightness shift slowly over time, so you will never see
+            the same scene twice.
+          </Text>
+          <Text>
+            This exhibition presents light installations by six artists from Japan and abroad. Walk among the works and feel the spaces created by
+            light and shadow with your whole body.
+          </Text>
+          <Text>
+            The venue consists of five dimly lit rooms, and each work has its own colors of light and sound. There is no set route, so feel free to
+            stop in front of any work that catches your eye and stay as long as you like.
+          </Text>
+          <Text>On Fridays and Saturdays, the museum stays open until 8 p.m.</Text>
         </Stack>
-      </Grid>
-    </Container>
-  </Group>
+      </Container>
+    </Stack>
+  </Container>
 </DemoLayout>

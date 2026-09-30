@@ -1,29 +1,24 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Box, Stack, Container, Frame, Layer, Media, Text, Inline, Heading } from 'lism-css/astro';
+import { Box, Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General10">
   <Container isWrapper="m" py="50" hasGutter>
     <Stack g="30">
       <Frame as="figure" ar={['1/1', '3/2']} pos="relative">
-        <Media src="https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Media src="https://cdn.lism-css.com/img/BObC4emORTNt.webp" alt="" width="960" height="640" />
         <Layer>
           <Stack jc="start" ai="flex-start" min-h="100%" g="20">
             <Box bgc="base" py="20" px="25" mt={['30', '50']}>
-              <Heading level="2" fz={['l', 'xl', '3xl']} fw="normal" ff="accent" lts="xl" lh="s">四季の美しさを感じる</Heading>
+              <Heading level="2" fz={['l', 'xl', '3xl']} fw="normal" ff="accent" lts="xl" lh="s">空の移ろいを眺める</Heading>
             </Box>
           </Stack>
-          <Box as="figcaption" p="20" pos="absolute" b="0" r="0">
-            <Inline class="u--trim" fz="s" c="white" ff="accent" lts="l">Feel the seasons</Inline>
-          </Box>
         </Layer>
       </Frame>
       <Text>
-        春の芽吹き、夏の深い緑、秋の紅葉、そして冬の静けさ。目の前に広がる庭は、季節ごとにまったく違う表情を見せてくれます。
-        腰を下ろして、移ろう景色をただ眺める。そんな何気ないひとときが、忙しい毎日に小さな余白をつくってくれます。
-        四季折々の美しさを感じながら、ゆったりとした時間をお過ごしください。
+        日が傾きはじめると、海と空は刻一刻と色を変えていきます。オレンジから紫へ、やがて深い藍色へ。海辺のテラスには、夕暮れの時間だけ特等席をご用意しています。温かい飲み物を片手に、波の音に耳を傾けながら、ゆっくりと日が沈むのを待ちましょう。何もしない時間が、いちばんの贅沢かもしれません。
       </Text>
     </Stack>
   </Container>

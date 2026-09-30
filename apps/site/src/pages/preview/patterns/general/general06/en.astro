@@ -1,37 +1,32 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
+import { Group, Stack, Container, Frame, Grid, Media, Layer, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General06">
-  <Container>
-    <Stack>
-      <Frame as="figure" ar="16/9" pos="relative" max-h="32rem">
-        <Media src="https://cdn.lism-css.com/img/BObC4emORTNt.webp" alt="" width="960" height="640" />
-        <Layer bgc="black:25%">
-          <Container isWrapper="m" py="40" h="100%" hasGutter>
-            <Stack jc="flex-end" g="30" min-h="100%" c="white">
-              <Heading level="2" class="u--trim" fz="min(5vw, 2rem)" fw="bold">Inspiration at Your Fingertips</Heading>
-              <Text class="u--trim" fz="min(2.5vw, 1rem)">Inspiration at your fingertips</Text>
-            </Stack>
-          </Container>
-        </Layer>
+  <Group as="section" pos="relative">
+    <Layer>
+      <Frame h="100%">
+        <Media src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Layer bgc="black:40%" style={{ backdropFilter: 'blur(8px)' }} />
       </Frame>
-      <Container isWrapper="m" py="40" hasGutter>
-        <Stack g="30">
-          <Heading level="3" fz="xl" fw="bold">New Discoveries in Your Own Town</Heading>
-          <Text>
-            There are wonderful places and stories hidden in your city that you have yet to discover. Our service carefully delivers locally rooted
-            information, from hidden cafes known only to locals to small weekend events.
-          </Text>
-          <Text>
-            Save the shops and events that catch your eye to build a map of your own. Seasonal features and recommended walking routes are updated a
-            little every week. On your next day off, why not take a small detour?
-          </Text>
-          <Text>Your usual way home transforms into a road full of new discoveries. Let's start that experience together.</Text>
+    </Layer>
+    <Container isWrapper="m" hasGutter pos="relative" z="1">
+      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="70">
+        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">Every Road<br />Becomes a Journey</Heading>
+        <Stack class="u--trimAll" g="40">
+          <p>
+            With a camper van, you can travel without worrying about hotel bookings or timetables. When you find a view you love, pull over and stay
+            the night if you like.
+          </p>
+          <p>
+            We rent camper vans that are easy to drive even for first-timers, from 12 locations nationwide. Bedding and kitchenware are already on
+            board, so all you need to pack is a change of clothes.
+          </p>
+          <p>Our staff are happy to help you plan routes and find campsites. Why not take your next day off a little farther than usual?</p>
         </Stack>
-      </Container>
-    </Stack>
-  </Container>
+      </Grid>
+    </Container>
+  </Group>
 </DemoLayout>
