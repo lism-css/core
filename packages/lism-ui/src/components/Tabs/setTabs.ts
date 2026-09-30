@@ -57,7 +57,13 @@ function tabKeyControl(e: KeyboardEvent): void {
   nextBtn.focus();
 }
 
+// 初期化済みのタブ。再初期化でディープリンクが選択を戻さないよう記録する。
+const initializedTabs = new WeakSet<HTMLElement>();
+
 function setTabs(tabs: HTMLElement): void {
+  if (initializedTabs.has(tabs)) return;
+  initializedTabs.add(tabs);
+
   const tabBtns = getTabBtns(tabs);
   tabBtns.forEach((tabBtn) => {
     tabBtn.addEventListener('click', tabControl);
@@ -74,5 +80,21 @@ function setTabs(tabs: HTMLElement): void {
   const target = tabBtns.find((tabBtn) => tabBtn.getAttribute('aria-controls') === targetPanelId);
   if (target) selectTab(target);
 }
+
+const setTabsAll = (): void => {
+  document.querySelectorAll<HTMLElement>('.b--tabs').forEach((tabs) => {
+    setTabs(tabs);
+  });
+};
+
+/**
+ * ページ内の全タブを初期化する（Astro用）
+ *   Point: ClientRouterでの遷移後は script が再実行されないため、astro:page-load でも初期化する。
+ *          ClientRouterが無いページでは astro:page-load が発火しないため、すぐ初期化する処理も必要。
+ */
+export const setTabsForAstro = (): void => {
+  setTabsAll();
+  document.addEventListener('astro:page-load', setTabsAll);
+};
 
 export default setTabs;

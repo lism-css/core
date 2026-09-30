@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import setAccordion, { setEvent } from './setAccordion';
+import setAccordion, { setEvent, setAccordionForAstro } from './setAccordion';
 
 vi.mock('../../helper/animation', () => ({
   waitFrame: vi.fn(() => Promise.resolve(0)),
@@ -9,19 +9,21 @@ vi.mock('../../helper/animation', () => ({
 
 import { waitAnimation } from '../../helper/animation';
 
-beforeEach(() => {
-  document.body.innerHTML = `
-    <div>
-      <div class="b--accordion_item">
-        <div class="b--accordion_heading">
-          <button class="b--accordion_button" aria-expanded="false"></button>
-        </div>
-        <div class="b--accordion_panel" hidden="until-found">
-          <div class="b--accordion_content"></div>
-        </div>
+const FIXTURE = `
+  <div>
+    <div class="b--accordion_item">
+      <div class="b--accordion_heading">
+        <button class="b--accordion_button" aria-expanded="false"></button>
+      </div>
+      <div class="b--accordion_panel" hidden="until-found">
+        <div class="b--accordion_content"></div>
       </div>
     </div>
-  `;
+  </div>
+`;
+
+beforeEach(() => {
+  document.body.innerHTML = FIXTURE;
   vi.mocked(waitAnimation).mockResolvedValue('finished');
 });
 
@@ -294,5 +296,77 @@ describe('setAccordion (default export)', () => {
     await vi.waitFor(() => {
       expect(item2).toHaveAttribute('data-opened');
     });
+  });
+});
+
+// 1回の click でハンドラが動いた回数を、preventDefault の呼び出し回数で数える
+const countClickHandlerCalls = (button: HTMLElement): number => {
+  const event = new MouseEvent('click', { bubbles: true, cancelable: true });
+  const preventDefault = vi.spyOn(event, 'preventDefault');
+  button.dispatchEvent(event);
+  return preventDefault.mock.calls.length;
+};
+
+describe('二重登録の防止', () => {
+  it('同じ item を2回初期化しても、1回の click でハンドラは1回だけ動く', () => {
+    const item = document.querySelector<HTMLElement>('.b--accordion_item')!;
+    const button = item.querySelector<HTMLElement>('.b--accordion_button')!;
+    setEvent(item);
+    setEvent(item);
+
+    expect(countClickHandlerCalls(button)).toBe(1);
+  });
+
+  it('クリーンアップ後の再登録は弾かれない（StrictMode の「登録→解除→登録」）', () => {
+    const item = document.querySelector<HTMLElement>('.b--accordion_item')!;
+    const button = item.querySelector<HTMLElement>('.b--accordion_button')!;
+
+    setEvent(item)();
+    const cleanup = setEvent(item);
+
+    expect(countClickHandlerCalls(button)).toBe(1);
+
+    cleanup();
+    expect(countClickHandlerCalls(button)).toBe(0);
+  });
+
+  it('弾かれた2回目の戻り値を呼んでも、1回目の登録は解除されない', () => {
+    const item = document.querySelector<HTMLElement>('.b--accordion_item')!;
+    const button = item.querySelector<HTMLElement>('.b--accordion_button')!;
+    setEvent(item);
+
+    setEvent(item)();
+
+    expect(countClickHandlerCalls(button)).toBe(1);
+  });
+});
+
+describe('setAccordionForAstro', () => {
+  const getButton = () => document.querySelector<HTMLElement>('.b--accordion_button')!;
+
+  it('読み込み時点の要素をすぐ初期化する', () => {
+    setAccordionForAstro();
+
+    expect(countClickHandlerCalls(getButton())).toBe(1);
+  });
+
+  it('body を差し替えて astro:page-load を発火させると、新しい要素が動く', async () => {
+    setAccordionForAstro();
+
+    document.body.innerHTML = FIXTURE;
+    document.dispatchEvent(new Event('astro:page-load'));
+
+    const item = document.querySelector<HTMLElement>('.b--accordion_item')!;
+    getButton().click();
+    await vi.waitFor(() => {
+      expect(item).toHaveAttribute('data-opened');
+    });
+  });
+
+  it('astro:page-load で再初期化しても、1回の click でハンドラは1回だけ動く', () => {
+    setAccordionForAstro();
+    document.dispatchEvent(new Event('astro:page-load'));
+
+    expect(countClickHandlerCalls(getButton())).toBe(1);
   });
 });

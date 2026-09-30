@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import setModal, { setEvent } from './setModal';
+import setModal, { setEvent, setModalForAstro } from './setModal';
 
 vi.mock('../../helper/animation', () => ({
   waitAnimation: vi.fn(() => Promise.resolve('finished' as const)),
@@ -7,13 +7,15 @@ vi.mock('../../helper/animation', () => ({
 
 import { waitAnimation } from '../../helper/animation';
 
+const FIXTURE = `
+  <dialog id="m1" class="b--modal">
+    <button data-modal-close="m1"></button>
+  </dialog>
+  <button data-modal-open="m1"></button>
+`;
+
 beforeEach(() => {
-  document.body.innerHTML = `
-    <dialog id="m1" class="b--modal">
-      <button data-modal-close="m1"></button>
-    </dialog>
-    <button data-modal-open="m1"></button>
-  `;
+  document.body.innerHTML = FIXTURE;
   vi.mocked(waitAnimation).mockResolvedValue('finished');
 });
 
@@ -340,5 +342,99 @@ describe('setModal (default export)', () => {
     await vi.waitFor(() => {
       expect(document.querySelector('#m2')).toHaveAttribute('open');
     });
+  });
+});
+
+describe('二重登録の防止', () => {
+  it('同じ modal を2回初期化しても、イベントを重ねて登録しない', () => {
+    const modal = document.querySelector<HTMLDialogElement>('#m1')!;
+    const trigger = document.querySelector<HTMLElement>('[data-modal-open="m1"]')!;
+    const closeTrigger = document.querySelector<HTMLElement>('[data-modal-close="m1"]')!;
+    const spies = [modal, trigger, closeTrigger].map((el) => vi.spyOn(el, 'addEventListener'));
+
+    setEvent(modal);
+    const counts = spies.map((spy) => spy.mock.calls.length);
+    setEvent(modal);
+
+    expect(counts.every((count) => count > 0)).toBe(true);
+    expect(spies.map((spy) => spy.mock.calls.length)).toEqual(counts);
+  });
+
+  it('modal だけが残った場合（transition:persist）、新しいトリガーを登録する', async () => {
+    const modal = document.querySelector<HTMLDialogElement>('#m1')!;
+    setEvent(modal);
+
+    document.querySelector('[data-modal-open="m1"]')!.remove();
+    document.body.insertAdjacentHTML('beforeend', '<button data-modal-open="m1"></button>');
+    const newTrigger = document.querySelector<HTMLElement>('[data-modal-open="m1"]')!;
+    setEvent(modal);
+
+    newTrigger.click();
+    await vi.waitFor(() => {
+      expect(modal.dataset.isOpen).toBe('1');
+      expect(newTrigger.dataset.targetOpened).toBe('1');
+    });
+
+    modal.close();
+    expect(newTrigger.dataset.targetOpened).toBeUndefined();
+  });
+
+  it('トリガーだけが残った場合（transition:persist）、新しい modal を開く', async () => {
+    const oldModal = document.querySelector<HTMLDialogElement>('#m1')!;
+    const trigger = document.querySelector<HTMLElement>('[data-modal-open="m1"]')!;
+    const oldShowModalSpy = vi.spyOn(oldModal, 'showModal');
+    setEvent(oldModal);
+
+    oldModal.remove();
+    document.body.insertAdjacentHTML('beforeend', '<dialog id="m1" class="b--modal"></dialog>');
+    const newModal = document.querySelector<HTMLDialogElement>('#m1')!;
+    setEvent(newModal);
+
+    trigger.click();
+    await vi.waitFor(() => {
+      expect(newModal.dataset.isOpen).toBe('1');
+    });
+    expect(oldShowModalSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('setModalForAstro', () => {
+  it('読み込み時点の要素をすぐ初期化する', async () => {
+    setModalForAstro();
+
+    document.querySelector<HTMLElement>('[data-modal-open="m1"]')!.click();
+    await vi.waitFor(() => {
+      expect(document.querySelector('#m1')).toHaveAttribute('open');
+    });
+  });
+
+  it('body を差し替えて astro:page-load を発火させると、新しい要素が動く', async () => {
+    setModalForAstro();
+
+    document.body.innerHTML = FIXTURE;
+    document.dispatchEvent(new Event('astro:page-load'));
+
+    document.querySelector<HTMLElement>('[data-modal-open="m1"]')!.click();
+    await vi.waitFor(() => {
+      expect(document.querySelector('#m1')).toHaveAttribute('open');
+    });
+  });
+
+  it('modal を開いたまま遷移しても、遷移先で scrollbar-gutter を予約できる', () => {
+    const root = document.documentElement;
+    // jsdom は clientWidth が 0 のため、スクロールバーが実幅を持つ環境として扱われる
+    setModalForAstro();
+    document.querySelector<HTMLElement>('[data-modal-open="m1"]')!.click();
+    expect(root.style.scrollbarGutter).toBe('stable');
+
+    // ClientRouter の遷移を模す: close イベントを経ずに body が入れ替わり、html の属性も遷移先のものになる
+    document.body.innerHTML = FIXTURE;
+    root.setAttribute('style', 'scrollbar-gutter: stable both-edges');
+    document.dispatchEvent(new Event('astro:page-load'));
+    // 遷移元の値で上書きしない
+    expect(root.style.scrollbarGutter).toBe('stable both-edges');
+
+    document.querySelector<HTMLElement>('[data-modal-open="m1"]')!.click();
+    expect(root.style.scrollbarGutter).toBe('stable');
   });
 });

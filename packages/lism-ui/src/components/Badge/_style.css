@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 @layer lism-block {
   .b--badge {
     --c: var(--base);

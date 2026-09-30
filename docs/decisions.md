@@ -1,6 +1,33 @@
-基準日: 2026-09-19・コミット9feef9fa0
+基準日: 2026-09-30・コミット2d51bd4ef
 
 # 意思決定の記録
+
+## 2026-09-30: v1ではlism-css・ui・mcpだけを1.0.0にし、以降のバージョンは揃えない
+
+v1リリースに向けて、各パッケージのバージョンの付け方を決めた。現在はlism-css・`@lism-css/ui`・`@lism-css/mcp`が0.30.0で揃い、lism-cli（create-lism）・`@lism-css/plugin`・`@lism-css/mockup`はそれぞれ別のバージョンで上げている。`/release`もパッケージごとにリリースする作り。
+
+- 決定: v1ではlism-css・`@lism-css/ui`・`@lism-css/mcp`の3つを1.0.0にする。利用者が直接使うパッケージで、v1の安定宣言の対象にする。
+- 却下: lism-cli・create-lism・`@lism-css/plugin`・`@lism-css/mockup`も1.0.0に揃える案。これらはcoreのリリースに合わせず、自身の変更があるときだけリリースする運用のため（`/release`のpluginの特別ルール）、v1の時点で揃える理由がない。各自のバージョンを続ける。
+- 決定: 1.0.0以降、3つのバージョンは揃えない。変更のあったパッケージだけを上げる（例: uiだけ直して1.0.1）。
+- 却下: v1以降も3つを常に同じバージョンにする案。変更の無いパッケージまで再リリースすることになる。
+
+## 2026-09-29: `@lism-css/ui`のコンポーネントCSSは先頭で`lism-base, lism-block`の順序だけを宣言する
+
+各コンポーネントは自分の`_style.css`をimportしており、そのCSSの出力位置は利用側のバンドラが決める。`lism-css/main.css`より前に出力されると`lism-block`が最初のレイヤーとして登録され、`lism-base`より弱くなる（#644）。`a`要素の`Button`に下線とリンク色が残った。
+
+- 決定: `packages/lism-ui/src/components/*/_style.css`の各先頭に`@layer lism-base, lism-block;`を置き、全ファイルにあることをテストで検査する。`@layer`文は登録済みのレイヤーの位置を変えず、未登録のレイヤーを宣言順に後ろへ足す。先頭の2層を固定すれば、後から読まれる`main.css`の宣言で残りの層が正しい順に並ぶ。ui側のCSSが使うレイヤーは`lism-block`だけ。
+- 却下: 6層すべてを宣言する案。レイヤーを増減するたびにui側も直すことになる（`lism-component`の削除がその例）。
+- 却下: コンポーネント側のCSSの自動読み込みをやめ、`style.css`に一本化する案。利用者に`style.css`の読み込みを求める破壊的変更になり、使うコンポーネントのCSSだけを読み込む利点も失う。
+- 却下: ビルド時に`dist`のCSSへ宣言を付与する案。Astro版は`src`の`_style.css`を読むため効かない。
+- 決定: `dist/style.css`は全コンポーネントの`_style.css`を結合するため、同じ宣言がコンポーネントの数だけ入る。`packages/lism-ui/build-css.js`がコンパイル後に先頭の1つだけ残し、1つも無ければビルドを失敗させる。共有の`compileCssTree`と`dist/components/*/_style.css`は変えない。
+
+## 2026-09-28: 後方互換用の`lism-component`レイヤーを削除する
+
+v0.26.0で`c--`を`b--`へ移行したとき（#546, #559）、旧`c--`の配置先だった`lism-component`は宣言だけ残した。宣言から消すと、利用者CSSの`@layer lism-component`が初出の位置で登録され、優先度が変わるため。空のレイヤーが公開文書の6層の表記と食い違うという報告があり、v1へ持ち越さずに互換を切る。
+
+- 決定: `@layer`宣言から`lism-component`を外し、`lism-base → lism-block → lism-trait → lism-primitive → lism-custom → lism-utility`の6層にする。2026-08-15のレイヤー順の決定のうち`lism-component`の部分を覆す。
+- 却下: 宣言を残し、公開文書へ後方互換レイヤーの注記を足す案。v1へ持ち越したくない互換のために、利用者向けの説明を増やすことになる。
+- 受容: `@layer lism-component`を書いた利用者CSSや`@lism-css/ui` v0.26.0未満のCSSは、エラーにならず優先度だけが変わる（lism-cssより後に読み込むと`lism-utility`より強く、前に読み込むと最弱）。移行先はv0.26.0で案内済みの`lism-block` / `lism-custom`で、リリースノートに破壊的変更として書く。
 
 ## 2026-09-19: React版Tabsの手動構成はContextで状態を配り、`setTabs`は使わない
 

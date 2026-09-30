@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 @layer lism-block {
   /* src ありの通常時: l--frame との併用が前提 */
   .b--avatar {

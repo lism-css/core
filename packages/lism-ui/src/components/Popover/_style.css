@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 /*
  * ネイティブ Popover API（popover 属性）で開閉し、CSS Anchor Positioning で配置する。
  * anchor 配置は @supports で囲い、非対応ブラウザ（部分対応の Chrome 128〜130 を含む）には

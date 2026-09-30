@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 /*
  * dialog で実装.
  *   Memo: ::backdrop のアニメーションはFirefoxで動かない

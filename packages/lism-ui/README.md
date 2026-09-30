@@ -47,7 +47,15 @@ pnpm add @lism-css/ui
 
 ## Setup
 
-Import the CSS as a global style:
+Import the `lism-css` stylesheet as a global style:
+
+```js
+import 'lism-css/main.css';
+```
+
+Each component loads its own CSS automatically when you import it, so you don't need to import `@lism-css/ui/style.css` separately.
+
+If you use classes such as `b--button` directly in HTML without the components, import `@lism-css/ui/style.css`, which bundles the CSS for all components:
 
 ```js
 import 'lism-css/main.css';

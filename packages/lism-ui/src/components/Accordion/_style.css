@@ -1,3 +1,4 @@
+@layer lism-base, lism-block;
 @layer lism-block {
   .b--accordion {
     --duration: var(--acc-duration, 0.25s);
