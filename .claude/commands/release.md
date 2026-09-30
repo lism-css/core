@@ -25,7 +25,13 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 | `lism-cli` | `lism-cli` + `create-lism` | `packages/lism-cli/` + `packages/create-lism/` | `lism-cli@v` | `nr publish:cli` |
 | `plugin` | `@lism-css/plugin` | `packages/plugin/` | `lism-plugin@v` | `nr publish:plugin` |
 
-`@lism-css/mcp` と `@lism-css/mockup` は対象外。タグ・GitHub リリースを運用していないため、バージョンを上げて `nr publish:mcp` / `nr publish:mockup` を実行するだけでよい。
+`@lism-css/mcp` と `@lism-css/mockup` はタグ・GitHub リリース・changelog を運用していない。mcp は「mcp の特別ルール」に従い、mockup はバージョンを上げて `nr publish:mockup` を実行するだけでよい。
+
+### mcp の特別ルール
+
+- `lism-css` をリリースするときは、`@lism-css/mcp` も同じバージョンで出す。mcp は docs-index と `skills/lism-css-guide` をビルド時に同梱して配るため、出し忘れると古い情報を返し続ける
+- バージョン更新の前に、docs-index が `apps/site` の日本語 MDX の変更に追従しているか確認し、必要なら `/mcp-update` か `/mcp-update-urls` を実行する
+- 同じく、`skills/lism-css-guide` が core の変更に追従しているか確認し、必要なら `/update-skills` を実行する
 
 ### lism-cli の特別ルール
 
@@ -52,6 +58,7 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 - lism-ui の現在バージョン: !`node -p "require('./packages/lism-ui/package.json').version"`
 - lism-cli の現在バージョン: !`node -p "require('./packages/lism-cli/package.json').version"`
 - plugin の現在バージョン: !`node -p "require('./packages/plugin/package.json').version"`
+- mcp の現在バージョン: !`node -p "require('./packages/mcp/package.json').version"`
 
 
 ## 手順
@@ -65,9 +72,9 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 
 対象の `package.json` の `version` が引数と一致していればスキップする。異なる場合:
 
-1. `version` を更新する（更新前の値はステップ7で使う）
+1. `version` を更新する（更新前の値はステップ7で使う）。`lism-css` のリリースでは `packages/mcp/package.json` も同じバージョンにする
 2. `lism-ui` は `nr build:ui` を実行し、version を埋め込んだ commit 対象の `packages/lism-ui/registry-index.json` を再生成する。怠ると publish 時の build で更新され、git-checks（unclean working tree）で失敗する
-3. `git add` → `git commit -m "chore: {識別子} v{バージョン}"`（`registry-index.json` も同じコミット）
+3. `git add` → `git commit -m "chore: {識別子} v{バージョン}"`（`registry-index.json` と mcp の `package.json` も同じコミット）
 4. push してよいか確認 → `git push origin dev`
 
 ### 3. 前回タグの特定
@@ -192,7 +199,7 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 
 ### 9. npm publish（ユーザー手動）
 
-`lism-cli` は案内前に「lism-cli の特別ルール」の `constants.ts` 確認を行う。mockup がステップ4でリリース対象になった場合は、依存パッケージの publish 後に `nr publish:mockup` も続けて案内する。案内して完了を待つ。
+`lism-cli` は案内前に「lism-cli の特別ルール」の `constants.ts` 確認を行う。`lism-css` のリリースでは `nr publish:mcp` も続けて案内する。`lism-ui` は `lism-css` を固定バージョンで依存するため、同時リリースでは `nr publish:core` を先にする。mockup がステップ4でリリース対象になった場合は、依存パッケージの publish 後に `nr publish:mockup` も続けて案内する。案内して完了を待つ。
 
 ```
 pnpm publish を実行してください:
