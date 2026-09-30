@@ -5,6 +5,8 @@ import { Stack, Lism, Flex, Heading, Text, Link, Columns, Grid, Box, Icon, Cente
 import { Button } from '@lism-css/ui/astro/Button';
 import KvEditor from '@/components/KvEditor/KvEditor.astro';
 import { siteConfig } from '@/config/site';
+import { getRootLang } from '@/lib/i18n';
+import { getTopShowcaseColumns } from '@/lib/topShowcase';
 const features = [
   {
     title: 'レイアウトプリミティブ',
@@ -89,53 +91,7 @@ const tools = [
   },
 ];
 
-const presets = [
-  {
-    src: '/img/preset-img-01.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-02.png',
-    width: 408,
-    height: 168,
-  },
-  {
-    src: '/img/preset-img-03.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-04.png',
-    width: 408,
-    height: 194,
-  },
-  {
-    src: '/img/preset-img-05.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-06.png',
-    width: 408,
-    height: 228,
-  },
-  {
-    src: '/img/preset-img-07.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-08.png',
-    width: 408,
-    height: 168,
-  },
-  {
-    src: '/img/preset-img-09.png',
-    width: 408,
-    height: 231,
-  },
-];
+const showcaseColumns = await getTopShowcaseColumns(getRootLang());
 ---
 
 <SimpleLayout title={siteConfig.name} description={siteConfig.description} schemaType="HomePage" excludeFromSearch>
@@ -266,27 +222,30 @@ const presets = [
     </Stack>
   </Lism>
 
-  {/* テンプレート */}
+  {/* パターン */}
   <Lism as="section" isWrapper="l" hasGutter>
     <Stack as="div" ai="center" py={{ base: '60', md: '70' }}>
       <Stack ai="center" g={['25', '30', '35']}>
-        <Text class="c--headingEyebrow" fz={['xs', 's', 'm']}>Templates</Text>
-        <Heading level="2" class="c--topHeading u--trim" ta="center" fz={['2xl', '3xl', '4xl']}>Lism CSS テンプレート</Heading>
+        <Text class="c--headingEyebrow" fz={['xs', 's', 'm']}>Lism Patterns</Text>
+        <Heading level="2" class="c--topHeading u--trim" ta="center" fz={['2xl', '3xl', '4xl']}>デザインパターン集</Heading>
       </Stack>
       <Text class="u--trim" ta="center" mbs={['30', '35', '40']} fz={['s', 'm', 'l']} max-w="35em">
-        Lism CSS
-        を使ったテンプレートやデザインパターンを配布しています。コピー&ペーストで簡単に試せるので、ぜひサイト制作の土台として活用してください。
+        Lism CSS を使ったWebサイトのデザインパターンを配布しています。コピー&ペーストで簡単に試せるので、ぜひサイト制作の土台として活用してください。
       </Text>
-      <Box mbs={{ base: '50', md: '60' }} mx="clamp(-6.375rem, calc(22.921vw - 12.106rem), 0rem)" cg="10" style={{ columnCount: 3 }}>
+      <Columns cols={3} g="10" ai="start" mbs={{ base: '50', md: '60' }} mx="clamp(-6.375rem, calc(22.921vw - 12.106rem), 0rem)">
         {
-          presets.map((item) => (
-            <Frame class="b--shadowBox" mbe={{ base: '5', md: '10' }}>
-              <Media src={item.src} alt="" width={item.width} height={item.height} />
-            </Frame>
+          showcaseColumns.map((column) => (
+            <Stack g={{ base: '5', md: '10' }}>
+              {column.map((item) => (
+                <Frame class="b--shadowBox">
+                  <Media src={item.src} alt="" width={item.width} height={item.height} />
+                </Frame>
+              ))}
+            </Stack>
           ))
         }
-      </Box>
-      <Button class="c--lpButton" href="/templates/" fz={['s', 'm']} hov={{ bgc: 'var(--link)' }} mt="40">
+      </Columns>
+      <Button class="c--lpButton" href="/patterns/" fz={['s', 'm']} hov={{ bgc: 'var(--link)' }} mt="40">
         <span>View More</span>
         <Icon icon={CaretRightIcon} />
       </Button>
