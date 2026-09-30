@@ -6,6 +6,7 @@ import { Stack, Lism, Flex, Heading, Text, Link, Columns, Grid, Box, Icon, Cente
 import { Button } from '@lism-css/ui/astro/Button';
 import { siteConfig } from '@/config/site';
 import { getLocalizedUrl, isRootLang, isValidLang, type LangCode } from '@/lib/i18n';
+import { getTopShowcaseColumns } from '@/lib/topShowcase';
 
 export async function getStaticPaths() {
   const langCodes = Object.keys(siteConfig.langs) as LangCode[];
@@ -111,53 +112,7 @@ const tools = [
   },
 ];
 
-const presets = [
-  {
-    src: '/img/preset-img-01.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-02.png',
-    width: 408,
-    height: 168,
-  },
-  {
-    src: '/img/preset-img-03.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-04.png',
-    width: 408,
-    height: 194,
-  },
-  {
-    src: '/img/preset-img-05.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-06.png',
-    width: 408,
-    height: 228,
-  },
-  {
-    src: '/img/preset-img-07.png',
-    width: 408,
-    height: 231,
-  },
-  {
-    src: '/img/preset-img-08.png',
-    width: 408,
-    height: 168,
-  },
-  {
-    src: '/img/preset-img-09.png',
-    width: 408,
-    height: 231,
-  },
-];
+const showcaseColumns = await getTopShowcaseColumns(lang);
 ---
 
 <SimpleLayout
@@ -175,7 +130,7 @@ const presets = [
       </video>
     </Frame>
     <Box class="c--kvVideoBlur" pos="absolute" i="0" />
-    <Box class="c--kvStripes" pos="absolute" i="0" />
+    <Box class="c--kvVideoBlur" pos="absolute" i="0" />
     <Box class="c--kvStripes" pos="absolute" i="0" />
   </Box>
   <Lism as="section" isWrapper="l" px="20">
@@ -294,27 +249,30 @@ const presets = [
     </Stack>
   </Lism>
 
-  {/* テンプレート */}
+  {/* パターン */}
   <Lism as="section" isWrapper="l" hasGutter>
     <Stack as="div" ai="center" py={{ base: '60', md: '70' }}>
       <Stack ai="center" g={['25', '30', '35']}>
-        <Text class="c--headingEyebrow" fz={['xs', 's', 'm']}>Templates</Text>
-        <Heading level="2" class="c--topHeading u--trim" ta="center" fz={['2xl', '3xl', '4xl']}>Lism CSS Templates</Heading>
+        <Text class="c--headingEyebrow" fz={['xs', 's', 'm']}>Lism Patterns</Text>
+        <Heading level="2" class="c--topHeading u--trim" ta="center" fz={['2xl', '3xl', '4xl']}>Design Patterns</Heading>
       </Stack>
       <Text class="u--trim" ta="center" mbs={['30', '35', '40']} fz={['s', 'm', 'l']} max-w="35em">
-        We offer templates and design patterns built with Lism CSS. Simply copy and paste to try them out, and use them as a starting point for your
-        site.
+        We offer website design patterns built with Lism CSS. Simply copy and paste to try them out, and use them as a starting point for your site.
       </Text>
-      <Box mbs={{ base: '50', md: '60' }} mx="clamp(-6.375rem, calc(22.921vw - 12.106rem), 0rem)" cg="10" style={{ columnCount: 3 }}>
+      <Columns cols={3} g="10" ai="start" mbs={{ base: '50', md: '60' }} mx="clamp(-6.375rem, calc(22.921vw - 12.106rem), 0rem)">
         {
-          presets.map((item) => (
-            <Frame class="b--shadowBox" mbe={{ base: '5', md: '10' }}>
-              <Media src={item.src} alt="" width={item.width} height={item.height} />
-            </Frame>
+          showcaseColumns.map((column) => (
+            <Stack g={{ base: '5', md: '10' }}>
+              {column.map((item) => (
+                <Frame class="b--shadowBox">
+                  <Media src={item.src} alt="" width={item.width} height={item.height} />
+                </Frame>
+              ))}
+            </Stack>
           ))
         }
-      </Box>
-      <Button class="c--lpButton" href={getLocalizedUrl('/templates/', lang)} fz={['s', 'm']} hov={{ bgc: 'var(--link)' }} mt="40">
+      </Columns>
+      <Button class="c--lpButton" href={getLocalizedUrl('/patterns/', lang)} fz={['s', 'm']} hov={{ bgc: 'var(--link)' }} mt="40">
         <span>View More</span>
         <Icon icon={CaretRightIcon} />
       </Button>
