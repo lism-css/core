@@ -453,15 +453,6 @@ const patterns = {
         },
         titleEn: '04 - Newsletter sign-up',
       },
-      {
-        id: 'cta05',
-        draft: true,
-        title: 'CTA05',
-        description: {
-          ja: '1枚の背景写真の中央に見出し・説明・ボタンを置き、旅の相談へ案内するCTAです。',
-          en: 'A CTA inviting visitors to discuss their travel plans, with a heading, description and button centered over a single background photo.',
-        },
-      },
     ],
   },
   'page-links': {
