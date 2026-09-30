@@ -1,0 +1,89 @@
+---
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Container, Frame, AutoColumns, Grid, Flex, Media, Text, Heading } from 'lism-css/astro';
+---
+
+<DemoLayout title="03 - Testimonials without cards">
+  <Container isWrapper="l" py="50" hasGutter>
+    <Heading level="2" fz="2xl" fw="bold" ta="center">Testimonials</Heading>
+    {/* Each item spans 3 subgrid rows so the headlines, comments and customer details line up across columns */}
+    <AutoColumns cols="20rem" g="40" mbs="40">
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=1" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">More free time than ever</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          I love coming home to a clean house after work. With less cleaning to do, I have more time to relax on weekday evenings.
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">30s / Office Worker</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=2" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">Like having a second me</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          Just add the ingredients and press a button for a delicious stew. With no open flame, I can cook while keeping an eye on the kids.
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">40s / Homemaker</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=3" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">Quick clean anytime!</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          I love being able to clean up as soon as I spot a mess. It's cordless, so I can even use it to clean inside the car.
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">20s / College Student</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=4" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">More time after dinner</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          Without the daily chore of washing dishes, I have more time to relax with my family after meals. The dishes even seem cleaner than when I
+          wash them by hand.
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">30s / Part-time Worker</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=5" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">Healthy food, great flavor</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          Cooking without oil makes fried favorites healthier and cleanup easier. Everything comes out crispy on the outside, juicy on the inside, and
+          full of flavor.
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">40s / Office Worker</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=6" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">A great everyday companion</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          Playing music or checking the weather with just my voice feels like the future. I especially love listening to the news while getting ready
+          on busy mornings.
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">20s / IT Engineer</Text>
+      </Grid>
+    </AutoColumns>
+  </Container>
+</DemoLayout>

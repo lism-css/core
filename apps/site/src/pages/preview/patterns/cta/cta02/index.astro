@@ -1,20 +1,48 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Container, Heading, Inline, Stack, Text, WithSide } from 'lism-css/astro';
+import { ChatIcon, UserIcon } from '@lism-css/icons/astro';
+import { Box, Columns, Container, Frame, Heading, Icon, Inline, Layer, Media, Stack, Text } from 'lism-css/astro';
 import { Button } from '@lism-css/ui/astro/Button';
 ---
 
-<DemoLayout title="02 - 横長の申し込みCTA">
-  <Container as="section" isWrapper="l" p="30">
-    <WithSide g="40" ai="center" sideW="auto" mainW="xs" bgc="base-2" px="35" py="45" bd bdc="var(--shadow)" bxsh="10" bdrs="20">
-      <Stack g="30">
-        <Text class="u--trim" fz="2xl">
-          <span class="-d:inline-block">思いついた今日が、</span><span class="-d:inline-block">始めどき。</span>
-        </Text>
-        <Text>14日間、すべての機能を無料でお試しいただけます。クレジットカード不要・いつでも解約可能。</Text>
+<DemoLayout title="02 - 背景写真に重ねたお問い合わせ">
+  <Box pos="relative">
+    <Frame isLayer>
+      <Media src="https://images.unsplash.com/photo-1621831337128-35676ca30868?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+    </Frame>
+    <Layer bgc="black:75%" />
+    <Container isWrapper="s" layout="center" g="40" pos="relative" c="white" py="60" min-h="65vh" hasGutter>
+      {/* セクション見出し */}
+      <Stack g="20" ai="center">
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold" ta="center">お問い合わせ</Heading>
+        <Inline class="u--trim" fz="s" o="pp" ta="center">— Contact —</Inline>
       </Stack>
-      <Button isSide href="#" fw="bold" lts="l" bgc="text" c="base" px="40" py="20" bdrs="99">無料で試してみる</Button>
-    </WithSide>
-  </Container>
+      <Text>
+        サービスに関するご質問やお見積もりのご依頼は、こちらからお気軽にお問い合わせください。内容を確認のうえ、担当者よりご連絡いたします。
+      </Text>
+      <Columns cols={[1, null, 2]} g="25">
+        <Button href="#" g="15" variant="outline" c="white" jc="center" bdrs="10" py="15" fw="500" hasTransition hov={{ bgc: 'black', bdc: 'black' }}>
+          <Icon icon={ChatIcon} fz="1.4em" />
+          <span>チャットで相談</span>
+        </Button>
+        <Button
+          href="#"
+          g="15"
+          jc="center"
+          bgc="base"
+          c="text"
+          bdc="transparent"
+          bdrs="10"
+          py="15"
+          fw="500"
+          hasTransition
+          hov={{ bgc: 'text', c: 'base' }}
+        >
+          <Icon icon={UserIcon} fz="1.4em" />
+          <span>お問い合わせ</span>
+        </Button>
+      </Columns>
+    </Container>
+  </Box>
 </DemoLayout>

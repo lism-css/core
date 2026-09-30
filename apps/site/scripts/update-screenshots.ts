@@ -34,7 +34,7 @@ const CONFIG = {
   // 公開用スクリーンショット（本番画像）
   publicDir: join(ROOT_DIR, 'public', 'screenshots', 'patterns'),
   viewport: { width: 1440, height: 810 },
-  port: 4000,
+  port: 4002,
   waitAfterLoad: 500,
 };
 

@@ -295,54 +295,6 @@ describe('runCreate', () => {
     });
   });
 
-  it('base-overlay型はbase取得後にoverlayをmergeし、package.json.nameをslugにする', async () => {
-    const templates: Parameters<typeof runCreateWithTemplates>[1] = [
-      {
-        slug: 'lp-astro-saas',
-        kind: 'base-overlay',
-        category: 'lp',
-        stack: 'astro',
-        variant: 'saas',
-        variantLabel: { ja: 'SaaS', en: 'SaaS' },
-        basePath: 'lp/astro/_base',
-        overlayPath: 'lp/astro/_variants/saas',
-        title: { ja: 'LP SaaS', en: 'LP SaaS' },
-        description: { ja: 'SaaS LP', en: 'SaaS landing page' },
-      },
-    ];
-    vi.mocked(downloadTemplate).mockImplementation((source, options) => {
-      const dir = (options as { dir: string }).dir;
-      fs.mkdirSync(dir, { recursive: true });
-      if (String(source).includes('/_base#')) {
-        writePackageJson(dir, { name: 'lp-astro-base', dependencies: { 'lism-css': 'workspace:*' } });
-        writeFile(path.join(dir, 'src/pages/index.astro'), 'base');
-      } else {
-        writeFile(path.join(dir, 'src/pages/index.astro'), 'overlay');
-        writeFile(path.join(dir, 'src/styles/variant.css'), '.hero{}');
-      }
-      return Promise.resolve({} as Awaited<ReturnType<typeof downloadTemplate>>);
-    });
-
-    await runCreateWithTemplates({ template: 'lp-astro-saas', targetDir: 'lp-app', force: true }, templates);
-
-    const outDir = path.join(tmpDir, 'lp-app');
-    expect(downloadTemplate).toHaveBeenCalledTimes(2);
-    expect(downloadTemplate).toHaveBeenNthCalledWith(1, 'github:lism-css/core/templates/lp/astro/_base#main', {
-      dir: outDir,
-      force: true,
-      forceClean: true,
-    });
-    expect(downloadTemplate).toHaveBeenNthCalledWith(2, 'github:lism-css/core/templates/lp/astro/_variants/saas#main', {
-      dir: expect.any(String),
-      force: true,
-      forceClean: true,
-    });
-    expect(fs.readFileSync(path.join(outDir, 'src/pages/index.astro'), 'utf-8')).toBe('overlay');
-    expect(fs.existsSync(path.join(outDir, 'src/styles/variant.css'))).toBe(true);
-    const pkg = JSON.parse(fs.readFileSync(path.join(outDir, 'package.json'), 'utf-8')) as { name: string };
-    expect(pkg.name).toBe('lp-astro-saas');
-  });
-
   it('project型はlangOverlaysに要求言語があればbase取得後にoverlayをmergeし、.langを除去する', async () => {
     const templates: Parameters<typeof runCreateWithTemplates>[1] = [
       {
@@ -841,34 +793,6 @@ describe('runCreate', () => {
     expect(fs.existsSync(path.join(outDir, 'src/pages/en'))).toBe(false);
   });
 
-  it('static-html型はpackage.jsonなしでもindex.htmlがあれば完了し、HTML向けNext stepsを出す', async () => {
-    const templates: Parameters<typeof runCreateWithTemplates>[1] = [
-      {
-        slug: 'lp-html-saas',
-        kind: 'static-html',
-        category: 'lp',
-        stack: 'html',
-        variant: 'saas',
-        variantLabel: { ja: 'SaaS', en: 'SaaS' },
-        sourcePath: 'lp/html/_generated/saas',
-        title: { ja: 'LP SaaS HTML', en: 'LP SaaS HTML' },
-        description: { ja: 'SaaS LP HTML', en: 'SaaS landing page HTML' },
-      },
-    ];
-    vi.mocked(downloadTemplate).mockImplementation((_source, options) => {
-      const dir = (options as { dir: string }).dir;
-      fs.mkdirSync(dir, { recursive: true });
-      writeFile(path.join(dir, 'index.html'), '<!doctype html>');
-      return Promise.resolve({} as Awaited<ReturnType<typeof downloadTemplate>>);
-    });
-
-    await runCreateWithTemplates({ template: 'lp-html-saas', targetDir: 'html-app', force: true }, templates);
-
-    const outDir = path.join(tmpDir, 'html-app');
-    expect(fs.existsSync(path.join(outDir, 'package.json'))).toBe(false);
-    expect(console.log).toHaveBeenCalledWith('  Open index.html in your browser');
-  });
-
   it('--templateにカテゴリslugを指定するとstack選択へ降りる', async () => {
     const templates: Parameters<typeof runCreateWithTemplates>[1] = [
       {
@@ -930,28 +854,6 @@ describe('runCreate', () => {
     });
 
     await expect(runCreate({ template: 'minimal-astro', targetDir: 'broken', force: true })).rejects.toThrow('package.json');
-  });
-
-  it('static-html型でindex.htmlがない場合はtemplateIndexMissingを返す', async () => {
-    const templates: Parameters<typeof runCreateWithTemplates>[1] = [
-      {
-        slug: 'lp-html-empty',
-        kind: 'static-html',
-        category: 'lp',
-        stack: 'html',
-        sourcePath: 'lp/html/_generated/empty',
-        title: { ja: 'LP Empty', en: 'LP Empty' },
-        description: { ja: 'empty', en: 'empty' },
-      },
-    ];
-    vi.mocked(downloadTemplate).mockImplementation((_source, options) => {
-      fs.mkdirSync((options as { dir: string }).dir, { recursive: true });
-      return Promise.resolve({} as Awaited<ReturnType<typeof downloadTemplate>>);
-    });
-
-    await expect(runCreateWithTemplates({ template: 'lp-html-empty', targetDir: 'empty-html', force: true }, templates)).rejects.toThrow(
-      'index.html'
-    );
   });
 
   it('上書き確認でnoなら中断してdownloadしない', async () => {

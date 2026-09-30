@@ -1,107 +1,106 @@
 ---
+import { CaretRightIcon } from '@lism-css/icons/astro';
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Box, Stack, Container, Frame, Grid, Media, Flex, Layer, Center, Columns, Text, Inline, Heading } from 'lism-css/astro';
+import { Container, Grid, AutoColumns, Flex, Icon, Stack, Text, Heading } from 'lism-css/astro';
 import { Button } from '@lism-css/ui/astro/Button';
 ---
 
 <DemoLayout title="Posts03">
-  <Container isWrapper="l" py="50" hasGutter>
-    <Grid gtc={['1fr', 'auto 1fr']} g="40">
-      <Flex gr={['1', '1 / 2']} gc={['1', '1 / 2']} ai="fe" jc="fs">
-        <Heading level="2" fz="2xl" fw="bold">News</Heading>
-      </Flex>
-      <Columns cols={['1', '2', '4']} gr="2" gc={['1', '1 / 3']} g="30">
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=max&w=1920&q=80"
-              alt=""
-              width="960"
-              height="640"
-            />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" p="10 20">NEWS</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+  <Container isWrapper="l" bgc="base-2" py="50" hasGutter>
+    <Grid gtr={['auto', null, 'auto auto 1fr']} gtc={['auto', null, 'auto 1fr']} g="30">
+      <Stack gr="1" gc="1" g="20" min-w={['auto', null, '12rem']}>
+        <Text class="u--trim" fz="2xl" fw="light" lts="l">News</Text>
+        <Heading level="2" class="u--trim" fz="xs" o="pp">Latest Updates</Heading>
+      </Stack>
+      <AutoColumns cols="22rem" gr={['2', null, '1 / -1']} gc={['1', null, '2']} g="30">
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">COLUMN</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">Design column: "The Importance of Accessibility in UI Design"</Text>
+              <Text fz="s" o="pp"
+                >We have updated our design column. Learn about the fundamentals of web accessibility and practical tips you can implement today.</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">Year-end and New Year holiday notice (2025/12/28 - 2026/1/4)</Text>
-          </Stack>
+          </Flex>
         </Grid>
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" p="10 20">AWARDS</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">EVENT</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">Speaking at "LOOS DESIGN CONFERENCE 2025"</Text>
+              <Text fz="s" o="pp"
+                >Our art director will be speaking at one of the largest design conferences in the country on December 5, 2025 (Fri), on the topic
+                "The Value Design Brings to Business."</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">Our project "XX" has won the international "ABC Design Award"</Text>
-          </Stack>
+          </Flex>
         </Grid>
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media
-              src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=max&w=1920&q=80"
-              alt=""
-              width="960"
-              height="640"
-            />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" p="10 20">MEDIA</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">RELEASE</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">Launching "Branding Support Package for Startups"</Text>
+              <Text fz="s" o="pp"
+                >We have started offering a fast and high-quality branding support package for startups. From logo to website and business cards — all
+                provided as a one-stop solution.</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">Our CEO's interview featured in the November issue of "Design Today" magazine</Text>
-          </Stack>
+          </Flex>
         </Grid>
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" p="10 20">COLUMN</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">NEWS</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">Notice of office relocation and phone number change</Text>
+              <Text fz="s" o="pp"
+                >Due to business expansion, we have relocated our office to the address below. We will continue to strive for excellence and
+                appreciate your continued support.</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">Design column updated: "The Role of Logo Design in Branding"</Text>
-          </Stack>
+          </Flex>
         </Grid>
-      </Columns>
-      <Flex gr={['3', '1 / 2']} gc={['1', '2 / 3']} ai="fe" jc="fe">
-        <Button href="#" variant="outline" jc="center" w={['stretch', 'auto']} min-w="8rem" fz="s" p="15" bdrs="10">View All</Button>
+      </AutoColumns>
+      <Flex gr={['3', null, '2']} gc="1">
+        <Button href="#" jc="center" w={['stretch', null, 'auto']} min-w="8rem" fz="s" p="15" bdrs="99">View All</Button>
       </Flex>
     </Grid>
   </Container>
 </DemoLayout>
+
+<style>
+  @media (any-hover: hover) {
+    .-hov\:in\:reverse {
+      background-color: var(--_isHov, var(--black));
+      color: var(--_isHov, var(--white));
+    }
+    .-hov\:in\:cLink {
+      color: var(--_isHov, var(--link));
+    }
+  }
+</style>

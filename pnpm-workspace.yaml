@@ -19,9 +19,9 @@ overrides:
   '@hono/node-server@<1.19.15': '^1.19.15' # GHSA: Middleware bypass via repeated slashes (#82) / Windows の serve-static でのパストラバーサル (#207)
   'postcss@<8.5.23': '^8.5.23' # GHSA: XSS via Unescaped </style> (#91) / sourceMappingURL 経由の任意 .map 読み取り (#186, #193)。next@16 が 8.4.31 を固定ピンしているため override が必要
   'esbuild@>=0.27.3 <0.28.1': '^0.28.1' # GHSA: dev server での arbitrary file read on Windows (#113)。astro/tsup が ^0.27 系要求のため override が必要
-  'undici@>=7 <7.29.0': '^7.29.0' # GHSA: private cache directive 経由の情報漏洩 / CRLF injection 等 (#195-#199)。miniflare 由来
+  'undici@>=7 <7.29.1': '^7.29.1' # GHSA: private cache directive 経由の情報漏洩 / CRLF injection / BalancedPool での TLS 検証バイパス 等 (#195-#199, #261-#268)。miniflare 由来
   'ip-address@<10.5.1': '^10.5.1' # GHSA: 先頭ゼロ8進数の解釈差や NAT64 範囲の判定漏れによる SSRF / trust-boundary バイパス (#187, #188, #200, #259)。express-rate-limit 由来
-  'brace-expansion@<1.1.16': '^1.1.16' # GHSA: 連続する {} の指数時間展開による DoS (#183)。minimatch@3 由来
+  'brace-expansion@<1.1.21': '^1.1.21' # GHSA: 連続する {} の指数時間展開 / `{a},b}` の二乗時間展開による DoS (#183, #274)。minimatch@3 由来
   'svgo@>=4 <4.1.0': '^4.1.0' # GHSA: removeScripts プラグインが一部の実行可能スクリプトやリンクを残す (#171, #218, #219)
   'fflate@>=0.7.0 <0.7.5': '^0.7.5' # GHSA: 不正な ZIP64 で unzipSync が無限ループ (#214)。satori が 0.7.3 を固定ピンしているため override が必要
 

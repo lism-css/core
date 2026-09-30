@@ -1,6 +1,31 @@
-基準日: 2026-09-30・コミット2d51bd4ef
+基準日: 2026-09-30・コミットcd06232fa
 
 # 意思決定の記録
+
+## 2026-09-30: テンプレ種別`base-overlay`を削除し、variant違いは`single-project-variant`で持つ
+
+#366では、`lp`と`web`のAstro版を「共通base ＋ variantごとの差分（overlay）」で配る設計だった。`base-overlay`型はそのための型。しかし#372でLPには採用されず、`single-project-variant`型が作られた。variant間で構造の違い（独自のkeyframesやclass prefix）が大きく、共通baseにする利点が薄いため。以後、この型を使うテンプレは1つも無かった。
+
+- 決定: `base-overlay`型と、CLIの取得・マージ・package名の書き換え処理、テストを削除する。
+- 決定: variant違いのテンプレは`single-project-variant`型で持つ。今後`web`カテゴリを作るときもこれに倣う。プレビューも1サイトにまとめてビルドできる。
+- 却下: 将来の`web`カテゴリ用に残す案。LPで却下した理由は、業種ごとに構造が違う`web`にも当てはまる。
+
+## 2026-09-30: LPテンプレのHTML版はCLIで配らない
+
+#375では、LPテンプレ（`templates/lp/astro/`）のビルド結果をHTML版としてCLIから配る予定だった。`static-html`型とCLIの分岐だけが先に実装されていた。調べると、Astroの出力はminify済みで手編集に向かない。JSは`type="module"`のため、`file://`で開くと動かない。さらにCLIはgigetでGitHubから取得するため、生成物をコミットし、sourceとのずれをCIで検査し続ける必要がある。
+
+- 決定: HTML版は配らない。`static-html`型とstackの`html`、関連するCLIの分岐・文言・テストを削除する。
+- 却下: #375の計画どおり`templates/lp/html/_generated/`を生成してコミットする案。整形・スクリプト変換・ずれ検査を保守し続ける手間に、利用価値が見合わない。
+- 受容: HTMLが欲しい利用者には、Astro版を`npm run build`して`dist/`を使ってもらう。
+
+## 2026-09-30: `@lism-css/mcp`はlism-cssと同じバージョンで出す
+
+同日の決定「1.0.0以降、3つのバージョンは揃えない」のうち、mcpの部分を覆す。mcpはapps/siteから作ったdocs-indexと`skills/lism-css-guide`をビルド時に同梱して配るため、coreのリリースに合わせて出し直さないと古い情報を返し続ける。v0.26.0〜v0.30.0もcoreと同じバージョンで出していたが`/release`に書かれておらず、v0.31.0では出し忘れかけた。
+
+- 決定: lism-cssをリリースするときは、mcpも同じバージョンにして公開する。手順は`/release`に組み込む。
+- 決定: `@lism-css/ui`は同日の決定どおり、変更があったときだけ上げる。
+- 却下: mcpも変更があったときだけ上げる案。docs-indexやガイドに差分があるかを毎回見極めることになり、判断が漏れると古い情報が残る。
+- 対象外: lism-cssを出さずにmcpだけを直して出すときの番号の付け方。
 
 ## 2026-09-30: v1ではlism-css・ui・mcpだけを1.0.0にし、以降のバージョンは揃えない
 

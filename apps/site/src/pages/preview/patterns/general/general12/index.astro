@@ -1,43 +1,41 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
-import { Wrapper, Grid, Frame, Media, Stack, Flow, Layer, Center, Text, Inline, Heading } from 'lism-css/astro';
+import { Container, Grid, Frame, Media, Stack, Flow, Layer, Center, Text, Inline, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General12">
-  <Wrapper isContainer contentSize="full" py="50">
-    <Frame ar={['3/2', '16/9', '21/9']} gc="1 / -1" w="stretch" pos="relative">
-      <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-      <Layer bgc="rgb(0 0 0 / 20%)" style={{ backdropFilter: 'blur(8px)' }}>
-        <Center h="100%" c="white">
-          <Inline class="u--trim" fz="4xl" fw="normal" ff="mono" fs="italic" lts="l" px="20" py="10" mbs={['-20', '-30']}>Story</Inline>
-        </Center>
-      </Layer>
-    </Frame>
-    <Wrapper contentSize="m" hasGutter mbs={['-50', '-60']} pos="relative">
-      <Grid gtc="auto" g="40" bgc="base" p={['40', '50']}>
-        <Stack g="30">
-          <Heading level="2" class="u--trim" fz="3xl" fw="bold" ff="accent">森と暮らす、静かな時間</Heading>
-          <Text class="u--trim" fz="xl" o="pp">季節の移ろいを感じる、木の道具の物語</Text>
-        </Stack>
-        <Flow fz="m">
-          <p>
-            工房は、山あいの小さな村にあります。朝は鳥の声で目を覚まし、窓を開けると森の匂いが流れ込んでくる。
-            そんな場所で、私たちは毎日木と向き合っています。季節ごとに変わる森の表情は、道具の色や形にも静かに影響を与えています。
-          </p>
-          <p>
-            使う木は、近くの山の手入れで切り出された間伐材が中心です。伐ったあとは十分に乾燥させ、木の反りや癖を見きわめてから加工に入ります。
-            急がずに、木の時間に合わせること。それが、狂いの少ない道具をつくるための、いちばんの近道だと考えています。
-          </p>
-          <p>
-            仕上げには、植物由来のオイルを何度も薄く重ねています。使い始めは淡い色をしていますが、手に触れ、光を浴びるうちに、少しずつ深い飴色へと変わっていきます。
-            その変化を楽しんでいただくことも、私たちの道具の大切な一部です。
-          </p>
-          <p>
-            森で育った木が道具になり、誰かの暮らしの中で時を重ねていく。私たちは、その長い物語の途中に立ち会っているにすぎません。
-            これからも森と暮らしの間に立ち、静かな時間を届ける道具をつくり続けていきます。
-          </p>
-        </Flow>
-      </Grid>
-    </Wrapper>
-  </Wrapper>
+  <Container isWrapper="l" py="50" hasGutter>
+    <Grid gtc={['auto', null, 'auto 1fr']} rg="50" cg="60">
+      <Frame ar="5/2" gc="1 / -1" pos="relative">
+        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
+        <Layer bgc="rgb(0 0 0 / 30%)">
+          <Center h="100%" c="white">
+            <Inline class="u--trim" fz="3xl" fw="light" ff="accent" lts="l" px="20" py="10">Concept</Inline>
+          </Center>
+        </Layer>
+      </Frame>
+      <Stack g="40" max-w={['stretch', null, '24rem']}>
+        <Heading level="2" class="u--trim" fz="3xl" fw="bold">自然の素材を<br />日々の暮らしに</Heading>
+        <Text class="u--trim" fz="xl" o="pp">手仕事から生まれる、長く使える道具</Text>
+      </Stack>
+      <Flow class="u--trim" fz="m">
+        <p>
+          私たちの道具は、木や麻、鉄といった自然の素材から生まれます。 素材が持つ手ざわりや色の変化をそのまま活かし、余計な加工を加えないこと。
+          それが、長く使える道具をつくるための、いちばん大切な考え方です。
+        </p>
+        <p>「毎日手に取るものだからこそ、使うほどに愛着が増していくものを」——そんな思いから、ひとつひとつの形と大きさを決めています。</p>
+        <p>
+          製作を担うのは、それぞれの素材を長年扱ってきた職人たちです。
+          木の乾燥から仕上げの磨きまで、工程のほとんどを手作業で行うため、同じ品番でも木目や色味はひとつとして同じものがありません。
+          小さな傷や節も、その道具だけが持つ個性として残しています。
+          修理や部品の交換にも応じており、使い込んで古びた道具を直しながら、次の世代へ受け渡していくことができます。
+        </p>
+        <p>
+          道具は、使う人の暮らしの中で完成します。
+          台所や書斎、庭先など、毎日の小さな場面に自然の素材が加わることで、時間の流れが少しだけゆるやかに感じられるはずです。
+          私たちはこれからも、素材と向き合い、手の仕事を大切にしながら、暮らしに寄り添う道具をつくり続けていきます。
+        </p>
+      </Flow>
+    </Grid>
+  </Container>
 </DemoLayout>

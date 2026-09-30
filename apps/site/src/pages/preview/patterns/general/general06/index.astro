@@ -1,30 +1,28 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Box, Stack, Container, Frame, Layer, Media, Text, Inline, Heading } from 'lism-css/astro';
+import { Group, Stack, Container, Frame, Grid, Media, Layer, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General06">
-  <Container isWrapper="m" py="50" hasGutter>
-    <Stack g="30">
-      <Frame as="figure" ar="16/9" pos="relative">
-        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-        <Layer p="40 0">
-          <Stack jc="center" ai="flex-start" min-h="100%" g="20">
-            <Box bgc="base" p="20 30">
-              <Heading level="2" class="u--trim" fz="min(4.5vw, 1.75rem)" fw="bold" ff="accent" lts="l">四季の美しさを感じる</Heading>
-            </Box>
-          </Stack>
-          <Box as="figcaption" p="20" pos="absolute" b="0" r="0">
-            <Inline class="u--trim" fz="s" c="white" ff="accent" lts="l">Feel the beauty of each season</Inline>
-          </Box>
-        </Layer>
+  <Group as="section" pos="relative">
+    <Layer>
+      <Frame h="100%">
+        <Media src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Layer bgc="black:40%" style={{ backdropFilter: 'blur(8px)' }} />
       </Frame>
-      <Text>
-        自然由来の環境負荷を抑えた製法で、一つひとつ丁寧に手作りしています。
-        大地の恵みを、あなたの毎日へ。私たちの製品は、自然の力を最大限に活かし、持続可能な未来を目指しています。
-        季節ごとに変わる風景とともに、心地よい生活をお届けします。 四季折々の美しさを感じながら、豊かな時間を過ごしていただけることを願っています。
-      </Text>
-    </Stack>
-  </Container>
+    </Layer>
+    <Container isWrapper="m" hasGutter pos="relative" z="1">
+      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="70">
+        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">行く道すべて、<br />旅になる</Heading>
+        <Stack class="u--trimAll" g="40">
+          <p>キャンピングカーなら、宿の予約も時刻表も気にせずに旅ができます。気になる景色を見つけたら車を止め、そのまま一晩過ごすのも自由です。</p>
+          <p>
+            私たちは、はじめての方でも安心して運転できるキャンピングカーを、全国12の拠点で貸し出しています。寝具やキッチン用品は車内にそろっているので、着替えだけ持って出発できます。
+          </p>
+          <p>おすすめのルートやキャンプ場の情報も、スタッフが一緒に考えます。いつもの休日を、少しだけ遠くまで走らせてみませんか。</p>
+        </Stack>
+      </Grid>
+    </Container>
+  </Group>
 </DemoLayout>

@@ -1,30 +1,32 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Box, Stack, Container, Frame, Layer, Media, Text, Inline, Heading } from 'lism-css/astro';
+import { Group, Stack, Container, Frame, Grid, Media, Layer, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General06">
-  <Container isWrapper="m" py="50" hasGutter>
-    <Stack g="30">
-      <Frame as="figure" ar="16/9" pos="relative">
-        <Media src="https://cdn.lism-css.com/random/img" alt="" width="960" height="640" />
-        <Layer p="40 0">
-          <Stack jc="center" ai="flex-start" min-h="100%" g="20">
-            <Box bgc="base" p="20 30">
-              <Heading level="2" class="u--trim" fz="min(4.5vw, 1.75rem)" fw="bold" ff="accent" lts="l">Feel the Beauty of Each Season</Heading>
-            </Box>
-          </Stack>
-          <Box as="figcaption" p="20" pos="absolute" b="0" r="0">
-            <Inline class="u--trim" fz="s" c="white" ff="accent" lts="l">Feel the beauty of each season</Inline>
-          </Box>
-        </Layer>
+  <Group as="section" pos="relative">
+    <Layer>
+      <Frame h="100%">
+        <Media src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
+        <Layer bgc="black:40%" style={{ backdropFilter: 'blur(8px)' }} />
       </Frame>
-      <Text>
-        Handcrafted one by one using eco-friendly, naturally derived methods. Bringing nature's bounty to your everyday life. Our products harness the
-        full power of nature, aiming for a sustainable future. Delivering a comfortable life along with the ever-changing scenery of each season. We
-        hope you can enjoy precious moments while appreciating the beauty of the four seasons.
-      </Text>
-    </Stack>
-  </Container>
+    </Layer>
+    <Container isWrapper="m" hasGutter pos="relative" z="1">
+      <Grid gtc={['auto', null, 'auto 1fr']} c="white" g="50" py="70">
+        <Heading level="2" class="u--trim" fz="3xl" fw="bold" hl="l">Every Road<br />Becomes a Journey</Heading>
+        <Stack class="u--trimAll" g="40">
+          <p>
+            With a camper van, you can travel without worrying about hotel bookings or timetables. When you find a view you love, pull over and stay
+            the night if you like.
+          </p>
+          <p>
+            We rent camper vans that are easy to drive even for first-timers, from 12 locations nationwide. Bedding and kitchenware are already on
+            board, so all you need to pack is a change of clothes.
+          </p>
+          <p>Our staff are happy to help you plan routes and find campsites. Why not take your next day off a little farther than usual?</p>
+        </Stack>
+      </Grid>
+    </Container>
+  </Group>
 </DemoLayout>

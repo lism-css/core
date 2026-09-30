@@ -1,44 +1,25 @@
 ---
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Container, Grid, Frame, Media, Stack, Text, Heading } from 'lism-css/astro';
+import { Box, Stack, Container, Frame, Layer, Media, Text, Heading } from 'lism-css/astro';
 ---
 
 <DemoLayout title="General10">
-  <Container py="50">
-    <Container isWrapper="m" hasGutter>
-      <Grid gtc={['auto', null, 'auto 1fr']} g="50 60">
-        <Stack g="30" min-w="16rem" ff="accent" fs="i" c="gray">
-          <Heading level="2" class="u--trim" fz="5xl" fw="bold">Relaxing</Heading>
-          <Text class="u--trim" fz="l">深呼吸したくなる、澄んだ空気</Text>
-        </Stack>
-        <Stack class="u--trimAll" g="40">
-          <p>
-            まるで高原の森にいるような、清々しく澄んだ空気を、あなたの部屋へ。
-            高性能フィルターが、目に見えない微細な粒子や生活臭をしっかりと除去し、空間を清浄に保ちます。
-            運転していることを忘れるほどの静音設計で、寝室や書斎にも最適。
-            日々の暮らしに、穏やかな安らぎと、健やかな深呼吸をもたらす、静かなパートナーです。
-          </p>
-          <p>
-            読書や仕事に集中したい時、ゆっくりとリラックスしたい夜。 あなたの過ごす時間に、最もふさわしい光の環境を創り出します。
-            光が、日々の暮らしに、より深い奥行きと彩りを与えます。
-          </p>
-        </Stack>
-      </Grid>
-    </Container>
-    <Grid gtc={['repeat(2, 1fr)', null, 'repeat(4, 1fr)']} g="20" mbs="50">
-      <Frame as="figure" ar="4/3" gr={['1', null, '1']} gc={['1', null, '1']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=1" alt="" width="960" height="640" />
+  <Container isWrapper="m" py="50" hasGutter>
+    <Stack g="30">
+      <Frame as="figure" ar={['1/1', '3/2']} pos="relative">
+        <Media src="https://cdn.lism-css.com/img/BObC4emORTNt.webp" alt="" width="960" height="640" />
+        <Layer>
+          <Stack jc="start" ai="flex-start" min-h="100%" g="20">
+            <Box bgc="base" py="20" px="25" mt={['30', '50']}>
+              <Heading level="2" fz={['l', 'xl', '3xl']} fw="normal" ff="accent" lts="xl" lh="s">空の移ろいを眺める</Heading>
+            </Box>
+          </Stack>
+        </Layer>
       </Frame>
-      <Frame as="figure" ar="4/3" gr={['1', null, '1']} gc={['2', null, '2']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=2" alt="" width="960" height="640" />
-      </Frame>
-      <Frame as="figure" ar="4/3" gr={['2', null, '1']} gc={['1', null, '3']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=3" alt="" width="960" height="640" />
-      </Frame>
-      <Frame as="figure" ar="4/3" gr={['2', null, '1']} gc={['2', null, '4']}>
-        <Media src="https://cdn.lism-css.com/random/img?r=4" alt="" width="960" height="640" />
-      </Frame>
-    </Grid>
+      <Text>
+        日が傾きはじめると、海と空は刻一刻と色を変えていきます。オレンジから紫へ、やがて深い藍色へ。海辺のテラスには、夕暮れの時間だけ特等席をご用意しています。温かい飲み物を片手に、波の音に耳を傾けながら、ゆっくりと日が沈むのを待ちましょう。何もしない時間が、いちばんの贅沢かもしれません。
+      </Text>
+    </Stack>
   </Container>
 </DemoLayout>

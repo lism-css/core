@@ -33,7 +33,7 @@ const CONFIG = {
   outputDir: join(ROOT_DIR, 'public', 'screenshots', 'layout-demos'),
   // ビューポートサイズ（16:9）
   viewport: { width: 1600, height: 900 },
-  // プレビューサーバーのポート（patterns 用の 4000 と衝突しないよう別ポート）
+  // 開発・パターン撮影サーバーとの衝突を避けるため専用ポートを使う
   port: 4001,
   // ページ読み込み後の待機時間（ミリ秒）
   waitAfterLoad: 500,

@@ -7,12 +7,12 @@ import { Container, Lism, Stack, Inline, Heading } from 'lism-css/astro';
 <DemoLayout title="FAQ01">
   <Container isWrapper="m" bgc="base" py="50" hasGutter>
     <Stack g="50">
-      {/* セクション見出し */}
+      {/* Section heading */}
       <Stack g="20" ai="center">
         <Heading level="2" class="u--trim" fz="2xl" fw="bold" ta="center">Frequently Asked Questions</Heading>
         <Inline class="u--trim" fz="s" o="ppp" ta="center">FAQ</Inline>
       </Stack>
-      {/* 質問と回答のリスト */}
+      {/* List of questions and answers */}
       <Stack as="dl" g="40">
         <Stack g="15">
           <Lism as="dt" fw="bold" bd-s bdc="current" bdw="2px" ps="15">Can I try it for free?</Lism>
