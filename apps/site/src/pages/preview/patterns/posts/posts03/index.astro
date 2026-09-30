@@ -1,107 +1,105 @@
 ---
+import { CaretRightIcon } from '@lism-css/icons/astro';
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Box, Stack, Container, Frame, Grid, Media, Flex, Layer, Center, Columns, Text, Inline, Heading } from 'lism-css/astro';
+import { Container, Grid, AutoColumns, Flex, Icon, Stack, Text, Heading } from 'lism-css/astro';
 import { Button } from '@lism-css/ui/astro/Button';
 ---
 
 <DemoLayout title="Posts03">
-  <Container isWrapper="l" py="50" hasGutter>
-    <Grid gtc={['1fr', 'auto 1fr']} g="40">
-      <Flex gr={['1', '1 / 2']} gc={['1', '1 / 2']} ai="fe" jc="fs">
-        <Heading level="2" fz="2xl" fw="bold">ニュース</Heading>
-      </Flex>
-      <Columns cols={['1', '2', '4']} gr="2" gc={['1', '1 / 3']} g="30">
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=max&w=1920&q=80"
-              alt=""
-              width="960"
-              height="640"
-            />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" py="10" px="20">NEWS</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+  <Container isWrapper="l" bgc="base-2" py="50" hasGutter>
+    <Grid gtr={['auto', null, 'auto auto 1fr']} gtc={['auto', null, 'auto 1fr']} g="30">
+      <Stack gr="1" gc="1" g="20" min-w={['auto', null, '12rem']}>
+        <Text class="u--trim" fz="2xl" fw="light" lts="l">News</Text>
+        <Heading level="2" class="u--trim" fz="xs" o="pp">お知らせ</Heading>
+      </Stack>
+      <AutoColumns cols="22rem" gr={['2', null, '1 / -1']} gc={['1', null, '2']} g="30">
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">COLUMN</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">デザインコラム更新「UIデザインにおけるアクセシビリティの重要性」</Text>
+              <Text fz="s" o="pp"
+                >デザインコラムを更新しました。「Webアクセシビリティ」の基本的な考え方と、 今日から実践できるポイントについて解説します。</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">年末年始休業のお知らせ（2025/12/28〜2026/1/4）</Text>
-          </Stack>
+          </Flex>
         </Grid>
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" py="10" px="20">AWARDS</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">EVENT</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">「LOOS DESIGN CONFERENCE 2025」登壇のお知らせ</Text>
+              <Text fz="s" o="pp"
+                >2025年12月5日（金）に開催される国内最大級のデザインカンファレンスに、弊社アートディレクターの〇〇が登壇。「デザインがビジネスにもたらす価値」についてお話しします。</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">当社制作の「〇〇」が、国際的デザインアワード「ABC Design Award」を受賞しました</Text>
-          </Stack>
+          </Flex>
         </Grid>
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media
-              src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=max&w=1920&q=80"
-              alt=""
-              width="960"
-              height="640"
-            />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" py="10" px="20">MEDIA</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">RELEASE</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">新サービス「スタートアップ向けブランディング支援パッケージ」提供開始</Text>
+              <Text fz="s" o="pp"
+                >スタートアップ企業様を対象としたスピーディーかつ高品質なブランディング支援パッケージの提供を開始しました。
+                ロゴ、Webサイト、名刺までをワンストップでご提供します。</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">デザイン専門誌「Design Today」11月号に、弊社代表のインタビューが掲載されました</Text>
-          </Stack>
+          </Flex>
         </Grid>
-        <Grid as="a" gtr="subgrid" gr="span 2" g="5" isBoxLink href="#" ov="h" set="hov">
-          <Frame as="figure" ar="og" pos="relative" bdrs="10">
-            <Media src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=max&w=1920&q=80" alt="" width="960" height="640" />
-            <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 30%)" style={{ backdropFilter: 'blur(4px)' }}>
-              <Center h="100%" c="white">
-                <Inline fz="l" fs="i" fw="light" lts="l" px="20" py="10">View More</Inline>
-              </Center>
-            </Layer>
-          </Frame>
-          <Stack g="20" py="20">
-            <Flex ai="center" g="20">
-              <Flex g="15">
-                <Box bgc="black" c="white" fz="2xs" bdrs="10" hl="0" py="10" px="20">COLUMN</Box>
-              </Flex>
-              <Text class="u--trim" fz="s" o="pp">2025.10.30</Text>
+        <Grid gtr="subgrid" gr="span 2" g="30" isBoxLink as="a" href="#" bgc="base" p="30" bdrs="20" set="hov" hasTransition hov="-bxsh">
+          <Grid gtc="1fr auto" g="20" jc="start" ai="center">
+            <Text fz="s">2025.10.30</Text>
+            <Text d="if" jc="center" fz="2xs" hl="0" bgc="base-2" c="text" py="10" px="20" bdrs="99">NEWS</Text>
+          </Grid>
+          <Flex c="text" g="25">
+            <Stack class="u--trimAll" g="30">
+              <Text hasTransition hov="in:cLink">オフィス移転および電話番号変更のお知らせ</Text>
+              <Text fz="s" o="pp"
+                >業務拡大に伴いオフィスを下記住所へ移転いたしました。
+                社員一同より一層の努力を重ねてまいります。今後とも変わらぬご愛顧を賜りますようお願い申し上げます。</Text
+              >
+            </Stack>
+            <Flex d={['none', 'flex']} ai="center" jc="center" aslf="e" fxsh="0" p="15" bd bdc="black" bdrs="99" hasTransition hov="in:reverse">
+              <Icon icon={CaretRightIcon} weight="bold" fz="xs" ms="auto" />
             </Flex>
-            <Text class="u--trim" fz="m">デザインコラムを更新しました「ブランディングにおけるロゴデザインの役割」</Text>
-          </Stack>
+          </Flex>
         </Grid>
-      </Columns>
-      <Flex gr={['3', '1 / 2']} gc={['1', '2 / 3']} ai="fe" jc="fe">
-        <Button href="#" variant="outline" jc="center" w={['stretch', 'auto']} min-w="8rem" fz="s" p="15" bdrs="10">View All</Button>
+      </AutoColumns>
+      <Flex gr={['3', null, '2']} gc="1">
+        <Button href="#" jc="center" w={['stretch', null, 'auto']} min-w="8rem" fz="s" p="15" bdrs="99">View All</Button>
       </Flex>
     </Grid>
   </Container>
 </DemoLayout>
+
+<style>
+  @media (any-hover: hover) {
+    .-hov\:in\:reverse {
+      background-color: var(--_isHov, var(--black));
+      color: var(--_isHov, var(--white));
+    }
+    .-hov\:in\:cLink {
+      color: var(--_isHov, var(--link));
+    }
+  }
+</style>
