@@ -8,15 +8,20 @@ v1.0のリリースまでは大きな変更が続く可能性があるため、�
 
 <Divider bds="dashed" my="40" />
 
-## 未リリース
+## lism-css v0.31.0 (2026.09.30)
 
-- **破壊的変更:** 後方互換のために宣言だけ残していた`lism-component`レイヤーを削除しました。`@layer lism-component`に書いたCSSは優先度が変わるため、`lism-block`または`lism-custom`へ移してください。
+**破壊的変更**を含むリリースです。
+
+- **破壊的変更:** 後方互換のために宣言だけ残していた`lism-component`レイヤーを削除しました。`@layer lism-component`に書いたCSSは優先度が変わるため、`lism-block`または`lism-custom`へ移してください（#645）。
   - `@lism-css/ui` v0.26.0未満を使っている場合は、v0.26.0以上へ更新してください。
   - v0.26.0より前に`lism-cli ui add`で追加したコンポーネントは、`_style.css`の`@layer lism-component`を`lism-block`へ書き換えてください。
 - **破壊的変更:** 非推奨だったコンポーネントエイリアス`SideMain` / `FluidCols` / `SwitchCols`と`Dummy`コンポーネントを、`lism-css/react`と`lism-css/astro`から削除しました。それぞれ`WithSide` / `AutoColumns` / `SwitchColumns`と`@lism-css/ui`の`DummyText`へ移行してください（#646）。
 - **破壊的変更:** Lism Propsの変換設定をprop単位で上書きする`_propConfig`を、`getLismProps`と各コンポーネントのpropsから削除しました。変換設定を変えたい場合は、[`lism.config.js`の`props`](/docs/customize/config/)で設定してください（#225）。
-- `@lism-css/ui`: コンポーネントのCSSが`lism-css/main.css`より前に出力されると、`lism-base`のスタイルが`b--*`のスタイルより優先される不具合を修正しました（`a`要素の`Button`に下線とリンク色が残るなど）。各コンポーネントのCSSと`style.css`の先頭で、`lism-base`と`lism-block`の順序を宣言します（#644）。
-- `@lism-css/ui`: Astro版の`Tabs` / `Accordion` / `Modal`が、`ClientRouter`で遷移した先のページで動作しない不具合を修正しました。読み込み時に加えて`astro:page-load`でも初期化し、同じ要素にはイベントを重ねて登録しません（#640）。
+
+### `@lism-css/ui` v0.31.0 (2026.09.30)
+
+- コンポーネントのCSSが`lism-css/main.css`より前に出力されると、`lism-base`のスタイルが`b--*`のスタイルより優先される不具合を修正しました（`a`要素の`Button`に下線とリンク色が残るなど）。各コンポーネントのCSSと`style.css`の先頭で、`lism-base`と`lism-block`の順序を宣言します（#644）。
+- Astro版の`Tabs` / `Accordion` / `Modal`が、`ClientRouter`で遷移した先のページで動作しない不具合を修正しました。読み込み時に加えて`astro:page-load`でも初期化し、同じ要素にはイベントを重ねて登録しません（#640）。
 
 <Divider bds="dashed" my="40" />
 

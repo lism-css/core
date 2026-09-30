@@ -49,7 +49,7 @@ Lism CSSは、Webサイトのレイアウトを素早く、かつ美しく構築
 ### CDN（ビルド不要）
 
 ```html
-<link href="https://cdn.jsdelivr.net/npm/lism-css@0.30.0/dist/css/main.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/lism-css@0.31.0/dist/css/main.css" rel="stylesheet" />
 ```
 
 ### npm
