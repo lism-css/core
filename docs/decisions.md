@@ -1,6 +1,22 @@
-基準日: 2026-09-30・コミット4dc696023
+基準日: 2026-09-30・コミットcd06232fa
 
 # 意思決定の記録
+
+## 2026-09-30: テンプレ種別`base-overlay`を削除し、variant違いは`single-project-variant`で持つ
+
+#366では、`lp`と`web`のAstro版を「共通base ＋ variantごとの差分（overlay）」で配る設計だった。`base-overlay`型はそのための型。しかし#372でLPには採用されず、`single-project-variant`型が作られた。variant間で構造の違い（独自のkeyframesやclass prefix）が大きく、共通baseにする利点が薄いため。以後、この型を使うテンプレは1つも無かった。
+
+- 決定: `base-overlay`型と、CLIの取得・マージ・package名の書き換え処理、テストを削除する。
+- 決定: variant違いのテンプレは`single-project-variant`型で持つ。今後`web`カテゴリを作るときもこれに倣う。プレビューも1サイトにまとめてビルドできる。
+- 却下: 将来の`web`カテゴリ用に残す案。LPで却下した理由は、業種ごとに構造が違う`web`にも当てはまる。
+
+## 2026-09-30: LPテンプレのHTML版はCLIで配らない
+
+#375では、LPテンプレ（`templates/lp/astro/`）のビルド結果をHTML版としてCLIから配る予定だった。`static-html`型とCLIの分岐だけが先に実装されていた。調べると、Astroの出力はminify済みで手編集に向かない。JSは`type="module"`のため、`file://`で開くと動かない。さらにCLIはgigetでGitHubから取得するため、生成物をコミットし、sourceとのずれをCIで検査し続ける必要がある。
+
+- 決定: HTML版は配らない。`static-html`型とstackの`html`、関連するCLIの分岐・文言・テストを削除する。
+- 却下: #375の計画どおり`templates/lp/html/_generated/`を生成してコミットする案。整形・スクリプト変換・ずれ検査を保守し続ける手間に、利用価値が見合わない。
+- 受容: HTMLが欲しい利用者には、Astro版を`npm run build`して`dist/`を使ってもらう。
 
 ## 2026-09-30: `@lism-css/mcp`はlism-cssと同じバージョンで出す
 
