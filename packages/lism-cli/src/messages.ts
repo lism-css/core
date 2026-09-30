@@ -201,10 +201,6 @@ export const messages = {
     ja: 'テンプレート"{name}"の取得結果にpackage.jsonがありません。取得元パスを確認してください: {path}',
     en: 'Downloaded template "{name}" does not contain package.json. Check the source path: {path}',
   },
-  'create.templateIndexMissing': {
-    ja: 'テンプレート"{name}"の取得結果にindex.htmlがありません。取得元パスを確認してください: {path}',
-    en: 'Downloaded template "{name}" does not contain index.html. Check the source path: {path}',
-  },
   'create.variantMissing': {
     ja: 'variant "{variant}" のディレクトリが見つかりません。取得元パスを確認してください: {path}',
     en: 'Variant "{variant}" directory not found. Check the source path: {path}',
@@ -216,10 +212,6 @@ export const messages = {
   'create.nextSteps': {
     ja: '次のコマンドで開発を開始できます:',
     en: 'Next steps:',
-  },
-  'create.nextStepsHtmlOpen': {
-    ja: '  index.htmlをブラウザで開いてください',
-    en: '  Open index.html in your browser',
   },
   'create.packageNameRewritten': {
     ja: '  package.jsonのnameを"{name}"に変更しました。',

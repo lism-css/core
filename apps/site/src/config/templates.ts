@@ -118,10 +118,9 @@ export const stackLabels: Record<Stack, string> = {
   astro: 'Astro',
   next: 'Next.js',
   vite: 'Vite + React',
-  html: 'Static HTML',
 };
 
-export const stackOrder: Stack[] = ['astro', 'html', 'vite', 'next'];
+export const stackOrder: Stack[] = ['astro', 'vite', 'next'];
 
 function hasSourcePath(tpl: TemplateDef): tpl is Extract<TemplateDef, { sourcePath: string }> {
   return 'sourcePath' in tpl;

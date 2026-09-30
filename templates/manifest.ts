@@ -9,7 +9,7 @@
  * `templates/{sourcePath}/screenshots/{top または variant}.png` の規約から解決する。
  */
 
-export type Stack = 'astro' | 'next' | 'vite' | 'html';
+export type Stack = 'astro' | 'next' | 'vite';
 export type CategoryId = 'minimal' | 'blog' | 'lp' | 'web';
 
 export interface LocalizedText {
@@ -72,11 +72,6 @@ export interface BaseOverlayTemplateDef extends TemplateMetaBase {
   rewritePackageName?: boolean;
 }
 
-export interface StaticHtmlTemplateDef extends TemplateMetaBase {
-  kind: 'static-html';
-  sourcePath: string;
-}
-
 /**
  * 単一の Astro / Vite プロジェクト内に複数 variant（src/pages/{variant}/）を同居させた構成。
  * CLI 抽出時に選択 variant の index.astro を src/pages/index.astro に持ち上げ、
@@ -99,7 +94,7 @@ export interface SingleProjectVariantTemplateDef extends TemplateMetaBase {
   packageName?: string;
 }
 
-export type TemplateDef = ProjectTemplateDef | BaseOverlayTemplateDef | StaticHtmlTemplateDef | SingleProjectVariantTemplateDef;
+export type TemplateDef = ProjectTemplateDef | BaseOverlayTemplateDef | SingleProjectVariantTemplateDef;
 
 /**
  * テンプレプレビュー集約サイトのオリジン。全 previewUrl をこの 1 箇所で束ねる。

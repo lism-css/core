@@ -47,7 +47,6 @@ nr publish:cli  # build → lism-cli publish → create-lism publish
 - 各テンプレの`package.json`に必ず`"private": true`を付ける（npmへの誤公開防止）。階層の深さは問わない（`scripts/check-templates-private.mjs`が`package.json`まで再帰して検出する）。
 - `base-overlay`型（現在の`TEMPLATES`に登録なし）を追加する場合、overlay側に`package.json`を置かない。CLIはbaseの`package.json`を採用し、overlayは差分ファイルだけ上書きする。置くと`name`の書き換えが二重化し、`workspace:*`置換も崩れる。共通設定はbaseに集約する。
 - `single-project-variant`型（例: `templates/lp/astro/`）は`src/pages/{variant}/`を並べる構成。CLIは選択variantの`index.astro`を`src/pages/index.astro`へ持ち上げ、他variantを削除する。variant追加は`src/pages/{variant}/index.astro`を作り、`TEMPLATES`にslugを足す。
-- `templates/lp/html/_generated/`（未実装、#375で追加予定）はsourceからの生成物置き場。追加後は手編集禁止で、修正はgenerator側で行う。
 
 ### 言語
 

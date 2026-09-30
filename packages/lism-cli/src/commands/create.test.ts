@@ -841,34 +841,6 @@ describe('runCreate', () => {
     expect(fs.existsSync(path.join(outDir, 'src/pages/en'))).toBe(false);
   });
 
-  it('static-html型はpackage.jsonなしでもindex.htmlがあれば完了し、HTML向けNext stepsを出す', async () => {
-    const templates: Parameters<typeof runCreateWithTemplates>[1] = [
-      {
-        slug: 'lp-html-saas',
-        kind: 'static-html',
-        category: 'lp',
-        stack: 'html',
-        variant: 'saas',
-        variantLabel: { ja: 'SaaS', en: 'SaaS' },
-        sourcePath: 'lp/html/_generated/saas',
-        title: { ja: 'LP SaaS HTML', en: 'LP SaaS HTML' },
-        description: { ja: 'SaaS LP HTML', en: 'SaaS landing page HTML' },
-      },
-    ];
-    vi.mocked(downloadTemplate).mockImplementation((_source, options) => {
-      const dir = (options as { dir: string }).dir;
-      fs.mkdirSync(dir, { recursive: true });
-      writeFile(path.join(dir, 'index.html'), '<!doctype html>');
-      return Promise.resolve({} as Awaited<ReturnType<typeof downloadTemplate>>);
-    });
-
-    await runCreateWithTemplates({ template: 'lp-html-saas', targetDir: 'html-app', force: true }, templates);
-
-    const outDir = path.join(tmpDir, 'html-app');
-    expect(fs.existsSync(path.join(outDir, 'package.json'))).toBe(false);
-    expect(console.log).toHaveBeenCalledWith('  Open index.html in your browser');
-  });
-
   it('--templateにカテゴリslugを指定するとstack選択へ降りる', async () => {
     const templates: Parameters<typeof runCreateWithTemplates>[1] = [
       {
@@ -930,28 +902,6 @@ describe('runCreate', () => {
     });
 
     await expect(runCreate({ template: 'minimal-astro', targetDir: 'broken', force: true })).rejects.toThrow('package.json');
-  });
-
-  it('static-html型でindex.htmlがない場合はtemplateIndexMissingを返す', async () => {
-    const templates: Parameters<typeof runCreateWithTemplates>[1] = [
-      {
-        slug: 'lp-html-empty',
-        kind: 'static-html',
-        category: 'lp',
-        stack: 'html',
-        sourcePath: 'lp/html/_generated/empty',
-        title: { ja: 'LP Empty', en: 'LP Empty' },
-        description: { ja: 'empty', en: 'empty' },
-      },
-    ];
-    vi.mocked(downloadTemplate).mockImplementation((_source, options) => {
-      fs.mkdirSync((options as { dir: string }).dir, { recursive: true });
-      return Promise.resolve({} as Awaited<ReturnType<typeof downloadTemplate>>);
-    });
-
-    await expect(runCreateWithTemplates({ template: 'lp-html-empty', targetDir: 'empty-html', force: true }, templates)).rejects.toThrow(
-      'index.html'
-    );
   });
 
   it('上書き確認でnoなら中断してdownloadしない', async () => {

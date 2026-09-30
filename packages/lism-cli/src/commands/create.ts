@@ -35,7 +35,6 @@ const STACK_LABELS: Record<TemplateStack, LocalizedText> = {
   astro: { ja: 'Astro', en: 'Astro' },
   next: { ja: 'Next.js', en: 'Next.js' },
   vite: { ja: 'Vite + React', en: 'Vite + React' },
-  html: { ja: 'Static HTML', en: 'Static HTML' },
 };
 
 const CATEGORIES: CategoryDef[] = [
@@ -123,7 +122,7 @@ export async function runCreateWithTemplates(
   await postProcessTemplate(outDir, tpl, resolvedLang);
 
   logger.success(t('create.created', { dir: outDir }));
-  printNextSteps(outDir, tpl);
+  printNextSteps(outDir);
 }
 
 export async function createCommand(targetDir: string | undefined, options: CreateOptions, command?: CommandLike): Promise<void> {
@@ -229,12 +228,6 @@ async function resolveTargetDir(provided: string | undefined, templateName: stri
 }
 
 function ensureTemplateDownloaded(projectDir: string, tpl: TemplateDef): void {
-  if (tpl.kind === 'static-html') {
-    const indexPath = path.join(projectDir, 'index.html');
-    if (fs.existsSync(indexPath)) return;
-    throw new Error(t('create.templateIndexMissing', { name: tpl.slug, path: getTemplateSourcePath(tpl) }));
-  }
-
   const pkgPath = path.join(projectDir, 'package.json');
   if (fs.existsSync(pkgPath)) return;
   throw new Error(t('create.templatePackageMissing', { name: tpl.slug, path: getTemplateSourcePath(tpl) }));
@@ -282,8 +275,6 @@ async function applyLangOverlay(tpl: TemplateDef, outDir: string, ref: string, l
 
 /** テンプレート種別固有の変換後、配布不要ファイルとworkspace依存を整理する。 */
 async function postProcessTemplate(projectDir: string, tpl: TemplateDef, lang: Lang): Promise<void> {
-  if (tpl.kind === 'static-html') return;
-
   if (tpl.kind === 'base-overlay' && tpl.rewritePackageName !== false) {
     rewritePackageName(projectDir, tpl.slug);
   }
@@ -452,17 +443,10 @@ function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function printNextSteps(projectDir: string, tpl: TemplateDef): void {
+function printNextSteps(projectDir: string): void {
   logger.heading(t('create.nextSteps'));
   const rel = path.relative(process.cwd(), projectDir) || '.';
   logger.log(`  cd ${rel}`);
-
-  if (tpl.kind === 'static-html') {
-    logger.log(t('create.nextStepsHtmlOpen'));
-    logger.log('');
-    return;
-  }
-
   logger.log('  npm install   # or pnpm install / yarn');
   logger.log('  npm run dev');
   logger.log('');

@@ -7,7 +7,7 @@
 // に通して `.preview/merged/<dest>/` へ配置する。最後に全体 noindex の `_headers` を出力する。
 //
 // 配信パス設計（PR の決定事項どおり）:
-//   - project / static-html             : /{slug}/        （en overlay があれば /{slug}/en/ も）
+//   - project                           : /{slug}/        （en overlay があれば /{slug}/en/ も）
 //   - single-project-variant（lp/astro）: /{prefix}/      （en は dist 同梱の /{prefix}/en/...）
 //     prefix = sourcePath.replace('/', '-')（lp/astro → lp-astro）
 //   - draft variant は merged から除外する
@@ -55,7 +55,7 @@ const CATEGORY_ORDER = [
 ];
 
 // stack 表示ラベル（docs の stackLabels と揃える）
-const STACK_LABELS = { astro: 'Astro', next: 'Next.js', vite: 'Vite + React', html: 'Static HTML' };
+const STACK_LABELS = { astro: 'Astro', next: 'Next.js', vite: 'Vite + React' };
 
 // テンプレ定義から ja / en の配信パスを導出（build-previews のパス設計と対）。
 // 配信非対応 kind は null。
@@ -163,7 +163,7 @@ function writeLanding() {
 
 const units = [];
 
-// --- project / static-html: slug ごとに 1 ユニット（en overlay があれば en も） ---
+// --- project: slug ごとに 1 ユニット（en overlay があれば en も） ---
 for (const t of TEMPLATES) {
   if (t.kind === 'single-project-variant') continue;
   if (t.draft) continue; // 単独 draft は配信しない
