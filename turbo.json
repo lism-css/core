@@ -19,6 +19,17 @@
         "src/scss/base/tokens/_tokens.gen.scss"
       ]
     },
+    "lism-site#build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/templates/**/screenshots/**/*.png",
+        "!$TURBO_ROOT$/templates/**/screenshots/_baseline/**",
+        "!$TURBO_ROOT$/templates/**/screenshots/_diff/**",
+        "!$TURBO_ROOT$/templates/**/screenshots/_temp/**"
+      ],
+      "outputs": ["dist/**"]
+    },
     "@lism-css/mcp#build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/skills/lism-css-guide/**"],
