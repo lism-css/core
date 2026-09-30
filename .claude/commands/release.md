@@ -31,6 +31,7 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 
 - `lism-css` をリリースするときは、`@lism-css/mcp` も同じバージョンで出す。mcp は docs-index と `skills/lism-css-guide` をビルド時に同梱して配るため、出し忘れると古い情報を返し続ける
 - バージョン更新の前に、docs-index が `apps/site` の日本語 MDX の変更に追従しているか確認し、必要なら `/mcp-update` か `/mcp-update-urls` を実行する
+- 同じく、`skills/lism-css-guide` が core の変更に追従しているか確認し、必要なら `/update-skills` を実行する
 
 ### lism-cli の特別ルール
 
