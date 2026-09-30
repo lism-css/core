@@ -122,19 +122,12 @@ export const stackLabels: Record<Stack, string> = {
 
 export const stackOrder: Stack[] = ['astro', 'vite', 'next'];
 
-function hasSourcePath(tpl: TemplateDef): tpl is Extract<TemplateDef, { sourcePath: string }> {
-  return 'sourcePath' in tpl;
-}
-
-function thumbFileName(tpl: Extract<TemplateDef, { sourcePath: string }>): string {
+function thumbFileName(tpl: TemplateDef): string {
   return tpl.kind === 'single-project-variant' ? `${tpl.variant}.png` : 'top.png';
 }
 
 /** 規約ベースで thumb を解決（解決できなければビルド時に失敗させる） */
 function resolveThumb(tpl: TemplateDef): ImageMetadata {
-  if (!hasSourcePath(tpl)) {
-    throw new Error(`[templates] thumb resolution unsupported for kind "${tpl.kind}" (slug: ${tpl.slug})`);
-  }
   const key = `../../../../templates/${tpl.sourcePath}/screenshots/${thumbFileName(tpl)}`;
   const mod = screenshotModules[key];
   if (!mod) {
@@ -145,7 +138,6 @@ function resolveThumb(tpl: TemplateDef): ImageMetadata {
 
 /** en 用 thumb を解決（`screenshots/en/` 未撮影なら undefined → 呼び出し側で ja にフォールバック） */
 function resolveThumbEn(tpl: TemplateDef): ImageMetadata | undefined {
-  if (!hasSourcePath(tpl)) return undefined;
   const key = `../../../../templates/${tpl.sourcePath}/screenshots/en/${thumbFileName(tpl)}`;
   return screenshotModules[key]?.default;
 }

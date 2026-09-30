@@ -113,7 +113,7 @@ export async function runCreateWithTemplates(
   }
 
   logger.info(t('create.fetching', { name: tpl.slug, ref }));
-  await downloadTemplateSource(tpl, outDir, ref, force);
+  await downloadTemplatePath(tpl.sourcePath, outDir, ref, force);
 
   await applyLangOverlay(tpl, outDir, ref, resolvedLang);
 
@@ -230,24 +230,7 @@ async function resolveTargetDir(provided: string | undefined, templateName: stri
 function ensureTemplateDownloaded(projectDir: string, tpl: TemplateDef): void {
   const pkgPath = path.join(projectDir, 'package.json');
   if (fs.existsSync(pkgPath)) return;
-  throw new Error(t('create.templatePackageMissing', { name: tpl.slug, path: getTemplateSourcePath(tpl) }));
-}
-
-async function downloadTemplateSource(tpl: TemplateDef, outDir: string, ref: string, forceClean: boolean): Promise<void> {
-  if (tpl.kind === 'base-overlay') {
-    await downloadTemplatePath(tpl.basePath, outDir, ref, forceClean);
-
-    const overlayDir = fs.mkdtempSync(path.join(os.tmpdir(), 'lism-template-overlay-'));
-    try {
-      await downloadTemplatePath(tpl.overlayPath, overlayDir, ref, true);
-      mergeDirectory(overlayDir, outDir);
-    } finally {
-      fs.rmSync(overlayDir, { recursive: true, force: true });
-    }
-    return;
-  }
-
-  await downloadTemplatePath(tpl.sourcePath, outDir, ref, forceClean);
+  throw new Error(t('create.templatePackageMissing', { name: tpl.slug, path: formatTemplatePath(tpl.sourcePath) }));
 }
 
 async function downloadTemplatePath(sourcePath: string, outDir: string, ref: string, forceClean: boolean): Promise<void> {
@@ -275,10 +258,6 @@ async function applyLangOverlay(tpl: TemplateDef, outDir: string, ref: string, l
 
 /** テンプレート種別固有の変換後、配布不要ファイルとworkspace依存を整理する。 */
 async function postProcessTemplate(projectDir: string, tpl: TemplateDef, lang: Lang): Promise<void> {
-  if (tpl.kind === 'base-overlay' && tpl.rewritePackageName !== false) {
-    rewritePackageName(projectDir, tpl.slug);
-  }
-
   if (tpl.kind === 'single-project-variant') {
     extractVariantFiles(projectDir, tpl, lang);
     rewritePackageName(projectDir, tpl.packageName ?? tpl.slug);
@@ -450,11 +429,6 @@ function printNextSteps(projectDir: string): void {
   logger.log('  npm install   # or pnpm install / yarn');
   logger.log('  npm run dev');
   logger.log('');
-}
-
-function getTemplateSourcePath(tpl: TemplateDef): string {
-  if (tpl.kind === 'base-overlay') return `${formatTemplatePath(tpl.basePath)} + ${formatTemplatePath(tpl.overlayPath)}`;
-  return formatTemplatePath(tpl.sourcePath);
 }
 
 function formatTemplatePath(sourcePath: string): string {

@@ -65,13 +65,6 @@ export interface ProjectTemplateDef extends TemplateMetaBase {
   langOverlays?: Partial<Record<'ja' | 'en', string>>;
 }
 
-export interface BaseOverlayTemplateDef extends TemplateMetaBase {
-  kind: 'base-overlay';
-  basePath: string;
-  overlayPath: string;
-  rewritePackageName?: boolean;
-}
-
 /**
  * 単一の Astro / Vite プロジェクト内に複数 variant（src/pages/{variant}/）を同居させた構成。
  * CLI 抽出時に選択 variant の index.astro を src/pages/index.astro に持ち上げ、
@@ -94,7 +87,7 @@ export interface SingleProjectVariantTemplateDef extends TemplateMetaBase {
   packageName?: string;
 }
 
-export type TemplateDef = ProjectTemplateDef | BaseOverlayTemplateDef | SingleProjectVariantTemplateDef;
+export type TemplateDef = ProjectTemplateDef | SingleProjectVariantTemplateDef;
 
 /**
  * テンプレプレビュー集約サイトのオリジン。全 previewUrl をこの 1 箇所で束ねる。

@@ -58,16 +58,12 @@ const CATEGORY_ORDER = [
 const STACK_LABELS = { astro: 'Astro', next: 'Next.js', vite: 'Vite + React' };
 
 // テンプレ定義から ja / en の配信パスを導出（build-previews のパス設計と対）。
-// 配信非対応 kind は null。
 function previewPaths(t) {
   if (t.kind === 'single-project-variant') {
     const prefix = t.sourcePath.replace(/\//g, '-');
     return { jaPath: `/${prefix}/${t.variant}/`, enPath: `/${prefix}/en/${t.variant}/` };
   }
-  if ('sourcePath' in t) {
-    return { jaPath: `/${t.slug}/`, enPath: `/${t.slug}/en/` };
-  }
-  return null;
+  return { jaPath: `/${t.slug}/`, enPath: `/${t.slug}/en/` };
 }
 
 // 実際に merged へ出力された index.html の有無で掲載カードを集める（カテゴリ別）。
@@ -76,7 +72,6 @@ function collectLandingCards() {
   for (const t of TEMPLATES) {
     if (t.draft) continue;
     const paths = previewPaths(t);
-    if (!paths) continue;
     if (!existsSync(path.join(MERGED, paths.jaPath, 'index.html'))) continue; // 未配信は載せない
     const enExists = existsSync(path.join(MERGED, paths.enPath, 'index.html'));
     const card = { title: t.title.ja, stack: t.stack, jaPath: paths.jaPath, ...(enExists ? { enPath: paths.enPath } : {}) };
@@ -167,10 +162,6 @@ const units = [];
 for (const t of TEMPLATES) {
   if (t.kind === 'single-project-variant') continue;
   if (t.draft) continue; // 単独 draft は配信しない
-  if (!('sourcePath' in t)) {
-    console.warn(`⚠ skip ${t.slug}: kind="${t.kind}" は build-previews 未対応`);
-    continue;
-  }
   if (t.stack !== 'astro' && t.stack !== 'vite') {
     console.warn(`⚠ skip ${t.slug}: stack="${t.stack}" は build-previews 未対応`);
     continue;
