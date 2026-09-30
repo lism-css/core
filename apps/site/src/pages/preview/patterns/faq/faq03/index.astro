@@ -1,0 +1,101 @@
+---
+import { QuestionIcon } from '@lism-css/icons/astro';
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Container, Stack, Flex, Icon, Text, Inline, Heading } from 'lism-css/astro';
+import { Accordion } from '@lism-css/ui/astro/Accordion';
+import { Button } from '@lism-css/ui/astro/Button';
+---
+
+<DemoLayout title="FAQ03">
+  <Container isWrapper="m" bgc="base" py="50" hasGutter>
+    <Stack g="50">
+      {/* セクション見出し */}
+      <Stack g="20" ai="center">
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold" ta="center">よくある質問</Heading>
+        <Inline class="u--trim" fz="s" o="ppp" ta="center">FAQ</Inline>
+      </Stack>
+      {/* 開閉式のQ&Aリスト。1つ開くと他は閉じる */}
+      <Accordion.Root layout="stack" g="15">
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>導入までにどれくらい時間がかかりますか？</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>お申し込み当日からご利用いただけます。既存データの移行が必要な場合は専任の担当者がお手伝いし、通常2〜3週間で完了します。</p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>スマートフォンからでも使えますか？</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>
+              ブラウザさえあれば端末を選ばずに利用できます。iOS / Android 向けのアプリもご用意しているので、外出先での確認や承認もその場で行えます。
+            </p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>セキュリティ対策について教えてください。</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>
+              通信はすべて暗号化し、データは国内のデータセンターで保管しています。二段階認証やIPアドレス制限にも対応しており、操作履歴はいつでも確認できます。
+            </p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>普段使っているツールと連携できますか？</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>
+              チャットツールやカレンダーなど、主要なサービスとの連携に対応しています。APIも公開しているため、自社システムとの接続もご相談いただけます。
+            </p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>契約したあとに利用人数を増やせますか？</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>管理画面からいつでもメンバーを追加できます。追加した分の料金は日割りで計算され、次回の請求にまとめて反映されます。</p>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion.Root>
+      {/* 解決しなかった人向けの導線 */}
+      <Stack g="25" ai="center">
+        <Text class="u--trim" fz="s" ta="center" o="p">お探しの答えが見つからない場合は、こちらからお問い合わせください。</Text>
+        <Flex jc="center">
+          <Button href="#" min-w="250px" py="15" bdrs="10">お問い合わせ</Button>
+        </Flex>
+      </Stack>
+    </Stack>
+  </Container>
+</DemoLayout>

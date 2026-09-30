@@ -325,6 +325,15 @@ const patterns = {
         },
         titleEn: '02 - Customer results and feedback',
       },
+      {
+        id: 'testimonials03',
+        title: '03 - カードを使わずに並べるお客様の声',
+        description: {
+          ja: 'アイコン付きの見出し・本文・属性を、カードを使わずに並べたお客様の声です。subgridで各アイテムの行の位置を揃え、コンテナ幅に応じてカラム数が変化します。',
+          en: 'Testimonials that list a headline with an avatar, the comment and the customer details without cards. Subgrid aligns the rows across items, and the number of columns changes according to the container width.',
+        },
+        titleEn: '03 - Testimonials without cards',
+      },
     ],
   },
   posts: {
@@ -385,7 +394,16 @@ const patterns = {
       },
       {
         id: 'faq02',
-        title: 'FAQ02',
+        title: '02 - 罫線で区切るアコーディオン',
+        description: {
+          ja: '罫線で区切ったAccordionで回答を開閉するFAQセクションです。質問にホバーすると背景色が付きます。',
+          en: 'An FAQ section with an Accordion separated by dividing lines. Questions get a background color on hover.',
+        },
+        titleEn: '02 - Accordion with dividing lines',
+      },
+      {
+        id: 'faq03',
+        title: 'FAQ03',
         description: {
           ja: 'Accordionを使って回答を開閉できるFAQセクションです。項目数が多い場合に適しています。',
           en: 'An FAQ section using Accordion so answers can be expanded and collapsed. Suited to lists with many items.',

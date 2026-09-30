@@ -1,0 +1,86 @@
+---
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Container, Frame, AutoColumns, Grid, Flex, Media, Text, Heading } from 'lism-css/astro';
+---
+
+<DemoLayout title="03 - カードを使わずに並べるお客様の声">
+  <Container isWrapper="l" py="50" hasGutter>
+    <Heading level="2" fz="2xl" fw="bold" ta="center">お客様の声</Heading>
+    {/* 各アイテムはsubgridで3行に分け、見出し・本文・属性の位置を横並びで揃える */}
+    <AutoColumns cols="20rem" g="40" mbs="40">
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=1" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">自由な時間が増えた</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          仕事から帰ると部屋がきれいになっているのが嬉しいです。面倒な掃除から解放されて、平日の夜にゆとりができました。
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">30代 / 会社員</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=2" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">まるでもう一人の自分</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          材料を入れてボタンを押すだけで本格的な煮込み料理が完成。 火を使わないので、子供から目を離さずに調理できて安心です。
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">40代 / 主婦</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=3" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">気づいた時にすぐ！</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          気づいた時にサッと掃除できる手軽さが最高です。 コードレスなので、車の中の掃除にも使えて本当に便利だと思います。
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">20代 / 大学生</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=4" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">食後の時間にゆとりを</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          毎日の食器洗いの手間がなくなり、食後に家族とゆっくり過ごせる時間が増えました。 手洗いよりきれいに洗える気がします。
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">30代 / パート</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=5" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">ヘルシーなのに本格的</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          油を使わずに揚げ物ができるので、ヘルシーで後片付けも楽ちんです。 外はサクサク、中はジューシーで味も本格的です。
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">40代 / 会社員</Text>
+      </Grid>
+      <Grid gtr="subgrid" gr="span 3" g="30" p="10">
+        <Flex ai="center" g="20">
+          <Frame as="figure" ar="1/1" w="3.5rem" fxsh="0" bdrs="99">
+            <Media src="https://cdn.lism-css.com/random/img?category=avatar&r=6" alt="" width="256" height="256" />
+          </Frame>
+          <Heading level="3" class="u--trim" fz="m" hl="s">暮らしの良き相棒</Heading>
+        </Flex>
+        <Text class="u--trim" fz="s" o="p">
+          声だけで音楽をかけたり天気を調べたりできるのが未来的。 朝の忙しい時間に、ニュースを聞きながら準備できるのがお気に入り。
+        </Text>
+        <Text class="u--trim" jslf="end" fz="xs" fs="italic" o="pp">20代 / ITエンジニア</Text>
+      </Grid>
+    </AutoColumns>
+  </Container>
+</DemoLayout>

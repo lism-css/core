@@ -1,0 +1,106 @@
+---
+import { QuestionIcon } from '@lism-css/icons/astro';
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Container, Stack, Flex, Icon, Text, Inline, Heading } from 'lism-css/astro';
+import { Accordion } from '@lism-css/ui/astro/Accordion';
+import { Button } from '@lism-css/ui/astro/Button';
+---
+
+<DemoLayout title="FAQ03">
+  <Container isWrapper="m" bgc="base" py="50" hasGutter>
+    <Stack g="50">
+      {/* セクション見出し */}
+      <Stack g="20" ai="center">
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold" ta="center">Frequently Asked Questions</Heading>
+        <Inline class="u--trim" fz="s" o="ppp" ta="center">FAQ</Inline>
+      </Stack>
+      {/* 開閉式のQ&Aリスト。1つ開くと他は閉じる */}
+      <Accordion.Root layout="stack" g="15">
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>How long does it take to get started?</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>
+              You can start using it the same day you sign up. If you need to migrate existing data, a dedicated specialist will help you, and it
+              usually takes two to three weeks.
+            </p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>Can I use it on a smartphone?</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>
+              Any device with a browser will work. We also offer iOS and Android apps, so you can review and approve tasks while you are on the move.
+            </p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>How is my data protected?</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>
+              All traffic is encrypted and your data is stored in managed data centers. Two-factor authentication and IP restrictions are supported,
+              and audit logs are always available.
+            </p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>Does it work with the tools we already use?</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>
+              It integrates with popular chat and calendar services. A public API is also available, so we can discuss connecting it to your in-house
+              systems.
+            </p>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item bgc="base-2" bdrs="10">
+          <Accordion.Heading>
+            <Accordion.Button p="20" fw="bold" ta="left">
+              <Flex ai="center" g="10">
+                <Icon icon={QuestionIcon} fz="xl" c="brand" />
+                <span>Can I add more members after signing up?</span>
+              </Flex>
+            </Accordion.Button>
+          </Accordion.Heading>
+          <Accordion.Panel p="20" pbs="0" flow="s">
+            <p>You can add members from the admin screen at any time. The additional fee is prorated and included in your next invoice.</p>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion.Root>
+      {/* 解決しなかった人向けの導線 */}
+      <Stack g="25" ai="center">
+        <Text class="u--trim" fz="s" ta="center" o="p">Can't find the answer you are looking for? Get in touch with us.</Text>
+        <Flex jc="center">
+          <Button href="#" min-w="250px" py="15" bdrs="10">Contact us</Button>
+        </Flex>
+      </Stack>
+    </Stack>
+  </Container>
+</DemoLayout>
