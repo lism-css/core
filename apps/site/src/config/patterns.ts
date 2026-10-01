@@ -583,6 +583,53 @@ const patterns = {
       },
     ],
   },
+  process: {
+    label: 'Process',
+    description: {
+      ja: '利用開始やサービス提供の手順を伝えるセクション。',
+      en: 'Sections explaining the steps to get started or use a service.',
+    },
+    items: [
+      {
+        id: 'process01',
+        draft: true,
+        title: '01 - はじめるまでの3ステップ',
+        description: {
+          ja: '番号付きのカードを矢印でつないで縦に並べ、利用開始までの手順を順番に伝えるセクションです。最後に登録ボタンを置いています。',
+          en: 'A section that stacks numbered cards connected by arrows to explain the steps to get started, ending with a sign-up button.',
+        },
+        titleEn: '01 - Three steps to get started',
+      },
+      {
+        id: 'process02',
+        title: '02 - ご相談から公開までのステップ',
+        description: {
+          ja: 'ステップ番号のバッジと見出しで、依頼から公開までの手順を順に伝えるセクションです。',
+          en: 'A section that walks through the steps from inquiry to launch with numbered step badges and headings.',
+        },
+        titleEn: '02 - Steps from consultation to launch',
+      },
+      {
+        id: 'process03',
+        title: '03 - 滞在の流れを時刻で追うタイムライン',
+        description: {
+          ja: '時刻・見出し・説明を縦のラインでつなぎ、宿泊当日の流れを伝えるタイムラインです。breakpoint「md」以上では見出しとタイムラインが横に並びます。',
+          en: 'A timeline that connects times, headings and descriptions with a vertical line to show the flow of a stay. From the "md" breakpoint up, the heading and timeline sit side by side.',
+        },
+        titleEn: '03 - Timeline of a stay by time of day',
+      },
+      {
+        id: 'process04',
+        draft: true,
+        title: '04 - 導入スケジュールを示す横並びのタイムライン',
+        description: {
+          ja: '導入から定着までの期間を横並びのタイムラインで示すセクションです。幅が足りない場合は横にスクロールします。',
+          en: 'A section that shows the period from setup to everyday use as a horizontal timeline. It scrolls horizontally when there is not enough width.',
+        },
+        titleEn: '04 - Horizontal timeline for an onboarding schedule',
+      },
+    ],
+  },
   cta: {
     label: 'CTA',
     description: {
@@ -624,34 +671,6 @@ const patterns = {
           en: 'A sign-up section with an email field. Input validation can be tried, but no data is submitted or registered.',
         },
         titleEn: '04 - Newsletter sign-up',
-      },
-    ],
-  },
-  process: {
-    label: 'Process',
-    description: {
-      ja: '利用開始やサービス提供の手順を伝えるセクション。',
-      en: 'Sections explaining the steps to get started or use a service.',
-    },
-    items: [
-      {
-        id: 'process01',
-        draft: true,
-        title: '01 - はじめるまでの3ステップ',
-        description: {
-          ja: '番号と罫線を使って、利用開始までの手順を順番に伝えるセクションです。',
-          en: 'A section explaining the steps to get started with numbers and dividing lines.',
-        },
-        titleEn: '01 - Three steps to get started',
-      },
-      {
-        id: 'process02',
-        draft: true,
-        title: 'Process02',
-        description: {
-          ja: '番号付きのカードを縦に並べた、手順紹介用のパターンです。',
-          en: 'A process pattern with numbered cards arranged vertically.',
-        },
       },
     ],
   },
@@ -728,8 +747,8 @@ export const categoryIds: PatternCategoryId[] = [
   'testimonials',
   'faq',
   'posts',
-  'cta',
   'process',
+  'cta',
   'stats',
   'logos',
   'footer',

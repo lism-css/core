@@ -100,13 +100,18 @@ export const astroRedirects: AstroRedirects = {
   '/ui/examples/card/': '/ui/components/card/',
   '/ui/examples/dividerlabel/': '/ui/components/dividerlabel/',
   '/ui/examples/reel/': '/ui/components/reel/',
-  '/ui/examples/steps/': '/ui/components/steps/',
   '/en/ui/examples/banner/': '/en/ui/components/banner/',
   '/en/ui/examples/breadcrumb/': '/en/ui/components/breadcrumb/',
   '/en/ui/examples/card/': '/en/ui/components/card/',
   '/en/ui/examples/dividerlabel/': '/en/ui/components/dividerlabel/',
   '/en/ui/examples/reel/': '/en/ui/components/reel/',
-  '/en/ui/examples/steps/': '/en/ui/components/steps/',
+  // Steps は MDX を削除し、Timeline は MDX を draft 化して本番非公開にしたため、作例のある patterns へ誘導する。ui/examples/*からの連鎖も避ける
+  '/ui/components/steps/': '/patterns/process/',
+  '/ui/examples/steps/': '/patterns/process/',
+  '/ui/block-examples/timeline/': '/patterns/process/',
+  '/en/ui/components/steps/': '/en/patterns/process/',
+  '/en/ui/examples/steps/': '/en/patterns/process/',
+  '/en/ui/block-examples/timeline/': '/en/patterns/process/',
   // FAQ/Hero は patterns のカテゴリページへ直接リダイレクトし、ui/examples/*からの連鎖を避ける（#566）
   '/ui/components/faq/': '/patterns/faq/',
   // Hero は MDX を draft 化して本番非公開にしたため、作例のある patterns へ誘導する

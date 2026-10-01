@@ -1,0 +1,50 @@
+@layer lism-custom {
+  .c--timeline {
+    --shape-size: 1.375rem;
+    --line-len: 100%;
+    --line-bold: 1px;
+    --edge: var(--s15);
+    --_line-offset: calc(50% - var(--edge) / 2);
+    --highlight-inset: -3px;
+    --startSpace: var(--edge);
+    --endSpace: var(--edge);
+    --shapeSpace: calc(var(--shape-size) + var(--highlight-inset) * -2);
+    grid-template-rows: var(--shapeSpace) auto auto auto;
+    grid-auto-columns: minmax(12rem, 1fr);
+    overflow-x: auto;
+  }
+
+  .c--timeline_item {
+    grid-template-columns: var(--startSpace) auto var(--endSpace);
+  }
+
+  .c--timeline_line {
+    width: var(--line-len);
+    height: var(--line-bold);
+  }
+
+  .c--timeline_shape {
+    font-size: var(--shape-size);
+    width: 0.5em;
+  }
+  .c--timeline_shape._hasIcon {
+    width: 1em;
+  }
+  .c--timeline_shape > .a--icon {
+    scale: 0.625;
+  }
+
+  .c--timeline_highlight {
+    inset: var(--highlight-inset);
+  }
+
+  /* 先頭・末尾はラインをシェイプの中心で止める */
+  .c--timeline_item[data-timeline='start'] {
+    --startSpace: 0;
+    --line-len: calc(100% - var(--_line-offset));
+  }
+  .c--timeline_item[data-timeline='end'] {
+    --endSpace: 0;
+    --line-len: calc(100% - var(--_line-offset));
+  }
+}
