@@ -1593,7 +1593,7 @@
     "snippet": "アバター画像用のコンポーネント。円形の画像表示に使用。src 未指定時はルートに b--avatar--initial が付き、name の先頭1文字をイニシャルとして中央に表示し、alt は name より優先される代替テキスト（alt=\"\" で装飾扱い）。@lism-css/uiパッケージで提供。"
   },
   {
-    "sourcePath": "ui/block-examples/Chat.mdx",
+    "sourcePath": "ui/examples/Chat.mdx",
     "title": "Chat",
     "description": "Lism CSS で実装するチャット風UI（b--chat）の実装例です。",
     "category": "ui",
@@ -1657,7 +1657,7 @@
     "snippet": "セクション間の波型などの装飾的な区切り要素。SVGベースの形状で区切りを表現。@lism-css/uiパッケージで提供。"
   },
   {
-    "sourcePath": "ui/components/Card.mdx",
+    "sourcePath": "ui/examples/Card.mdx",
     "title": "Card",
     "description": "Lism CSS で実装するカード型コンテンツレイアウトの実装例です。",
     "category": "ui",
@@ -1675,7 +1675,7 @@
     "snippet": "Lism CSS を使ったカードレイアウトの実装例。WithSide+is--boxLink で縦横自動切り替えカード、is--coverLink でカード内別リンク配置、set--bdrsInner での内側角丸活用、ホバーでテキストを出現させる例など多様なパターンを紹介。"
   },
   {
-    "sourcePath": "ui/components/Banner.mdx",
+    "sourcePath": "ui/examples/Banner.mdx",
     "title": "Banner",
     "description": "Lism CSS で実装するバナーリンクの実装例です。",
     "category": "ui",
@@ -1684,7 +1684,7 @@
     "snippet": "バナーの実装例。"
   },
   {
-    "sourcePath": "ui/components/Breadcrumb.mdx",
+    "sourcePath": "ui/examples/Breadcrumb.mdx",
     "title": "Breadcrumb",
     "description": "Lism CSS で実装するパンくずリストナビゲーションの実装例です。",
     "category": "ui",
@@ -1693,7 +1693,7 @@
     "snippet": "パンくずリストの実装例。"
   },
   {
-    "sourcePath": "ui/components/DividerLabel.mdx",
+    "sourcePath": "ui/examples/DividerLabel.mdx",
     "title": "DividerLabel",
     "description": "Lism CSS で実装する、ラベル付き区切り線コンポーネントの実装例です。",
     "category": "ui",
@@ -1702,7 +1702,7 @@
     "snippet": "ラベル付き区切り線の実装例。"
   },
   {
-    "sourcePath": "ui/components/Reel.mdx",
+    "sourcePath": "ui/examples/Reel.mdx",
     "title": "Reel",
     "description": "Lism CSS で実装する、コンテンツを横スクロールで表示するリールコンポーネントの実装例です。",
     "category": "ui",

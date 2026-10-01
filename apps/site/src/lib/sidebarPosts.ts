@@ -46,7 +46,7 @@ function getItemsReferencedSlugs(sectionItems: SidebarSection[]): Set<string> {
 
 /**
  * サイドバー設定の dir 定義に基づいて記事をカテゴリ分けする
- * - dir は最長一致（例: `ui/components/Card` は `ui` より `ui/components` を優先）
+ * - dir は最長一致（例: `ui/examples/Card` は `ui` より `ui/examples` を優先）
  * - items で直接参照されている記事は dir カテゴリに含めない
  * - 各カテゴリ内は order 順にソート（未指定は999、同順位は入力順を維持）
  */
@@ -65,7 +65,7 @@ export function groupPostsBySidebarDirs<T extends SidebarPostLike>(allPosts: T[]
     if (itemsReferencedSlugs.has(post.id)) continue;
 
     // sidebarConfigで定義されたdirと記事のslugをマッチング
-    // 例: "ui/components/Card" は "ui" ではなく "ui/components" にマッチ
+    // 例: "ui/examples/Card" は "ui" ではなく "ui/examples" にマッチ
     let category = '/';
     for (const dir of configuredDirs) {
       if (dir === '/') {

@@ -181,7 +181,7 @@ Lism CSSの各バージョンの変更点を記載します。
 - Details.Contentの`flow="s"`を廃止しました。以前の間隔に戻すには`.b--details_content { --flow--base: var(--flow--s) }`を指定してください（#559）。
 - Tabsのキーボード操作とReact版の`?lism-tab=`に対応しました。パネルを`aria-hidden`から`hidden`へ変更し、範囲外の`defaultIndex`による不具合も修正しました（#559）。
 - Modalのアクセシビリティと開閉処理を改善し、ドラッグ時に誤って閉じる問題や、閉じた後の状態復元を修正しました。`setEvent`の対象は`dialog`要素に限定しました（#563）。
-- Chatをパッケージから削除しました。[実装例](/ui/block-examples/chat/)のCSSを`@layer lism-block`ごとコピーしてください（#564）。
+- Chatをパッケージから削除しました。[実装例](/ui/examples/chat/)のCSSを`@layer lism-block`ごとコピーしてください（#564）。
 
 <Divider bds="dashed" my="40" />
 

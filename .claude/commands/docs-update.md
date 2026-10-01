@@ -27,8 +27,7 @@ argument-hint: "[対象ファイル/ディレクトリ... | root]"
 | D | `property-class/` | プロパティクラス | `lism-css` の config・SCSS |
 | E | `tokens/` | デザイントークン | `lism-css` の config・SCSS |
 | F | `ui/` 直下 | `@lism-css/ui` コンポーネント（Blocks） | `lism-ui` のソース |
-| G | `ui/block-examples/` | パッケージ外の b-- 部品作例（Block Examples） | `lism-css` のコンポーネント |
-| G' | `ui/components/` | 独自 CSS なしの実装例（Components） | `lism-css` のコンポーネント |
+| G | `ui/examples/` | パッケージ外の部品・技法の実装例（Examples） | `lism-css` のコンポーネント |
 | H | `customize/` とルート直下 | 概要・導入・カスタマイズガイド | `package.json`、ビルド設定、ソース全般 |
 
 3件以下のグループは隣接グループと統合し、多いグループ（H 等）は分割してよい。

@@ -1,15 +1,15 @@
 ---
 title: 'BalloonBox'
-description: 'Example implementation of a speech-bubble style decorative box using Lism CSS.'
+description: 'Lism CSS で実装するふきだし風装飾ボックスの実装例です。'
 draft: true
 ---
 
 import { DummyText } from '@lism-css/ui/astro/DummyText';
 import BalloonBox from '@/components/ex/BalloonBox/index.jsx';
 
-Examples of speech-bubble style decorative boxes built with Lism.
+ふきだし風装飾ボックスの作成例を紹介します。
 
-If you need a chat-style conversation UI (a sequence of speech bubbles), see the [Chat](/en/ui/block-examples/chat/) example as well.
+チャットの会話風UI（ふきだしの連続表示）が必要な場合は、[Chat](/ui/examples/chat/) の実装例も参照してください。
 
 
 ## Source Code
@@ -21,10 +21,10 @@ If you need a chat-style conversation UI (a sequence of speech bubbles), see the
 
 ## Props
 
-| Prop | Description |
+| プロパティ | 説明 |
 |---|---|
-|`variant`| Specifies the direction of the balloon. Outputs the `c--balloonBox--{variant}` class.|
-|`keycolor`| Specifies the color of the balloon. Also outputs `u--cbox`.|
+|`variant`| ふきだしの方向を指定できます。`c--balloonBox--{variant}` クラスが出力されます。|
+|`keycolor`| ふきだしの色を指定できます。`u--cbox`も出力されます。|
 
 
 ## Usage
@@ -49,17 +49,18 @@ If you need a chat-style conversation UI (a sequence of speech bubbles), see the
   <PreviewCode>
   ```jsx
     <BalloonBox variant="left">
-      Lorem ipsum dolor sit amet.
+      ロレム・イプサムの座り雨。
     </BalloonBox>
     <BalloonBox variant="right" keycolor="blue">
-      Lorem ipsum dolor sit amet.
+      ロレム・イプサムの座り雨。
     </BalloonBox>
     <BalloonBox variant="top" bdw="2px" keycolor="red">
-      Lorem ipsum dolor sit amet.
+      ロレム・イプサムの座り雨。
     </BalloonBox>
     <BalloonBox variant="bottom" bgc="text" c="base">
-      Lorem ipsum dolor sit amet.
+      ロレム・イプサムの座り雨。
     </BalloonBox>
   ```
   </PreviewCode>
 </Preview>
+
