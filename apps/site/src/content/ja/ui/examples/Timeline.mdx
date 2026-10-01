@@ -1,6 +1,7 @@
 ---
 title: 'Timeline'
-description: 'An example of a timeline UI (b--timeline) built with Lism CSS.'
+description: 'Lism CSS で実装するタイムラインUI（b--timeline）の実装例です。'
+draft: true
 ---
 
 import { CheckIcon } from '@lism-css/icons/astro';
@@ -9,7 +10,7 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
 import '@/components/ex/Timeline/style.css';
 
 
-An example of a UI that displays events in chronological order. It is built with Lism primitives and a small amount of CSS (`b--timeline`).
+出来事を時系列に並べて表示する UI の実装例です。Lism の primitives と少量の CSS（`b--timeline`）で構成します。
 
 
 ## Overview
@@ -21,28 +22,28 @@ An example of a UI that displays events in chronological order. It is built with
       <Grid class="b--timeline_item" ai="center" cg="20">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <DummyText lang="en" />
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" cg="20">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <DummyText lang="en" />
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" cg="20">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <DummyText lang="en" />
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
     </Grid>
@@ -53,13 +54,13 @@ An example of a UI that displays events in chronological order. It is built with
       <Grid class="b--timeline_item" ai="center" cg="20">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lorem ipsum dolor sit amet. ...</p>
+          <p>ロレム・イプサムの座り雨。...</p>
         </Lism>
       </Grid>
-      {/* Repeat the same structure for the remaining items */}
+      {/* 2件目以降も同じ構造で並べます */}
     </Grid>
     ```
   </PreviewCode>
@@ -69,13 +70,13 @@ An example of a UI that displays events in chronological order. It is built with
       <div class="b--timeline_item l--grid -ai:center -cg:20">
         <div class="b--timeline_line a--decorator -bgc -jslf:center -gr:1/-1 -gc" style="--bgc:var(--divider);--gc:1" aria-hidden="true"></div>
         <div class="b--timeline_shape l--center -pos:relative -z:1 -c:base -ar:1/1 -bdrs:99 -jslf:center -bgc:text -gr -gc" style="--gr:2;--gc:1"></div>
-        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">Month dd, 20yy</div>
-        <div class="b--timeline_title -fz:s -fw:bold -gr -gc" style="--gr:3;--gc:2">Lism x.y.z released.</div>
+        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">20yy年m月dd日</div>
+        <div class="b--timeline_title -fz:s -fw:bold -gr -gc" style="--gr:3;--gc:2">Lism x.y.z がリリース。</div>
         <div class="b--timeline_text -fz:s -mbs:15 -gr -gc" style="--gr:4;--gc:2">
-          <p>Lorem ipsum dolor sit amet. ...</p>
+          <p>ロレム・イプサムの座り雨。...</p>
         </div>
       </div>
-      <!-- Repeat the same structure for the remaining items -->
+      <!-- 2件目以降も同じ構造で並べます -->
     </div>
     ```
   </PreviewCode>
@@ -84,60 +85,60 @@ An example of a UI that displays events in chronological order. It is built with
 
 ## Styles
 
-The Timeline base styles are defined in the following CSS. Copy this CSS into your project to use it.
+Timeline のベーススタイルは、以下の CSS で定義されています。この CSS をプロジェクトにコピーして利用してください。
 
-If you copy it with the `@layer lism-block` wrapper as is, it fits into the core CSS layer order and can be overridden from the `lism-custom` layer.
+`@layer lism-block` のままコピーすると、コア CSS のレイヤー順にそのまま組み込まれ、`lism-custom` レイヤーから上書きできます。
 
 <SrcCode dir="docs" path="src/components/ex/Timeline/style.css" title="timeline.css" />
 
 
 ## Markup
 
-The markup consists of the following classes and attributes. Row and column placement is specified with Property Classes (`-gr` / `-gc`).
+マークアップは以下のクラス・属性で構成します。行・列の配置は Property Class（`-gr` / `-gc`）で指定します。
 
-| Class / Attribute | Description |
+| クラス / 属性 | 説明 |
 |---|---|
-| `b--timeline` | Root element. Used together with `l--grid`. Add `b--timeline--horizontal` for a horizontal layout. |
-| `b--timeline_item` | Wrapper element for a single item. Used together with `l--grid`; specify `-ai:center -cg:20` for a vertical layout, or `-ai:center -ji:center -gtr:subgrid -gr:1/-1 -rg:10` for a horizontal layout. |
-| `data-timeline` | Marks the first/last item. Setting `start` / `end` removes the line overflow in that direction. |
-| `b--timeline_line` | The line connecting items (used with `a--decorator`). Extend it with `-gr:1/-1` for a vertical layout, or `-gc:1/-1` for a horizontal layout. |
-| `b--timeline_shape` | The shape marking each milestone (used with `l--center`). Change its color with `-bgc`, and add `_hasIcon` to place an icon inside. |
-| `b--timeline_highlight` | Decoration that highlights the shape (used with `a--decorator`; optional). |
-| `b--timeline_time` | Element displaying the date/time (optional). In a vertical layout, it's placed in row 2, column 2. |
-| `b--timeline_title` | Element displaying the heading (optional). In a vertical layout, it's placed in row 3, column 2. |
-| `b--timeline_text` | Element displaying the body text (optional). In a vertical layout, it's placed in row 4, column 2. |
-| `--edge` | Space reserved at the start/end (defaults to `var(--s20)` for a vertical layout, `var(--s15)` for a horizontal layout). |
+| `b--timeline` | ルート要素。`l--grid` と併用します。横並びにする場合は `b--timeline--horizontal` を追加します。 |
+| `b--timeline_item` | 1件分のラッパー要素。`l--grid` と併用し、縦並びでは `-ai:center -cg:20`、横並びでは `-ai:center -ji:center -gtr:subgrid -gr:1/-1 -rg:10` を指定します。 |
+| `data-timeline` | 先頭・末尾の指定。`start` / `end` を指定すると、その方向へのラインのはみ出しをなくします。 |
+| `b--timeline_line` | 項目をつなぐライン（`a--decorator` と併用）。縦並びでは `-gr:1/-1`、横並びでは `-gc:1/-1` で伸ばします。 |
+| `b--timeline_shape` | 節目を示すシェイプ（`l--center` と併用）。`-bgc` で色を変更でき、アイコンを入れる場合は `_hasIcon` を追加します。 |
+| `b--timeline_highlight` | シェイプを強調する装飾（`a--decorator` と併用。省略可）。 |
+| `b--timeline_time` | 日時を表示する要素（省略可）。縦並びでは2行目・2列目に配置します。 |
+| `b--timeline_title` | 見出しを表示する要素（省略可）。縦並びでは3行目・2列目に配置します。 |
+| `b--timeline_text` | 本文を表示する要素（省略可）。縦並びでは4行目・2列目に配置します。 |
+| `--edge` | 先頭・末尾に確保する余白（デフォルトは縦並びで `var(--s20)`、横並びで `var(--s15)`）。 |
 
-Adjust the shape size and line thickness by editing `--shape-size` / `--line-bold` in the CSS.
+シェイプの大きさやラインの太さは、CSS 側の `--shape-size` / `--line-bold` を編集して調整します。
 
 
 ## Examples
 
-### Start/end markers and highlighted shapes
+### 先頭・末尾の指定とシェイプの強調
 
-Setting `data-timeline="start"` / `data-timeline="end"` on the first and last items removes the line overflow above and below.  
-Adding `b--timeline_highlight` inside a shape gives it a highlighted look, and you can change its color with the shape's `-bgc`.
+先頭と末尾の項目に `data-timeline="start"` / `data-timeline="end"` を指定すると、ラインの上下のはみ出しをなくせます。  
+また、シェイプ内に `b--timeline_highlight` を追加するとハイライト表示になり、シェイプの `-bgc` で色を変更できます。
 
 <Preview>
-  <PreviewTitle>`data-timeline` and `b--timeline_highlight`</PreviewTitle>
+  <PreviewTitle>`data-timeline` と `b--timeline_highlight`</PreviewTitle>
   <PreviewArea resize p="20">
     <Grid class="b--timeline" hl="s">
       <Grid class="b--timeline_item" ai="center" cg="20" data-timeline="start">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" aslf="e" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
-          <DummyText lang="en" />
+          <p>Lism x.y.z がリリース。</p>
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" cg="20">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
-          <DummyText lang="en" />
+          <p>Lism x.y.z がリリース。</p>
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" cg="20" data-timeline="end">
@@ -145,10 +146,10 @@ Adding `b--timeline_highlight` inside a shape gives it a highlighted look, and y
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="red" gr="2" gc="1">
           <Decorator class="b--timeline_highlight" as="span" pos="absolute" z="-1" bgc="inherit" bdrs="99" o="ppp" />
         </Center>
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
-          <DummyText lang="en" />
+          <p>Lism x.y.z がリリース。</p>
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
     </Grid>
@@ -159,20 +160,20 @@ Adding `b--timeline_highlight` inside a shape gives it a highlighted look, and y
       <Grid class="b--timeline_item" ai="center" cg="20" data-timeline="start">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" aslf="e" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
+          <p>Lism x.y.z がリリース。</p>
         </Lism>
       </Grid>
-      {/* Middle items have no data-timeline and show the full line */}
+      {/* 中間の項目は data-timeline なし・ライン全体を表示 */}
       <Grid class="b--timeline_item" ai="center" cg="20" data-timeline="end">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/3" gc="1" aslf="s" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="red" gr="2" gc="1">
           <Decorator class="b--timeline_highlight" as="span" pos="absolute" z="-1" bgc="inherit" bdrs="99" o="ppp" />
         </Center>
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
+          <p>Lism x.y.z がリリース。</p>
         </Lism>
       </Grid>
     </Grid>
@@ -184,20 +185,20 @@ Adding `b--timeline_highlight` inside a shape gives it a highlighted look, and y
       <div class="b--timeline_item l--grid -ai:center -cg:20" data-timeline="start">
         <div class="b--timeline_line a--decorator -bgc -jslf:center -gr:1/-1 -gc -aslf:end" style="--bgc:var(--divider);--gc:1" aria-hidden="true"></div>
         <div class="b--timeline_shape l--center -pos:relative -z:1 -c:base -ar:1/1 -bdrs:99 -jslf:center -bgc:text -gr -gc" style="--gr:2;--gc:1"></div>
-        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">Month dd, 20yy</div>
+        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">20yy年m月dd日</div>
         <div class="b--timeline_text -fz:s -mbs:15 -gr -gc" style="--gr:4;--gc:2">
-          <p>Lism x.y.z released.</p>
+          <p>Lism x.y.z がリリース。</p>
         </div>
       </div>
-      <!-- Middle items have no data-timeline and show the full line -->
+      <!-- 中間の項目は data-timeline なし・ライン全体を表示 -->
       <div class="b--timeline_item l--grid -ai:center -cg:20" data-timeline="end">
         <div class="b--timeline_line a--decorator -bgc -jslf:center -gr -gc -aslf:start" style="--bgc:var(--divider);--gr:1/3;--gc:1" aria-hidden="true"></div>
         <div class="b--timeline_shape l--center -pos:relative -z:1 -c:base -ar:1/1 -bdrs:99 -jslf:center -bgc -gr -gc" style="--bgc:var(--red);--gr:2;--gc:1">
           <span class="b--timeline_highlight a--decorator -pos:absolute -z:-1 -bgc:inherit -bdrs:99 -o:ppp" aria-hidden="true"></span>
         </div>
-        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">Month dd, 20yy</div>
+        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">20yy年m月dd日</div>
         <div class="b--timeline_text -fz:s -mbs:15 -gr -gc" style="--gr:4;--gc:2">
-          <p>Lism x.y.z released.</p>
+          <p>Lism x.y.z がリリース。</p>
         </div>
       </div>
     </div>
@@ -206,9 +207,9 @@ Adding `b--timeline_highlight` inside a shape gives it a highlighted look, and y
 </Preview>
 
 
-### Adding icons
+### アイコンの表示
 
-Add `_hasIcon` to the shape and place an `<Icon>` (`a--icon`) inside it to display an icon within the shape.
+シェイプに `_hasIcon` を追加し、中に `<Icon>`（`a--icon`）を配置するとアイコン付きのシェイプになります。
 
 <Preview>
   <PreviewTitle>`_hasIcon`</PreviewTitle>
@@ -219,19 +220,19 @@ Add `_hasIcon` to the shape and place an `<Icon>` (`a--icon`) inside it to displ
         <Center class="b--timeline_shape _hasIcon" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1">
           <Icon icon={CheckIcon} style={{ scale: '0.625' }} />
         </Center>
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
-          <DummyText lang="en" />
+          <p>Lism x.y.z がリリース。</p>
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" cg="20">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
-          <DummyText lang="en" />
+          <p>Lism x.y.z がリリース。</p>
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" cg="20">
@@ -240,10 +241,10 @@ Add `_hasIcon` to the shape and place an `<Icon>` (`a--icon`) inside it to displ
           <Decorator class="b--timeline_highlight" as="span" pos="absolute" z="-1" bgc="inherit" bdrs="99" o="ppp" />
           <Icon icon={CheckIcon} style={{ scale: '0.625' }} />
         </Center>
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lism x.y.z released.</p>
-          <DummyText lang="en" />
+          <p>Lism x.y.z がリリース。</p>
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
     </Grid>
@@ -257,9 +258,9 @@ Add `_hasIcon` to the shape and place an `<Icon>` (`a--icon`) inside it to displ
       <Center class="b--timeline_shape _hasIcon" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1">
         <Icon icon={CheckIcon} style={{ scale: '0.625' }} />
       </Center>
-      <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
+      <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
       <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-        <p>Lism x.y.z released.</p>
+        <p>Lism x.y.z がリリース。</p>
       </Lism>
     </Grid>
     ```
@@ -271,9 +272,9 @@ Add `_hasIcon` to the shape and place an `<Icon>` (`a--icon`) inside it to displ
       <div class="b--timeline_shape _hasIcon l--center -pos:relative -z:1 -c:base -ar:1/1 -bdrs:99 -jslf:center -bgc:text -gr -gc" style="--gr:2;--gc:1">
         <svg class="a--icon" style="scale:0.625" aria-hidden="true">...</svg>
       </div>
-      <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">Month dd, 20yy</div>
+      <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">20yy年m月dd日</div>
       <div class="b--timeline_text -fz:s -mbs:15 -gr -gc" style="--gr:4;--gc:2">
-        <p>Lism x.y.z released.</p>
+        <p>Lism x.y.z がリリース。</p>
       </div>
     </div>
     ```
@@ -281,9 +282,9 @@ Add `_hasIcon` to the shape and place an `<Icon>` (`a--icon`) inside it to displ
 </Preview>
 
 
-### Horizontal layout (`b--timeline--horizontal`)
+### 横並び（`b--timeline--horizontal`）
 
-Adding `b--timeline--horizontal` to the root element creates a horizontally arranged timeline. Each item shares the root's rows via `-gtr:subgrid`, and the line extends horizontally with `-gc:1/-1`.
+ルート要素に `b--timeline--horizontal` を追加すると、横方向に並ぶタイムラインになります。各項目は `-gtr:subgrid` でルートの行を共有し、ラインは `-gc:1/-1` で横方向に伸ばします。
 
 <Preview>
   <PreviewTitle>`b--timeline--horizontal`</PreviewTitle>
@@ -292,19 +293,19 @@ Adding `b--timeline--horizontal` to the root element creates a horizontally arra
       <Grid class="b--timeline_item" ai="center" ji="c" gtr="subgrid" gr="1/-1" rg="10" data-timeline="start">
         <Decorator class="b--timeline_line" bgc="divider" jslf="e" gr="1" gc="1/-1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="1" gc="2" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <DummyText lang="en" />
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" ji="c" gtr="subgrid" gr="1/-1" rg="10">
         <Decorator class="b--timeline_line" bgc="divider" jslf="center" gr="1" gc="1/-1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="1" gc="2" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released. Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <DummyText lang="en" />
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
       <Grid class="b--timeline_item" ai="center" ji="c" gtr="subgrid" gr="1/-1" rg="10" data-timeline="end">
@@ -312,10 +313,10 @@ Adding `b--timeline--horizontal` to the root element creates a horizontally arra
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="1" gc="2">
           <Decorator class="b--timeline_highlight" as="span" pos="absolute" z="-1" bgc="inherit" bdrs="99" o="ppp" />
         </Center>
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <DummyText lang="en" />
+          <DummyText lang="ja" />
         </Lism>
       </Grid>
     </Grid>
@@ -326,13 +327,13 @@ Adding `b--timeline--horizontal` to the root element creates a horizontally arra
       <Grid class="b--timeline_item" ai="center" ji="c" gtr="subgrid" gr="1/-1" rg="10" data-timeline="start">
         <Decorator class="b--timeline_line" bgc="divider" jslf="e" gr="1" gc="1/-1" />
         <Center class="b--timeline_shape" pos="relative" z="1" c="base" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="1" gc="2" />
-        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">Month dd, 20yy</Lism>
-        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z released.</Lism>
+        <Lism class="b--timeline_time" fz="xs" fw="bold" gr="2" gc="2">20yy年m月dd日</Lism>
+        <Lism class="b--timeline_title" fz="s" fw="bold" gr="3" gc="2">Lism x.y.z がリリース。</Lism>
         <Lism class="b--timeline_text" fz="s" mbs="15" gr="4" gc="2">
-          <p>Lorem ipsum dolor sit amet. ...</p>
+          <p>ロレム・イプサムの座り雨。...</p>
         </Lism>
       </Grid>
-      {/* Middle items center the line with `jslf="center"`, and the last item shows only the near side with `jslf="s"` */}
+      {/* 中間の項目はラインを `jslf="center"` で中央に、末尾は `jslf="s"` で手前側だけ表示します */}
     </Grid>
     ```
   </PreviewCode>
@@ -342,13 +343,13 @@ Adding `b--timeline--horizontal` to the root element creates a horizontally arra
       <div class="b--timeline_item l--grid -ai:center -ji:center -gtr:subgrid -gr:1/-1 -rg:10" data-timeline="start">
         <div class="b--timeline_line a--decorator -bgc -jslf:end -gr -gc:1/-1" style="--bgc:var(--divider);--gr:1" aria-hidden="true"></div>
         <div class="b--timeline_shape l--center -pos:relative -z:1 -c:base -ar:1/1 -bdrs:99 -jslf:center -bgc:text -gr -gc" style="--gr:1;--gc:2"></div>
-        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">Month dd, 20yy</div>
-        <div class="b--timeline_title -fz:s -fw:bold -gr -gc" style="--gr:3;--gc:2">Lism x.y.z released.</div>
+        <div class="b--timeline_time -fz:xs -fw:bold -gr -gc" style="--gr:2;--gc:2">20yy年m月dd日</div>
+        <div class="b--timeline_title -fz:s -fw:bold -gr -gc" style="--gr:3;--gc:2">Lism x.y.z がリリース。</div>
         <div class="b--timeline_text -fz:s -mbs:15 -gr -gc" style="--gr:4;--gc:2">
-          <p>Lorem ipsum dolor sit amet. ...</p>
+          <p>ロレム・イプサムの座り雨。...</p>
         </div>
       </div>
-      <!-- Middle items set the line to -jslf:center, and the last item to -jslf:start -->
+      <!-- 中間の項目はラインを -jslf:center に、末尾は -jslf:start にします -->
     </div>
     ```
   </PreviewCode>

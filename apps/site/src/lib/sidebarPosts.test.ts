@@ -7,21 +7,19 @@ function post(id: string, order?: number) {
   return { id, data: { order } };
 }
 
-// ui セクションと同じ3分類構成（Blocks / Block Examples / Components）
+// ui セクションと同じ2分類構成（Blocks / Examples）
 const uiSections: SidebarSection[] = [
   { label: 'Blocks', dir: 'ui' },
-  { label: 'Block Examples', dir: 'ui/block-examples' },
-  { label: 'Components', dir: 'ui/components' },
+  { label: 'Examples', dir: 'ui/examples' },
 ];
 
 describe('groupPostsBySidebarDirs', () => {
   it('ネストしたdirは最長一致で分類される（ui直下とui/配下サブディレクトリを混同しない）', () => {
-    const posts = [post('ui/Button', 1), post('ui/block-examples/Timeline', 1), post('ui/components/Card', 1), post('ui/components/Hero', 2)];
+    const posts = [post('ui/Button', 1), post('ui/examples/Card', 1), post('ui/examples/Hero', 2)];
     const grouped = groupPostsBySidebarDirs(posts, uiSections);
 
     expect(grouped['ui'].map((p) => p.id)).toEqual(['ui/Button']);
-    expect(grouped['ui/block-examples'].map((p) => p.id)).toEqual(['ui/block-examples/Timeline']);
-    expect(grouped['ui/components'].map((p) => p.id)).toEqual(['ui/components/Card', 'ui/components/Hero']);
+    expect(grouped['ui/examples'].map((p) => p.id)).toEqual(['ui/examples/Card', 'ui/examples/Hero']);
   });
 
   it('カテゴリ内はorder順にソートされる（未指定は999扱い・同順位は入力順を維持）', () => {
@@ -42,17 +40,18 @@ describe('groupPostsBySidebarDirs', () => {
 });
 
 describe('flattenPostsBySidebarOrder', () => {
-  it('セクションの定義順にグループ境界が並ぶ（Blocks → Block Examples → Components）', () => {
+  it('セクションの定義順にグループ境界が並ぶ（Blocks → Examples）', () => {
     const posts = [
       // 入力順はシャッフルしておく
-      post('ui/components/Card', 1),
+      post('ui/examples/Chat', 2),
       post('ui/Button', 2),
-      post('ui/block-examples/Timeline', 1),
+      post('ui/examples/Timeline', 1),
       post('ui/Accordion', 1),
-      post('ui/block-examples/Chat', 2),
+      post('ui/examples/Card', 1),
     ];
     const ordered = flattenPostsBySidebarOrder(posts, uiSections).map((p) => p.id);
-    expect(ordered).toEqual(['ui/Accordion', 'ui/Button', 'ui/block-examples/Timeline', 'ui/block-examples/Chat', 'ui/components/Card']);
+    // グループ内は order 順、同順位（Timeline / Card）は入力順
+    expect(ordered).toEqual(['ui/Accordion', 'ui/Button', 'ui/examples/Timeline', 'ui/examples/Card', 'ui/examples/Chat']);
   });
 
   it('items指定セクションは記載順で並び、dirセクションと重複しない', () => {
@@ -65,16 +64,16 @@ describe('flattenPostsBySidebarOrder', () => {
     expect(ordered).toEqual(['b', 'a', 'core-components/box']);
   });
 
-  it('実際のuiサイドバー設定でも3分類の境界順で並ぶ（回帰テスト）', () => {
-    const posts = [post('ui/components/Card', 1), post('ui/block-examples/Timeline', 1), post('ui/Button', 1)];
+  it('実際のuiサイドバー設定でも2分類の境界順で並ぶ（回帰テスト）', () => {
+    const posts = [post('ui/examples/Card', 1), post('ui/examples/Timeline', 2), post('ui/Button', 1)];
     const ordered = flattenPostsBySidebarOrder(posts, sidebarConfig.sections.ui).map((p) => p.id);
-    expect(ordered).toEqual(['ui/Button', 'ui/block-examples/Timeline', 'ui/components/Card']);
+    expect(ordered).toEqual(['ui/Button', 'ui/examples/Card', 'ui/examples/Timeline']);
   });
 });
 
 describe('getPostUrl', () => {
   it('ui/配下はサイト直下、それ以外は/docs/配下のURLになる', () => {
-    expect(getPostUrl('ui/components/card')).toBe('/ui/components/card/');
+    expect(getPostUrl('ui/examples/card')).toBe('/ui/examples/card/');
     expect(getPostUrl('core-components/box')).toBe('/docs/core-components/box/');
   });
 });

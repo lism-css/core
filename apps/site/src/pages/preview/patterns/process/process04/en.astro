@@ -1,0 +1,57 @@
+---
+import { CheckIcon } from '@lism-css/icons/astro';
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Center, Container, Decorator, Grid, Heading, Icon, Inline, Stack, Text } from 'lism-css/astro';
+import './_style.css';
+---
+
+<DemoLayout title="04 - Horizontal timeline for an onboarding schedule">
+  <Container as="section" isWrapper="l" isContainer hasGutter bgc="base" py="50">
+    <Stack g="50">
+      <Stack g="20" ta="center">
+        <Inline fz="s" c="text-2">Onboarding schedule</Inline>
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold">From setup to everyday use in about a month</Heading>
+        <Text c="text-2">A dedicated specialist supports you from initial setup until your team is up and running.</Text>
+      </Stack>
+
+      <Grid as="ol" class="c--timeline" gaf="column" hl="s">
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10" data-timeline="start">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="e" gr="1" gc="1/-1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">Week 1</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Initial setup</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2">We issue your accounts and decide how to organize your teams and projects.</Text>
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1" gc="1/-1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">Week 2</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Data migration</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2"
+            >Import your existing tasks and documents. Your specialist will help with the migration.</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1" gc="1/-1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">Week 3</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Team training</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2">We hold online training sessions for each team and walk you through everyday use.</Text>
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10" data-timeline="end">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="s" gr="1" gc="1/-1" />
+          <Center class="c--timeline_shape _hasIcon" pos="relative" z="1" c="base" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2">
+            <Decorator class="c--timeline_highlight" as="span" pos="absolute" z="-1" bgc="inherit" bdrs="99" o="ppp" />
+            <Icon icon={CheckIcon} weight="bold" />
+          </Center>
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">After 1 month</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Full rollout</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2"
+            >We review how your team is using it together and suggest ways to improve your workflow.</Text
+          >
+        </Grid>
+      </Grid>
+    </Stack>
+  </Container>
+</DemoLayout>

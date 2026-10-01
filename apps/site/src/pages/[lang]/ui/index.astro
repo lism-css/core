@@ -31,11 +31,9 @@ const allUiPosts = await getUiPostsByLang(lang);
 
 const byOrder = (a: (typeof allUiPosts)[number], b: (typeof allUiPosts)[number]) => (a.data.order ?? 999) - (b.data.order ?? 999);
 
-const blockExamplePosts = allUiPosts.filter((post) => post.id.startsWith('ui/block-examples/')).sort(byOrder);
+const examplePosts = allUiPosts.filter((post) => post.id.startsWith('ui/examples/')).sort(byOrder);
 
-const componentPosts = allUiPosts.filter((post) => post.id.startsWith('ui/components/')).sort(byOrder);
-
-const blockPosts = allUiPosts.filter((post) => !post.id.startsWith('ui/block-examples/') && !post.id.startsWith('ui/components/')).sort(byOrder);
+const blockPosts = allUiPosts.filter((post) => !post.id.startsWith('ui/examples/')).sort(byOrder);
 
 const getPostUrl = (post: (typeof allUiPosts)[number]) => `/${lang}/ui/${post.id.replace('ui/', '')}/`;
 ---
@@ -56,29 +54,13 @@ const getPostUrl = (post: (typeof allUiPosts)[number]) => `/${lang}/ui/${post.id
       </AutoColumns>
     </Lism>
     {
-      blockExamplePosts.length > 0 && (
+      examplePosts.length > 0 && (
         <Lism as="section" mbs="50">
-          <SectionHeader title="Block Examples">
-            <Text>
-              Examples of <code>b--</code> parts you can adopt by copying their CSS.
-            </Text>
+          <SectionHeader title="Examples">
+            <Text>Implementation examples of parts and techniques outside the package, built with Lism CSS.</Text>
           </SectionHeader>
           <AutoColumns cols="240px" g="30" mbs="40">
-            {blockExamplePosts.map((post) => (
-              <UiComponentCard href={getPostUrl(post)} title={post.data.title} draft={post.data.draft} />
-            ))}
-          </AutoColumns>
-        </Lism>
-      )
-    }
-    {
-      componentPosts.length > 0 && (
-        <Lism as="section" mbs="50">
-          <SectionHeader title="Components">
-            <Text>Additional implementation examples and samples using Lism CSS and Lism UI.</Text>
-          </SectionHeader>
-          <AutoColumns cols="240px" g="30" mbs="40">
-            {componentPosts.map((post) => (
+            {examplePosts.map((post) => (
               <UiComponentCard href={getPostUrl(post)} title={post.data.title} draft={post.data.draft} />
             ))}
           </AutoColumns>

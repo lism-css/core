@@ -135,7 +135,7 @@ function getNextTool(entry: DocsEntry, guideTopics?: ReadonlySet<string>): strin
     return `get_props_system(prop: "${basename}")`;
   }
   // 実装例ページはパッケージ提供コンポーネントではないためget_componentでは解決できない。
-  if (withoutExt.startsWith('ui/block-examples/') || withoutExt.startsWith('ui/components/')) {
+  if (withoutExt.startsWith('ui/examples/')) {
     return null;
   }
 

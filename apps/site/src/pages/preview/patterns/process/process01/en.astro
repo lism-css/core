@@ -1,45 +1,54 @@
 ---
+import { ArrowDownIcon } from '@lism-css/icons/astro';
 import DemoLayout from '@/layouts/DemoLayout.astro';
-
-import { Columns, Container, Heading, Inline, Stack, Text, WithSide } from 'lism-css/astro';
+import { Button } from '@lism-css/ui/astro/Button';
+import { Container, Heading, Icon, Inline, Stack, Text, WithSide } from 'lism-css/astro';
 ---
 
 <DemoLayout title="01 - Three steps to get started">
-  <Container as="section" isWrapper="l" isContainer hasGutter bgc="base" py="50">
+  <Container as="section" isWrapper="m" isContainer hasGutter bgc="base" py="50">
     <Stack g="40">
       <Stack g="20" max-sz="s">
         <Inline fz="s" c="text-2">How it works</Inline>
         <Heading level="2" class="u--trim" fz="2xl" fw="bold"
-          ><Inline d="inline-block">Get started in </Inline><Inline d="inline-block">three steps.</Inline></Heading
+          ><Inline d="inline-block">Get started in</Inline>{' '}<Inline d="inline-block">three steps.</Inline></Heading
         >
         <Text c="text-2">Getting set up takes little time. Follow the on-screen instructions from signing up to sharing your first task.</Text>
       </Stack>
 
-      <Columns as="ol" cols={[1, null, 2]} g="20">
-        <WithSide as="li" gc="1/-1" rg="30" cg="50" ai="center" bgc="base-2" p="30" bdrs="20">
-          <Inline isSide ff="mono" fz="3xl" fw="bold">01</Inline>
-          <Stack g="15">
-            <Heading level="3" fz="xl">Create a free account</Heading>
-            <Text>Enter your email address, then follow the instructions in your inbox to complete your profile. No credit card required.</Text>
-          </Stack>
-        </WithSide>
-
-        <Stack as="li" g="30" p="30" bd-bs>
-          <Inline ff="mono" fz="3xl" fw="bold" c="text-2">02</Inline>
-          <Stack g="15">
-            <Heading level="3" fz="xl">Invite your team</Heading>
-            <Text fz="s" c="text-2">Send an invitation link to your teammates and choose their roles.</Text>
-          </Stack>
+      <Stack as="ol" g="15">
+        <Stack as="li" g="15">
+          <WithSide rg="30" cg="40" ai="center" bgc="base-2" p="30" bdrs="20">
+            <Inline isSide ff="mono" fz="3xl" fw="bold">01</Inline>
+            <Stack g="15">
+              <Heading level="3" fz="xl">Create a free account</Heading>
+              <Text>Enter your email address, then follow the instructions in your inbox to complete your profile. No credit card required.</Text>
+            </Stack>
+          </WithSide>
+          <Icon icon={ArrowDownIcon} fz="xl" c="text-2" aslf="center" />
         </Stack>
 
-        <Stack as="li" g="30" p="30" bd-bs>
-          <Inline ff="mono" fz="3xl" fw="bold" c="text-2">03</Inline>
+        <Stack as="li" g="15">
+          <WithSide rg="30" cg="40" ai="center" bgc="base-2" p="30" bdrs="20">
+            <Inline isSide ff="mono" fz="3xl" fw="bold">02</Inline>
+            <Stack g="15">
+              <Heading level="3" fz="xl">Invite your team</Heading>
+              <Text>Send an invitation link to your teammates and choose their roles.</Text>
+            </Stack>
+          </WithSide>
+          <Icon icon={ArrowDownIcon} fz="xl" c="text-2" aslf="center" />
+        </Stack>
+
+        <WithSide as="li" rg="30" cg="40" ai="center" bgc="base-2" p="30" bdrs="20">
+          <Inline isSide ff="mono" fz="3xl" fw="bold">03</Inline>
           <Stack g="15">
             <Heading level="3" fz="xl">Share your first task</Heading>
-            <Text fz="s" c="text-2">Choose a template, assign a team member and set a deadline. You’re ready to go.</Text>
+            <Text>Choose a template, assign a team member and set a deadline. You’re ready to go.</Text>
           </Stack>
-        </Stack>
-      </Columns>
+        </WithSide>
+      </Stack>
+
+      <Button href="#" bdrs="99" px="30" aslf="center">Get started for free</Button>
     </Stack>
   </Container>
 </DemoLayout>

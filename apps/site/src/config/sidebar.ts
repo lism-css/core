@@ -212,12 +212,8 @@ const uiSidebar: SidebarSection[] = [
     dir: 'ui', // content/ja/ui/ 直下のMDXを自動取得（パッケージ提供のUI）
   },
   {
-    label: 'Block Examples',
-    dir: 'ui/block-examples', // CSSをコピーして導入するb--部品の作例（#557）
-  },
-  {
-    label: 'Components',
-    dir: 'ui/components', // 独自CSSなしで組み立てる実装例（#557）
+    label: 'Examples',
+    dir: 'ui/examples', // パッケージ外の部品・技法の実装例
   },
 ];
 

@@ -1,0 +1,66 @@
+---
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Container, Decorator, Grid, Heading, Inline, Stack, Text } from 'lism-css/astro';
+import './_style.css';
+---
+
+<DemoLayout title="03 - Timeline of a stay by time of day">
+  <Container as="section" isWrapper="l" isContainer hasGutter bgc="base" py="50">
+    <Grid gtc={['1fr', null, '2fr 3fr']} g="50">
+      <Stack g="20">
+        <Inline fz="s" c="text-2">Your stay</Inline>
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold">A day at the inn</Heading>
+        <Text c="text-2">Here’s how your day unfolds, from check-in to departure. Meal and bath times can be adjusted to suit your plans.</Text>
+      </Stack>
+
+      <Grid as="ol" class="c--timeline" hl="s">
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20" data-timeline="start">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" aslf="e" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">3:00 PM</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Check-in</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >We welcome you in the lobby with seasonal tea and sweets, and introduce the inn and nearby walking routes.</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">4:00 PM</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Hot spring baths</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >Enjoy the large public bath and a private open-air bath. Please reserve the private bath at the front desk.</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">6:00 PM</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Dinner</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >Savor a seasonal kaiseki course made with the day’s freshest ingredients, served at a relaxed pace in your room.</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">Next day, 7:30 AM</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Breakfast</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >We serve freshly cooked rice and seasonal miso soup. A morning stroll through the garden is a lovely way to start the day.</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20" data-timeline="end">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" aslf="s" gr="1/3" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">Next day, 11:00 AM</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">Check-out</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >We’re happy to keep your luggage after check-out, so you can go sightseeing or visit nearby hot springs before heading home.</Text
+          >
+        </Grid>
+      </Grid>
+    </Grid>
+  </Container>
+</DemoLayout>

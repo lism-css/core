@@ -1,0 +1,53 @@
+---
+import { CheckIcon } from '@lism-css/icons/astro';
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Center, Container, Decorator, Grid, Heading, Icon, Inline, Stack, Text } from 'lism-css/astro';
+import './_style.css';
+---
+
+<DemoLayout title="04 - 導入スケジュールを示す横並びのタイムライン">
+  <Container as="section" isWrapper="l" isContainer hasGutter bgc="base" py="50">
+    <Stack g="50">
+      <Stack g="20" ta="center">
+        <Inline fz="s" c="text-2">導入スケジュール</Inline>
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold">導入から定着まで、約1か月</Heading>
+        <Text c="text-2">専任の担当者が、初期設定から運用の定着までをサポートします。</Text>
+      </Stack>
+
+      <Grid as="ol" class="c--timeline" gaf="column" hl="s">
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10" data-timeline="start">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="e" gr="1" gc="1/-1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">1週目</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">初期設定</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2">アカウントを発行し、チームとプロジェクトの構成を決めます。</Text>
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1" gc="1/-1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">2週目</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">データ移行</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2">既存のタスクや資料をインポートします。移行作業は担当者がお手伝いします。</Text>
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1" gc="1/-1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">3週目</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">操作研修</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2">チームごとにオンライン研修を行い、日々の使い方をご案内します。</Text>
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" ji="center" ta="center" gtr="subgrid" gr="1/-1" rg="10" data-timeline="end">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="s" gr="1" gc="1/-1" />
+          <Center class="c--timeline_shape _hasIcon" pos="relative" z="1" c="base" ar="1/1" bdrs="99" bgc="text" gr="1" gc="2">
+            <Decorator class="c--timeline_highlight" as="span" pos="absolute" z="-1" bgc="inherit" bdrs="99" o="ppp" />
+            <Icon icon={CheckIcon} weight="bold" />
+          </Center>
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">1か月後</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">本格運用</Heading>
+          <Text class="c--timeline_text" fz="s" gr="4" gc="2">実際の使い方を一緒に振り返り、ワークフローの改善をご提案します。</Text>
+        </Grid>
+      </Grid>
+    </Stack>
+  </Container>
+</DemoLayout>
