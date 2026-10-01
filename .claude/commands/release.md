@@ -30,8 +30,8 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 ### mcp の特別ルール
 
 - `lism-css` をリリースするときは、`@lism-css/mcp` も同じバージョンで出す。mcp は docs-index と `skills/lism-css-guide` をビルド時に同梱して配るため、出し忘れると古い情報を返し続ける
-- バージョン更新の前に、docs-index が `apps/site` の日本語 MDX の変更に追従しているか確認し、必要なら `/mcp-update` か `/mcp-update-urls` を実行する
-- 同じく、`skills/lism-css-guide` が core の変更に追従しているか確認し、必要なら `/update-skills` を実行する
+- バージョン更新の前に、`skills/lism-css-guide` が core の変更に追従しているか確認し、必要なら `/update-skills` を実行する
+- docs-index は changelog の追記（ステップ8）の後、publish（ステップ9）の前に `/mcp-update` で更新する。docs-index は `changelog.mdx` の見出しも持つため、追記前に更新すると今回のバージョンの見出しが入らない。`/mcp-update-urls` は既存エントリの文言を変えないので、ここでは使わない
 
 ### lism-cli の特別ルール
 
@@ -196,6 +196,8 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 - 同時リリースの場合: 親 + ネストの新規エントリを一度に作る
 
 追記後、両ファイルを `git add` → `git commit -m "docs: v{バージョン} changelog 追記"` → push してよいか確認 → `git push origin dev`。
+
+`lism-css` のリリースでは、続けて `/mcp-update` を実行し（「mcp の特別ルール」）、差分を `git add` → `git commit -m "chore: mcp docs-index 更新"` → push してよいか確認 → `git push origin dev`。
 
 ### 9. npm publish（ユーザー手動）
 
