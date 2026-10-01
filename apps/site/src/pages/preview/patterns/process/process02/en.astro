@@ -1,130 +1,76 @@
 ---
-import { ArrowRightIcon } from '@lism-css/icons/astro';
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Container, Grid, Box, Flex, Center, Icon, Text, Inline } from 'lism-css/astro';
-import { Button } from '@lism-css/ui/astro/Button';
+import { Container, Flex, Heading, Inline, Stack, Text } from 'lism-css/astro';
 ---
 
-<DemoLayout title="Process02">
-  <Container isWrapper="m" bgc="base-2" py="50" hasGutter>
-    <Grid
-      gt={[
-        '"title" "body" "link" / 1fr',
-        null,
-        `"title link"
-				 "body body" / auto 1fr`,
-      ]}
-      g="40"
-    >
-      <Box ga="title">
-        <h2 class="u--trim">Service Features</h2>
-      </Box>
-      <Grid ga="body" gtc={['1fr auto', null, 'auto 1fr auto']} g="30">
-        <Grid
-          as="a"
-          isBoxLink
-          href="#"
-          gtc="subgrid"
-          gc="1 / -1"
-          g={['20', '30', '40']}
-          bgc="base"
-          p={['20', '30']}
-          bdrs="10"
-          set="hov"
-          hasTransition
-          ai="center"
-          hov="-bxsh"
+<DemoLayout title="02 - Steps from consultation to launch">
+  <Container as="section" isWrapper="m" isContainer hasGutter bgc="base" py="50">
+    <Stack g="50">
+      <Stack g="20">
+        <Inline fz="s" c="text-2">Our process</Inline>
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold">From first conversation to launch</Heading>
+        <Text c="text-2"
+          >No need to worry if this is your first project with us. We shape your ideas one step at a time, through ongoing conversation.</Text
         >
-          <Grid gtc="subgrid" g="inherit" gc={['1', null, '1 / span 2']}>
-            <Flex g={['20', null, '30']} ai="center">
-              <Inline layout="center" fxsh="0" fz="xs" hl="xs" c="base" py="10" px={['15', '20']} bgc="text" bdrs="99">POINT 1</Inline>
-              <Text fz="m" fw="bold">Build wealth while having fun</Text>
-            </Flex>
-            <Flex ai="center" c="text" td="none" g="30">
-              <Text
-                >Introducing "Goal-Based Savings" where you can save by setting target amounts. Plan your wealth building in an enjoyable way.</Text
-              >
-            </Flex>
-          </Grid>
-          <Center w="fit" bd p="15" bdrs="99" hasTransition hov="in:reverse">
-            <Icon icon={ArrowRightIcon} weight="bold" fz="s" />
-          </Center>
-        </Grid>
-        <Grid
-          as="a"
-          isBoxLink
-          href="#"
-          gtc="subgrid"
-          gc="1 / -1"
-          g={['20', null, '40']}
-          bgc="base"
-          p={['20', '30']}
-          bdrs="10"
-          set="hov"
-          hasTransition
-          ai="center"
-          hov="-bxsh"
-        >
-          <Grid gtc="subgrid" g="inherit" gc={['1', null, '1 / span 2']}>
-            <Flex g={['20', null, '30']} ai="center">
-              <Inline layout="center" fxsh="0" fz="xs" hl="xs" c="base" py="10" px={['15', '20']} bgc="text" bdrs="99">POINT 2</Inline>
-              <Text fz="m" fw="bold">Reliable security measures</Text>
-            </Flex>
-            <Flex ai="center" c="text" td="none" g="30">
-              <Text
-                >With encrypted communications and two-factor authentication, we rigorously protect your valuable assets and personal information.</Text
-              >
-            </Flex>
-          </Grid>
-          <Center w="fit" bd p="15" bdrs="99" hasTransition hov="in:reverse">
-            <Icon icon={ArrowRightIcon} weight="bold" fz="s" />
-          </Center>
-        </Grid>
-        <Grid
-          as="a"
-          isBoxLink
-          href="#"
-          gtc="subgrid"
-          gc="1 / -1"
-          g={['20', null, '40']}
-          bgc="base"
-          p={['20', '30']}
-          bdrs="10"
-          set="hov"
-          hasTransition
-          ai="center"
-          hov="-bxsh"
-        >
-          <Grid gtc="subgrid" g="inherit" gc={['1', null, '1 / span 2']}>
-            <Flex g={['20', null, '30']} ai="center">
-              <Inline layout="center" fxsh="0" fz="xs" hl="xs" c="base" py="10" px={['15', '20']} bgc="text" bdrs="99">POINT 3</Inline>
-              <Text fz="m" fw="bold">All you need is your smartphone!</Text>
-            </Flex>
-            <Flex ai="center" c="text" td="none" g="30">
-              <Text
-                >From account opening to checking your portfolio, everything is completed in the smartphone app. Check your assets anytime, anywhere.</Text
-              >
-            </Flex>
-          </Grid>
-          <Center w="fit" bd p="15" bdrs="99" hasTransition hov="in:reverse">
-            <Icon icon={ArrowRightIcon} weight="bold" fz="s" />
-          </Center>
-        </Grid>
-      </Grid>
-      <Flex ga="link" ai="flex-end" jc="flex-end">
-        <Button href="#" variant="outline" w={['stretch', null, 'auto']} min-w="8rem" fz="s" bd bdc="text" py="15" bdrs="10">View Detail</Button>
-      </Flex>
-    </Grid>
+      </Stack>
+
+      <Stack as="ol" g="40">
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">1</Inline>
+            </Inline>
+            <Heading level="3" fz="l">Get in touch</Heading>
+          </Flex>
+          <Text px="15"
+            >Send us your project details through the contact form. Someone from our team will reply within two business days. It’s fine if your plans
+            aren’t settled yet.</Text
+          >
+        </Stack>
+
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">2</Inline>
+            </Inline>
+            <Heading level="3" fz="l">Discovery and proposal</Heading>
+          </Flex>
+          <Text px="15"
+            >We learn about your strengths and the audience you want to reach, and clarify the challenges. Then we propose a project scope, schedule
+            and estimate.</Text
+          >
+        </Stack>
+
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">3</Inline>
+            </Inline>
+            <Heading level="3" fz="l">Design and build</Heading>
+          </Flex>
+          <Text px="15"
+            >From information architecture to design and development. We set up a review at each milestone and incorporate your feedback as we go.</Text
+          >
+        </Stack>
+
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">4</Inline>
+            </Inline>
+            <Heading level="3" fz="l">Launch and ongoing support</Heading>
+          </Flex>
+          <Text px="15"
+            >After launch, we look at how people respond and identify what to work on next. From day-to-day updates to revisiting content and design,
+            we keep supporting you.</Text
+          >
+        </Stack>
+      </Stack>
+    </Stack>
   </Container>
 </DemoLayout>
-
-<style is:inline>
-  @media (any-hover: hover) {
-    .-hov\:in\:reverse {
-      background-color: var(--_isHov, var(--text));
-      color: var(--_isHov, var(--base));
-      border-color: var(--text);
-    }
-  }
-</style>

@@ -1607,32 +1607,6 @@
     "snippet": "バナーの実装例。"
   },
   {
-    "sourcePath": "ui/components/Steps.mdx",
-    "title": "Steps",
-    "description": "Lism CSS で実装する、手順を示すステップレイアウトの実装例です。",
-    "category": "ui",
-    "headings": ["Examples"],
-    "keywords": ["Steps", "ステップ", "手順", "example"],
-    "snippet": "ステップ（手順）表示の実装例。"
-  },
-  {
-    "sourcePath": "ui/block-examples/Timeline.mdx",
-    "title": "Timeline",
-    "description": "Lism CSS で実装するタイムラインUI（b--timeline）の実装例です。",
-    "category": "ui",
-    "headings": [
-      "Overview",
-      "Styles",
-      "Markup",
-      "Examples",
-      "先頭・末尾の指定とシェイプの強調",
-      "アイコンの表示",
-      "横並び（b--timeline--horizontal）"
-    ],
-    "keywords": ["Timeline", "b--timeline", "タイムライン", "年表", "時系列", "沿革", "history"],
-    "snippet": "出来事を時系列に並べるタイムラインUIの実装例。primitivesと少量のCSS（b--timeline）で構成し、CSSをlism-blockレイヤーへコピーして利用。data-timelineで先頭・末尾を指定でき、b--timeline--horizontalで横並びにできる。"
-  },
-  {
     "sourcePath": "ui/components/Breadcrumb.mdx",
     "title": "Breadcrumb",
     "description": "Lism CSS で実装するパンくずリストナビゲーションの実装例です。",

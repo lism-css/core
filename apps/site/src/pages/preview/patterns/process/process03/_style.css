@@ -1,0 +1,35 @@
+@layer lism-custom {
+  .c--timeline {
+    --shape-size: 1.375rem;
+    --line-len: 100%;
+    --line-bold: 1px;
+    --_line-offset: calc(var(--shape-size) / 2);
+    --edge: var(--s20);
+    --startSpace: var(--edge);
+    --endSpace: var(--edge);
+  }
+
+  .c--timeline_item {
+    grid: var(--startSpace) auto auto auto var(--endSpace) / var(--shape-size) 1fr;
+  }
+
+  .c--timeline_line {
+    width: var(--line-bold);
+    height: var(--line-len);
+  }
+
+  .c--timeline_shape {
+    font-size: var(--shape-size);
+    width: 0.5em;
+  }
+
+  /* 先頭・末尾はラインをシェイプの中心で止める */
+  .c--timeline_item[data-timeline='start'] {
+    --startSpace: 0;
+    --line-len: calc(100% - var(--_line-offset));
+  }
+  .c--timeline_item[data-timeline='end'] {
+    --endSpace: 0;
+    --line-len: calc(100% - var(--_line-offset));
+  }
+}

@@ -1,124 +1,63 @@
 ---
-import { ArrowRightIcon } from '@lism-css/icons/astro';
 import DemoLayout from '@/layouts/DemoLayout.astro';
 
-import { Container, Grid, Box, Flex, Center, Icon, Text, Inline } from 'lism-css/astro';
-import { Button } from '@lism-css/ui/astro/Button';
+import { Container, Flex, Heading, Inline, Stack, Text } from 'lism-css/astro';
 ---
 
-<DemoLayout title="Process02">
-  <Container isWrapper="m" bgc="base-2" py="50" hasGutter>
-    <Grid
-      gt={[
-        '"title" "body" "link" / 1fr',
-        null,
-        `"title link"
-				 "body body" / auto 1fr`,
-      ]}
-      g="40"
-    >
-      <Box ga="title">
-        <h2 class="u--trim">サービスの特徴について</h2>
-      </Box>
-      <Grid ga="body" gtc={['1fr auto', null, 'auto 1fr auto']} g="30">
-        <Grid
-          as="a"
-          isBoxLink
-          href="#"
-          gtc="subgrid"
-          gc="1 / -1"
-          g={['20', '30', '40']}
-          bgc="base"
-          p={['20', '30']}
-          bdrs="10"
-          set="hov"
-          hasTransition
-          ai="center"
-          hov="-bxsh"
-        >
-          <Grid gtc="subgrid" g="inherit" gc={['1', null, '1 / span 2']}>
-            <Flex g={['20', null, '30']} ai="center">
-              <Inline layout="center" fxsh="0" fz="xs" hl="xs" c="base" py="10" px={['15', '20']} bgc="text" bdrs="99">POINT 1</Inline>
-              <Text fz="m" fw="bold">楽しみながら計画的に資産形成</Text>
-            </Flex>
-            <Flex ai="center" c="text" td="none" g="30">
-              <Text>目標金額を設定して貯蓄ができる「目的別預金」が登場。楽しみながら計画的な資産形成が行えます。</Text>
-            </Flex>
-          </Grid>
-          <Center w="fit" bd p="15" bdrs="99" hasTransition hov="in:reverse">
-            <Icon icon={ArrowRightIcon} weight="bold" fz="s" />
-          </Center>
-        </Grid>
-        <Grid
-          as="a"
-          isBoxLink
-          href="#"
-          gtc="subgrid"
-          gc="1 / -1"
-          g={['20', null, '40']}
-          bgc="base"
-          p={['20', '30']}
-          bdrs="10"
-          set="hov"
-          hasTransition
-          ai="center"
-          hov="-bxsh"
-        >
-          <Grid gtc="subgrid" g="inherit" gc={['1', null, '1 / span 2']}>
-            <Flex g={['20', null, '30']} ai="center">
-              <Inline layout="center" fxsh="0" fz="xs" hl="xs" c="base" py="10" px={['15', '20']} bgc="text" bdrs="99">POINT 2</Inline>
-              <Text fz="m" fw="bold">安心のセキュリティ体制</Text>
-            </Flex>
-            <Flex ai="center" c="text" td="none" g="30">
-              <Text>通信の暗号化や二段階認証を導入。お客様の大切な資産と個人情報を厳重に保護します。</Text>
-            </Flex>
-          </Grid>
-          <Center w="fit" bd p="15" bdrs="99" hasTransition hov="in:reverse">
-            <Icon icon={ArrowRightIcon} weight="bold" fz="s" />
-          </Center>
-        </Grid>
-        <Grid
-          as="a"
-          isBoxLink
-          href="#"
-          gtc="subgrid"
-          gc="1 / -1"
-          g={['20', null, '40']}
-          bgc="base"
-          p={['20', '30']}
-          bdrs="10"
-          set="hov"
-          hasTransition
-          ai="center"
-          hov="-bxsh"
-        >
-          <Grid gtc="subgrid" g="inherit" gc={['1', null, '1 / span 2']}>
-            <Flex g={['20', null, '30']} ai="center">
-              <Inline layout="center" fxsh="0" fz="xs" hl="xs" c="base" py="10" px={['15', '20']} bgc="text" bdrs="99">POINT 3</Inline>
-              <Text fz="m" fw="bold">必要なものはスマホだけ！</Text>
-            </Flex>
-            <Flex ai="center" c="text" td="none" g="30">
-              <Text>口座開設から運用状況の確認までスマホアプリで完結。いつでも手軽に資産をチェックできます。</Text>
-            </Flex>
-          </Grid>
-          <Center w="fit" bd p="15" bdrs="99" hasTransition hov="in:reverse">
-            <Icon icon={ArrowRightIcon} weight="bold" fz="s" />
-          </Center>
-        </Grid>
-      </Grid>
-      <Flex ga="link" ai="flex-end" jc="flex-end">
-        <Button href="#" variant="outline" w={['stretch', null, 'auto']} min-w="8rem" fz="s" bd bdc="text" py="15" bdrs="10">View Detail</Button>
-      </Flex>
-    </Grid>
+<DemoLayout title="02 - ご相談から公開までのステップ">
+  <Container as="section" isWrapper="m" isContainer hasGutter bgc="base" py="50">
+    <Stack g="50">
+      <Stack g="20">
+        <Inline fz="s" c="text-2">制作の流れ</Inline>
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold">ご相談から公開まで</Heading>
+        <Text c="text-2">はじめてのご依頼でも心配はいりません。対話を重ねながら、一つずつかたちにしていきます。</Text>
+      </Stack>
+
+      <Stack as="ol" g="40">
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">1</Inline>
+            </Inline>
+            <Heading level="3" fz="l">お問い合わせ</Heading>
+          </Flex>
+          <Text px="15">フォームからご相談内容をお送りください。2営業日以内に担当者からご連絡します。内容が固まっていない段階でも構いません。</Text>
+        </Stack>
+
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">2</Inline>
+            </Inline>
+            <Heading level="3" fz="l">ヒアリング・ご提案</Heading>
+          </Flex>
+          <Text px="15">事業の強みや届けたい相手を伺い、課題を整理します。そのうえで、制作の範囲とスケジュール、お見積りをご提案します。</Text>
+        </Stack>
+
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">3</Inline>
+            </Inline>
+            <Heading level="3" fz="l">デザイン・制作</Heading>
+          </Flex>
+          <Text px="15">情報の構成からデザイン、実装まで。節目ごとに確認の機会を設け、いただいたご意見を反映しながら進めます。</Text>
+        </Stack>
+
+        <Stack as="li" g="20">
+          <Flex g="15" ai="center">
+            <Inline d="inline-flex" fxsh="0" hl="0" g="5" px="15" py="10" ai="center" c="base" bgc="text" fs="italic" bdrs="99">
+              <Inline fz="xs">Step.</Inline>
+              <Inline fz="l">4</Inline>
+            </Inline>
+            <Heading level="3" fz="l">公開・運用サポート</Heading>
+          </Flex>
+          <Text px="15">公開後の反応を確かめ、次の課題を整理します。日々の更新から内容やデザインの見直しまで、継続して支えます。</Text>
+        </Stack>
+      </Stack>
+    </Stack>
   </Container>
 </DemoLayout>
-
-<style is:inline>
-  @media (any-hover: hover) {
-    .-hov\:in\:reverse {
-      background-color: var(--_isHov, var(--text));
-      color: var(--_isHov, var(--base));
-      border-color: var(--text);
-    }
-  }
-</style>

@@ -1,0 +1,64 @@
+---
+import DemoLayout from '@/layouts/DemoLayout.astro';
+
+import { Container, Decorator, Grid, Heading, Inline, Stack, Text } from 'lism-css/astro';
+import './_style.css';
+---
+
+<DemoLayout title="03 - 滞在の流れを時刻で追うタイムライン">
+  <Container as="section" isWrapper="l" isContainer hasGutter bgc="base" py="50">
+    <Grid gtc={['1fr', null, '2fr 3fr']} g="50">
+      <Stack g="20">
+        <Inline fz="s" c="text-2">ご滞在の流れ</Inline>
+        <Heading level="2" class="u--trim" fz="2xl" fw="bold">静寂の宿で過ごす一日</Heading>
+        <Text c="text-2">チェックインからご出発まで、当日の過ごし方をご案内します。お食事やお風呂の時間は、ご希望に合わせて調整いたします。</Text>
+      </Stack>
+
+      <Grid as="ol" class="c--timeline" hl="s">
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20" data-timeline="start">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" aslf="e" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">15:00</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">チェックイン</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2">ロビーで季節の茶菓をお出しし、館内と周辺の散策コースをご案内します。</Text>
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">16:00</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">湯めぐり</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >大浴場と貸切露天風呂をご利用いただけます。貸切露天風呂はフロントでご予約ください。</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">18:00</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">ご夕食</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >その日の仕入れで組み立てる旬の会席を、お部屋でゆっくりとお召し上がりください。</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" gr="1/-1" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">翌日 7:30</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">ご朝食</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >炊きたてのご飯と季節の汁物をご用意します。食後は朝の庭園散策もおすすめです。</Text
+          >
+        </Grid>
+        <Grid as="li" class="c--timeline_item" ai="center" cg="20" data-timeline="end">
+          <Decorator class="c--timeline_line" bgc="divider" jslf="center" aslf="s" gr="1/3" gc="1" />
+          <Decorator class="c--timeline_shape" ar="1/1" bdrs="99" jslf="center" bgc="text" gr="2" gc="1" />
+          <Text class="c--timeline_time" fz="xs" fw="bold" c="text-2" gr="2" gc="2">翌日 11:00</Text>
+          <Heading level="3" class="c--timeline_title" fz="m" gr="3" gc="2">チェックアウト</Heading>
+          <Text class="c--timeline_text" fz="s" mbs="10" gr="4" gc="2"
+            >ご出発後も荷物をお預かりします。周辺の観光や外湯めぐりの前後にご利用ください。</Text
+          >
+        </Grid>
+      </Grid>
+    </Grid>
+  </Container>
+</DemoLayout>

@@ -1,11 +1,12 @@
 ---
+import { ArrowDownIcon } from '@lism-css/icons/astro';
 import DemoLayout from '@/layouts/DemoLayout.astro';
-
-import { Columns, Container, Heading, Inline, Stack, Text, WithSide } from 'lism-css/astro';
+import { Button } from '@lism-css/ui/astro/Button';
+import { Container, Heading, Icon, Inline, Stack, Text, WithSide } from 'lism-css/astro';
 ---
 
 <DemoLayout title="01 - はじめるまでの3ステップ">
-  <Container as="section" isWrapper="l" isContainer hasGutter bgc="base" py="50">
+  <Container as="section" isWrapper="m" isContainer hasGutter bgc="base" py="50">
     <Stack g="40">
       <Stack g="20" max-sz="s">
         <Inline fz="s" c="text-2">ご利用の流れ</Inline>
@@ -15,31 +16,39 @@ import { Columns, Container, Heading, Inline, Stack, Text, WithSide } from 'lism
         <Text c="text-2">準備に時間はかかりません。登録から最初の共有まで、画面の案内に沿って進められます。</Text>
       </Stack>
 
-      <Columns as="ol" cols={[1, null, 2]} g="20">
-        <WithSide as="li" gc="1/-1" rg="30" cg="50" ai="center" bgc="base-2" p="30" bdrs="20">
-          <Inline isSide ff="mono" fz="3xl" fw="bold">01</Inline>
-          <Stack g="15">
-            <Heading level="3" fz="xl">無料アカウントを作成</Heading>
-            <Text>メールアドレスを入力し、届いた案内から基本情報を登録します。カード情報は不要です。</Text>
-          </Stack>
-        </WithSide>
-
-        <Stack as="li" g="30" p="30" bd-bs>
-          <Inline ff="mono" fz="3xl" fw="bold" c="text-2">02</Inline>
-          <Stack g="15">
-            <Heading level="3" fz="xl">チームを招待する</Heading>
-            <Text fz="s" c="text-2">一緒に使うメンバーへ招待リンクを送り、役割を選びます。</Text>
-          </Stack>
+      <Stack as="ol" g="15">
+        <Stack as="li" g="15">
+          <WithSide rg="30" cg="40" ai="center" bgc="base-2" p="30" bdrs="20">
+            <Inline isSide ff="mono" fz="3xl" fw="bold">01</Inline>
+            <Stack g="15">
+              <Heading level="3" fz="xl">無料アカウントを作成</Heading>
+              <Text>メールアドレスを入力し、届いた案内から基本情報を登録します。カード情報は不要です。</Text>
+            </Stack>
+          </WithSide>
+          <Icon icon={ArrowDownIcon} fz="xl" c="text-2" aslf="center" />
         </Stack>
 
-        <Stack as="li" g="30" p="30" bd-bs>
-          <Inline ff="mono" fz="3xl" fw="bold" c="text-2">03</Inline>
+        <Stack as="li" g="15">
+          <WithSide rg="30" cg="40" ai="center" bgc="base-2" p="30" bdrs="20">
+            <Inline isSide ff="mono" fz="3xl" fw="bold">02</Inline>
+            <Stack g="15">
+              <Heading level="3" fz="xl">チームを招待する</Heading>
+              <Text>一緒に使うメンバーへ招待リンクを送り、役割を選びます。</Text>
+            </Stack>
+          </WithSide>
+          <Icon icon={ArrowDownIcon} fz="xl" c="text-2" aslf="center" />
+        </Stack>
+
+        <WithSide as="li" rg="30" cg="40" ai="center" bgc="base-2" p="30" bdrs="20">
+          <Inline isSide ff="mono" fz="3xl" fw="bold">03</Inline>
           <Stack g="15">
             <Heading level="3" fz="xl">最初の仕事を共有する</Heading>
-            <Text fz="s" c="text-2">テンプレートを選んで担当と期限を設定したら、準備は完了です。</Text>
+            <Text>テンプレートを選んで担当と期限を設定したら、準備は完了です。</Text>
           </Stack>
-        </Stack>
-      </Columns>
+        </WithSide>
+      </Stack>
+
+      <Button href="#" bdrs="99" px="30" aslf="center">無料ではじめる</Button>
     </Stack>
   </Container>
 </DemoLayout>
