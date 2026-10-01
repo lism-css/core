@@ -1,4 +1,4 @@
-基準日: 2026-09-19・コミット9feef9fa0
+基準日: 2026-10-01・コミットa1ea2a076
 
 # docs-md integration 処理フロー
 
@@ -48,7 +48,7 @@
 
 | 順 | セクション | 対象 |
 | --- | --- | --- |
-| 1 | Optional | `ui/block-examples/*` / `ui/components/*` / `property-class/*` |
+| 1 | Optional | `ui/examples/*` / `property-class/*` |
 | 2 | UI Components | 上記以外の`ui/`配下（`ui/DummyText`も含む） |
 | 3 | Getting Started | トップレベルの`overview` / `installation` / `changelog` / `features` / `mcp` / `skills` |
 | 4 | Documentation | 残り全部 |
@@ -63,7 +63,7 @@
 
 - frontmatter（title / description / url）: ビルド済み`dist/{lang}/ui/index.html`から`rehype-extract-meta`と同等の処理で取得し、一覧ページ本体と同期させる。
 - 本文: `content/{ja,en}/ui/`を`walkMdx`で走査する。`_`始まりのファイル・ディレクトリと`draft: true`は除外。
-- 見出し: `ui/`直下は`## Blocks`、`block-examples/`は`## Block Examples`、`components/`は`## Components`。各タイトル昇順。
+- 見出し: `ui/`直下は`## Blocks`、`examples/`は`## Examples`。各タイトル昇順。
 - リンク先: 各ページの`.md`（`convert-html-to-md.ts`の生成物）。
 
 

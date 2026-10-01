@@ -91,33 +91,33 @@ export const astroRedirects: AstroRedirects = {
   // purge -> customize/purge 移動（Customize セクション化に伴う統合）
   '/docs/purge/': '/docs/customize/purge/',
   '/en/docs/purge/': '/en/docs/customize/purge/',
-  // Chat をパッケージから削除し、Block Examples の作例ページへ転換（#557）
-  '/ui/chat/': '/ui/block-examples/chat/',
-  '/en/ui/chat/': '/en/ui/block-examples/chat/',
-  // 公開実績のある旧ui/examples/*だけをui/components/*へリダイレクトする（#557）
-  '/ui/examples/banner/': '/ui/components/banner/',
-  '/ui/examples/breadcrumb/': '/ui/components/breadcrumb/',
-  '/ui/examples/card/': '/ui/components/card/',
-  '/ui/examples/dividerlabel/': '/ui/components/dividerlabel/',
-  '/ui/examples/reel/': '/ui/components/reel/',
-  '/en/ui/examples/banner/': '/en/ui/components/banner/',
-  '/en/ui/examples/breadcrumb/': '/en/ui/components/breadcrumb/',
-  '/en/ui/examples/card/': '/en/ui/components/card/',
-  '/en/ui/examples/dividerlabel/': '/en/ui/components/dividerlabel/',
-  '/en/ui/examples/reel/': '/en/ui/components/reel/',
-  // Steps は MDX を削除し、Timeline は MDX を draft 化して本番非公開にしたため、作例のある patterns へ誘導する。ui/examples/*からの連鎖も避ける
+  // ui/の作例ページは/ui/examples/{slug}/。公開実績のある旧URLだけを登録する
+  // 公開中の作例と同じURL（/ui/examples/card/等）は登録しない。静的ルートのリダイレクトが[...slug]の実ページより優先される
+  '/ui/chat/': '/ui/examples/chat/',
+  '/ui/block-examples/chat/': '/ui/examples/chat/',
+  '/ui/components/banner/': '/ui/examples/banner/',
+  '/ui/components/breadcrumb/': '/ui/examples/breadcrumb/',
+  '/ui/components/card/': '/ui/examples/card/',
+  '/ui/components/dividerlabel/': '/ui/examples/dividerlabel/',
+  '/ui/components/reel/': '/ui/examples/reel/',
+  '/en/ui/chat/': '/en/ui/examples/chat/',
+  '/en/ui/block-examples/chat/': '/en/ui/examples/chat/',
+  '/en/ui/components/banner/': '/en/ui/examples/banner/',
+  '/en/ui/components/breadcrumb/': '/en/ui/examples/breadcrumb/',
+  '/en/ui/components/card/': '/en/ui/examples/card/',
+  '/en/ui/components/dividerlabel/': '/en/ui/examples/dividerlabel/',
+  '/en/ui/components/reel/': '/en/ui/examples/reel/',
+  // Steps・Timeline・FAQ・Heroの作例はpatternsにある。旧URLから直接リダイレクトし、連鎖させない
   '/ui/components/steps/': '/patterns/process/',
   '/ui/examples/steps/': '/patterns/process/',
   '/ui/block-examples/timeline/': '/patterns/process/',
-  '/en/ui/components/steps/': '/en/patterns/process/',
-  '/en/ui/examples/steps/': '/en/patterns/process/',
-  '/en/ui/block-examples/timeline/': '/en/patterns/process/',
-  // FAQ/Hero は patterns のカテゴリページへ直接リダイレクトし、ui/examples/*からの連鎖を避ける（#566）
   '/ui/components/faq/': '/patterns/faq/',
-  // Hero は MDX を draft 化して本番非公開にしたため、作例のある patterns へ誘導する
   '/ui/components/hero/': '/patterns/hero/',
   '/ui/examples/faq/': '/patterns/faq/',
   '/ui/examples/hero/': '/patterns/hero/',
+  '/en/ui/components/steps/': '/en/patterns/process/',
+  '/en/ui/examples/steps/': '/en/patterns/process/',
+  '/en/ui/block-examples/timeline/': '/en/patterns/process/',
   '/en/ui/components/faq/': '/en/patterns/faq/',
   '/en/ui/components/hero/': '/en/patterns/hero/',
   '/en/ui/examples/faq/': '/en/patterns/faq/',

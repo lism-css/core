@@ -1,6 +1,16 @@
-基準日: 2026-10-01・コミット6cf68b0bc
+基準日: 2026-10-01・コミットa1ea2a076
 
 # 意思決定の記録
+
+## 2026-10-01: docsの`ui/`は「Blocks / Examples」の2分類にし、作例のURLを`/ui/examples/`へ統一する
+
+2026-08-15に3分類（Blocks / Block Examples / Components）へ再編したが、StepsとTimelineをpatternsのProcessへ移した（#659）結果、Block Examplesの公開ページはChatだけになった。Timelineは`ui/`では`b--timeline`、patternsでは`c--timeline`で書かれており、接頭辞は導入側の運用で変わる。patternsも`_style.css`付きの作例を載せているため、CSSの有無と`b--` / `c--`は置き場所の境界にならない。
+
+- 決定: セクションに仕立てられる作例は`patterns/`へ置く。部品スケールでも、見出し付きのセクションとして成立するなら対象にする。#566の「部品スケールはpatternsへ移さない」を覆す。
+- 決定: セクションにならない部品と、技法の解説が本体のページは`ui/examples/`に置く。CSSの有無と`b--` / `c--`では分けず、ページ内で明示する。2026-08-15の3分類の決定を覆す。
+- 決定: URLは`/ui/examples/{slug}/`。公開実績のある`/ui/components/*`・`/ui/block-examples/*`はリダイレクトする。
+- 却下: URLを変えずラベルだけ統合する案。ディレクトリ名と分類がずれたまま残る。
+- 却下: 作例をdocs側へ移し`ui/`をパッケージ提供物だけにする案。docsのサイドバーは既に9セクションあり、作例が埋もれる。
 
 ## 2026-10-01: lism-cssの深いパスは`getLismProps`だけを公開APIにし、uiが使ったものは1.xの間できれば残す
 
