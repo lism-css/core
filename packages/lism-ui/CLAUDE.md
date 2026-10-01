@@ -13,7 +13,7 @@
 | ソース | `src/` |
 | 出力 | `dist/`（編集禁止） |
 | ビルド | Vite（React） + build-css.js（CSS） |
-| 依存 | `lism-css`（workspace） |
+| 依存 | `lism-css`（`workspace:^`。公開時に`^{core のバージョン}`になる） |
 | peerDependencies | `react ^18 \|\| ^19` |
 
 

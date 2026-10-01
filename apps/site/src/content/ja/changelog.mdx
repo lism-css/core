@@ -4,7 +4,19 @@ description: 'Lism CSS の各バージョンにおける変更履歴をまとめ
 ---
 import { Divider } from 'lism-css/astro';
 
-v1.0のリリースまでは大きな変更が続く可能性があるため、変更点をこのページに記載します。
+Lism CSSの各バージョンの変更点を記載します。
+
+<Divider bds="dashed" my="40" />
+
+## lism-css v1.0.0 (2026.10.01)
+
+最初の安定版です。v0.31.0からの機能の変更はありません。
+
+- `lism-css/lib/`・`lism-css/react/`・`lism-css/astro/`の下にあるファイルを直接指すパスのうち、公開APIは`lism-css/lib/getLismProps`だけです。それ以外は内部用のため、マイナーバージョンの更新でも変わることがあります（[`getLismProps()`](/docs/core-components/lism/#getlismprops)）。
+
+### `@lism-css/ui` v0.40.0 (2026.10.01)
+
+- `lism-css`への依存を、固定バージョンから`^1.0.0`に変更しました。`lism-css`だけを更新しても、`@lism-css/ui`の下に別バージョンの`lism-css`が重複して入らなくなります。
 
 <Divider bds="dashed" my="40" />
 
