@@ -31,7 +31,7 @@
       "Lism UI の導入",
       "パッケージとして利用する",
       "CLI でプロジェクトにコピーする",
-      "未使用CSSの削除（パージ）",
+      "未使用CSSの削除（CSS Purge）",
       "AIツール連携"
     ],
     "keywords": [
@@ -52,9 +52,11 @@
       "withLism",
       "@lism-css/plugin",
       "purge",
-      "パージ"
+      "パージ",
+      "CSS Purge",
+      "lismCss"
     ],
-    "snippet": "CSSを読み込むだけでも導入でき、CDN経由でも利用可能。`create lism` コマンドでテンプレートからプロジェクトを作成できる（minimal-astro, minimal-vite, blog-astro-*, lp-astro-* 等のテンプレートを提供）。npm パッケージとしてインストールし、lism-css/react や lism-css/astro からコンポーネントをインポートして使用。Vite/Astro では @lism-css/plugin（lismCss()）を登録して lism.config.js の反映・CSS 動的ビルド・型自動生成を有効化。Next.js（16以降）では `@lism-css/plugin/next` の `withLism()` でセットアップ。UIコンポーネントは別パッケージ @lism-css/ui として提供（パッケージ利用または lism-cli ui add コマンドでCLI追加も可能）。@lism-css/plugin の purge 機能で本番CSS軽量化にも対応。AIコーディングツール向けのSkills・MCPサーバーも提供。"
+    "snippet": "CSSを読み込むだけでも導入でき、CDN経由でも利用可能。`create lism` コマンドでテンプレートからプロジェクトを作成できる（minimal-astro, minimal-vite, blog-astro-*, lp-astro-* 等のテンプレートを提供）。npm パッケージとしてインストールし、lism-css/react や lism-css/astro からコンポーネントをインポートして使用。Next.js（16以降）では `@lism-css/plugin/next` の `withLism()` で lism.config.js を反映した CSS の生成・型生成・読み込みをセットアップ。UIコンポーネントは別パッケージ @lism-css/ui として提供（パッケージ利用または lism-cli ui add コマンドでCLI追加も可能）。Vite / Astro の統合プラグイン（lismCss()）に purge: true を渡すと @lism-css/plugin の CSS Purge で本番CSSを軽量化できる。AIコーディングツール向けのSkills・MCPサーバーも提供。"
   },
   {
     "sourcePath": "packages/icons.mdx",
@@ -140,9 +142,10 @@
       "{prop} の省略ルール",
       "1文字プロパティ",
       "プロパティグループ",
+      "基本形式: 「グループ略称」+「サブプロパティ名の省略形」",
       "方向指定系の形式: 「グループ略称」 + `-` +「方向指定」",
       "方向指定系の例外: `p`, `m` のみ、ハイフンを省略",
-      "グループ略称の衝突禁止",
+      "グループ略称の一貫性と衝突禁止",
       "max- / min- プロパティ",
       "その他のプロパティ",
       "1文字プロパティの短縮名の再利用",
@@ -208,12 +211,29 @@
       "セマンティックカラー",
       "パレットカラー",
       "パレットカラーの活用",
+      "透過・混色（Lism Props）",
       "カスタマイズ例",
       "ダークモード対応",
       "セマンティックカラーのカスタマイズ"
     ],
-    "keywords": ["color", "カラー", "palette", "パレット", "OKLCH", "brand", "accent", "neutral", "dark mode", "ダークモード", "u--cbox", "keycolor"],
-    "snippet": "セマンティックカラー（base, base-2, text, text-2, divider, link, brand, accent, neutral）とOKLCHベースのパレットカラー（red, orange, yellow, green, blue, purple, pink, gray, black, white）を定義。--neutral は背景やhover色生成に使う中立的補助色。u--cboxユーティリティでの活用例、ダークモード対応（--L/--Cで全体調整）などのカスタマイズ方法を紹介。"
+    "keywords": [
+      "color",
+      "カラー",
+      "palette",
+      "パレット",
+      "OKLCH",
+      "brand",
+      "accent",
+      "neutral",
+      "dark mode",
+      "ダークモード",
+      "u--cbox",
+      "keycolor",
+      "color-mix",
+      "透過",
+      "混色"
+    ],
+    "snippet": "セマンティックカラー（base, base-2, text, text-2, divider, link, brand, accent, neutral）とOKLCHベースのパレットカラー（red, orange, yellow, green, blue, purple, pink, gray, black, white）を定義。--neutral は背景やhover色生成に使う中立的補助色。u--cboxユーティリティでの活用例、React / Astro コンポーネントのカラー系 Props で bgc=\"black:50%\"（透過）や c=\"text:blue:5%\"（混色）のように : 区切りから color-mix() を生成する方法、ダークモード対応（--L/--Cで全体調整）などのカスタマイズ方法を紹介。"
   },
   {
     "sourcePath": "tokens/typography.mdx",
@@ -237,7 +257,7 @@
     "title": "ハーフレディング（line-height）",
     "description": "Lism CSS が line-height をハーフレディングで管理する仕組みと、その設計のメリットについて解説します。",
     "category": "guide",
-    "headings": ["仕組み", "トークン", "lh（line-height）", "hl との棲み分け", "ハーフレディング管理のメリット"],
+    "headings": ["ハーフレディング管理の仕組み", "ハーフレディング管理のメリット", "lh（line-height）も使用可能", "トークン"],
     "keywords": ["line-height", "half-leading", "ハーフレディング", "行間", "hl", "lh", "--hl", "--lh"],
     "snippet": "line-heightをハーフレディング（文字上下の余白）で管理するCSS設計を解説。`var(--lh, calc(1em + var(--hl) * 2))` によりフォントサイズに依存しない一定の行間を実現。line-heightは全要素ルールで管理されるため素のCSS指定は子要素へ継承されない点、実line-height（unitless比率）を--lh経由で管理する独立プロパティlh（-lh:{token}・任意数値）とhlとの棲み分け、ハーフレディング管理のメリットも紹介。"
   },
@@ -569,6 +589,7 @@
     "headings": [
       "推奨セットアップ（統合プラグインを使う）",
       "仕組み",
+      "対応範囲と制約",
       "単体プラグインを直接使う場合",
       "full.css と組み合わせる",
       "オプション",
@@ -577,8 +598,23 @@
       "known",
       "注意事項"
     ],
-    "keywords": ["purge", "CSS purge", "パージ", "軽量化", "未使用", "full.css", "@lism-css/plugin", "lismPurge", "safelist", "build"],
-    "snippet": "ビルド出力をスキャンして使われている Lism CSS クラスだけを残すパージ機能。@lism-css/plugin の統合プラグインで purge: true を渡すだけで有効化可能。仕組み・単体プラグイン直接利用・full.css との併用・safelist / report / known オプション（known 未指定時は lism.config.js 反映済み full.css から自動構築。safelist に RegExp / 関数があると未一致の属性セレクタは全て残す）・注意事項を解説。"
+    "keywords": [
+      "purge",
+      "CSS purge",
+      "パージ",
+      "軽量化",
+      "未使用",
+      "full.css",
+      "@lism-css/plugin",
+      "lismPurge",
+      "safelist",
+      "build",
+      "client:only",
+      "SPA",
+      "対応範囲",
+      "制約"
+    ],
+    "snippet": "ビルド出力をスキャンして使われている Lism CSS クラスだけを残すパージ機能。@lism-css/plugin の統合プラグインで purge: true を渡すだけで有効化可能。ビルド出力の HTML / JS に完全な文字列として現れるクラスだけを検出でき、SPA や Astro の client:only などクライアント側で props から生成するクラスは静的な値でも自動検出の対象外（safelist で保持するか purge を無効化する。client:only アイランド等はビルド警告が出るが、警告が出なくても保持される保証はない）。仕組み・対応範囲と制約・単体プラグイン直接利用・full.css との併用・safelist / report / known オプション（known 未指定時は lism.config.js 反映済み full.css から自動構築。safelist に RegExp / 関数があると未一致の属性セレクタは全て残す）・注意事項を解説。"
   },
   {
     "sourcePath": "utility-class.mdx",
@@ -685,6 +721,13 @@
     "description": "Lism CSS の各バージョンにおける変更履歴をまとめています。",
     "category": "guide",
     "headings": [
+      "lism-css v1.0.0 (2026.10.01)",
+      "@lism-css/ui v0.40.0 (2026.10.01)",
+      "lism-css v0.31.0 (2026.09.30)",
+      "@lism-css/ui v0.31.0 (2026.09.30)",
+      "lism-css v0.30.0 (2026.09.22)",
+      "@lism-css/plugin v0.5.1 (2026.09.22)",
+      "@lism-css/ui v0.30.0 (2026.09.22)",
       "lism-css v0.29.1 (2026.09.13)",
       "lism-css v0.29.0 (2026.09.13)",
       "Iconとアイコンパッケージ (#616, #618, #619)",
@@ -723,9 +766,16 @@
       "lh",
       "bdrs",
       "has--transition",
-      "peerDependencies"
+      "peerDependencies",
+      "v1.0.0",
+      "安定版",
+      "getLismProps",
+      "lism-component",
+      "_propConfig",
+      "SideMain",
+      "Dummy"
     ],
-    "snippet": "Lism CSS の各バージョンにおける変更内容を記載。v0.29.1/v0.29.0 (2026.09.13) ではIconの名前指定プリセットとコアSVGデータを廃止し `@lism-css/icons` として別提供（破壊的変更）、sz/min-sz/max-szをBP対応に変更、lhトークンスケール変更（m=1.5基準の0.25刻み）、tt:upper→tt:uppercaseへ変更（破壊的変更）。@lism-css/plugin v0.5.0でlism-cssをpeerDependenciesへ変更。v0.28.x (2026.09.05〜10) ではl--flow見出しの上余白調整・余白トークン--s45追加と--s80削除・u--divide/u--encloseをコアから削除・has--transitionの既定対象を限定化（破壊的変更）。v0.27.0 (2026.09.04) ではlhを比率指定propに変更（hlへの置き換え必要）・bdrsスケール変更（破壊的変更）・Tooltip/Popoverを追加。v0.26.0 (2026.08.16) ではlism-blockレイヤー追加・b--/c--の2分類命名規約へ整理（@lism-css/ui全コンポーネントをc--からb--へ移行、破壊的変更）。v0.25.0以前の変更は主要項目のみバレット掲載。"
+    "snippet": "Lism CSS の各バージョンにおける変更内容を記載。v1.0.0 (2026.10.01) は最初の安定版でv0.31.0からの機能変更はなく、lism-css/lib/・lism-css/react/・lism-css/astro/ 配下のファイルを直接指すパスのうち公開APIは lism-css/lib/getLismProps のみと明記（@lism-css/ui v0.40.0 は lism-css への依存を ^1.0.0 に変更）。v0.31.0 (2026.09.30) では lism-component レイヤー・非推奨エイリアス SideMain / FluidCols / SwitchCols と Dummy コンポーネント（WithSide / AutoColumns / SwitchColumns / @lism-css/ui の DummyText へ移行）・_propConfig（lism.config.js の props で設定）を削除（破壊的変更）。@lism-css/ui v0.31.0 は lism-base と b--* の順序不具合と Astro 版 Tabs / Accordion / Modal の ClientRouter 遷移後の不具合を修正。v0.30.0 (2026.09.22) では公開 .d.ts の config 相対 import による props 型の any 化、Astro の exProps が Lism Props として処理される問題を修正し、lism-css/base/set.css の単体出力を廃止。@lism-css/plugin v0.5.1 は Astro 7 / Vite 8 に対応、@lism-css/ui v0.30.0 は Tabs.Tab を button 固定にし（破壊的変更）React 版 Tabs.Item なしの手動構成に対応。v0.29.1/v0.29.0 (2026.09.13) ではIconの名前指定プリセットとコアSVGデータを廃止し `@lism-css/icons` として別提供（破壊的変更）、sz/min-sz/max-szをBP対応に変更、lhトークンスケール変更（m=1.5基準の0.25刻み）、tt:upper→tt:uppercaseへ変更（破壊的変更）。@lism-css/plugin v0.5.0でlism-cssをpeerDependenciesへ変更。v0.28.x (2026.09.05〜10) ではl--flow見出しの上余白調整・余白トークン--s45追加と--s80削除・u--divide/u--encloseをコアから削除・has--transitionの既定対象を限定化（破壊的変更）。v0.27.0 (2026.09.04) ではlhを比率指定propに変更（hlへの置き換え必要）・bdrsスケール変更（破壊的変更）・Tooltip/Popoverを追加。v0.26.0 (2026.08.16) ではlism-blockレイヤー追加・b--/c--の2分類命名規約へ整理（@lism-css/ui全コンポーネントをc--からb--へ移行、破壊的変更）。v0.25.0以前の変更は主要項目のみバレット掲載。"
   },
   {
     "sourcePath": "property-class/bd.mdx",
@@ -743,13 +793,17 @@
     "category": "property-class",
     "headings": [
       "-hov:-{prop}",
-      "初期値の活用",
-      "任意の値へ変化させる例",
+      "初期値の活用例",
+      "-hov:-bgc",
+      "-hov:-o",
+      "-hov:-c, -hov:-bdc",
+      "-hov:-bxsh, -hov:-transform",
+      "任意の値を指定する方法",
+      "自作クラスにまとめる",
       "<Lism>コンポーネントでの hov の指定方法",
       "文字列で指定する場合",
       "オブジェクトで指定する場合",
       "-hov:{preset}",
-      "-hovクラスを自作する例",
       "-hov:in:{preset}",
       "トランジションを設定する方法"
     ],
@@ -766,11 +820,13 @@
       "-hov:-c",
       "-hov:-o",
       "-hov:-bxsh",
+      "-hov:-transform",
+      "-hov:underline",
       "in:zoom",
       "in:show",
       "in:hide"
     ],
-    "snippet": "ホバー関連のProp。-hov:-{prop}（変数受け取り型）、-hov:{preset}（プリセット型）、-hov:in:{preset}（親ホバー連動型）の3形式。各クラスの初期値あり（-hov:-bgc は color-mix で neutral mix）。has--transition との組み合わせでアニメーション実現。set--hov と -hov:in:xxx クラスで親要素ホバー時の子要素スタイル制御も可能（in:zoom, in:show, in:hide）。Lismコンポーネントでは hov prop に文字列またはオブジェクトを渡して制御。"
+    "snippet": "ホバー関連のProp。-hov:-{prop}（変数受け取り型）、-hov:{preset}（プリセット型。標準は -hov:underline で、-hov:shadowUp のように自作クラスにまとめることも可能）、-hov:in:{preset}（親ホバー連動型）の3形式。各クラスの初期値あり（-hov:-bgc は color-mix で neutral mix）。has--transition との組み合わせでアニメーション実現。set--hov と -hov:in:xxx クラスで親要素ホバー時の子要素スタイル制御も可能（in:zoom, in:show, in:hide）。Lismコンポーネントでは hov prop に文字列またはオブジェクトを渡して制御。"
   },
   {
     "sourcePath": "property-class/max-sz.mdx",
@@ -786,9 +842,26 @@
     "title": "Lism",
     "description": "LismのCSS設計に対応した様々なプロパティを受け取ることができる汎用的なコンポーネントです。",
     "category": "core-components",
-    "headings": ["Import", "Lism Props"],
-    "keywords": ["Lism", "core", "コア", "基盤", "コンポーネント", "className", "layout", "atomic", "as", "exProps"],
-    "snippet": "全コンポーネントの基盤。Props システムによる CSS クラス・スタイルの自動変換を提供。className で b-- / c-- クラス（Block Class / Custom Class）や任意クラスを指定、layout で l-- クラス、atomic で a-- クラス（divider / spacer / decorator）を指定可能。as prop で出力要素や外部コンポーネントを指定可能。レスポンシブ指定は配列またはオブジェクト形式で対応。"
+    "headings": ["Import", "Lism Props", "Astroで<Lism>をラップする際のProps型", "getLismProps()"],
+    "keywords": [
+      "Lism",
+      "core",
+      "コア",
+      "基盤",
+      "コンポーネント",
+      "className",
+      "layout",
+      "atomic",
+      "as",
+      "exProps",
+      "getLismProps",
+      "lism-css/lib/getLismProps",
+      "公開API",
+      "Props型",
+      "交差型",
+      "ComponentProps"
+    ],
+    "snippet": "全コンポーネントの基盤。Props システムによる CSS クラス・スタイルの自動変換を提供。className で b-- / c-- クラス（Block Class / Custom Class）や任意クラスを指定、layout で l-- クラス、atomic で a-- クラス（divider / spacer / decorator）を指定可能。as prop で出力要素や外部コンポーネントを指定可能。レスポンシブ指定は配列またはオブジェクト形式で対応。as に外部コンポーネントを渡せないなど <Lism> を使えない場合は、lism-css/lib/getLismProps の getLismProps() で Lism Props を className と style に変換できる（lism-css/lib/・lism-css/react/・lism-css/astro/ 配下のファイルを直接指すパスのうち公開APIはこれだけで、他は内部用のためマイナーバージョンの更新でも変わることがある）。Astro で <Lism> をラップする独自コンポーネントの Props 型は、interface extends ではなく交差型（&）で合成する。"
   },
   {
     "sourcePath": "core-components/lism-props.mdx",
@@ -908,7 +981,7 @@
     "title": "Media",
     "description": "画像や動画などのメディア要素を出力するLismコンポーネントです。",
     "category": "core-components",
-    "headings": ["Import", "Next.js の<Image>を使う方法", "Astro版での<Image> / <Picture>の使い方", "リモート画像で使用する例"],
+    "headings": ["Import", "Next.jsの<Image>を使う方法", "Astro版での<Image> / <Picture>の使い方", "リモート画像で使用する例"],
     "keywords": ["Media", "メディア", "img", "video", "iframe", "画像", "picture", "Astro Image", "動画"],
     "snippet": "img, video, iframe 等のメディア要素を統一的に扱うコンポーネント。objectPositionやfilter系はstyleで指定。Astro版では as='img' で Astro Image、as='picture' で Astro Picture に自動マッピング。Next.js の Image コンポーネントとの連携も可能。"
   },
@@ -1364,6 +1437,7 @@
       "variant=\"line\"",
       "最初に開いておくタブ番号を指定する",
       "URLパラメータで初期タブを指定する",
+      "Tabs.Itemを使わずに構成する",
       "縦並びタブ",
       "Opt-in",
       "variant=\"emboss\"",
@@ -1382,9 +1456,12 @@
       "Tabs.Item",
       "Tabs.Tab",
       "Tabs.Panel",
+      "Tabs.List",
+      "tabId",
+      "isActive",
       "--_isSelected"
     ],
-    "snippet": "タブ切り替えUI。Tabs.Root / Tabs.Item / Tabs.Tab / Tabs.Panel で構成。defaultIndex で初期タブ指定、listProps でタブリストへの props 渡しが可能。variant の初期値は default で、独自 variant 指定時は既定装飾（b--tabs--default）が外れる。左右キー・Home/End でのキーボード操作（listProps で aria-orientation=\"vertical\" を指定すると上下キー）と、URLパラメータ（?lism-tab=）での初期タブ指定に対応。line variant は標準提供。emboss / folder などの独自バリアント作成例や横並び配置、高さ固定の Opt-in 解説あり。@lism-css/uiパッケージで提供。"
+    "snippet": "タブ切り替えUI。Tabs.Root / Tabs.Item / Tabs.Tab / Tabs.Panel で構成。defaultIndex で初期タブ指定、listProps でタブリストへの props 渡しが可能。variant の初期値は default で、独自 variant 指定時は既定装飾（b--tabs--default）が外れる。左右キー・Home/End でのキーボード操作（listProps で aria-orientation=\"vertical\" を指定すると上下キー）と、URLパラメータ（?lism-tab={tabId}-{index}）での初期タブ指定に対応。Tabs.Item を使わず Tabs.Root 直下に Tabs.List / Tabs.Tab / Tabs.Panel を直接置く構成にも対応し、index（1始まり）で Tab と Panel を紐付ける（tabId・初期選択の指定方法は React 版と Astro 版で異なる）。line variant は標準提供。emboss / folder などの独自バリアント作成例や横並び配置、高さ固定の Opt-in 解説あり。@lism-css/uiパッケージで提供。"
   },
   {
     "sourcePath": "ui/Details.mdx",
@@ -1685,6 +1762,7 @@
       "CSS変数",
       "Examples",
       "表示位置を変える",
+      "スタイルを変える",
       "閉じるボタンを置く（`type=\"manual\"`）",
       "ブラウザ対応"
     ],
@@ -1703,9 +1781,10 @@
       "anchor positioning",
       "b--popover",
       "role=dialog",
-      "Esc"
+      "Esc",
+      "矢印"
     ],
-    "snippet": "クリックで開閉するポップオーバー。ブラウザ標準のPopover API（popover属性・popovertarget属性）のみで動作し、クライアントJavaScriptは不要。Popover.Root / Popover.Trigger / Popover.Popup / Popover.Closeで構成し、side（top/bottom/start/end、初期値bottom）・align（start/center/end、初期値center）・type（auto/manual、初期値auto）はPopover.Popup、offset（トリガーとの間隔）はPopover.Rootのpropsで調整する。type=\"manual\"にするとlight dismissが無効になりPopover.Closeでのみ閉じられる。CSS変数は--popover-offset・--popover-durationで、いずれもRoot（.b--popover）で受け取るためRootかその祖先に指定する（Popupに指定しても効かない）。配置にCSS Anchor Positioningを使用し、未対応ブラウザでは画面中央配置にフォールバックする（side/align/offsetは無効、開閉・light dismiss・フォーカス制御はPopover APIのためそのまま動作）。@lism-css/uiパッケージで提供。"
+    "snippet": "クリックで開閉するポップオーバー。ブラウザ標準のPopover API（popover属性・popovertarget属性）のみで動作し、クライアントJavaScriptは不要。Popover.Root / Popover.Trigger / Popover.Popup / Popover.Closeで構成し、side（top/bottom/start/end、初期値bottom）・align（start/center/end、初期値center）・type（auto/manual、初期値auto）はPopover.Popup、offset（トリガーとの間隔）はPopover.Rootのpropsで調整する。type=\"manual\"にするとlight dismissが無効になりPopover.Closeでのみ閉じられる。配色やborderはLismのプロパティで上書きでき、ふきだしの矢印は背景色に追従する（bdで付けた縁の色と太さも矢印に反映）。CSS変数は--popover-offset・--popover-durationで、いずれもRoot（.b--popover）で受け取るためRootかその祖先に指定する（Popupに指定しても効かない）。配置にCSS Anchor Positioningを使用し、未対応ブラウザでは画面中央配置にフォールバックする（side/align/offsetは無効、開閉・light dismiss・フォーカス制御はPopover APIのためそのまま動作）。@lism-css/uiパッケージで提供。"
   },
   {
     "sourcePath": "utility-class.mdx",

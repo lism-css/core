@@ -3,6 +3,6 @@ import { packageVersion } from '../lib/version.js';
 
 export const meta: MetaInfo = {
   generatedAt: '2026-10-01',
-  sourceCommit: 'bfa26ec89',
+  sourceCommit: '41f90b398',
   docsVersion: packageVersion,
 };

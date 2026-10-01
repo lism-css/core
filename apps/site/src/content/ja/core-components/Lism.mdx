@@ -92,3 +92,26 @@ interface Props extends LismProps {
 
 一方、`<Cluster>`や`<Stack>`など`layout`が固定されているレイアウトコンポーネントのProps型にはユニオン型が含まれないため、`interface extends`でも書けます。ただし、どのコンポーネントでも同じように書けるよう、交差型での合成をおすすめします。
 :::
+
+
+## `getLismProps()`
+
+`as`に外部コンポーネントを渡せないなどの理由で`<Lism>`を使えない場合は、`getLismProps()`でLism Propsを`className`と`style`に変換できます。
+
+```jsx
+import getLismProps from 'lism-css/lib/getLismProps';
+
+function MyComponent({ children }) {
+  // Lism Props を className と style に変換する
+  const lismProps = getLismProps({ p: '20', fz: 'l', c: 'red' });
+  // → { className: '-p:20 -fz:l -c', style: { '--c': 'var(--red)' } }
+
+  return <div {...lismProps}>{children}</div>;
+}
+```
+
+Lism Props以外のプロパティ（`href`など）は、そのまま戻り値に含まれます。
+
+:::note
+`lism-css/lib/`・`lism-css/react/`・`lism-css/astro/`の下にあるファイルを直接指すパスのうち、公開APIは`lism-css/lib/getLismProps`だけです。それ以外は内部用のため、マイナーバージョンの更新でも変わることがあります。コンポーネントは`lism-css/react`や`lism-css/astro`から読み込んでください。
+:::

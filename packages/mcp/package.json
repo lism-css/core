@@ -1,6 +1,6 @@
 {
   "name": "@lism-css/mcp",
-  "version": "0.31.0",
+  "version": "1.0.0",
   "description": "MCP server for lism-css documentation and API reference.",
   "keywords": [
     "mcp",

@@ -118,3 +118,8 @@ lism-base → lism-block → lism-trait → lism-primitive → lism-custom → l
 | `src/scss/base/tokens/_tokens.scss` | デザイントークン（SCSS。生成部分は同ディレクトリの `_tokens.gen.scss`） |
 | `config/defaults/tokens.ts` | デザイントークン（JS/TS） |
 
+
+## 深いパスの互換
+
+`lism-css/lib/*`・`react/*`・`astro/*` の深いパスのうち、公開 API は `getLismProps` だけ。ただし `@lism-css/ui` のソースが一度でも import したものは、1.x の間はできれば互換を保つ。一覧は `packages/lism-ui/src/components/lismCssDeepImports.test.ts`、経緯は `docs/decisions.md`。
+

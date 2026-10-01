@@ -92,3 +92,26 @@ This constraint isn't unique to `<Lism>`. Components such as `<Text>` and `<Wrap
 
 On the other hand, layout components with a fixed `layout`, such as `<Cluster>` and `<Stack>`, don't include a union type in their prop types, so `interface extends` also works for them. That said, we recommend using intersection types consistently so the same approach works for every component.
 :::
+
+
+## `getLismProps()`
+
+If you can't use `<Lism>` — for example, because you can't pass an external component to `as` — you can use `getLismProps()` to convert Lism Props into `className` and `style`.
+
+```jsx
+import getLismProps from 'lism-css/lib/getLismProps';
+
+function MyComponent({ children }) {
+  // Convert Lism Props into className and style
+  const lismProps = getLismProps({ p: '20', fz: 'l', c: 'red' });
+  // → { className: '-p:20 -fz:l -c', style: { '--c': 'var(--red)' } }
+
+  return <div {...lismProps}>{children}</div>;
+}
+```
+
+Props other than Lism Props (such as `href`) are passed through to the return value as-is.
+
+:::note
+Among paths that point directly to files under `lism-css/lib/`, `lism-css/react/`, or `lism-css/astro/`, only `lism-css/lib/getLismProps` is part of the public API. Everything else is internal and may change even in a minor version update. Import components from `lism-css/react` or `lism-css/astro`.
+:::

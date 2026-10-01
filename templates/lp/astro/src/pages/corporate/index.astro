@@ -34,67 +34,67 @@ import './_animations.css';
 
 export const title = 'Corporate LP';
 
-const mvImage = 'https://images.unsplash.com/photo-1592394675778-4239b838fb2c?auto=format&fit=max&w=1920&q=80';
+const mvImage = 'https://images.unsplash.com/photo-1669295384050-a1d4357bd1d7?auto=format&fit=max&w=1920&q=80';
 
 const aboutPhotos = [
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=max&w=1920&q=80',
-  'https://cdn.lism-css.com/random/img/?category=office&r=2',
-  'https://cdn.lism-css.com/random/img/?r=3',
+  'https://images.unsplash.com/photo-1672750771479-5ea73e9439ce?auto=format&fit=max&w=1920&q=80',
+  'https://images.pexels.com/photos/19306010/pexels-photo-19306010.jpeg?auto=compress&cs=tinysrgb&w=1920',
+  'https://images.unsplash.com/photo-1684139517679-032b7213ad2e?auto=format&fit=max&w=1920&q=80',
 ];
 
 const featureCards = [
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=service1',
+    src: 'https://images.unsplash.com/photo-1742783201678-33840ee6ee0b?auto=format&fit=max&w=1920&q=80',
     title: 'レイアウト設計サポート',
-    body: 'ワイヤーフレーム作成がしやすい、レイアウトファーストなプリミティブ（Stack や Flex、Grid など）を、ドキュメントに沿った組み方で扱います。骨組みを先に揃え、画面幅の切り替えに耐えるマークアップを意識した設計です。',
+    body: 'Stack・Flex・Gridなど、レイアウトに特化したプリミティブを揃えています。ワイヤーフレームを組む感覚で骨組みを先に作れて、画面幅が変わっても崩れにくいマークアップに仕上がります。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=service2',
+    src: 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=max&w=1920&q=80',
     title: 'デザイントークン整備',
-    body: 'ハーモニックモジュラースケールに基づくタイポやスペースなど、柔軟でレスポンシブに切り替えやすいCSS変数の設計が前提です。単一プロパティに相当する Property Class でも、同じ考え方を短い表記に落とし込めます。',
+    body: 'タイポグラフィや余白は、ハーモニックモジュラースケールに基づくCSS変数で設計しています。単一のCSSプロパティに対応するProperty Classを使えば、同じトークンを短いクラス名でそのまま指定できます。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=service3',
+    src: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=max&w=1920&q=80',
     title: 'AI連携ワークフロー',
-    body: 'AIコーディング向けの Skills や、@lism-css/mcp（MCPサーバー）がエコシステムに含まれ、公式ドキュメントの参照と組み合わせやすい導線として案内されています。設計上の用語は「概要」や各章で揃いやすいよう整理されています。',
+    body: 'AIコーディング向けのSkillsと、MCPサーバーの@lism-css/mcpを用意しています。AIがLism CSSの設計ルールやドキュメントを参照しながらコードを書けるので、記法がぶれにくくなります。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=service4',
+    src: 'https://images.unsplash.com/photo-1684670179697-7b6d0213f152?auto=format&fit=max&w=1920&q=80',
     title: 'UIキット／テンプレート導入',
-    body: '公式のエコシステム表では、@lism-css/ui にアコーディオンやタブ、ボタン等のUIコンポーネント、lism-cli に UI をプロジェクトへコピーしてカスタマイズする CLI が並んでいます。React やAstro 向けの専用コンポーネント利用も、同じ概要で「より快適に」と紹介されている導入です。',
+    body: '@lism-css/uiには、アコーディオンやタブ、モーダルなどのUIコンポーネントが揃っています。lism-cliを使えば、テンプレートからプロジェクトを作成したり、UIコンポーネントをプロジェクトへコピーしてカスタマイズしたりできます。',
   },
 ];
 
 const worksItems = [
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=works1',
+    src: 'https://cdn.lism-css.com/img/graphics/4nR8oc9E5L3f.webp',
     title: 'ドキュメントサイト刷新',
-    body: '「概要」で紹介されているゼロビルド導入やWhy Lismの流れを、冒頭で噛み砕けるよう再配置する想定の自作案件。プリミティブとトークンの章へ辿れる導線だけ、先に固めています。',
+    body: '導入手順と設計の考え方を、冒頭でかみ砕いて伝える構成に組み直したドキュメントサイト。プリミティブやトークンの解説へすぐ進めるよう、導線を整理しています。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=works2',
+    src: 'https://cdn.lism-css.com/img/graphics/LgC2ipzXSWy8.webp',
     title: 'デザインシステムLP',
-    body: '公式の訴求（軽量CSS一つ、レイアウトと変数、React／Astroの快適さ）をそのまま見出しに沿わせたLP案。デモのため、スクロール演出はこのページのローカルCSSに閉じています。',
+    body: '「軽量」「レイアウト」「React・Astro対応」の3つの訴求を、そのまま見出しにしたLP。スクロール演出は、このページ専用のCSSだけで実装しています。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=works3',
+    src: 'https://cdn.lism-css.com/img/graphics/fGFiCx3tRJb1.webp',
     title: 'ブログテンプレート適用',
-    body: 'テンプレート配布の話に寄せ、記事レイアウトをStackで積む前提の骨格だけ先に作る制作物。画像は遅延読み込みにし、本文はProperty Classの例示に使いやすい幅に留めています。',
+    body: '記事レイアウトをStackで積み上げて組んだブログテンプレート。画像は遅延読み込みにし、本文は読みやすい行長に収めています。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=works4',
+    src: 'https://cdn.lism-css.com/img/graphics/GGdr02TFE30n.webp',
     title: 'UIコンポーネントギャラリー',
-    body: '@lism-css/ui のアコーディオンやモーダルなどを、ドキュメントの説明と同じ語彙で並べるギャラリー案。実装はサンプル閲覧用で、納品物の挙動を保証するものではありません。',
+    body: '@lism-css/uiのアコーディオンやモーダルを、使い方の説明と並べて見られるギャラリー。各コンポーネントの動きを、その場で試せる構成です。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=works5',
+    src: 'https://cdn.lism-css.com/img/graphics/DNqeX8I1NYnS.webp',
     title: 'コーポレートサイト再構築',
-    body: 'エコシステム表（lism-css、@lism-css/ui、lism-cli、@lism-css/mcp）を紹介する帯を、StackとGridで折り返しやすい幅に設計。色はセマンティックトークンに寄せたまま差し替えています。',
+    body: 'StackとGridでレイアウトを組み直したコーポレートサイト。色はセマンティックトークンで指定しているので、ブランドカラーの変更にもすぐ対応できます。',
   },
   {
-    src: 'https://cdn.lism-css.com/random/img/?r=works6',
+    src: 'https://cdn.lism-css.com/img/graphics/5oERD2W67GKO.webp',
     title: '開発者向けオンボーディング',
-    body: 'SkillsとMCPの案内ページを想定し、公式のインストール・Skills・MCPの章へ飛ぶリンク集を1枚に集約。命名と@layerの説明は、必ずドキュメントを正とする前提のメモ付きです。',
+    body: 'インストールからSkills・MCPの設定までを、1ページで順に案内するオンボーディングページ。詳しい仕様は、公式ドキュメントの各章へリンクしています。',
   },
 ];
 
@@ -102,30 +102,27 @@ const newsBg = 'https://cdn.lism-css.com/img/abstract/195nM7WfjFaY.webp';
 const newsItems = [
   {
     date: '2026.03.18',
-    title: 'エコシステム紹介：@lism-css/uiの位置づけ',
-    summary:
-      '公式のエコシステム表では、@lism-css/ui にアコーディオン・タブ等のUIコンポーネント集が掲げられており、React・Astro向けに快適、という点も同じ章で補足されています。',
+    title: 'エコシステム紹介：@lism-css/ui',
+    summary: 'アコーディオンやタブ、モーダルなど、@lism-css/uiで使えるUIコンポーネントをまとめて紹介します。ReactとAstroのどちらでも使えます。',
     long: true,
   },
   {
     date: '2026.02.04',
     title: 'エコシステム紹介：@lism-css/mcp',
-    summary:
-      '同表では@lism-css/mcpをAIコーディング向けMCPサーバーとして案内しており、Skillsやエディタ支援の導線は公式のはじめに・MCP等の文脈を参照する形が前提です。',
+    summary: '@lism-css/mcpは、AIコーディングツール向けのMCPサーバーです。設定方法は、公式ドキュメントの「MCPサーバー」の章で解説しています。',
     long: false,
   },
   {
     date: '2026.01.22',
-    title: '概要：ゼロビルドと拡張の導入',
+    title: '導入ガイド：ビルド不要で始める方法',
     summary:
-      'ゼロビルドでCSSを1つ読み込むだけ、という説明のあと、npmのlism-cssや@lism-css/ui、lism-cli、SCSS上書きやlism.config.js などの話が、概要で順に紹介されています。',
+      'Lism CSSは、CSSを一つ読み込むだけで使い始められます。npmでのインストールから、SCSSの上書きやlism.config.jsによるカスタマイズまで、段階ごとの始め方を解説します。',
     long: true,
   },
   {
     date: '2025.12.10',
-    title: '「Why Lism CSS?」の要点のおさらい',
-    summary:
-      '命名規則・デザイントークン・層（@layer）やユーティリティなど、サイト全体のCSS設計をまとめて扱う、という主張は、公式の「Why Lism CSS?」等で繰り返し述べられています。',
+    title: '「Why Lism CSS?」の要点をおさらい',
+    summary: '命名規則やデザイントークン、@layer階層まで、サイト全体のCSS設計をまとめて引き受けるというLism CSSの考え方を、改めて整理しました。',
     long: false,
   },
 ];
@@ -135,32 +132,30 @@ const faqItems = [
   {
     question: 'Lism CSSとは何ですか？',
     answer:
-      'Webサイトの骨組みをテンポ良く美しく作るための、軽量なCSS設計フレームワークです。タイポグラフィ、レイアウト向けのプリミティブ、CSS変数を活かしたユーティリティを一体で扱います。一つのCSSを読み込むだけ、という導入も可能です。',
+      'Webサイトの骨組みをテンポ良く美しく作るための、軽量なCSS設計フレームワークです。タイポグラフィ、レイアウト用のプリミティブ、CSS変数を活かしたユーティリティをまとめて提供しています。CSSを一つ読み込むだけで導入できます。',
   },
   {
     question: '他のCSSフレームワークとの違いは？',
     answer:
-      'Every Layout やTailwind、Chakra UIやMUIなどからインスピレーションを得た、独自のCSS設計です。公式の「Inspirations」に述べるとおり、レイアウトプリミティブやハーモニックモジュラースケーリング、プロパティ単位のユーティリティ方針が整理されています。',
+      'タイポグラフィからレイアウト、ユーティリティまで、サイト全体のCSS設計を一つのルールで扱える点です。Every Layoutのレイアウトプリミティブやハーモニックモジュラースケーリング、Tailwind CSSのプロパティ単位のユーティリティ、Chakra UIやMUIのコンポーネントの使用感から着想を得ています。',
   },
   {
     question: 'ReactやAstroでも使えますか？',
     answer:
-      'はい。lism-css パッケージに、React やAstro 向けの専用コンポーネントが含まれ、概要ページの訴求どおり扱いやすい導入が案内されています。@lism-css/ui のアコーディオン等も併用できます。',
+      'はい。lism-cssパッケージにReact・Astro向けの専用コンポーネントが含まれており、レスポンシブ対応やレイアウトをpropsで指定できます。@lism-css/uiのUIコンポーネントも併用できます。',
   },
   {
     question: '商用プロジェクトで利用できますか？',
-    answer:
-      '表記どおり、パッケージ群はすべて無料でオープンソース（MIT）で開発されています。利用条件の詳細は各リポジトリのライセンス表記に従ってください。',
+    answer: 'はい。パッケージはすべて無料のオープンソース（MIT）です。利用条件の詳細は、各リポジトリのライセンスをご確認ください。',
   },
   {
     question: 'カスタマイズや独自スタイルはどこに書けばよいですか？',
-    answer:
-      'SCSS 設定の上書きや lism.config.js の導入で、より柔軟にカスタマイズできる、と公式の「概要」で述べられています。自前のスタイル方針の詳細は、Customize など当該ドキュメントの章に従うのが確実です。',
+    answer: 'SCSS設定の上書きや、lism.config.jsでカスタマイズできます。詳しい方法は、公式ドキュメントの「カスタマイズの基本」をご覧ください。',
   },
   {
     question: '不具合や要望はどこに報告すればよいですか？',
     answer:
-      '各OSSリポジトリ（GitHub 等）の案内に従い、Issue 等に報告する形が一般的です。本ページのデモはショーケース用のため、宛先の取り違いにご注意ください。',
+      '各パッケージのGitHubリポジトリのIssueからご報告ください。本ページはデモ用のショーケースのため、このページではお問い合わせを受け付けていません。',
   },
 ];
 
@@ -168,63 +163,61 @@ const testimonials = [
   {
     title: 'レビュー観点が揃い、差分が小さくなった',
     meta: '東京都 / 30代 / フロントエンドエンジニア',
-    src: 'https://cdn.lism-css.com/random/img/?category=avatar&r=testimonials1',
-    body: '公式の「Why Lism」に近い言い方で、命名と@layerの話を1本道にしやすくなりました。ドキュメントの用語に寄せると、レビューでの咀嚼が少なくて済みます。',
+    src: 'https://cdn.lism-css.com/img/avatar/4Ufez6XAR6Hn.webp',
+    body: '命名規則と@layerの使い方がチームで揃い、書き方のばらつきがなくなりました。レビューでの指摘が減り、修正の差分も小さくなっています。',
   },
   {
     title: 'デザインと実装の言語が一致した',
     meta: '大阪府 / 40代 / デザイナー（UI）',
-    src: 'https://cdn.lism-css.com/random/img/?category=avatar&r=testimonials2',
-    body: 'タイポとスペースのトークン、Property Class の往復が分かりやすく、補足文のトーン合わせが速いです。余白の指示がブレにくいのが助かります。',
+    src: 'https://cdn.lism-css.com/img/avatar/7TMzQ6GsPUHx.webp',
+    body: 'デザインで決めたタイポグラフィや余白のトークンを、実装でもそのままProperty Classで指定できます。余白の指示がぶれにくくなりました。',
   },
   {
     title: 'MCPで仕様確認がループしなくなった',
     meta: '福岡県 / 20代 / 個人開発者',
-    src: 'https://cdn.lism-css.com/random/img/?category=avatar&r=testimonials3',
-    body: 'エコシステム紹介に載る@lism-css/mcp や Skills の話に沿って、用語の当たりを会話で揃えやすいです。',
+    src: 'https://cdn.lism-css.com/img/avatar/nZfq8L55y9aY.webp',
+    body: '@lism-css/mcpでAIが仕様をその場で確認してくれるので、ドキュメントとエディタを行き来する回数が減りました。',
   },
   {
     title: 'テンプレから最短で公開まで持っていけた',
     meta: '愛知県 / 30代 / マークアップエンジニア',
-    src: 'https://cdn.lism-css.com/random/img/?category=avatar&r=testimonials4',
-    body: 'Inspirations の Every Layout やTailwind への言及をフックに、レイアウト方針の説明を会議で混ぜやすくなりました。プリミティブを重ねる感覚が掴めたのが大きいです。',
+    src: 'https://cdn.lism-css.com/img/avatar/dmu11fNxxj3X.webp',
+    body: 'テンプレートをベースに、プリミティブを組み合わせるだけでページを作れました。レイアウトの考え方を掴んでからは、公開まであっという間でした。',
   },
   {
     title: 'Astro案件でも迷いどころが減った',
     meta: '北海道 / 30代 / フルスタックエンジニア',
-    src: 'https://cdn.lism-css.com/random/img/?category=avatar&r=testimonials5',
-    body: 'React・Astro 向けの専用コンポーネントの導入に、公式の説明どおり乗る形にすると初日から手が伸びます。',
+    src: 'https://cdn.lism-css.com/img/avatar/6Oj4C1vAIOpX.webp',
+    body: 'Astro向けの専用コンポーネントがあるので、導入初日から手を動かせました。レイアウトをpropsで指定できるのが便利です。',
   },
   {
     title: '小さく始めて段階的に拡張できた',
     meta: '沖縄県 / 40代 / テックリード',
-    src: 'https://cdn.lism-css.com/random/img/?category=avatar&r=testimonials6',
-    body: 'SCSS 上書きやlism.config.js の話は、拡張の段階でそのまま説得材料に使いやすいです。@lism-css/ui も、エコシステム表の通り、と他部署に示しやすいのが助かります。',
+    src: 'https://cdn.lism-css.com/img/avatar/y4kc96U14AqK.webp',
+    body: '最初はCSSを読み込むだけで始め、必要になった段階でSCSSの上書きやlism.config.jsを取り入れました。@lism-css/uiも後から追加できるので、他部署にも提案しやすかったです。',
   },
 ];
 
 const informations = [
   {
     term: '運営名',
-    description: 'Lism CSS プロジェクト（デモ掲載用の架空組織）',
+    description: 'LismInc（デモ用の架空の企業）',
   },
   {
     term: '所在地',
-    description: '東京都千代田区丸の内1-1-1（地図はGoogleマップ埋め込みの表示サンプル）',
+    description: '東京都千代田区丸の内1-1-1（地図はGoogleマップの埋め込みサンプル）',
   },
   {
-    term: '公開情報',
-    description:
-      'コアのlism-css、@lism-css/ui、lism-cli、@lism-css/mcp など、公式のエコシステム表のとおりのパッケージ群。告知や情報の一次ソースは、公式ドキュメントと各GitHub等を参照してください',
+    term: '提供パッケージ',
+    description: 'lism-css、@lism-css/ui、lism-cli、@lism-css/mcp。最新情報は公式ドキュメントと各GitHubリポジトリでご確認ください',
   },
   {
     term: '連絡窓口',
-    description: 'OSS として各リポジトリに案内のある窓口に従ってください。本欄の住所・組織名はショーケース用の仮想表記です',
+    description: '各リポジトリの案内に沿ってご連絡ください。本欄の住所・組織名は架空のものです',
   },
   {
     term: '事業内容',
-    description:
-      'ドキュメントに書かれている通り、CSS設計の理論に沿った一つのスタイルシート、レイアウト用コンポーネント、@lism-css/ui、lism-cli、@lism-css/mcp 等の配布。すべて無料でオープンソース（MIT）です',
+    description: 'CSS設計フレームワーク「Lism CSS」と関連パッケージの開発・配布。すべて無料のオープンソース（MIT）です',
   },
 ];
 
@@ -268,7 +261,7 @@ const footerSnsLinks = [
     <!-- Main -->
     <Container as="main" class="c--main">
       <Box class="c--mv" pos="relative" pos="relative" h="min(100svh, 200vw)">
-        <Frame class="c--mv_frame" isLayer>
+        <Frame class="c--mv_frame" isLayer m="15" bdrs="30">
           <Media class="c--mv_media" src={mvImage} alt="" w="100%" h="100%" width="960" height="640" loading="eager" />
           <Layer
             style={{
@@ -304,19 +297,18 @@ const footerSnsLinks = [
           <Flow class="u--fadeIn" pos="relative" z="1">
             <Text>
               Lism
-              CSSは、Webサイトの骨組みをテンポ良く美しく作るための、軽量なCSS設計フレームワークです。設計理論に沿った一つのCSSが本体で、特別なビルド工程は必須ではありません。
+              CSSは、Webサイトの骨組みをテンポ良く美しく作るための、軽量なCSS設計フレームワークです。本体は設計理論に沿ってまとめた一つのCSSファイルで、ビルドや設定は必要ありません。
             </Text>
             <Text>
-              心地よいリズムのタイポグラフィ、ワイヤーフレーム向けのレイアウトファーストなプリミティブ、CSS変数を活かしたレスポンシブにも向くユーティリティ設計を揃えています。
-              Every Layout やTailwindのような考え方から着想を得た上で、独自のCSS設計にまとまっています。
+              心地よいリズムを生むタイポグラフィ、ワイヤーフレームをすばやく組めるレイアウトプリミティブ、CSS変数を活かしたレスポンシブなユーティリティを揃えています。
+              Every LayoutやTailwind CSSから着想を得て、独自のCSS設計として組み立てました。
             </Text>
             <Text>
-              ベーススタイリングや@layer階層、トークン、命名規則まで、サイト全体のCSS設計を一貫して扱える点が「Why Lism
-              CSS?」の骨子です。CSSを一つ読み込むだけで、素のHTMLからでも導入を始められます。
+              ベーススタイリングから@layer階層、トークン、命名規則まで、サイト全体のCSS設計をまとめて引き受けます。CSSを一つ読み込むだけなので、素のHTMLサイトにも導入できます。
             </Text>
             <Text>
-              コアのlism-cssのほか、@lism-css/ui、lism-cli、@lism-css/mcp等を、すべて無料・オープンソース（MIT）のパッケージ群として提供しています。
-              本ページは、公式ドキュメントで述べられている性質を体験できるショーケースに近い、代表的なセクションの並びをまとめたものです。
+              コアのlism-cssに加えて、UIコンポーネント集の@lism-css/ui、CLIのlism-cli、MCPサーバーの@lism-css/mcpを、すべて無料のオープンソース（MIT）で提供しています。
+              本ページは、Lism CSSで作れる代表的なセクションを並べたショーケースです。
             </Text>
           </Flow>
         </Stack>
@@ -354,15 +346,13 @@ const footerSnsLinks = [
       <Container id="works" class="c--works" isWrapper="l" py="60" hasGutter>
         <Stack g="40">
           <SectionHeading en="Works" ja="制作実績" />
-          <Text class="u--fadeIn">
-            以下はフィクションの制作例です。レイアウトプリミティブとデザイントークンを活かしつつ、公式ドキュメント「概要」に書かれている語彙とエコシステムの整理に沿う話に寄せたサンプルです。
-          </Text>
+          <Text class="u--fadeIn"> 以下は架空の制作例です。Lism CSSのレイアウトプリミティブとデザイントークンで組んだ場合を想定しています。 </Text>
           <AutoColumns cols="20rem" g="40">
             {
               worksItems.map((item) => (
                 <BoxLink class="u--fadeIn" href="#" layout="stack" set="hov" g="20">
-                  <Frame ar="16/9" pos="relative" bdrs="30">
-                    <Media class="u--pullBack" src={item.src} alt="" width="960" height="540" loading="lazy" hasTransition hov="in:zoom" />
+                  <Frame ar="4/3" pos="relative" bdrs="30">
+                    <Media class="u--pullBack" src={item.src} alt="" width="960" height="720" loading="lazy" hasTransition hov="in:zoom" />
                     <Layer layout="center" hasTransition hov="in:show" h="100%" c="white" bgc="black:30%" style={{ backdropFilter: 'blur(4px)' }}>
                       <Inline fz="xl" fs="italic" fw="light" lts="l">
                         View More
@@ -402,7 +392,7 @@ const footerSnsLinks = [
                     </Text>
                     <Text fz="s" o="p">
                       {row.summary}
-                      {row.long ? ' あわせて Changelog も参照してください。' : ''}
+                      {row.long ? 'あわせてChangelogもご覧ください。' : ''}
                     </Text>
                   </Stack>
                 </BoxLink>
@@ -492,9 +482,8 @@ const footerSnsLinks = [
         <Container isWrapper="s" layout="center" g="40" pos="relative" c="white" py="60" min-h="65vh" hasGutter>
           <SectionHeading en="Contact" ja="お問い合わせ" />
           <Text class="u--fadeIn">
-            本セクションはデモ用の導線です。Lism
-            CSSは軽量なCSS設計フレームワークとして、一つのCSSを読み込むことから導入でき、React・Astro向けの専用コンポーネント利用も、公式の概要（https://lism-css.com/docs/overview/）のとおり行えます。
-            採用判断や事実の確認は、同ページおよび各リポジトリの一次情報を正としてください。
+            本セクションはデモ用です。Lism CSSはCSSを一つ読み込むだけで導入でき、React・Astro向けの専用コンポーネントも使えます。
+            詳しくは公式ドキュメントをご覧ください。
           </Text>
           <Cluster class="u--fadeIn" jc="center">
             <Link
@@ -522,7 +511,7 @@ const footerSnsLinks = [
     <Container as="footer" class="c--footer" isWrapper py="40" hasGutter>
       <Center g="30">
         <Text fz="xl" fw="400" lts="l">
-          <Inline fw="200">Lism</Inline>Corp
+          <Inline fw="200">Lism</Inline>Inc
         </Text>
         <Cluster g="10">
           {
@@ -535,7 +524,7 @@ const footerSnsLinks = [
             ))
           }
         </Cluster>
-        <Text fz="s" c="text-2">© 2026 Lism CSS.</Text>
+        <Text fz="s" c="text-2">© 2026 LismInc.</Text>
       </Center>
     </Container>
   </div>

@@ -1,6 +1,6 @@
 {
   "name": "@lism-css/ui",
-  "version": "0.31.0",
+  "version": "0.40.0",
   "description": "UI components for React and Astro, powered by Lism CSS.",
   "author": {
     "name": "ddryo",
@@ -160,7 +160,7 @@
     "url": "https://github.com/lism-css/core/issues"
   },
   "dependencies": {
-    "lism-css": "workspace:*"
+    "lism-css": "workspace:^"
   },
   "devDependencies": {
     "@babel/cli": "^7.29.7",
