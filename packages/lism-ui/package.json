@@ -1,6 +1,6 @@
 {
   "name": "@lism-css/ui",
-  "version": "0.31.0",
+  "version": "0.40.0",
   "description": "UI components for React and Astro, powered by Lism CSS.",
   "author": {
     "name": "ddryo",
