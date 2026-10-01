@@ -199,7 +199,7 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 
 ### 9. npm publish（ユーザー手動）
 
-`lism-cli` は案内前に「lism-cli の特別ルール」の `constants.ts` 確認を行う。`lism-css` のリリースでは `nr publish:mcp` も続けて案内する。`lism-ui` は `lism-css` を固定バージョンで依存するため、同時リリースでは `nr publish:core` を先にする。mockup がステップ4でリリース対象になった場合は、依存パッケージの publish 後に `nr publish:mockup` も続けて案内する。案内して完了を待つ。
+`lism-cli` は案内前に「lism-cli の特別ルール」の `constants.ts` 確認を行う。`lism-css` のリリースでは `nr publish:mcp` も続けて案内する。`lism-ui` は publish 時点の `lism-css` のバージョンを下限（`^x.y.z`）として依存するため、同時リリースでは `nr publish:core` を先にする。mockup がステップ4でリリース対象になった場合は、依存パッケージの publish 後に `nr publish:mockup` も続けて案内する。案内して完了を待つ。
 
 ```
 pnpm publish を実行してください:

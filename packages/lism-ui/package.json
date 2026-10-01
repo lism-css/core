@@ -160,7 +160,7 @@
     "url": "https://github.com/lism-css/core/issues"
   },
   "dependencies": {
-    "lism-css": "workspace:*"
+    "lism-css": "workspace:^"
   },
   "devDependencies": {
     "@babel/cli": "^7.29.7",

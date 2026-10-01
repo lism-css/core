@@ -460,7 +460,7 @@ importers:
         specifier: '*'
         version: 19.2.3(@types/react@19.2.17)
       lism-css:
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../lism-css
       react:
         specifier: ^18 || ^19
