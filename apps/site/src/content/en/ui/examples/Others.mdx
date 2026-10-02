@@ -122,7 +122,7 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
       <Flex ar="16/9">
         <Stack fx="1" pos="relative" g="15" p="30" z="1" min-h="100%" h="auto" c="white" bgc="black:50%">
           <h3>Card Title</h3>
-          <DummyText hl="s" mb="auto" length="l" />
+          <Text hl="s" mb="auto">Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut. Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut. Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint.</Text>
           <Link href="#button-test" keycolor="white" c="inherit" bdrs="99" aslf="end" px="10" mbs="20">
             Link Text
           </Link>
@@ -176,10 +176,10 @@ These examples use the [force output as utility class](/en/docs/core-components/
     <PreviewCode label="JSX" slot="tab">
     ```jsx 'bg=":stripe"'
     <Box bg=":stripe" p="30">
-      <DummyText length="xs" />
+      <p>Lorem ipsum dolor sit amet.</p>
     </Box>
     <Box bg=":stripe" p="30" util="cbox" keycolor="blue">
-      <DummyText length="xs" />
+      <p>Lorem ipsum dolor sit amet.</p>
     </Box>
     ```
   </PreviewCode>
@@ -188,7 +188,7 @@ These examples use the [force output as utility class](/en/docs/core-components/
     <div class="l--box -bg:stripe -p:30">
       <p>...</p>
     </div>
-    <div class="l--box u--cbox -bg:stripe -p:30 -keycolor:blue">
+    <div class="l--box u--cbox -bg:stripe -p:30" style="--keycolor: var(--blue)">
       <p>...</p>
     </div>
     ```

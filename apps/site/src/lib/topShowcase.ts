@@ -2,7 +2,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 import type { LangCode } from '@/lib/i18n';
 import { getPatternThumbSrc } from '@/lib/patterns';
-import { patterns, isPatternAvailable, type PatternCategoryId } from '@/config/patterns';
+import { patterns, isPatternAvailable, type PatternCategoryId, type PatternItem } from '@/config/patterns';
 
 // トップページのテンプレート欄に並べるパターン。3列それぞれ上から順に並ぶ
 const showcaseColumns: Array<Array<[PatternCategoryId, string]>> = [
@@ -37,7 +37,8 @@ export interface ShowcaseImage {
 
 // draft と、その言語で公開していないパターンは出さない
 function isShowcasePattern(categoryId: PatternCategoryId, patternId: string, lang: LangCode): boolean {
-  const item = patterns[categoryId].items.find(({ id }) => id === patternId);
+  const items: PatternItem[] = patterns[categoryId].items;
+  const item = items.find(({ id }) => id === patternId);
   return !!item && !item.draft && isPatternAvailable(item, lang);
 }
 

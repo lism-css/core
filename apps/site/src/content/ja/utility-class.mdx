@@ -226,7 +226,7 @@ import { Dog, Cat } from "@phosphor-icons/react";
   <PreviewCode slot="tab" label="HTML">
     ```html "u--trim"
     <div class="l--box -bd" style="--bds: dashed">
-      <p class="u--trim">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+      <p class="u--trim">Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut.</p>
     </div>
     ```
   </PreviewCode>
@@ -258,9 +258,9 @@ import { Dog, Cat } from "@phosphor-icons/react";
     ```html
     <div class="l--stack u--trimAll -bd -g:30 -p:30 -bdrs:10">
       <img class="-ar:og" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" />
-      <p>ロレム・イプサムの座り雨、トマ好き学習だったエリット、しかし時と活力はそのような木々と楽しみ。</p>
+      <p>ロレム・イプサムの座り雨。目まぐるしい文章の流れの中で、それは静かに歩く仮の言葉です。</p>
       <p>
-        ロレム・イプサムの座り雨、トマ好き学習だったエリット、しかし時と活力はそのような木々と楽しみ。ブラインド行うにはいくつかの重要な事柄が流れます...。
+        ロレム・イプサムの座り雨。目まぐるしい文章の流れの中で、それは静かに歩く仮の言葉です。Elitも穏やかに続いていきますが、積み重ねられてきた「LiberroyとFoogの取り組み」は、余白のようなものです。作業が進むにつれて、工夫や考えとともに関心が折り重なりながらも、必要以上に主張せず彼らの作品は私たちに一定の示唆を与えてくれます。
       </p>
     </div>
     ```
@@ -271,7 +271,7 @@ import { Dog, Cat } from "@phosphor-icons/react";
       <Media ar="og" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" inferSize />
       <p>ロレム・イプサムの座り雨。目まぐるしい文章の流れの中で、それは静かに歩く仮の言葉です。</p>
       <p>
-        ロレム・イプサムの座り雨。目まぐるしい文章の流れの中で、それは静かに歩く仮の言葉です。Elitも穏やかに続いていきますが、積み重ねられてきた「LiberroyとFoogの取り組み」は、余白のようなものです。
+        ロレム・イプサムの座り雨。目まぐるしい文章の流れの中で、それは静かに歩く仮の言葉です。Elitも穏やかに続いていきますが、積み重ねられてきた「LiberroyとFoogの取り組み」は、余白のようなものです。作業が進むにつれて、工夫や考えとともに関心が折り重なりながらも、必要以上に主張せず彼らの作品は私たちに一定の示唆を与えてくれます。
       </p>
     </Stack>
     ```
@@ -343,20 +343,10 @@ import { Dog, Cat } from "@phosphor-icons/react";
 }`}>
   <PreviewTitle>使用例</PreviewTitle>
   <PreviewArea p="20">
-    <p>
-      <Icon util="inlineCenter" icon={AlertIcon} c="red" fz="xl" /> Lorem ipsum dolor sit amet.
-    </p>
-    <p>
-      <Icon util="inlineCenter" as={Dog} fz="l" />
-      Dog, and <Icon util="inlineCenter" as={Cat} fz="l" />
-      Cat.
-    </p>
-    <p>
-      <span class="u--inlineCenter -fz:xl">🚀</span> Emoji.
-    </p>
-    <p>
-      <Icon fz="2xl" util="inlineCenter" src="https://emojix.s3.ap-northeast-1.amazonaws.com/g3/svg/1f916.svg" alt="image" /> Inline img icon.
-    </p>
+    <p><Icon util="inlineCenter" icon={AlertIcon} c="red" fz="xl" /> Lorem ipsum dolor sit amet.</p>
+    <p><Icon util="inlineCenter" as={Dog} fz="l" />Dog, and <Icon util="inlineCenter" as={Cat} fz="l" />Cat.</p>
+    <p><span class="u--inlineCenter -fz:xl">🚀</span> Emoji.</p>
+    <p><Icon fz="2xl" util="inlineCenter" src="https://emojix.s3.ap-northeast-1.amazonaws.com/g3/svg/1f916.svg" alt="image" /> Inline img icon.</p>
   </PreviewArea>
   <PreviewCode slot="tab" label="JSX">
     ```jsx "u--inlineCenter"

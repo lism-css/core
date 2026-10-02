@@ -177,7 +177,9 @@ CSS: 28100 → 13200 bytes (-14900 / -53.0%)
 
 ### known
 
-The set of classes CSS Purge treats as "Lism classes." When not specified, it's automatically built from the config-reflected `full.css` at the start of the build, so unused classes derived from props / tokens you added in `lism.config.js` are correctly removed too. Since `full.css` includes every selector in `main.css`, nothing is missed regardless of which one you load. Passing a function calls it at build time and uses the return value as the list.
+The set of classes CSS Purge treats as "Lism classes." When not specified in the integrated plugin, it's automatically built from the config-reflected `full.css` at the start of the build, so unused classes derived from props / tokens you added in `lism.config.js` are correctly removed too. Since `full.css` includes every selector in `main.css`, nothing is missed regardless of which one you load. Passing a function calls it at build time and uses the return value as the list.
+
+When not specified in the standalone plugin, it's built from the contents of the installed `lism-css/full.css` without loading `lism.config.js`. Classes that aren't in that `full.css` (such as ones added in `lism.config.js`) are kept rather than removed, even when unused.
 
 
 ## Caveats

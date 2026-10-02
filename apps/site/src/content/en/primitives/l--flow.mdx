@@ -24,7 +24,7 @@ Directly under `l--flow`, the spacing between content items is controlled by `--
 
 `--flow--base` / `--flow--s` are design tokens defined on `:root`. In Japanese environments (`lang="ja"`), `--flow--base` is overridden with a slightly larger value to match character density.
 
-Heading tags receive larger spacing than other elements.
+Only heading tags (`h1`–`h4`) get larger spacing.
 
 
 ## CSS
@@ -171,9 +171,6 @@ When a non-token value is passed to `flow`, it is output as the `-flow:` class a
   ```
   </PreviewCode>
 </Preview>
-
-Note that `l--flow` falls back to the root-defined `--flow--base` when `--flow` is unset. When nested inside another `l--flow`, it inherits the parent's `--flow` value instead.
-
 
 
 ### `is--skipFlow`

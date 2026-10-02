@@ -70,12 +70,12 @@ Adjust these colors to match your site's design. `--neutral` is a neutral suppor
 
 Palette colors are defined in OKLCH.
 
-`--L` controls the base lightness and `--C` the base chroma. Adjusting these two variables shifts the entire palette at once.
+`--L` controls the base lightness and `--C` the base chroma. Adjusting these two variables shifts the entire palette at once (`--black` and `--white` are fixed values and are not affected).
 
 
 ## Using Palette Colors
 
-The `u--cbox` utility class derives `color`, `background-color`, and `border-color` from a `--keycolor` base value using `color-mix()`.
+The `u--cbox` utility class generates `--c`, `--bgc`, and `--bdc` at once from a `--keycolor` base value using `color-mix()`. The generated values are applied directly to `color` and `background-color`, while `--bdc` takes effect when you combine it with the `-bd` class, which displays a border.
 
 <Preview>
   <PreviewTitle>Basic u--cbox usage</PreviewTitle>

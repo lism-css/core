@@ -17,7 +17,7 @@ import { Spacer, Box, Flex } from 'lism-css/astro';
 
 ## Lism Component
 
-`<Spacer>` is provided as an alias for `<Lism atomic="spacer" aria-hidden="true" />`.
+Lism provides `<Spacer>` as an alias for `<Lism atomic="spacer" aria-hidden="true" />`.
 
 ### Import
 
@@ -32,7 +32,7 @@ div.a--spacer[aria-hidden="true"]
 ### Props
 
 :::info
-`<Spacer>` accepts SPACE token values for `w` and `h`.
+`<Spacer>` accepts `SPACE` token values for `w` and `h`.
 :::
 
 
@@ -63,10 +63,10 @@ div.a--spacer[aria-hidden="true"]
   </PreviewCode>
 </Preview>
 
-### Using a SPACE token
+### Using a `SPACE` token
 
 <Preview>
-  <PreviewTitle>Using a SPACE token</PreviewTitle>
+  <PreviewTitle>Using a `SPACE` token</PreviewTitle>
   <PreviewArea resize p="15" layout="">
     <p>Box</p>
     <Spacer h="60" />
@@ -81,9 +81,9 @@ div.a--spacer[aria-hidden="true"]
   </PreviewCode>
   <PreviewCode slot="tab" label="HTML">
     ```html
-    <p>Content...</p>
+    <p>Box</p>
     <div class="a--spacer -h" style="--h:var(--s60)" aria-hidden="true"></div>
-    <p>Content...</p>
+    <p>Box</p>
     ```
   </PreviewCode>
 </Preview>

@@ -75,7 +75,7 @@ In the Astro version, it uses Astro's `<Image>` component by default. In the Rea
   <PreviewCode slot="tab" label="HTML">
     ```html
     <figure class="l--frame -ar:16/9">
-      <img style="object-position: 50% 0%" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" width="960" height="640" />
+      <img style="object-position: 50% 0%" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" width="960" height="640" alt="" />
     </figure>
     ```
   </PreviewCode>
@@ -106,6 +106,7 @@ When using `<Media>` from `lism-css/astro`, the underlying component is resolved
 | `"video"` / `"iframe"` etc. | HTML tag as-is |
 
 Because `<Media>` wraps Astro's `<Image />` or `<Picture />` internally, it accepts all of their props.
+
 See the official Astro docs for the full reference:
 [`<Image />`](https://docs.astro.build/en/reference/modules/astro-assets/#image-)&emsp;/&emsp;[`<Picture />`](https://docs.astro.build/en/reference/modules/astro-assets/#picture-)
 
@@ -113,13 +114,13 @@ See the official Astro docs for the full reference:
 <Preview>
   <PreviewTitle>Using `quality` and `format` (Astro `<Image>`)</PreviewTitle>
   <PreviewArea>
-    <Media src={myImage} inferSize alt="Dummy Image" quality="high" format="webp" />
+    <Media src={myImage} alt="Dummy Image" quality="high" format="webp" />
   </PreviewArea>
   <PreviewCode slot="tab" label=".astro">
     ```jsx 'quality="high"' 'format="webp"'
     import myImage from '@/img/img-1.jpg';
 
-    <Media src={myImage} inferSize alt="Dummy Image" quality="high" format="webp" />
+    <Media src={myImage} alt="Dummy Image" quality="high" format="webp" />
     ```
   </PreviewCode>
 </Preview>

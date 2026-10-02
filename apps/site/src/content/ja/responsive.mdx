@@ -39,7 +39,7 @@ CSSプロパティ全てがレスポンシブ対応できるわけではあり�
 どのプロパティが標準でブレイクポイント切り替えに対応しているかについては、[Property Class 一覧ページ](/docs/property-class)を参照してください。
 :::
 
-[SCSSファイルからカスタマイズを行う](/docs/customize/scss/)ことで、プロパティごとにレスポンシブ対応を切り替えることもできます。
+[カスタマイズ](/docs/customize/)を行うことで、プロパティごとにレスポンシブ対応を切り替えることもできます。
 
 
 ## 配列記法とオブジェクト記法
@@ -148,17 +148,17 @@ Smartphone ──┬── Tablet (Portrait) ──┬── Tablet (Landscape) 
 :::info
 レスポンシブ対応の Property Class は、標準で `sm`・`md`・`lg` のすべてのブレイクポイントをサポートしています。  
 どのプロパティがレスポンシブ対応かは、[Property Class の一覧ページ](/docs/property-class/)の BP 列で確認できます。  
-レスポンシブ非対応のプロパティでブレイクポイント指定を使いたい場合は、別途[SCSSの設定ファイルのカスタマイズ](/docs/customize/scss/)が必要です。
+レスポンシブ非対応のプロパティでブレイクポイント指定を使いたい場合は、別途[カスタマイズ](/docs/customize/)（`lism.config.js` または SCSS）が必要です。
 :::
 
-`xs` と `xl` も予約済みのキーですが、デフォルトではサイズが未定義（無効）のため出力されません。これらを有効化する方法は[Customize](/docs/customize/config/)を参照してください。
+`xs` と `xl` も予約済みのキーですが、デフォルトではサイズが `0`（無効）のため出力されません。これらを有効化する方法は[Customize](/docs/customize/config/)を参照してください。
 
 
 ### 型補完で提示されるブレイクポイント
 
 TypeScript の型・補完がデフォルトで提示・許可するブレイクポイントキーは `base` / `sm` / `md` / `lg` です（配列記法も最大4要素）。`xl` / `xs` は、デフォルトでは CSS が出力されないため型でも提示しません。
 
-`xl` / `xs` を有効化したうえで型でも使いたい場合、`@lism-css/plugin/vite` / `@lism-css/plugin/astro` の統合プラグイン（各エントリの `lismCss()`）を使っているプロジェクトでは、`lism.config.js` の `breakpoints` に値を設定するだけで **`lism-env.d.ts` が自動生成**され、型補完にも有効化した BP キーが反映されます。手書き拡張は不要です。
+`xl` / `xs` を有効化したうえで型でも使いたい場合、`@lism-css/plugin/vite` / `@lism-css/plugin/astro` の統合プラグイン（各エントリの `lismCss()`）や、`@lism-css/plugin/next` の `withLism()` を使っているプロジェクトでは、`lism.config.js` の `breakpoints` に値を設定するだけで **`lism-env.d.ts` が自動生成**され、型補完にも有効化した BP キーが反映されます。手書き拡張は不要です。
 
 プラグインを使わない構成（SCSS 直接利用・他バンドラ等）では、プロジェクト側の型定義ファイルで `BreakpointRegistry` を手書き拡張してください。
 
@@ -184,7 +184,7 @@ declare module 'lism-css' {
 これらのブレイクポイントを自身のプロジェクトで使用する場合、`.scss`であれば次のようにして利用できます。
 
 ```scss
-@use '../path/to/node_modules/lism-css/scss/query' as query;
+@use '../path/to/node_modules/lism-css/src/scss/query' as query;
 
 @include query.bp-up('sm') {
   // Your styles for sm sizes(width >= 480px) ...

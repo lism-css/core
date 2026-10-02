@@ -15,7 +15,11 @@ const PKG_DIR_MAP: Record<string, string> = {
 const pkgDir = PKG_DIR_MAP[packageName] || packageName;
 const { version: pkgVersion } = JSON.parse(readFileSync(resolve(process.cwd(), '../../packages', pkgDir, 'package.json'), 'utf-8'));
 
-const getCopyCode = (name: string) => `import { ${component} } from '${packageName}${name}';`;
+// @lism-css/ui は未使用コンポーネントをbundleに含めないよう、コンポーネント単位の個別パスを案内する
+const getCopyCode = (name: string) => {
+  const importPath = packageName === '@lism-css/ui' ? `${packageName}${name}/${component}` : `${packageName}${name}`;
+  return `import { ${component} } from '${importPath}';`;
+};
 
 const jsImportCode = `<script type="module" src="https://cdn.jsdelivr.net/npm/${packageName}@${pkgVersion}/dist/scripts/${script}"></script>`;
 

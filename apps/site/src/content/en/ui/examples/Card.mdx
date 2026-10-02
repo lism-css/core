@@ -17,7 +17,7 @@ export const ExampleCard = (props) => {
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       </Frame>
       <Stack g="30" p="30">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
         <Inline d="inline-flex" ms="auto" mbs="auto" c="inherit" td="none" bd-b hl="s" p="10">View More →</Inline>
       </Stack>
@@ -42,7 +42,7 @@ Additionally, [`is--boxLink`](/en/docs/trait-class/is--boxLink/) is applied to m
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       </Frame>
       <Stack g="30" p="30">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
         <Inline d="inline-flex" ms="auto" mbs="auto" c="inherit" td="none" bd-b hl="s" p="10">View More →</Inline>
       </Stack>
@@ -55,7 +55,7 @@ Additionally, [`is--boxLink`](/en/docs/trait-class/is--boxLink/) is applied to m
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       </Frame>
       <Stack g="30" p="30">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="p">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Text>
@@ -82,7 +82,7 @@ When you want to make the entire card a link while also including a separate lin
         <Link href="#badge-link" pos="absolute" t="0" r="0" fz="s" bgc="black" c="white" m="20" px="15" bdrs="99" td="none" hov="-bgc">Category</Link>
       </Frame>
       <Stack g="30" p="30">
-        <h3 util="trim" className="-fz:l">
+        <h3 className="u--trim -fz:l">
           <Link isCoverLink href="#card-link">Card with .is--coverLink</Link>
         </h3>
         <Text util="trim" fz="s" hl="s" o="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
@@ -100,7 +100,7 @@ When you want to make the entire card a link while also including a separate lin
         </Link>
       </Frame>
       <Stack g="30" p="30">
-        <h3 util="trim" className="-fz:l">
+        <h3 className="u--trim -fz:l">
           <Link isCoverLink href="#card-link">
             Card with .is--coverLink
           </Link>
@@ -127,7 +127,7 @@ When you want to make the entire card a link while also including a separate lin
       <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       <Layer bgc="rgb(0 0 0 / 20%)"/>
       <Layer layout="stack" c="white" p="30" g="30">
-        <h3 util="trim" className="-fz:l -mbs:auto">Card Title</h3>
+        <h3 className="u--trim -fz:l -mbs:auto">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="mp">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
         <Center as="a" href="#" c="black" bgc="white" td="none" hl="s" p="15" bdrs="99" hov="-bgc">Link Text</Center>
       </Layer>
@@ -139,7 +139,7 @@ When you want to make the entire card a link while also including a separate lin
       <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       <Layer bgc="rgb(0 0 0 / 20%)" />
       <Layer layout="stack" c="white" p="30" g="30">
-        <h3 util="trim" className="-fz:l -mbs:auto">Card Title</h3>
+        <h3 className="u--trim -fz:l -mbs:auto">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="mp">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Text>
@@ -153,7 +153,7 @@ When you want to make the entire card a link while also including a separate lin
   <PreviewCode slot="tab" label="HTML">
     ```html
     <div class="l--frame -pos:relative -ar -bdrs:30 -bxsh:30 -max-w" style="--ar: 3/4; --max-w: 24em">
-      <img src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" width="960" height="640" />
+      <img src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       <div class="is--layer -bgc" style="--bgc: rgb(0 0 0 / 20%)"></div>
       <div class="l--stack is--layer -c -p:30 -g:30" style="--c: var(--white)">
         <h3 class="u--trim -fz:l -mbs:auto">Card Title</h3>
@@ -177,7 +177,7 @@ When you want to make the entire card a link while also including a separate lin
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" bdrs="inner" />
       </Frame>
       <Stack g="30" p="15">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
         <Link href="#" d="inline-flex" ms="auto" c="base" bgc="text" td="none" hl="s" py="15" px="20" jc="center" hov="-bgc" bdrs="inner">View More →</Link>
       </Stack>
@@ -190,7 +190,7 @@ When you want to make the entire card a link while also including a separate lin
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" bdrs="inner" />
       </Frame>
       <Stack g="30" p="15">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="p">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Text>
@@ -205,7 +205,7 @@ When you want to make the entire card a link while also including a separate lin
     ```html
     <div class="l--stack set--bdrsInner -p:15 -g:20 -c:text -bgc:base -bdrs:30 -bxsh:30 -mx:auto -max-w" style="--max-w: var(--sz--xs)">
       <div class="l--frame is--side -ar:16/9">
-        <img class="-bdrs:inner" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" width="960" height="640" />
+        <img class="-bdrs:inner" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       </div>
       <div class="l--stack -g:30 -p:15">
         <h3 class="u--trim -fz:l">Card Title</h3>
@@ -228,7 +228,7 @@ When you want to make the entire card a link while also including a separate lin
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       </Frame>
       <Stack fxg="1" g="30" p="30">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
         <Inline d="inline-flex" ms="auto" mbs="auto" c="var(--_isHov, var(--link)) var(--_notHov, inherit)" td="none" bd-b hl="s" p="10">View More →</Inline>
       </Stack>
@@ -241,7 +241,7 @@ When you want to make the entire card a link while also including a separate lin
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
       </Frame>
       <Stack fxg="1" g="30" p="30">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Text util="trim" fz="s" hl="s" o="p">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </Text>
@@ -334,7 +334,7 @@ This example requires a custom `-hov:in:slide` class defined separately.
 .-hov\\:in\\:slide {
   opacity: var(--_notHov, 0);
   grid-template-rows: var(--_isHov, 1fr) var(--_notHov, 0fr);
-  transition-property: margin-block, padding-block, opacity, grid-template;
+  transition-property: margin-block, padding-block, opacity, grid-template-rows;
 }`}>
   <PreviewTitle>Preview</PreviewTitle>
   <PreviewArea bg=":stripe" p="20">
@@ -346,7 +346,7 @@ This example requires a custom `-hov:in:slide` class defined separately.
       <Stack pos="absolute" b="0" w="100%" p="30" bgc="rgb(255 255 255 / 20%)">
         <Layer style={{ backdropFilter: 'blur(6px) brightness(1.1)' }} />
         <Box pos="relative" z="1" c="white" hl="s">
-          <h3 util="trim" className="-fz:l">Card Title</h3>
+          <h3 className="u--trim -fz:l">Card Title</h3>
           <Grid hasTransition hov="in:slide" my="15">
             <Box ov="hidden">
               <DummyText length="xs" py="5" fz="s" hl="xs" />
@@ -367,10 +367,10 @@ This example requires a custom `-hov:in:slide` class defined separately.
     <Stack pos="absolute" b="0" w="100%" p="30" bgc="rgb(255 255 255 / 20%)">
       <Layer style={{ backdropFilter: 'blur(6px) brightness(1.1)' }} />
       <Box pos="relative" z="1" c="white" hl="s">
-        <h3 util="trim" className="-fz:l">Card Title</h3>
+        <h3 className="u--trim -fz:l">Card Title</h3>
         <Grid hasTransition hov="in:slide" my="15">
           <Box ov="hidden">
-            <DummyText length="xs" py="5" fz="s" hl="xs" />
+            <p class="-py:5 -fz:s -hl:xs">Lorem ipsum dolor sit amet.</p>
           </Box>
         </Grid>
         <Group util="trim" fz="xs" o="p">

@@ -49,7 +49,7 @@ Smartphone ──┬── Tablet (Portrait) ──┬── Tablet (Landscape) 
 
 - `xs` は配列記法では書けません（配列のインデックス → BP の対応が `[base, sm, md, lg, xl]` で固定のため）。オブジェクト記法（`{ xs: ... }`）でのみ指定します。`xl` は配列記法・オブジェクト記法の両方で利用できます。
 
-例: `-d:none -d_sm:block` → デフォルト非表示、`sm` 以上で表示。
+例: `-d:none -d_sm` + `style="--d_sm: block"` → デフォルト非表示、`sm` 以上で表示。
 
 ### SCSS から利用する
 

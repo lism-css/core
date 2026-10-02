@@ -7,7 +7,7 @@
  */
 export default {
   tokens: {
-    // 例: カスタムカラートークン。`--success` を出力し、`-c:success` / `-bgc:success` などで使える。
+    // 例: カスタムカラートークン。`--success` を出力し、`c="success"` / `bgc="success"` などの props で使える。
     color: {
       success: 'oklch(0.6 0.15 150)',
     },

@@ -28,7 +28,7 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
 <PreviewTitle>SCSS変数の上書きフォーマット</PreviewTitle>
 ```scss
 // 1. 設定変数を上書き
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $breakpoints: (
     'sm': '400px', // 個別キーの上書き可
   ),
@@ -40,12 +40,12 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
 );
 
 // 2. main.scss を読み込む（@layer を使わない場合は main_no_layer.scss）
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
 :::info
 - `@layer` を切り替える変数はありません。読み込むファイルを `main.scss` / `main_no_layer.scss` で切り替えてください（[CSSファイルの種類](/docs/css-files/#layer-をオフにする)）。
-- `main_no_layer.scss` / `full_no_layer.scss` では、`$default_important` や `$props` の個別 `important` の値にかかわらず Property Class に常に `!important` が付きます。どうしても外す場合は、`main_no_layer.scss` の内容を自分の SCSS ファイルにコピーし、先頭の `@use` を `@use '../path-to/node_modules/lism-css/scss/mixin' with ($layer_mode: 0, $default_important: 0)` に置き換えてください。
+- `main_no_layer.scss` / `full_no_layer.scss` では、`$default_important` や `$props` の個別 `important` の値にかかわらず Property Class に常に `!important` が付きます。どうしても外す場合は、`main_no_layer.scss` の内容を自分の SCSS ファイルにコピーし、先頭の `@use` を `@use '../path-to/node_modules/lism-css/src/scss/mixin' with ($layer_mode: 0, $default_important: 0)` に置き換えてください。
 - Astro では、パスを付けず `@use 'lism-css/scss/setting'` のようにパッケージ名から書けます。
 :::
 
@@ -56,7 +56,7 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
 
 <PreviewTitle>Property Classの出力をカスタマイズする</PreviewTitle>
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $props: (
     'fz': (
       important: 1,
@@ -77,7 +77,7 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
   )
 );
 
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
 `bp` には次の値を指定できます。
@@ -88,7 +88,7 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
 | `0` | ブレイクポイント対応クラスを出力しない |
 | `('sm', 'md')` などのリスト | 列挙したブレイクポイントだけを出力する（範囲ではなく明示指定） |
 
-リスト形式は「この prop だけ特定のブレイクポイントに絞りたい」ときに使います。リストに無効なブレイクポイント（`$breakpoints` でサイズが未定義のもの。デフォルトの `xs` / `xl` など）を含めた場合、そのブレイクポイントは出力されず、ビルド時に警告が出ます。
+リスト形式は「この prop だけ特定のブレイクポイントに絞りたい」ときに使います。リストに無効なブレイクポイント（`$breakpoints` でサイズが `0` または未定義のもの。デフォルトの `xs` / `xl` など）を含めた場合、そのブレイクポイントは出力されず、ビルド時に警告が出ます。
 
 
 ## 追加した値をコンポーネントから使う
@@ -97,7 +97,7 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
 
 <PreviewTitle>SCSS で値を追加し、:value 記法で使う</PreviewTitle>
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $props: (
     'p': (
       utilities: (
@@ -112,7 +112,7 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
   )
 );
 
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 
 // トークン追記
 @layer lism-base {
@@ -152,14 +152,14 @@ SCSS の変数を上書きすることで、出力されるクラスやブレイ
 デフォルトで無効な `xs` / `xl` は、`$breakpoints` にサイズを指定すると有効になります。デフォルト値や CSS サイズへの影響、CSS Purge との併用については [lism.config.js でのカスタマイズ](/docs/customize/config/#ブレイクポイントxs--xlの有効化) を参照してください。
 
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $breakpoints: (
     'xs': '360px',
     'xl': '1440px',
   )
 );
 
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
 

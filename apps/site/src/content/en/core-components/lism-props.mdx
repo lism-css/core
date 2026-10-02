@@ -175,7 +175,7 @@ The output format is determined by the value specified via `prop={value}`:
 
 :::note[Notes]
 - **BP-supported properties**: Properties that can switch values at breakpoints. See the **BP** column in [Property Class](/en/docs/property-class).
-- **Variable-only properties**: Properties like `bds`, `bdc`, `bdw`, `keycolor` that always output only CSS variables (`--{prop}`).
+- **Variable-only properties**: Properties such as `bds`, `bdc`, `bdw`, and `keycolor` that output only CSS variables (`--{prop}`) for values that aren't registered as classes.
 - When a matching token exists but has no dedicated class, the value is output as a CSS variable. (e.g., `c='red'` → `class="-c"` + `style="--c:var(--red)"`)
 :::
 
@@ -319,7 +319,7 @@ Color props such as `c`, `bgc`, and `bdc` accept `:`-separated values to set tra
 
 ### Responsive syntax
 
-BP-supported properties can specify values per breakpoint (`sm`, `md`) using arrays or objects.
+BP-supported properties can specify values per breakpoint (`sm`, `md`, `lg`) using arrays or objects.
 
 
 <Preview>

@@ -28,7 +28,7 @@ Override the `setting` variables, then import `lism-css/scss/main.scss` to apply
 <PreviewTitle>SCSS variable override format</PreviewTitle>
 ```scss
 // 1. Override configuration variables
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $breakpoints: (
     'sm': '400px', // individual keys can be overridden
   ),
@@ -40,13 +40,13 @@ Override the `setting` variables, then import `lism-css/scss/main.scss` to apply
 );
 
 // 2. Load main.scss (use main_no_layer.scss to disable @layer)
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
 :::info
 - Toggling `@layer` on or off is not controlled by a variable. Switch which file you import — `main.scss` or `main_no_layer.scss` — instead (see [CSS File Types](/en/docs/css-files/#disabling-layer)).
-- `main_no_layer.scss` / `full_no_layer.scss` always add `!important` to Property Classes, regardless of `$default_important` or a per-prop `important` in `$props`. If you really need to remove it, copy the contents of `main_no_layer.scss` into your own entry file and replace the first `@use` with `@use '../path-to/node_modules/lism-css/scss/mixin' with ($layer_mode: 0, $default_important: 0)`.
-- In Astro, you can write imports starting from the package name — e.g. `@use 'lism-css/scss/setting'` — without the `../path-to/node_modules/` prefix.
+- `main_no_layer.scss` / `full_no_layer.scss` always add `!important` to Property Classes, regardless of `$default_important` or a per-prop `important` in `$props`. If you really need to remove it, copy the contents of `main_no_layer.scss` into your own entry file and replace the first `@use` with `@use '../path-to/node_modules/lism-css/src/scss/mixin' with ($layer_mode: 0, $default_important: 0)`.
+- In Astro, you can write imports starting from the package name — e.g. `@use 'lism-css/scss/setting'` — without a relative path.
 :::
 
 
@@ -56,7 +56,7 @@ For each Property Class, you can limit which breakpoints are generated or add va
 
 <PreviewTitle>Customize Property Class output</PreviewTitle>
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $props: (
     'fz': (
       important: 1,
@@ -77,7 +77,7 @@ For each Property Class, you can limit which breakpoints are generated or add va
   )
 );
 
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
 The following values are accepted for `bp`:
@@ -88,7 +88,7 @@ The following values are accepted for `bp`:
 | `0` | Do not output any breakpoint-responsive classes |
 | `('sm', 'md')`, etc. (list) | Output only the explicitly listed breakpoints |
 
-The list form is for cases where you want to restrict a specific prop to certain breakpoints. Note that including a disabled breakpoint (one with no size defined in `$breakpoints`, such as `xs` or `xl` by default) in the list will produce no output for that entry, and a warning will be emitted at build time.
+The list form is for cases where you want to restrict a specific prop to certain breakpoints. Note that including a disabled breakpoint (one whose size in `$breakpoints` is `0` or undefined, such as `xs` or `xl` by default) in the list will produce no output for that entry, and a warning will be emitted at build time.
 
 
 ## Using added values in components
@@ -97,7 +97,7 @@ Unlike `lism.config.js`, values you add in SCSS don't reach components. To use t
 
 <PreviewTitle>Add values in SCSS and use them with :value notation</PreviewTitle>
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $props: (
     'p': (
       utilities: (
@@ -112,7 +112,7 @@ Unlike `lism.config.js`, values you add in SCSS don't reach components. To use t
   )
 );
 
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 
 // Append token definition
 @layer lism-base {
@@ -152,14 +152,14 @@ For a small number of additions, you can skip SCSS and hand-write the rules dire
 `xs` / `xl`, which are disabled by default, can be enabled by specifying sizes in `$breakpoints`. For the default values, the effect on CSS size, and pairing with CSS Purge, see [lism.config.js](/en/docs/customize/config/#enabling-xs--xl-breakpoints).
 
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $breakpoints: (
     'xs': '360px',
     'xl': '1440px',
   )
 );
 
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
 

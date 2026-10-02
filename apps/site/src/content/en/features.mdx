@@ -31,7 +31,7 @@ While there is a learning curve to understand Lism's design, projects using Lism
 
 ## Token design that creates a natural rhythm
 
-Carefully crafted design tokens are provided for spacing and font size scaling.
+Lism provides carefully crafted design tokens for spacing and font size scaling.
 
 By reusing tokens consistently, your designs will **naturally develop a smooth rhythm** without any extra effort.  
 This also leads to improved maintainability and consistency.
@@ -73,14 +73,14 @@ Through a **unique approach built on CSS custom properties**, you can handle res
   </PreviewCode>
   <PreviewCode label="JSX" slot="tab">
 ```jsx
-<Box p={[20, 30, 40]} bd>
+<Lism p={[20, 30, 40]} bd>
   BOX
-</Box>
+</Lism>
 ```
   </PreviewCode>
 </Preview>
 
-For example, a basic token class like `-p:20` is provided, but a breakpoint-prefixed class like `md:p-30` is not.  
+For example, Lism provides basic token classes like `-p:20`, but not breakpoint-prefixed classes like `md:p-30`.  
 Instead, you combine the `-p_md` class with the `--p_md` variable to achieve the same effect.
 
 :::check
@@ -92,7 +92,7 @@ This lets you **switch values at breakpoints** for all key CSS properties while 
 
 Lism CSS takes a different approach from [Tailwind CSS](https://tailwindcss.com/), which puts everything in HTML, and from CSS-in-JS, which encapsulates styles in JSX.
 
-- **Major layouts and light decoration** → Quickly compose with classes and CSS variables
+- **Key layouts and light decoration** → Quickly compose with classes and CSS variables
 - **Detailed styling and fine-tuning** → Carefully craft with native CSS
 
 This balance is central to the design.  

@@ -23,6 +23,8 @@ export default defineConfig({
   ],
   test: {
     environment: 'node',
+    // 実ビルドを伴うテストが多く、CI（4 vCPU）では既定の5秒を超えることがある
+    testTimeout: 15000,
     typecheck: {
       enabled: true,
       exclude: ['**/node_modules/**', '**/.git/**'],

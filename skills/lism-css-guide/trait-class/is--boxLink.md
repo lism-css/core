@@ -12,11 +12,25 @@
 
 通常の `<Lism>` エイリアスコンポーネントと異なり、`<BoxLink>` だけは `href` 指定の有無で出力タグが動的に切り替わります。
 
+## 使い方
+
+`<BoxLink>` は `<Lism isBoxLink>` のエイリアスです。使い方は次の2通り。
+
+1. `href` を指定して `<BoxLink>` 自体を `<a>` にする
+2. `<BoxLink>` は `<div>` のまま、内部のアンカーに `is--coverLink`（`isCoverLink` Prop）を付ける。`is--coverLink` は `::before` を `inset: 0` で広げ、ボックス全体をクリック領域にする。BoxLink 内部に別のリンクも置く場合はこちら（`is--boxLink` 内の他の `a` は `z-index: 2` で前面に出る）
+
+```jsx
+<BoxLink p="30">
+  <Link isCoverLink href="/article/1">Heading link text</Link>
+  <a href="/tag/foo">Inner Link</a>
+</BoxLink>
+```
+
 ## Opt-in スタイル
 
 ### Tabキーフォーカス時のアウトラインをボックス全体に広げる
 
-パターン2 の場合、デフォルトでは Tab フォーカス時のアウトラインがリンクテキスト部分のみに表示されます。ボックス全体に広げたい場合は以下のCSSを追記してください。
+`is--coverLink` でリンクを設置した場合、デフォルトでは Tab フォーカス時のアウトラインがリンクテキスト部分のみに表示されます。ボックス全体に広げたい場合は以下のCSSを追記してください。
 
 ```css
 @supports selector(:has(*)) {

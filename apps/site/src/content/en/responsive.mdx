@@ -39,7 +39,7 @@ Not all CSS properties support responsive switching.
 For details on which properties support breakpoint switching by default, refer to the [Property Class list page](/en/docs/property-class).
 :::
 
-You can also toggle responsive support per property by [customizing via SCSS files](/en/docs/customize/scss/).
+You can also toggle responsive support per property through [customization](/en/docs/customize/).
 
 
 ## Array Notation and Object Notation
@@ -148,10 +148,10 @@ Example: `-d:none -d_sm` + `--d_sm: block` → hidden by default, shown at `sm` 
 :::info
 Responsive Property Classes support all breakpoints (`sm`, `md`, and `lg`) by default.  
 You can check which properties are responsive in the BP column of the [Property Class list page](/en/docs/property-class/).  
-To use breakpoint classes with non-responsive properties, additional [SCSS configuration customization](/en/docs/customize/scss/) is required.
+To use breakpoint classes with non-responsive properties, additional [customization](/en/docs/customize/) (`lism.config.js` or SCSS) is required.
 :::
 
-`xs` and `xl` are also reserved keys, but they are undefined (disabled) by default and produce no output. See [Customize](/en/docs/customize/config/) to learn how to enable them.
+`xs` and `xl` are also reserved keys, but their default size is `0` (disabled), so they produce no output. See [Customize](/en/docs/customize/config/) to learn how to enable them.
 
 
 ### Breakpoints offered by type completion
@@ -160,7 +160,7 @@ The TypeScript types and autocompletion defaults to offering `base`, `sm`, `md`,
 
 If you want to enable `xl` / `xs` and also have them appear in type completion, the simplest approach depends on your setup:
 
-**When using the `@lism-css/plugin` integrated plugin** (`lismCss()` from `@lism-css/plugin/vite` or `@lism-css/plugin/astro`): just set the sizes in `lism.config.js`'s `breakpoints` and `lism-env.d.ts` is **automatically generated**, reflecting the enabled BP keys in type completion. No hand-written type extension is needed.
+**When using `@lism-css/plugin`** (`lismCss()` from `@lism-css/plugin/vite` or `@lism-css/plugin/astro`, or `withLism()` from `@lism-css/plugin/next`): just set the sizes in `lism.config.js`'s `breakpoints` and `lism-env.d.ts` is **automatically generated**, reflecting the enabled BP keys in type completion. No hand-written type extension is needed.
 
 **When not using the plugin** (direct SCSS usage, other bundlers, etc.): extend `BreakpointRegistry` manually in a type declaration file in your project:
 
@@ -186,7 +186,7 @@ This only widens what types and autocompletion suggest. To actually output the c
 To use these breakpoints in your own SCSS files:
 
 ```scss
-@use '../path/to/node_modules/lism-css/scss/query' as query;
+@use '../path/to/node_modules/lism-css/src/scss/query' as query;
 
 @include query.bp-up('sm') {
   // Your styles for sm sizes(width >= 480px) ...

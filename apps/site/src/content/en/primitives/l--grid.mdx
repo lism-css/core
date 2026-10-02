@@ -107,7 +107,7 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
 
 ### Overlapping child elements
 
-This example stacks elements using `grid-area:1/1` (`-ga:1`) without `position:absolute`.
+This example stacks elements using `grid-area:1/1` (`-ga:1/1`) without `position:absolute`.
 
 <Preview>
   <PreviewTitle>Overlapping Grid child elements</PreviewTitle>
@@ -134,7 +134,7 @@ This example stacks elements using `grid-area:1/1` (`-ga:1`) without `position:a
     ```
   </PreviewCode>
   <PreviewCode slot="tab" label="HTML">
-    ```html "-ga:1"
+    ```html "-ga:1/1"
     <div class="l--grid -ar:16/9">
       <div class="l--frame -ga:1/1 -w:100% -h:100% -pos:relative">
         <img src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" />
@@ -215,6 +215,33 @@ This example stacks elements using `grid-area:1/1` (`-ga:1`) without `position:a
         </Text>
       </Grid>
     </Grid>
+    ```
+  </PreviewCode>
+  <PreviewCode slot="tab" label="HTML">
+    ```html
+    <div class="l--grid -gtc -gtc_sm -bd-b" style="--gtc: auto; --gtc_sm: auto 1fr">
+      <div class="l--grid -gtc:subgrid -gc:1/-1 -g:20 -ai:center -bd-t -py:20 -px:10">
+        <div class="l--grid -gtc -gtc_sm -g:20 -jc:start -ai:center" style="--gtc: auto auto; --gtc_sm: 1fr 1fr">
+          <div class="-fz:s">2024.05.31</div>
+          <div class="-d:inline-flex -jc:center -fz:xs -hl:s -bgc:text -c:base -py:5 -px:10 -bdrs:10">NEWS</div>
+        </div>
+        <a class="u--trim -hov:-o -c:inherit -td:none -hl:s" href="####">Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut.</a>
+      </div>
+      <div class="l--grid -gtc:subgrid -gc:1/-1 -g:20 -ai:center -bd-t -py:20 -px:10">
+        <div class="l--grid -gtc -gtc_sm -g:20 -jc:start -ai:center" style="--gtc: auto auto; --gtc_sm: 1fr 1fr">
+          <div class="-fz:s">2024.05.29</div>
+          <div class="-d:inline-flex -jc:center -fz:xs -hl:s -bgc:text -c:base -py:5 -px:10 -bdrs:10">TIPS</div>
+        </div>
+        <a class="u--trim -hov:-o -c:inherit -td:none -hl:s" href="####">Sed do eiusmod tempor Incididunt ut. Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</a>
+      </div>
+      <div class="l--grid -gtc:subgrid -gc:1/-1 -g:20 -ai:center -bd-t -py:20 -px:10">
+        <div class="l--grid -gtc -gtc_sm -g:20 -jc:start -ai:center" style="--gtc: auto auto; --gtc_sm: 1fr 1fr">
+          <div class="-fz:s">2024.05.18</div>
+          <div class="-d:inline-flex -jc:center -fz:xs -hl:s -bgc:text -c:base -py:5 -px:10 -bdrs:10">COLUMN</div>
+        </div>
+        <a class="u--trim -hov:-o -c:inherit -td:none -hl:s" href="####">Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint.</a>
+      </div>
+    </div>
     ```
   </PreviewCode>
 </Preview>

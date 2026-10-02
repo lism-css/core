@@ -168,7 +168,7 @@ import { Lism, Box, Flex, Stack, Grid, Text, Media } from 'lism-css/astro';
 
 // 途中のBPをスキップ（smを飛ばしてmd のみ指定）
 <Lism p={['20', null, '40']}>...</Lism>
-// → <div class="-p_md" style="--p_md:var(--s40)">...</div>
+// → <div class="-p:20 -p_md" style="--p_md:var(--s40)">...</div>
 ```
 
 デフォルトで**コンテナクエリ**を採用しているため、先祖にコンテナ要素（`is--container`が出力される`<Container>`または`isContainer`の指定）が必要です。
@@ -182,7 +182,7 @@ Trait クラス（`is--*` / `has--*`）を出力するためのプロパティ�
 | --- | --- |
 | `isWrapper` | `is--wrapper` |
 | `isWrapper="{s\|m\|l\|xl}"` | `is--wrapper` + `-contentSize:{s\|m\|l\|xl}` |
-| `isWrapper="{value}"` | `is--wrapper` + `-contentSize` + `--contentSize:{value}` |
+| `isWrapper="{value}"` | `is--wrapper` + `--contentSize:{value}` |
 | `isLayer` | `is--layer` |
 | `isBoxLink` | `is--boxLink` |
 | `isCoverLink` | `is--coverLink` |
@@ -216,6 +216,7 @@ Trait クラス（`is--*` / `has--*`）を出力するためのプロパティ�
 | `<Inline>` | `<span>` | `span`, `em`, `strong`, `small`, `code`, `time`, `i`, `b`, `mark`, `abbr`, `cite`, `kbd`, `label` |
 | `<Group>` | `<div>` | `div`, `section`, `article`, `figure`, `nav`, `aside`, `header`, `footer`, `main`, `fieldset`, `hgroup` |
 | `<List>` | `<ul>` | `ul`, `ol`, `dl` |
+| `<ListItem>` | `<li>` | `li`, `dt`, `dd` |
 | `<Link>` | `<a>`（固定） | — |
 | `<Media>` | `<img>` | `img`, `video`, `iframe`, `picture` |
 

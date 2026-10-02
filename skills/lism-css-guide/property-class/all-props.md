@@ -27,7 +27,7 @@
 | `fs` | `font-style` | `-fs:italic` | — |
 | `hl` | `--hl`（ハーフレディング） | `-hl:base`, `-hl:xs`, `-hl:s`, `-hl:l`, `-hl:xl`, `-hl:0` | ✔ |
 | `lh` | `line-height`（倍率・`--lh` 経由） | `-lh:xs`, `-lh:s`, `-lh:m`, `-lh:l`, `-lh:xl`, `-lh:1` | — |
-| `lts` | `letter-spacing` | `-lts:base`, `-lts:s`, `-lts:l`, `-lts:xl` | — |
+| `lts` | `letter-spacing` | `-lts:base`, `-lts:xs`, `-lts:s`, `-lts:l`, `-lts:xl` | — |
 | `ta` | `text-align` | `-ta:center`, `-ta:left`, `-ta:right` | — |
 | `td` | `text-decoration` | `-td:none` | — |
 | `tt` | `text-transform` | `-tt:uppercase`, `-tt:lowercase` | — |

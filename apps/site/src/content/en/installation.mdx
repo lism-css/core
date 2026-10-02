@@ -213,7 +213,7 @@ Placing a `lism.config.js` at the root of your project lets you add or override 
 export default {
   tokens: {
     color: {
-      // Example: outputs `--success` and makes it available as `-c:success` / `-bgc:success`, etc.
+      // Example: outputs `--success` and makes it available through props such as `c="success"` / `bgc="success"`
       success: 'oklch(0.6 0.15 150)',
     },
   },
@@ -247,7 +247,7 @@ On the other hand, `.lism-css/` (the generated CSS) is build output and should b
 
 ## Installing Lism UI
 
-**UI components** such as accordions, tabs, and modals are provided as a separate package, `@lism-css/ui`.
+Lism provides **UI components** such as accordions, tabs, and modals as a separate package, `@lism-css/ui`.
 
 ### Use as a package
 
@@ -307,7 +307,7 @@ Name resolution is case-insensitive and ignores hyphens and underscores, so `Nav
 
 ## Strip unused CSS (CSS Purge)
 
-CSS Purge — which removes unused Lism CSS classes from your production build to keep the CSS lightweight — is provided by `@lism-css/plugin`. Just pass `purge: true` to the Vite / Astro integrated plugin (`lismCss()`) to enable it. See [CSS Purge](/en/docs/customize/purge/) for the full setup steps, options, and how to configure `safelist`.
+`@lism-css/plugin` provides CSS Purge, which removes unused Lism CSS classes from your production build to keep the CSS lightweight. Just pass `purge: true` to the Vite / Astro integrated plugin (`lismCss()`) to enable it. See [CSS Purge](/en/docs/customize/purge/) for the full setup steps, options, and how to configure `safelist`.
 
 
 ## AI tool integration

@@ -96,7 +96,7 @@ Use `flip` to mirror the shape, allowing you to reuse the same SVG path for both
     <Wrapper hasGutter py="40">
       <DummyText />
     </Wrapper>
-    <ShapeDivider viewBox="0 0 10 10" level="4">
+    <ShapeDivider viewBox="0 0 10 10" level={4}>
       <path d="M10,10V0L0,9.5V10L10,10z"></path>
     </ShapeDivider>
     <Wrapper hasGutter bgc="text" c="base">
@@ -104,7 +104,7 @@ Use `flip` to mirror the shape, allowing you to reuse the same SVG path for both
         <DummyText length="l" />
       </Box>
     </Wrapper>
-    <ShapeDivider viewBox="0 0 10 10" level="4" flip="XY">
+    <ShapeDivider viewBox="0 0 10 10" level={4} flip="XY">
       <path d="M10,10V0L0,9.5V10L10,10z"></path>
     </ShapeDivider>
     <Wrapper hasGutter py="40">
@@ -174,11 +174,11 @@ Even when empty, `level` still controls the height, making it useful for managin
   <PreviewTitle>Preview</PreviewTitle>
   <PreviewArea resize p="0" layout="">
     <Wrapper hasGutter bgc="base">
-      <ShapeDivider isEmpty level="5" />
+      <ShapeDivider isEmpty level={5} />
       <Box py="20">
         <DummyText length="l" />
       </Box>
-      <ShapeDivider viewBox="0 0 10 10" level="5">
+      <ShapeDivider viewBox="0 0 10 10" level={5}>
         <path d="M10,10V0L0,9.5V10L10,10z"></path>
       </ShapeDivider>
     </Wrapper>
@@ -241,7 +241,7 @@ An example with animation enabled using `isAnimation`.
   <PreviewTitle>Preview</PreviewTitle>
   <PreviewArea p="15" layout="" resize>
     <Container pos="relative" hasGutter>
-      <ShapeDivider isEmpty level="7" />
+      <ShapeDivider isEmpty level={7} />
       <Frame isLayer z="-1" max-w="100%">
         <Media src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" />
         <Layer bgc="black:50%" />
@@ -249,7 +249,7 @@ An example with animation enabled using `isAnimation`.
       <Wrapper contentSize="s" py="40" c="white">
         <DummyText length="l" />
       </Wrapper>
-      <ShapeDivider viewBox="0 0 100 10" isAnimation c="base" level="7">
+      <ShapeDivider viewBox="0 0 100 10" isAnimation c="base" level={7}>
         <path opacity=".3" d="M100,5.5C91.5,3,79.5,7.5,71.5,8C58,9,49,0.5,36,2c-9,1-13.5,3.5-20.5,3.5C8.5,6,0,2,0,2v8h100V5.5z"></path>
         <path opacity=".3" d="M100,1.5C87.8,6.6,79.3,2.1,67.8,2.6S53,6.5,42.5,5.5S23,0,15,0S1,3,0,4v6h100V1.5z"></path>
         <path d="M100,7.5C91.5,5,77.1,11.8,54,8C34.6,4.8,14.4,4.1,0,8.5V10h100V7.5z"></path>
@@ -320,23 +320,23 @@ In such cases, using `stretch` and `offset` to shift the SVG can produce a more 
   <PreviewTitle>Using `stretch` and `offset`</PreviewTitle>
   <PreviewArea resize p="0" layout="">
     <Container isWrapper="s" hasGutter bgc="base" py="40">
-      <ShapeDivider isEmpty level="4" />
+      <ShapeDivider isEmpty level={4} />
       <DummyText length="l" />
     </Container>
     <Container pos="relative" hasGutter c="base" bgc="text">
-      <ShapeDivider viewBox="0 0 100 10" c="base" flip="Y" level="8" stretch="1.1" offset="-5%">
+      <ShapeDivider viewBox="0 0 100 10" c="base" flip="Y" level={8} stretch="1.1" offset="-5%">
         <path d="M100 6C89.3 3.3 82.7 9 70 9S48.4 3 38 3 24.5 6 17 6C7.4 6 0 0 0 0v10h100V6z"></path>
       </ShapeDivider>
       <Wrapper contentSize="s" py="40">
         <DummyText length="xl" />
       </Wrapper>
-      <ShapeDivider viewBox="0 0 100 10" c="base" level="8" stretch="1.1">
+      <ShapeDivider viewBox="0 0 100 10" c="base" level={8} stretch="1.1">
         <path d="M100 6C89.3 3.3 82.7 9 70 9S48.4 3 38 3 24.5 6 17 6C7.4 6 0 0 0 0v10h100V6z"></path>
       </ShapeDivider>
     </Container>
     <Container isWrapper="s" hasGutter bgc="base" py="40">
       <DummyText length="l" />
-      <ShapeDivider isEmpty level="4" />
+      <ShapeDivider isEmpty level={4} />
     </Container>
   </PreviewArea>
   <PreviewCode slot="tab" label="JSX">

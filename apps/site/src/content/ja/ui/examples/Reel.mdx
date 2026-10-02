@@ -59,7 +59,7 @@ export const ReelImages = ({ length=6, hasID, isV, ...props }) => {
 <Preview>
   <PreviewTitle>リールの余白に合わせてスナップ位置を調整する例<SwipeHelp /></PreviewTitle>
   <PreviewArea resize p="10">
-    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ 'scroll-padding': 'var(--p)' }}>
+    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ scrollPadding: 'var(--p)' }}>
       <Frame ar="16/9" bdrs="20" fxsh="0" w="90%">
         <img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" />
       </Frame>
@@ -79,7 +79,7 @@ export const ReelImages = ({ length=6, hasID, isV, ...props }) => {
   </PreviewArea>
   <PreviewCode slot="tab" label="JSX">
     ```jsx
-    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ 'scroll-padding': 'var(--p)' }}>
+    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ scrollPadding: 'var(--p)' }}>
       <Frame ar="16/9" bdrs="20" fxsh="0" w="90%">
         <img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" />
       </Frame>
@@ -269,7 +269,7 @@ reel要素にidを付けてアンカーリンクを用意すると、ナビゲ�
 <Preview>
   <PreviewTitle>ボタンナビゲーションをつける</PreviewTitle>
   <PreviewArea p="30 20" layout="">
-    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', 'scroll-behavior': 'smooth' }}>
+    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', scrollBehavior: 'smooth' }}>
       <Frame id="image-1" ar="16/9" bdrs="20">
         <img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" />
       </Frame>
@@ -296,7 +296,7 @@ reel要素にidを付けてアンカーリンクを用意すると、ナビゲ�
   </PreviewArea>
   <PreviewCode>
     ```jsx "id=" "href="
-    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', 'scroll-behavior': 'smooth' }}>
+    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', scrollBehavior: 'smooth' }}>
       <Frame id="image-1" ar="16/9" bdrs="20"><img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" /></Frame>
       <Frame id="image-2" ar="16/9" bdrs="20"><img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=max&w=1920&q=80" alt="" /></Frame>
       <Frame id="image-3" ar="16/9" bdrs="20"><img src="https://images.unsplash.com/photo-1534868489953-ef37c20abb25?auto=format&fit=max&w=1920&q=80" alt="" /></Frame>

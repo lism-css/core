@@ -8,7 +8,7 @@
 
 - `display:flex`。
 - `flex-wrap:wrap`で折り返しを有効化済み。
-- `--breakSize:var(--sz--xs)`を初期値にし、直下子要素の`flex-basis`で親幅に応じた縦横切替を行います。
+- `--breakSize:var(--sz--xs)`を初期値にし、直下子要素の`flex-grow:1`と`flex-basis`で親幅に応じた縦横切替を行います。
 - 通常`fxw="wrap"`は足しません。
 
 ## 専用Props

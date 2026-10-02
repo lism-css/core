@@ -7,6 +7,7 @@
 ## 既定の挙動
 
 - `display:grid`。
+- `grid-template-columns:minmax(0, auto)`。
 - `place-content:center`と`place-items:center`で子要素を中央配置します。
 - 中央配置のために`d="grid"`、`pc="center"`、`pi="center"`などを重ねる必要はありません。
 

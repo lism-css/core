@@ -58,7 +58,7 @@ gh skill install lism-css/core lism-mockup-guide@main
 
 ### lism-cli 経由
 
-`lism-cli skill add` からも同じスキルを取得できます。プロジェクト直下への配置のみ対応していますが、`skill check` コマンドで同梱スキルとローカルの差分を確認できるのが特徴です。引数なしで実行すると同梱スキルすべて（`lism-css-guide` / `lism-css-refactor` / `lism-mockup-guide`）が対象になります。
+`lism-cli skill add` からも同じスキルを取得できます。プロジェクト直下への配置のみ対応していますが、`skill check` コマンドでGitHub上のスキルとローカルの差分を確認できるのが特徴です。引数なしで実行すると上記3つのスキルすべて（`lism-css-guide` / `lism-css-refactor` / `lism-mockup-guide`）が対象になります。
 
 <Preview>
   <PreviewCode slot="tab" label="npm">
@@ -86,7 +86,7 @@ gh skill install lism-css/core lism-mockup-guide@main
 対話モードでは、プロジェクト直下にある各ツールのディレクトリやファイル（`.claude/`, `.cursor/` 等）を検出し、該当ツールを最初からチェックした状態で候補に表示します。非対話でツールを明示指定する場合は、以下のようなフラグを渡します。
 
 ```bash frame="none"
-# 単一ツールに配置（スキル名の省略時は同梱スキルすべて）
+# 単一ツールに配置（スキル名の省略時は3つのスキルすべて）
 npx lism-cli skill add --claude
 
 # 複数ツールを同時に
@@ -117,10 +117,10 @@ npx lism-cli skill add lism-css-refactor --claude
 
 #### アップデート
 
-同梱スキルとローカルのファイル差分を確認してから更新できます。
+GitHub上のスキルとローカルのファイル差分を確認してから更新できます。
 
 ```bash frame="none"
-# 同梱スキルとローカルのファイル差分をチェック（変更 / 追加 / 削除のサマリ表示）
+# GitHub上のスキルとローカルのファイル差分をチェック（変更 / 追加 / 削除のサマリ表示）
 npx lism-cli skill check
 
 # 最新版で上書き

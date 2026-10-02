@@ -1,12 +1,12 @@
 # a--icon / `<Icon>`
 
-アイコン要素を表示するためのクラス。`flex-shrink: 0`、デフォルトサイズ `1em`。
+アイコン要素を表示するためのクラス。`flex-shrink: 0`、デフォルトサイズ `1em`、`fill` 属性が無ければ `fill: currentcolor`。
 
 公式ドキュメント（使い方・コード例）: https://lism-css.com/docs/primitives/a--icon.md
 
 ## 出力されるHTML構造
 
-`<Icon>` は `label` の有無でアクセシビリティ属性を自動切り替えします。
+`<Icon>` は `label` の有無でアクセシビリティ属性を自動切り替えします。実際のタグは `icon`・`viewBox`・`src`・`as` の指定方法で `svg` や `img` などに変わりますが、属性の付与規則は共通です。
 
 ```html
 <!-- label なし -->
@@ -28,7 +28,7 @@
 
 `lism-css`はアイコンのSVGデータを内包しません。`@lism-css/icons`は同じ開発元のReact・Astro向けSVGアイコン集です。別途インストールし、末尾に`Icon`が付くコンポーネントをimportして`icon`に渡します。
 
-導入方法・収録アイコン一覧・`weight`による線幅指定は[パッケージ解説](https://lism-css.com/docs/packages/icons/)を参照してください。
+導入方法・収録アイコン一覧・`weight`による線幅指定は[パッケージ解説](https://lism-css.com/docs/packages/icons.md)を参照してください。
 
 ```jsx
 import { Icon } from 'lism-css/react';
