@@ -41,6 +41,9 @@ effort: xhigh
 - `category`: `packages/mcp/src/tools/search-docs.ts` の `DOC_CATEGORIES` のいずれか。`core-components/` → `core-components`、`primitives/`・`trait-class/` → `primitives`、`property-class.mdx`・`property-class/` → `property-class`、`ui/`（サブディレクトリ含む）→ `ui`、それ以外（ルート直下・`customize/`・`tokens/`）→ `guide`
 - `headings`: 本文の `##` 見出し。主要な `###` は加えてよい
 - `keywords`: title・description・見出し・本文から 10〜20 個程度。日本語・英語・省略形を混ぜる。`property-class`・`primitives` カテゴリは関連 CSS プロパティ名も入れる（例: Flex → `display`, `flex`, `flex-direction`）。MDX に無い既存の alias（例: `クリッカブル`, `CTA`）は自然言語検索用なので消さない
+  - 例外: `property-class.mdx`（一覧ページ）は個数の目安の対象外で、表を次の基準で載せる。検索はクエリを `-` などで分割した語の部分一致（`packages/mcp/src/lib/search.ts` の `tokenize`・`scoreEntry`）なので、他の語で当たる語は足しても結果が変わらない
+    - Shorthand: 全部載せる。1文字のものと `{prop}-{方向}` 形式（`bd-*`・`bdrs-*`・`i-*`・`ov-*`）は載せない
+    - Property: 基本のプロパティ名だけ載せる。方向・軸・`min-`/`max-`・`-start`/`-end` の派生（`padding-*`・`margin-*`・`inset-*`・`border-{方向}`・`overflow-x` 等）と CSS変数（`--bdc` 等）は載せない
 - `snippet`: 本文を要約した 1〜3 文
 
 
