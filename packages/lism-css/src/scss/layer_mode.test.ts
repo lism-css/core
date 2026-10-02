@@ -119,6 +119,28 @@ describe('$default_important の解決', () => {
     expect(css).toMatch(/\.-zztest \{\s*padding: var\(--zztest\)\s+!important;/);
     expect(css).toMatch(/padding: 10px\s+!important;/);
   });
+
+  test('alwaysVar のプリセットクラスは変数にも同じ解決結果を付け、BPクラスより前に出力する', () => {
+    const alwaysVarProp = `
+  $props: (
+    'zztest': (
+      prop: 'padding',
+      bp: 1,
+      alwaysVar: 1,
+      utilities: (
+        '10': '10px',
+      ),
+    ),
+  )
+`;
+    const withImportant = autoOutput(`${alwaysVarProp}, $default_important: 1`, '$layer_mode: 1');
+    const withoutImportant = autoOutput(`${alwaysVarProp}, $default_important: 0`, '$layer_mode: 0, $default_important: 0');
+
+    expect(withImportant).toMatch(/\.-zztest\\:10 \{\s*--zztest: 10px !important;/);
+    // どちらも !important のため、BPクラスが後勝ちできる順序であること
+    expect(withImportant.indexOf('.-zztest\\:10 {')).toBeLessThan(withImportant.indexOf('.-zztest_sm {'));
+    expect(withoutImportant).toMatch(/\.-zztest\\:10 \{\s*--zztest: 10px;/);
+  });
 });
 
 describe('no_layer エントリ', () => {
@@ -147,6 +169,20 @@ describe('no_layer エントリ', () => {
 
     expect(css).toMatch(/\.-hov\\:underline:hover \{\s*text-decoration: underline;/);
     expect(css).toMatch(/\.-hov\\:in\\:zoom \{[^}]*scale: var\(--_isHov, 1\.1\);/);
+  });
+
+  test('main_no_layer は変数をセットするプリセットクラス（alwaysVar）の変数にも !important を付ける', () => {
+    const css = compileEntry('main_no_layer.scss');
+
+    expect(css).toMatch(/\.-c\\:brand \{\s*--c: var\(--brand\) !important;/);
+    // u--cbox（0-2-0）側の --c は !important なしなので、プリセットが勝つ
+    expect(css).toMatch(/\.u--cbox\.u--cbox \{[^}]*--c: color-mix\([^;]*\);/);
+  });
+
+  test('main は変数をセットするプリセットクラスに !important を付けない', () => {
+    const css = compileEntry('main.scss');
+
+    expect(css).toMatch(/\.-c\\:brand \{\s*--c: var\(--brand\);/);
   });
 
   test('main（@layer あり）は setting の既定どおり !important なし・二重化なし', () => {
