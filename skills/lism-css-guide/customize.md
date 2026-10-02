@@ -11,11 +11,11 @@
 
 詳細（公式ドキュメント）:
 
-- 概要: [https://lism-css.com/docs/customize/](https://lism-css.com/docs/customize/)
-- CSSファイルの種類（`@layer` なし版 / `full.css`）: [https://lism-css.com/docs/css-files/](https://lism-css.com/docs/css-files/)
-- `lism.config.js`（props / tokens / traits・breakpoints・`isFullMode`・追加スタイル）: [https://lism-css.com/docs/customize/config/](https://lism-css.com/docs/customize/config/)
-- SCSS（`$setting` / `$props`・BP上書き）: [https://lism-css.com/docs/customize/scss/](https://lism-css.com/docs/customize/scss/)
-- CSS Purge: [https://lism-css.com/docs/customize/purge/](https://lism-css.com/docs/customize/purge/)
+- 概要: [https://lism-css.com/docs/customize.md](https://lism-css.com/docs/customize.md)
+- CSSファイルの種類（`@layer` なし版 / `full.css`）: [https://lism-css.com/docs/css-files.md](https://lism-css.com/docs/css-files.md)
+- `lism.config.js`（props / tokens / traits・breakpoints・`isFullMode`・追加スタイル）: [https://lism-css.com/docs/customize/config.md](https://lism-css.com/docs/customize/config.md)
+- SCSS（`$setting` / `$props`・BP上書き）: [https://lism-css.com/docs/customize/scss.md](https://lism-css.com/docs/customize/scss.md)
+- CSS Purge: [https://lism-css.com/docs/customize/purge.md](https://lism-css.com/docs/customize/purge.md)
 
 ---
 
@@ -55,7 +55,7 @@ import 'lism-css/main_no_layer.css';
 
 ```scss
 // 1. 設定変数を上書き
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $breakpoints: (
     'sm': '400px',  // 個別キーの上書き可
   ),
@@ -67,17 +67,17 @@ import 'lism-css/main_no_layer.css';
 );
 
 // 2. main.scss を読み込む（@layer なしにする場合は main_no_layer）
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
-> Astro の場合、`../path-to/node_modules/` 部分は不要で `lism-css/scss/setting` のように書けます。
+> Astro の場合、相対パスを付けず `lism-css/scss/setting` のようにパッケージ名から書けます。
 
 ### `$props` の個別カスタマイズ
 
 各 Property Class について、出力するブレイクポイントを絞ったり、ユーティリティクラスを追加したりできます。
 
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $props: (
     'fz': (
       important: 1,        // .-fz:* に !important を付与
@@ -93,7 +93,7 @@ import 'lism-css/main_no_layer.css';
     ),
   )
 );
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 ```
 
 ### 注意点
@@ -328,14 +328,14 @@ CLI を使わず、追加クラス分の CSS をプロジェクト側で書い�
 `@lism-css/plugin` を使わない構成では `lism.config.js` は読み込まれない。SCSS の `$props` の `utilities` で値を追加し、コンポーネントからは `:value` 記法（`p=":box"`）で強制クラス化するか、HTML に直接クラスを書いて使う。
 
 ```scss
-@use '../path-to/node_modules/lism-css/scss/setting' with (
+@use '../path-to/node_modules/lism-css/src/scss/setting' with (
   $props: (
     'ta': ( utilities: ( 'justify': 'justify' ) ),
     'p': ( utilities: ( 'box': '2em' ) ),
     'lts': ( utilities: ( '2xl': 'var(--lts--2xl)' ) ),
   )
 );
-@use '../path-to/node_modules/lism-css/scss/main';
+@use '../path-to/node_modules/lism-css/src/scss/main';
 
 // トークン追記
 @layer lism-base {

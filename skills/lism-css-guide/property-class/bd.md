@@ -2,7 +2,7 @@
 
 Lism CSS のボーダーは、CSS 変数（`--bds` / `--bdw` / `--bdc`）で管理される特殊仕様の Property Class。`-bd` または `-bd-{side}` クラスで変数管理を有効化し、`bds` / `bdc` / `bdw` Prop で個別に上書きする。
 
-- クラス名: `-bd` / `-bd-{side}` / `-bds:*` / `-bdc:*` / `-bdw` など
+- クラス名: `-bd` / `-bd-{side}` / `-bds:*` / `-bdc:*` / `-bdw_{bp}` など
 - Lism props: `bd`, `bd-{side}`, `bds`, `bdc`, `bdw`
 
 公式ドキュメント（使い方・コード例）: https://lism-css.com/docs/property-class/bd.md
@@ -55,7 +55,7 @@ Lism CSS のボーダーは、CSS 変数（`--bds` / `--bdw` / `--bdc`）で管�
 | `bd` | — | `-bd:none` | — |
 | `bds` | `--bds` | `-bds:dashed`, `-bds:dotted`, `-bds:double` | — |
 | `bdc` | `--bdc` | `-bdc:brand`, `-bdc:accent`, `-bdc:divider`, `-bdc:keycolor`, `-bdc:inherit`, `-bdc:transparent`, `-bdc:current` | — |
-| `bdw` | `--bdw` | — | `-bdw_sm`, `-bdw_md` |
+| `bdw` | `--bdw` | — | `-bdw_sm`, `-bdw_md`, `-bdw_lg` |
 
 `bdw` はブレイクポイント指定に対応。`--bdw` の値を BP で切り替えることで、ボーダーの方向自体を変化させることもできる。
 

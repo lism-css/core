@@ -1,6 +1,6 @@
 # a--divider / `<Divider>`
 
-コンテンツ間に区切り線を描画するクラス。`--bdc` は `var(--divider)` が初期セットされます。`<Divider>` は `<Lism atomic="divider" aria-hidden="true" />` のエイリアスとして用意されています。
+コンテンツ間に区切り線を描画するクラス。`--bdc: var(--divider)` / `--bds: solid` / `--bdw: 1px` が初期セットされ、`border-block-start` で線を描画します。`<Divider>` は `<Lism atomic="divider" aria-hidden="true" />` のエイリアスとして用意されています。
 
 公式ドキュメント（使い方・コード例）: https://lism-css.com/docs/primitives/a--divider.md
 

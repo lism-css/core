@@ -1,6 +1,6 @@
 # is--layer / `<Layer>`
 
-`position: absolute` で親要素の上に被せて配置するオーバーレイ用クラス。親には `pos="relative"` が必要です。
+`position: absolute; inset: 0; overflow: hidden` で親要素の上に被せて配置するオーバーレイ用クラス。親には `pos="relative"` が必要です。
 
 公式ドキュメント（使い方・コード例）: https://lism-css.com/docs/trait-class/is--layer.md
 

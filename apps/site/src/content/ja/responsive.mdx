@@ -184,7 +184,7 @@ declare module 'lism-css' {
 これらのブレイクポイントを自身のプロジェクトで使用する場合、`.scss`であれば次のようにして利用できます。
 
 ```scss
-@use '../path/to/node_modules/lism-css/scss/query' as query;
+@use '../path/to/node_modules/lism-css/src/scss/query' as query;
 
 @include query.bp-up('sm') {
   // Your styles for sm sizes(width >= 480px) ...

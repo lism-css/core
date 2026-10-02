@@ -48,6 +48,8 @@ CSS Layer の外（最も高い詳細度）に配置され、`-{prop}(:{value})`
 <div class="-gtc" style="--gtc: 1fr 2fr 1fr">...</div>
 ```
 
+この形式が使えるのは、BP 対応の Prop（[all-props.md](./property-class/all-props.md) の BP 列が ✔）と `alwaysVar` タイプのみ。ただし変数プロパティ（`hl` / `bdw` / `cols` / `rows` 等、`props.ts` で `isVar` のもの）は `-{prop}` クラスを持たず、`style="--{prop}: ..."` だけで指定する。それ以外の Prop（`lts` / `fw` / `z` 等）にも `-{prop}` クラスは無いため、`style="letter-spacing: 0.3em"` のように CSS プロパティを直接指定する。
+
 
 ### プリセット外の値をクラス化する（`:value` 記法、Lism Props 限定）
 
@@ -55,7 +57,7 @@ Lism コンポーネントの Propsに渡す値の頭に `:` を付けると、 
 
 ```jsx
 <Text lts=":2xl">...</Text>
-// → <p class="-lts:2xl">...</Text>
+// → <p class="-lts:2xl">...</p>
 ```
 
 ## Prop早見リスト
@@ -95,7 +97,7 @@ Lism CSS のボーダーは CSS 変数（`--bds` / `--bdw` / `--bdc`）で管理
 | `bd` | `border`（変数管理を有効化） | `-bd`, `-bd-{x\|y\|s\|e\|bs\|be\|t\|b\|l\|r}`, `-bd:none` |
 | `bds` | `--bds` | `-bds:dashed`, `-bds:dotted`, `-bds:double` |
 | `bdc` | `--bdc` | `-bdc:brand`, `-bdc:accent`, `-bdc:divider`, `-bdc:keycolor`, `-bdc:inherit`, `-bdc:transparent`, `-bdc:current` |
-| `bdw` | `--bdw` | BP クラス: ✔（`-bdw_sm` / `-bdw_md`） |
+| `bdw` | `--bdw` | BP クラス: ✔（`-bdw_sm` / `-bdw_md` / `-bdw_lg`） |
 
 → 詳細（方向ごとのスタイル指定、BP での方向切り替え等）は [property-class/bd.md](./property-class/bd.md) 参照
 
@@ -132,7 +134,7 @@ Property Class の値名は基本的に CSS の実値と同じですが、以下
 
 ### `alwaysVar` タイプ
 
-`c`, `bgc`, `p`, `m`, `bdrs` の 5 つ。
+`lh`, `c`, `bgc`, `p`, `m`, `bdrs` の 6 つ（`lh` のみ BP 非対応）。
 
 例えば`-p`の場合、プリセット値クラス（`-p:20`）でも常に CSS 変数（`--p`）経由で値が適用されます。  
 さらに BP クラスでも `padding:var(--p);--p:var(--p_sm) !important;` の形で出力されるため、`--p` は常に現在適用中の値を指します。
@@ -159,6 +161,6 @@ Property Class をコードベース全体で一括修正する場合、同じ P
 | 出現場所 | 検索パターン例（`p` の場合） |
 | --- | --- |
 | HTML / className — プリセット値 | `-p:20` |
-| HTML / className — BP対応・カスタム値 | `-p` / `-p_sm` / `-p_md` |
+| HTML / className — BP対応・カスタム値 | `-p` / `-p_sm` / `-p_md` / `-p_lg` |
 | JSX Props | `p="20"` / `p={20}` / `p={[20, 30]}` |
 | getLismProps オブジェクト | `{ p: '20' }` / `{ p: 20 }` |
