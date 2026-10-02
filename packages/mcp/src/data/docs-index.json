@@ -745,6 +745,8 @@
     "description": "Lism CSS の各バージョンにおける変更履歴をまとめています。",
     "category": "guide",
     "headings": [
+      "lism-css v1.0.1 (2026.10.02)",
+      "@lism-css/ui v0.40.1 (2026.10.02)",
       "lism-css v1.0.0 (2026.10.01)",
       "@lism-css/ui v0.40.0 (2026.10.01)",
       "lism-css v0.31.0 (2026.09.30)",
