@@ -3,7 +3,7 @@ title: 'CSS File Types'
 description: 'Learn the differences between the CSS files bundled with Lism CSS and choose the right one for your needs.'
 ---
 
-The `lism-css` package ships with several pre-built CSS files for different needs. Swapping which file you import is all it takes to toggle `@layer` on/off or switch to the "full" build. Use `main.css` by default, and switch to another file only when you need to.
+The `lism-css` package ships with several pre-built CSS files for different needs. Swapping which file you import is all it takes to toggle `@layer` on/off or switch to the full build. Use `main.css` by default, and switch to another file only when you need to.
 
 | File | Contents |
 |---|---|
@@ -15,26 +15,26 @@ The `lism-css` package ships with several pre-built CSS files for different need
 
 ## Disabling `@layer`
 
-You can disable `@layer` by importing `lism-css/main_no_layer.css` instead of `lism-css/main.css`. Just swap the imported CSS file — no other configuration is needed.
+You can disable `@layer` by importing `lism-css/main_no_layer.css` instead of `lism-css/main.css`. No other configuration is needed.
 
-The `@layer`-free builds are intended for environments where you cannot control the cascade yourself, such as existing sites or WordPress themes. Since layers are not available for ordering, they reproduce the same "Property Class > Utility Class > single class" precedence as `main.css` in the following way.
+The `@layer`-free builds are intended for environments where you have no control over how your styles are prioritized relative to other CSS (the cascade), such as existing sites or WordPress themes. Since layers are not available for ordering, they reproduce the same "Property Class > Utility Class > other classes" precedence as `main.css` in the following way.
 
 | Class | Output in the `@layer`-free builds | Specificity |
 |---|---|---|
 | Property Class (e.g. `-p:20`) | Always with `!important` | 0-1-0 + `!important` |
 | Utility Class (`u--trim` / `u--trimAll` / `u--cbox`) | Doubled selector (`.u--trim.u--trim`) | 0-2-0 |
-| Other classes | Same as `main.css` | - |
+| Other classes | Same selector as `main.css` | No change |
 
 Keep the following in mind when using the `@layer`-free builds:
 
-- A Property Class wins even if you set the same property via the `style` attribute or JavaScript. To change the value, swap the class itself (for classes that read their value from a CSS variable, such as `-p` with `--p`, rewriting the variable also works).
-- Overriding a `u--` class in your own CSS requires a specificity of at least `.u--trim.u--trim`.
-- `defaultImportant: false` in `lism.config.js` and `$default_important: 0` in SCSS do not remove `!important` from the `@layer`-free builds. A per-prop `important: 0` in `props` is ignored as well.
+- A Property Class wins even if you set the same property via an inline style or JavaScript. To change the value, swap the class itself (for classes that read their value from a CSS variable, such as `-p` with `--p`, rewriting the variable also works).
+- Overriding a Utility Class in your own CSS requires a specificity of at least `.u--trim.u--trim`.
+- `defaultImportant: false` in `lism.config.js` and `$default_important: 0` in SCSS are ignored by the `@layer`-free builds, which always output `!important`. A per-prop `important: 0` in `props` is ignored in the same way.
 
 
 ## Using the full build (full.css)
 
-Importing `lism-css/full.css` instead of `lism-css/main.css` gives you a "full" build that includes classes not output by default.
+Importing `lism-css/full.css` instead of `lism-css/main.css` gives you a full build that includes classes beyond those in `main.css`.
 
 ```js
 import 'lism-css/full.css'; // For the version without @layer, use 'lism-css/full_no_layer.css'
@@ -42,11 +42,14 @@ import 'lism-css/full.css'; // For the version without @layer, use 'lism-css/ful
 
 In addition to everything in `main.css`, `full.css` includes:
 
-- Breakpoint support classes (such as `-ta_lg`) for all Property Classes except variable-only properties (`isVar` — these emit only a CSS variable, not a class), border shorthands (`bd` and directional variants like `bd-x`), and `lh`
-- Breakpoint support classes for the border sub-properties `bds` / `bdc` (`bdw` supports breakpoints in `main.css` already). Responsive borders are handled via sub-properties, not the shorthands
-- Classes for every color token on the color Property Classes (`bgc` / `c` / `bdc`), such as `-bgc:red`. `main.css` only outputs classes for a curated set of semantic colors plus `keycolor`, while `full.css` covers all tokens including the [palette colors](/en/docs/tokens/colors/)
+- Breakpoint support classes (such as `-ta_lg`) for all Property Classes, except the following:
+  - Variable-only properties (`isVar` — these emit only a CSS variable, not a class)
+  - Border shorthands (`bd` and directional variants like `bd-x`)
+  - `lh`
+- Breakpoint support classes for the border sub-properties `bds` / `bdc`. Both are variable-only properties, but they are added as an exception (`bdw` supports breakpoints in `main.css` already). Responsive borders are handled via sub-properties, not the shorthands.
+- Classes for every color token on the color Property Classes (`bgc` / `c` / `bdc`), such as `-bgc:red`. `main.css` only outputs classes for a curated set of semantic colors plus `keycolor`, while `full.css` covers all tokens including the [palette colors](/en/docs/tokens/colors/).
 
-This makes the CSS larger than `main.css`, so **we recommend using [CSS Purge](/en/docs/customize/purge/) to remove unused classes at build time**.
+This makes the CSS larger than `main.css`, so `full.css` is **intended for use with [CSS Purge](/en/docs/customize/purge/), which removes unused classes at build time**.
 
 :::info
 Importing `full.css` alone does not change the component output (for example, `t="20"` is still output as an inline style). To align the component output with `full.css`, enable [`isFullMode`](/en/docs/customize/config/#isfullmode) in your `lism.config.js`.
