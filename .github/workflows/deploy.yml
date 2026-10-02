@@ -64,8 +64,13 @@ jobs:
       - name: Build site
         run: pnpm build:site
 
+      - name: Get short SHA
+        id: sha
+        run: echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
       # wrangler はルートの devDependency を使う（wranglerVersion 未指定なら pnpm exec で見つかる既存インストールを優先する）
       # packageManager は apps/site に lockfile が無く自動検出できないため明示する
+      # --message / --tag はダッシュボードのバージョン履歴で、どのコミットのデプロイか分かるようにするためのもの
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v4
         with:
@@ -73,3 +78,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/site
           packageManager: pnpm
+          command: deploy --message "GitHub Actions ${{ steps.sha.outputs.short }}" --tag "${{ steps.sha.outputs.short }}"
