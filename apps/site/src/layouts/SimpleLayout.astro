@@ -12,7 +12,7 @@ import Head from '../components/Head.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { Box, Stack } from 'lism-css/astro';
+import { Box, Lism, Stack } from 'lism-css/astro';
 
 interface Props {
   title: string;
@@ -22,9 +22,13 @@ interface Props {
   schemaType?: SchemaType;
   excludeFromSearch?: boolean;
   noindex?: boolean;
+  centerMain?: boolean;
 }
 
-const { title = siteConfig.name, description, ogImage, lang = getRootLang(), schemaType, noindex = false } = Astro.props;
+const { title = siteConfig.name, description, ogImage, lang = getRootLang(), schemaType, noindex = false, centerMain = false } = Astro.props;
+
+// centerMain: main を残りの高さまで広げ、中身を上下中央に寄せる。上下の余白は固定ヘッダーとの重なり防止
+const mainProps = centerMain ? ({ layout: 'center', fx: '1', pt: 'calc(var(--header-h) + var(--s50))' } as const) : ({ layout: 'box' } as const);
 ---
 
 <html lang={lang}>
@@ -34,14 +38,14 @@ const { title = siteConfig.name, description, ogImage, lang = getRootLang(), sch
   <body data-pagefind-ignore>
     <Stack class="c--root" isContainer min-h="100svh" data-layout="SimpleLayout">
       <Box class="p--front">
-        <Header hasMobileMenu={false} />
+        <Header hasMobileMenu={false} hasAllSns={false} />
       </Box>
-      <Box bgc="var(--docs-bg)" pos="relative" z="1">
-        <Box as="main">
+      <Stack bgc="var(--docs-bg)" pos="relative" z="1" fx="1">
+        <Lism as="main" {...mainProps}>
           <slot />
-        </Box>
+        </Lism>
         <Footer />
-      </Box>
+      </Stack>
     </Stack>
   </body>
 </html>
