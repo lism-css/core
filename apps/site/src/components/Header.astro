@@ -12,9 +12,10 @@ import { getLangFromUrl, getLocalizedUrl, t } from '@/lib/i18n';
 
 interface Props {
   hasMobileMenu?: boolean;
+  hasAllSns?: boolean; // false なら SNS リンクを GitHub のみにする（トップページ用）
 }
 
-const { hasMobileMenu = true } = Astro.props;
+const { hasMobileMenu = true, hasAllSns = true } = Astro.props;
 
 // 現在の言語を取得
 const currentLang = getLangFromUrl(Astro.url);
@@ -48,7 +49,13 @@ const headerText = t(currentLang, 'header');
       ms={{ base: 'calc(var(--s30) - var(--s15) / 2)', md: 'auto' }}>Docs</Link
     >
 
-    <SNSLinks icons={['github', 'lang']} d="flex" ms={{ base: 'calc(var(--s30) - var(--s15) / 2)', md: '30' }} />
+    {/* X・Discord はスマホ幅だと入りきらないので非表示（モバイルメニュー内には表示される） */}
+    <SNSLinks
+      icons={hasAllSns ? ['x', 'github', 'discord', 'lang'] : ['github', 'lang']}
+      hideOnMobile={['x', 'discord']}
+      d="flex"
+      ms={{ base: 'calc(var(--s30) - var(--s15) / 2)', md: '30' }}
+    />
 
     <!-- 検索トリガーボタン -->
     <Lism
