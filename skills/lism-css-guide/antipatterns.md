@@ -78,6 +78,7 @@ AI が Lism CSS のコードを生成する際に間違いやすい記法と、�
 - 1px / -1px の罫線・視覚補正（border / margin の打ち消し）
 - transform / vertical-align 等の微調整値（数 px 単位）
 - `media query` / `@container` の閾値など、ブラウザ仕様上 px 必須の値
+- `b--` のベーススタイルで、要素自身の font-size に追従させる em 値（padding / gap 等）
 
 ---
 

@@ -205,7 +205,7 @@ CSSが空になる場合は、CSSファイル側に`.c--myCard {}`を書かず�
 }
 
 /* b-- 基礎部品のベーススタイル → lism-block に追加 */
-@layer lism-block { .b--badge { padding: var(--s5) var(--s10); } }
+@layer lism-block { .b--badge { padding: 0.25em 0.625em; } }
 
 /* ベーススタイルの拡張 → lism-base に追加 */
 @layer lism-base {
