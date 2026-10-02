@@ -42,7 +42,7 @@ import 'lism-css/full.css'; // For the version without @layer, use 'lism-css/ful
 
 In addition to everything in `main.css`, `full.css` includes:
 
-- Breakpoint support classes (such as `-ta_lg`) for all Property Classes except variable-only properties (`isVar` — these emit only a CSS variable, not a class) and border shorthands (`bd` and directional variants like `bd-x`)
+- Breakpoint support classes (such as `-ta_lg`) for all Property Classes except variable-only properties (`isVar` — these emit only a CSS variable, not a class), border shorthands (`bd` and directional variants like `bd-x`), and `lh`
 - Breakpoint support classes for the border sub-properties `bds` / `bdc` (`bdw` supports breakpoints in `main.css` already). Responsive borders are handled via sub-properties, not the shorthands
 - Classes for every color token on the color Property Classes (`bgc` / `c` / `bdc`), such as `-bgc:red`. `main.css` only outputs classes for a curated set of semantic colors plus `keycolor`, while `full.css` covers all tokens including the [palette colors](/en/docs/tokens/colors/)
 

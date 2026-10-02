@@ -105,8 +105,8 @@ Provided as `Modal` from the `@lism-css/ui` package.
 |---|---|
 |`id`| The `id` attribute is required on Modal (`b--modal`). |
 |<PropBadge>`<Modal.Root>`</PropBadge><br/> `duration`| Sets the duration of the modal open/close animation. Output as the `--duration` variable. |
-|<PropBadge>`<Modal.Inner>`</PropBadge><br/> `layout`| Specifies the layout component for `__inner`. |
-|<PropBadge>`<Modal.Inner>`</PropBadge><br/> `offset`| Offset value to shift the position of `__inner` when hidden. |
+|<PropBadge>`<Modal.Inner>`</PropBadge><br/> `layout`| Specifies the layout component for `b--modal_inner`. |
+|<PropBadge>`<Modal.Inner>`</PropBadge><br/> `offset`| Offset value to shift the position of `b--modal_inner` when hidden. Output as the `--offset` variable. |
 |<PropBadge>`<Modal.OpenBtn>`</PropBadge><br/> `modalId`| Output as `data-modal-open`. Specifies the modal `id` on the trigger element that opens the modal. |
 |<PropBadge>`<Modal.CloseBtn>`</PropBadge><br/> `modalId`| Output as `data-modal-close`. Specifies the modal `id` on the trigger element that closes the modal. |
 |<PropBadge>`<Modal.CloseBtn>`</PropBadge><br/> `icon`| Specifies the icon displayed when no children are passed. (Default: `x`) |
@@ -115,9 +115,9 @@ Provided as `Modal` from the `@lism-css/ui` package.
 
 ## Examples
 
-{/* `<Modal.Root>`をgridレイアウト系にしてしまうと、 `<Modal.Inner>`(`b--modal_inner`) の `max-height 100%` が効かなくなるので注意してください。 */}
+{/* Note: if `<Modal.Root>` uses a grid-type layout, the `max-height 100%` on `<Modal.Inner>` (`b--modal_inner`) stops working. */}
 
-{/* モーダルコンテンツを中央に寄せたい場合、l--stack + jc="center" か、 root:l--stack + inner:m='auto' で実現できます。 */}
+{/* To center the modal content, use l--stack + jc="center", or root: l--stack + inner: m='auto'. */}
 
 To make `<Modal.Body>` scrollable, specify `ov-y="auto"`. Place any content that should always remain visible before or after it.
 

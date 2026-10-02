@@ -1,5 +1,5 @@
 ---
-title: 'Skills'
+title: 'AI Skills'
 description: 'Place a SKILL.md file in your project to communicate Lism CSS design rules, Props, tokens, and naming conventions to AI agents.'
 ---
 By placing a SKILL.md file in your project, you can communicate Lism CSS design rules, Props, tokens, and naming conventions to AI agents.
@@ -58,7 +58,7 @@ gh skill install lism-css/core lism-mockup-guide@main
 
 ### Via lism-cli
 
-You can also fetch the same skills with `lism-cli skill add`. It only supports installing into the project directory, but it offers the `skill check` command to compare the bundled skill with your local files. Running it without arguments targets all bundled skills (`lism-css-guide` / `lism-css-refactor` / `lism-mockup-guide`).
+You can also fetch the same skills with `lism-cli skill add`. It only supports installing into the project directory, but it offers the `skill check` command to compare the skills on GitHub with your local files. Running it without arguments targets all three skills above (`lism-css-guide` / `lism-css-refactor` / `lism-mockup-guide`).
 
 <Preview>
   <PreviewCode slot="tab" label="npm">
@@ -86,7 +86,7 @@ You can also fetch the same skills with `lism-cli skill add`. It only supports i
 In interactive mode, the CLI detects each tool's project-root directories and files (`.claude/`, `.cursor/`, etc.) and pre-checks matching destinations. To target tools non-interactively, pass the flags directly:
 
 ```bash frame="none"
-# Install into a single tool (defaults to all bundled skills when the skill name is omitted)
+# Install into a single tool (defaults to all three skills when the skill name is omitted)
 npx lism-cli skill add --claude
 
 # Multiple tools at once
@@ -117,14 +117,14 @@ Destinations shown here use `lism-css-guide` as an example. For the other skills
 
 #### Update
 
-You can diff your local files against the bundled skill before updating.
+You can diff your local files against the skills on GitHub before updating.
 
 ```bash frame="none"
-# Diff the bundled skill against local files (shows changed / added / removed summary)
+# Diff the skills on GitHub against local files (shows changed / added / removed summary)
 npx lism-cli skill check
 
 # Overwrite with the latest version
 npx lism-cli skill update --claude
 ```
 
-`skill check` compares each installed file with the bundled one by sha256, then lists the changed / added / removed files. For upstream changes, see the [GitHub repository](https://github.com/lism-css/core/tree/main/skills/lism-css-guide) directly.
+`skill check` compares each installed file by sha256, then lists the changed / added / removed files. To see the latest changes, check the [GitHub repository](https://github.com/lism-css/core/tree/main/skills/lism-css-guide) directly.

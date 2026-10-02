@@ -103,7 +103,7 @@ Lism では、主要なCSSプロパティ群に対して、それらで頻繁に
 |`f`|`font`|`inherit`|-|
 |`fz`|`font-size`|[`FZ`](/docs/tokens/typography/#fz-font-size)|✔|
 |`ff`|`font-family`|[`FF`](/docs/tokens/typography/#ff-font-family)|-|
-|`fw`|`font-weight`|[`FW`](/docs/tokens/typography/#fw--font-weight)|-|
+|`fw`|`font-weight`|[`FW`](/docs/tokens/typography/#fw--font-weight), <br/>`100`〜`900`|-|
 |`fs`|`font-style`|`italic`|-|
 |`hl`|`line-height`（ハーフレディング）|[`HL`](/docs/half-leading/), <br/>`0`|✔|
 |`lh`|`line-height`（倍率）|[`LH`](/docs/tokens/typography/#lh-line-height), <br/>`1`|-|
@@ -181,9 +181,9 @@ export const LinkSPACE = () => <a href="/docs/tokens/#space"><code>SPACE</code><
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`p`|`padding`|<LinkSPACE/>|✔|
-|`px`|`padding-inline`|<LinkSPACE/>|✔|
-|`py`|`padding-block`|<LinkSPACE/>|✔|
+|`p`|`padding`|`0`, <LinkSPACE/>|✔|
+|`px`|`padding-inline`|`0`, <LinkSPACE/>|✔|
+|`py`|`padding-block`|`0`, <LinkSPACE/>|✔|
 |`ps`|`padding-inline-start`|<LinkSPACE/>|✔|
 |`pe`|`padding-inline-end`|<LinkSPACE/>|✔|
 |`pbs`|`padding-block-start`|<LinkSPACE/>|✔|
@@ -197,12 +197,12 @@ export const LinkSPACE = () => <a href="/docs/tokens/#space"><code>SPACE</code><
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`m`|`margin`|`auto`, <LinkSPACE/>|✔|
-|`mx`|`margin-inline`|`auto`, <LinkSPACE/>|✔|
-|`my`|`margin-block`|`auto`, <LinkSPACE/>|✔|
+|`m`|`margin`|`auto`, `0`, <LinkSPACE/>|✔|
+|`mx`|`margin-inline`|`auto`, `0`, <LinkSPACE/>|✔|
+|`my`|`margin-block`|`auto`, `0`, <LinkSPACE/>|✔|
 |`ms`|`margin-inline-start`|`auto`, <LinkSPACE/>|✔|
 |`me`|`margin-inline-end`|`auto`, <LinkSPACE/>|✔|
-|`mbs`|`margin-block-start`|`auto`, <LinkSPACE/>|✔|
+|`mbs`|`margin-block-start`|`auto`, `0`, <LinkSPACE/>|✔|
 |`mbe`|`margin-block-end`|`auto`, <LinkSPACE/>|✔|
 |`ml`|`margin-left`|<LinkSPACE/>|✔|
 |`mr`|`margin-right`|<LinkSPACE/>|✔|
@@ -290,6 +290,13 @@ export const LinkSPACE = () => <a href="/docs/tokens/#space"><code>SPACE</code><
   </PreviewCode>
 </Preview>
 
+
+<Spacer h="10" />
+:::info
+`max-sz`の`full`と`bleed`は、親要素や`is--container`の幅を基準に広がる、少し特殊なクラスです。詳しくは[max-szページ](/docs/property-class/max-sz/)をご覧ください。
+:::
+
+<DocsLink path="/docs/property-class/max-sz/" />
 
 ## Displays
 
@@ -429,7 +436,7 @@ export const LinkSPACE = () => <a href="/docs/tokens/#space"><code>SPACE</code><
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`g`|`gap`|<LinkSPACE/>,`inherit`|✔|
+|`g`|`gap`|`0`, <LinkSPACE/>,`inherit`|✔|
 |`cg`|`column-gap`|<LinkSPACE/>|✔|
 |`rg`|`row-gap`|<LinkSPACE/>|✔|
 
@@ -438,6 +445,7 @@ export const LinkSPACE = () => <a href="/docs/tokens/#space"><code>SPACE</code><
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
+|`fxf`|`flex-flow`|-|-|
 |`fxw`|`flex-wrap`|`wrap`|✔|
 |`fxd`|`flex-direction`|`column`,<br /> `column-reverse`,<br /> `row-reverse`|✔|
 |`fx`|`flex`|`1`|✔|
@@ -593,8 +601,16 @@ export const LinkSPACE = () => <a href="/docs/tokens/#space"><code>SPACE</code><
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`bxsh`|`box-shadow`|[`SHADOW`](/docs/tokens/#shadow)|✔|
-|`bdrs`|`border-radius`|[`RADIUS`](/docs/tokens/#radius)|✔|
+|`bxsh`|`box-shadow`|`0`, [`SHADOW`](/docs/tokens/#shadow)|✔|
+|`bdrs`|`border-radius`|`0`, [`RADIUS`](/docs/tokens/#radius), <br/>`inner`|✔|
+|`bdrs-tl`|`border-top-left-radius`|-|-|
+|`bdrs-tr`|`border-top-right-radius`|-|-|
+|`bdrs-br`|`border-bottom-right-radius`|-|-|
+|`bdrs-bl`|`border-bottom-left-radius`|-|-|
+|`bdrs-ss`|`border-start-start-radius`|-|-|
+|`bdrs-se`|`border-start-end-radius`|-|-|
+|`bdrs-es`|`border-end-start-radius`|-|-|
+|`bdrs-ee`|`border-end-end-radius`|-|-|
 
 <Preview>
   <PreviewTitle>Examples</PreviewTitle>
@@ -710,7 +726,7 @@ borderに関する仕様は少し特殊になっていますので、詳しく�
   <div class="l--flow has--gutter -py:20 -w:100% -h -wm_sm" style="--h: 20em; --wm_sm: vertical-rl">
     <p>ロレム・イプサムの座り雨。目まぐるしい文章の流れの中で、それは静かに歩く仮の言葉です。</p>
     <p>
-      Elitも穏やかに続いていきますが、積み重ねられてきた「LiberroyとFoogの取り組み」は、決するための答えというより、余白のようなものです。作業が進むにつれて、工夫や考えとともに関心が折り重なりながらも、必要以上に主張せず彼らの作品は私たちに一定の示唆を与えてくれます。
+      Elitも穏やかに続いていきますが、積み重ねられてきた「LiberroyとFoogの取り組み」は、余白のようなものです。作業が進むにつれて、工夫や考えとともに関心が折り重なりながらも、必要以上に主張せず彼らの作品は私たちに一定の示唆を与えてくれます。
     </p>
   </div>
   ```

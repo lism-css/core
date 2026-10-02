@@ -19,7 +19,7 @@ Examples of decorative boxes built with Lism.
 ### Call
 
 
-`mr:auto` uses logical directional values so it behaves consistently in RTL languages.
+These examples use physical `left` / `right` directions, as in `mr:auto`, so the direction stays the same in RTL languages as well.
 
 <Preview>
   <PreviewTitle>Call</PreviewTitle>
@@ -67,7 +67,7 @@ Examples of decorative boxes built with Lism.
         style={{'rotate':'45deg','transformOrigin':'left bottom'}}
       />
       <Box p="20" mr="auto">
-        <DummyText length="s"/>
+        Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut.
       </Box>
       <Decorator
         size="1.25em"
@@ -86,7 +86,7 @@ Examples of decorative boxes built with Lism.
         style={{'rotate':'-45deg','transformOrigin':'right bottom'}}
       />
       <Box p="20" ml="auto">
-        <DummyText length="xs" />
+        Lorem ipsum dolor sit amet.
       </Box>
       <Decorator
         size="1.25em"
@@ -106,7 +106,7 @@ Examples of decorative boxes built with Lism.
         style={{'rotate':'-45deg','transformOrigin':'right top'}}
       />
       <Box px="15" py="5">
-        <DummyText length="xs" />
+        Lorem ipsum dolor sit amet.
       </Box>
       <Decorator
         fxsh="0"
@@ -132,7 +132,7 @@ Examples of decorative boxes built with Lism.
       />
 
       <Box px="15" py="5" fxg="">
-        <DummyText length="s" />
+        Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut.
       </Box>
       <Decorator
         fxsh="0"
@@ -167,12 +167,12 @@ Examples of decorative boxes built with Lism.
   <PreviewCode>
   ```jsx
   <Box p="30" pos="relative">
-    <DummyText length="xs" />
+    Lorem ipsum dolor sit amet.
     <Decorator size="1.25em" pos="absolute" t="0" l="0" bdc="current" bd-l bd-t />
     <Decorator size="1.25em" pos="absolute" r="0" b="0" bdc="current" bd-r bd-b />
   </Box>
   <Box p="30" pos="relative">
-    <DummyText length="xs" />
+    Lorem ipsum dolor sit amet.
     <Decorator pos="absolute" t="0" l="0" w="1em" h="100%" bdc="current" bd-l bd-y />
     <Decorator pos="absolute" t="0" r="0" w="1em" h="100%" bdc="current" bd-r bd-y />
   </Box>
@@ -206,7 +206,7 @@ Examples of decorative boxes built with Lism.
     ```jsx
     <Grid gt='"content ." / auto 1fr'>
       <Box ga="content" min-w="8em" max-w="30em" bgc="base-2" p="20" w="fit-content" bd-e bdc="current" bdw=".5em">
-        <DummyText length="xs" />
+        Lorem ipsum dolor sit amet.
       </Box>
       <Decorator
         ga="content"

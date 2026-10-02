@@ -108,8 +108,8 @@ export default {
     ta: { presets: [...(props.ta.presets || []), 'justify'] },
     // Add a utility value to an existing prop
     p: { utils: { box: '2em' } },
-    // Add a brand-new prop (filter is not in defaults)
-    filter: { utils: { blur: 'blur(3px)' } },
+    // Add a brand-new prop (filter is not in defaults; specify the CSS property to output with prop)
+    filter: { prop: 'filter', utils: { blur: 'blur(3px)' } },
   },
   tokens: {
     // Define tokens as a { key: value } map (deep-merged into the defaults)
@@ -221,7 +221,7 @@ import type { LismConfig } from 'lism-css/config-types';
 
 export default {
   props: {
-    filter: { utils: { blur: 'blur(3px)' } },
+    filter: { prop: 'filter', utils: { blur: 'blur(3px)' } },
   },
   breakpoints: {
     xs: '360px',
@@ -236,7 +236,7 @@ In `lism.config.js` (JavaScript), adding the JSDoc `@type` annotation gives you 
 /** @type {import('lism-css/config-types').LismConfig} */
 export default {
   props: {
-    filter: { utils: { blur: 'blur(3px)' } },
+    filter: { prop: 'filter', utils: { blur: 'blur(3px)' } },
   },
 };
 ```
@@ -288,7 +288,7 @@ With the [customization example](#customization-example) config, this command ge
   text-align: justify;
 }
 .-p\:box {
-  padding: 2em;
+  --p: 2em;
 }
 .-filter\:blur {
   filter: blur(3px);
@@ -297,6 +297,8 @@ With the [customization example](#customization-example) config, this command ge
   letter-spacing: var(--lts--2xl);
 }
 ```
+
+For Property Classes such as `p` that always read their value through the `--p` variable (those with `alwaysVar` set), `.-p\:box` is output as a rule that sets the `--p` variable rather than `padding`. `padding` itself is set to `var(--p)` by the base rule already output in `main.css` (`.-p, [class*='-p:']`).
 
 When you give a value in `tokens`, the build generates both the Property Class that references the token (such as `.-lts\:2xl { letter-spacing: var(--lts--2xl) }`) and the referenced CSS variable itself (such as `:root { --lts--2xl: .5em }`). A key whose value is `'-'` only defines the name and doesn't output a value — use it for tokens with no CSS variable (such as `palette.keycolor`) or tokens whose real value is defined in hand-written SCSS (such as `bdrs.inner`).
 

@@ -223,8 +223,8 @@ export default {
     ta: { presets: [...(props.ta.presets || []), 'justify'] },
     // 既存propにutility値を追加
     p: { utils: { box: '2em' } },
-    // 新しいpropの追加（filterはデフォルトに含まれない）
-    filter: { utils: { blur: 'blur(3px)' } },
+    // 新しいpropの追加（filterはデフォルトに含まれない。出力するCSSプロパティを prop で指定する）
+    filter: { prop: 'filter', utils: { blur: 'blur(3px)' } },
   },
   tokens: {
     // トークンは { key: value } の値マップで定義（既定に deep-merge される）
@@ -298,7 +298,7 @@ npx lism-css build --full   # full.css / full_no_layer.css も生成
 
 ```css
 .-ta\:justify { text-align: justify; }
-.-p\:box { padding: 2em; }
+.-p\:box { --p: 2em; }
 .-filter\:blur { filter: blur(3px); }
 .-lts\:2xl { letter-spacing: var(--lts--2xl); }
 ```

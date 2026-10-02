@@ -88,7 +88,7 @@ The following values are accepted for `bp`:
 | `0` | Do not output any breakpoint-responsive classes |
 | `('sm', 'md')`, etc. (list) | Output only the explicitly listed breakpoints |
 
-The list form is for cases where you want to restrict a specific prop to certain breakpoints. Note that including a disabled breakpoint (one with no size defined in `$breakpoints`, such as `xs` or `xl` by default) in the list will produce no output for that entry, and a warning will be emitted at build time.
+The list form is for cases where you want to restrict a specific prop to certain breakpoints. Note that including a disabled breakpoint (one whose size in `$breakpoints` is `0` or undefined, such as `xs` or `xl` by default) in the list will produce no output for that entry, and a warning will be emitted at build time.
 
 
 ## Using added values in components

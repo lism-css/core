@@ -105,10 +105,10 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
 
 ### 子要素を重ねて表示する
 
-`position:absolute`を使わず、`grid-area:1/1`(`-ga:1`)を利用して要素を重ねる例を紹介します。
+`position:absolute`を使わず、`grid-area:1/1`(`-ga:1/1`)を利用して要素を重ねる例を紹介します。
 
 <Preview>
-  <PreviewTitle>Gritの子要素を重ねて表示する</PreviewTitle>
+  <PreviewTitle>Gridの子要素を重ねて表示する</PreviewTitle>
   <PreviewArea p="15">
     <Grid ar="16/9">
       <Frame ga="1/1" w="100%" h="100%" pos="relative">
@@ -132,7 +132,7 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
     ```
   </PreviewCode>
   <PreviewCode slot="tab" label="HTML">
-    ```html "-ga:1"
+    ```html "-ga:1/1"
     <div class="l--grid -ar:16/9">
       <div class="l--frame -ga:1/1 -w:100% -h:100% -pos:relative">
         <img src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" />
@@ -213,6 +213,33 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
         </Text>
       </Grid>
     </Grid>
+    ```
+  </PreviewCode>
+  <PreviewCode slot="tab" label="HTML">
+    ```html
+    <div class="l--grid -gtc -gtc_sm -bd-b" style="--gtc: auto; --gtc_sm: auto 1fr">
+      <div class="l--grid -gtc:subgrid -gc:1/-1 -g:20 -ai:center -bd-t -py:20 -px:10">
+        <div class="l--grid -gtc -gtc_sm -g:20 -jc:start -ai:center" style="--gtc: auto auto; --gtc_sm: 1fr 1fr">
+          <div class="-fz:s">2024.05.31</div>
+          <div class="-d:inline-flex -jc:center -fz:xs -hl:s -bgc:text -c:base -py:5 -px:10 -bdrs:10">NEWS</div>
+        </div>
+        <a class="u--trim -hov:-o -c:inherit -td:none -hl:s" href="####">ロレム・イプサムの座り雨。目まぐるしい文章の流れの中で、それは静かに歩く仮の言葉です。</a>
+      </div>
+      <div class="l--grid -gtc:subgrid -gc:1/-1 -g:20 -ai:center -bd-t -py:20 -px:10">
+        <div class="l--grid -gtc -gtc_sm -g:20 -jc:start -ai:center" style="--gtc: auto auto; --gtc_sm: 1fr 1fr">
+          <div class="-fz:s">2024.05.29</div>
+          <div class="-d:inline-flex -jc:center -fz:xs -hl:s -bgc:text -c:base -py:5 -px:10 -bdrs:10">TIPS</div>
+        </div>
+        <a class="u--trim -hov:-o -c:inherit -td:none -hl:s" href="####">それは静かに歩く仮の言葉です。Elitも穏やかに続いていきますが、積み重ねられてきた「LiberroyとFoogの取り組み」は、余白のようなものです。</a>
+      </div>
+      <div class="l--grid -gtc:subgrid -gc:1/-1 -g:20 -ai:center -bd-t -py:20 -px:10">
+        <div class="l--grid -gtc -gtc_sm -g:20 -jc:start -ai:center" style="--gtc: auto auto; --gtc_sm: 1fr 1fr">
+          <div class="-fz:s">2024.05.18</div>
+          <div class="-d:inline-flex -jc:center -fz:xs -hl:s -bgc:text -c:base -py:5 -px:10 -bdrs:10">COLUMN</div>
+        </div>
+        <a class="u--trim -hov:-o -c:inherit -td:none -hl:s" href="####">作業が進むにつれて、工夫や考えとともに関心が折り重なりながらも、必要以上に主張せず彼らの作品は私たちに一定の示唆を与えてくれます。</a>
+      </div>
+    </div>
     ```
   </PreviewCode>
 </Preview>

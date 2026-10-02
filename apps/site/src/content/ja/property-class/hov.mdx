@@ -420,7 +420,7 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
 <Preview>
   <PreviewTitle>`-hov:in:show`と`-hov:in:zoom`を使う例</PreviewTitle>
   <PreviewArea p="20">
-    <Frame isBoxLink set="hov" href="#banner-link" ar="16/9" bdrs="40">
+    <Frame as="a" isBoxLink set="hov" href="#banner-link" ar="16/9" bdrs="40">
       <Media isLayer hasTransition hov="in:zoom" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" loading="lazy" />
       <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 40%)" style={{ backdropFilter: 'blur(6px)' }} bdrs="40">
         <Center h="100%" c="#fff">
@@ -445,7 +445,7 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
   </PreviewCode>
   <PreviewCode slot="tab" label="JSX">
     ```jsx 'set="hov"' 'hov="in:show"' 'hov="in:zoom"' 'hasTransition'
-    <Frame isBoxLink set="hov" href="#banner-link" ar="16/9" bdrs="40">
+    <Frame as="a" isBoxLink set="hov" href="#banner-link" ar="16/9" bdrs="40">
       <Media isLayer hasTransition hov="in:zoom" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" width="960" height="640" loading="lazy" />
       <Layer hasTransition hov="in:show" bgc="rgb(0 0 0 / 40%)" style={{ backdropFilter: 'blur(6px)' }} bdrs="40">
         <Center h="100%" c="#fff">

@@ -75,7 +75,7 @@ Astro版ではデフォルトで Astro の`<Image>`が使用されます。React
   <PreviewCode slot="tab" label="HTML">
     ```html
     <figure class="l--frame -ar:16/9">
-      <img style="object-position: 50% 0%" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" width="960" height="640" />
+      <img style="object-position: 50% 0%" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" width="960" height="640" alt="" />
     </figure>
     ```
   </PreviewCode>
@@ -113,13 +113,13 @@ import Image from 'next/image';
 <Preview>
   <PreviewTitle>`quality`と`format`を使用する例（Astro `<Image>`）</PreviewTitle>
   <PreviewArea>
-    <Media src={myImage} inferSize alt="Dummy Image" quality="high" format="webp" />
+    <Media src={myImage} alt="Dummy Image" quality="high" format="webp" />
   </PreviewArea>
   <PreviewCode slot="tab" label=".astro">
     ```jsx 'quality="high"' 'format="webp"'
     import myImage from '@/img/img-1.jpg';
 
-    <Media src={myImage} inferSize alt="Dummy Image" quality="high" format="webp" />
+    <Media src={myImage} alt="Dummy Image" quality="high" format="webp" />
     ```
   </PreviewCode>
 </Preview>

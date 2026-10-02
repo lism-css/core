@@ -59,7 +59,7 @@ Examples of horizontally scrollable reel layouts built with Lism.
 <Preview>
   <PreviewTitle>Snap position aligned with reel padding<SwipeHelp /></PreviewTitle>
   <PreviewArea resize p="10">
-    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ 'scroll-padding': 'var(--p)' }}>
+    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ scrollPadding: 'var(--p)' }}>
       <Frame ar="16/9" bdrs="20" fxsh="0" w="90%">
         <img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" />
       </Frame>
@@ -79,7 +79,7 @@ Examples of horizontally scrollable reel layouts built with Lism.
   </PreviewArea>
   <PreviewCode slot="tab" label="JSX">
     ```jsx
-    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ 'scroll-padding': 'var(--p)' }}>
+    <Flex hasSnap ov="auto" bgc="black" p="20" g="20" bdrs="30" style={{ scrollPadding: 'var(--p)' }}>
       <Frame ar="16/9" bdrs="20" fxsh="0" w="90%">
         <img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" />
       </Frame>
@@ -177,7 +177,7 @@ Examples of horizontally scrollable reel layouts built with Lism.
 </Preview>
 
 
-To responsively adjust child element sizes in a Grid-based reel, specify `--cols` for `gac` (`grid-auto-columns`).
+To responsively adjust child element sizes in a Grid-based reel, specify `--cols` for `gac` (`grid-auto-columns`).  
 (`gac` does not support responsive values by default.)
 
 <Preview>
@@ -269,7 +269,7 @@ By adding an `id` to each reel item and providing anchor links, you can create n
 <Preview>
   <PreviewTitle>Adding button navigation</PreviewTitle>
   <PreviewArea p="30 20" layout="">
-    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', 'scroll-behavior': 'smooth' }}>
+    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', scrollBehavior: 'smooth' }}>
       <Frame id="image-1" ar="16/9" bdrs="20">
         <img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" />
       </Frame>
@@ -296,7 +296,7 @@ By adding an `id` to each reel item and providing anchor links, you can create n
   </PreviewArea>
   <PreviewCode>
     ```jsx "id=" "href="
-    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', 'scroll-behavior': 'smooth' }}>
+    <Grid hasSnap ov="auto" gaf="column" gac="75%" g="15" bdrs="20" style={{ '--snapAlign': 'center', scrollBehavior: 'smooth' }}>
       <Frame id="image-1" ar="16/9" bdrs="20"><img src="https://images.unsplash.com/photo-1615209853186-e4bd66602508?auto=format&fit=max&w=1920&q=80" alt="" /></Frame>
       <Frame id="image-2" ar="16/9" bdrs="20"><img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=max&w=1920&q=80" alt="" /></Frame>
       <Frame id="image-3" ar="16/9" bdrs="20"><img src="https://images.unsplash.com/photo-1534868489953-ef37c20abb25?auto=format&fit=max&w=1920&q=80" alt="" /></Frame>
@@ -318,8 +318,8 @@ By adding an `id` to each reel item and providing anchor links, you can create n
 
 ## Disabling the reel at larger screen sizes
 
-To show the reel only on small screens, set `gaf` (`grid-auto-flow`) back to `row`.
-The following example demonstrates switching to a 2-column layout by setting `gtc` (`grid-template-columns`) to `repeat(2, 1fr)` at the same breakpoint.
+To show the reel only on small screens, set `gaf` (`grid-auto-flow`) back to `row`.  
+This example switches to a 2-column layout by setting `gtc` (`grid-template-columns`) to `repeat(2, 1fr)` at the same breakpoint.
 
 <Preview>
   <PreviewTitle>Example: disable reel only at `~@md`<SwipeHelp /></PreviewTitle>

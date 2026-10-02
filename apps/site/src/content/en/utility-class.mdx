@@ -224,7 +224,7 @@ Classes for adjusting the half-leading spacing of text.
   <PreviewCode slot="tab" label="HTML">
     ```html "u--trim"
     <div class="l--box -bd" style="--bds: dashed">
-      <p class="u--trim">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+      <p class="u--trim">Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut.</p>
     </div>
     ```
   </PreviewCode>
@@ -256,8 +256,10 @@ Classes for adjusting the half-leading spacing of text.
     ```html
     <div class="l--stack u--trimAll -bd -g:30 -p:30 -bdrs:10">
       <img class="-ar:og" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" />
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p>Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut.</p>
+      <p>
+        Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut. Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut. Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint.
+      </p>
     </div>
     ```
   </PreviewCode>
@@ -267,8 +269,7 @@ Classes for adjusting the half-leading spacing of text.
       <Media ar="og" src="https://cdn.lism-css.com/img/KRQPW50jXaLu.webp" alt="" inferSize />
       <p>Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut.</p>
       <p>
-        Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut. Labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut.
+        Lorem ipsum dolor sit amet. Consectetur adipiscing elit, sed do eiusmod tempor Incididunt ut. Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut. Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint.
       </p>
     </Stack>
     ```
@@ -339,20 +340,10 @@ Since `vertical-align: middle` alone can cause misalignment, `translate` compens
 }`}>
   <PreviewTitle>Usage example</PreviewTitle>
   <PreviewArea p="20">
-    <p>
-      <Icon util="inlineCenter" icon={AlertIcon} c="red" fz="xl" /> Lorem ipsum dolor sit amet.
-    </p>
-    <p>
-      <Icon util="inlineCenter" as={Dog} fz="l" />
-      Dog, and <Icon util="inlineCenter" as={Cat} fz="l" />
-      Cat.
-    </p>
-    <p>
-      <span class="u--inlineCenter -fz:xl">🚀</span> Emoji.
-    </p>
-    <p>
-      <Icon fz="2xl" util="inlineCenter" src="https://emojix.s3.ap-northeast-1.amazonaws.com/g3/svg/1f916.svg" alt="image" /> Inline img icon.
-    </p>
+    <p><Icon util="inlineCenter" icon={AlertIcon} c="red" fz="xl" /> Lorem ipsum dolor sit amet.</p>
+    <p><Icon util="inlineCenter" as={Dog} fz="l" />Dog, and <Icon util="inlineCenter" as={Cat} fz="l" />Cat.</p>
+    <p><span class="u--inlineCenter -fz:xl">🚀</span> Emoji.</p>
+    <p><Icon fz="2xl" util="inlineCenter" src="https://emojix.s3.ap-northeast-1.amazonaws.com/g3/svg/1f916.svg" alt="image" /> Inline img icon.</p>
   </PreviewArea>
   <PreviewCode slot="tab" label="JSX">
     ```jsx "u--inlineCenter"

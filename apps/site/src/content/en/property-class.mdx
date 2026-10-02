@@ -103,7 +103,7 @@ The shorthand string itself is what gets output as the class name.
 |`f`|`font`|`inherit`|-|
 |`fz`|`font-size`|[`FZ`](/en/docs/tokens/typography/#fz-font-size)|✔|
 |`ff`|`font-family`|[`FF`](/en/docs/tokens/typography/#ff-font-family)|-|
-|`fw`|`font-weight`|[`FW`](/en/docs/tokens/typography/#fw--font-weight)|-|
+|`fw`|`font-weight`|[`FW`](/en/docs/tokens/typography/#fw--font-weight), <br/>`100`–`900`|-|
 |`fs`|`font-style`|`italic`|-|
 |`hl`|`line-height` (half-leading)|[`HL`](/en/docs/half-leading/), <br/>`0`|✔|
 |`lh`|`line-height` (ratio)|[`LH`](/en/docs/tokens/typography/#lh-line-height), <br/>`1`|-|
@@ -181,9 +181,9 @@ export const LinkSPACE = () => <a href="/en/docs/tokens/#space"><code>SPACE</cod
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`p`|`padding`|<LinkSPACE/>|✔|
-|`px`|`padding-inline`|<LinkSPACE/>|✔|
-|`py`|`padding-block`|<LinkSPACE/>|✔|
+|`p`|`padding`|`0`, <LinkSPACE/>|✔|
+|`px`|`padding-inline`|`0`, <LinkSPACE/>|✔|
+|`py`|`padding-block`|`0`, <LinkSPACE/>|✔|
 |`ps`|`padding-inline-start`|<LinkSPACE/>|✔|
 |`pe`|`padding-inline-end`|<LinkSPACE/>|✔|
 |`pbs`|`padding-block-start`|<LinkSPACE/>|✔|
@@ -197,12 +197,12 @@ export const LinkSPACE = () => <a href="/en/docs/tokens/#space"><code>SPACE</cod
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`m`|`margin`|`auto`, <LinkSPACE/>|✔|
-|`mx`|`margin-inline`|`auto`, <LinkSPACE/>|✔|
-|`my`|`margin-block`|`auto`, <LinkSPACE/>|✔|
+|`m`|`margin`|`auto`, `0`, <LinkSPACE/>|✔|
+|`mx`|`margin-inline`|`auto`, `0`, <LinkSPACE/>|✔|
+|`my`|`margin-block`|`auto`, `0`, <LinkSPACE/>|✔|
 |`ms`|`margin-inline-start`|`auto`, <LinkSPACE/>|✔|
 |`me`|`margin-inline-end`|`auto`, <LinkSPACE/>|✔|
-|`mbs`|`margin-block-start`|`auto`, <LinkSPACE/>|✔|
+|`mbs`|`margin-block-start`|`auto`, `0`, <LinkSPACE/>|✔|
 |`mbe`|`margin-block-end`|`auto`, <LinkSPACE/>|✔|
 |`ml`|`margin-left`|<LinkSPACE/>|✔|
 |`mr`|`margin-right`|<LinkSPACE/>|✔|
@@ -290,6 +290,13 @@ Related tokens: <a href="/en/docs/tokens/#size"><code>SIZE</code></a>
   </PreviewCode>
 </Preview>
 
+
+<Spacer h="10" />
+:::info
+The `full` and `bleed` classes of `max-sz` behave slightly differently from the others: they expand relative to the width of the parent element or `is--container`. See the [max-sz page](/en/docs/property-class/max-sz/) for details.
+:::
+
+<DocsLink path="/docs/property-class/max-sz/" />
 
 ## Display
 
@@ -429,7 +436,7 @@ The examples below demonstrate positioning with `position: absolute`.
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`g`|`gap`|<LinkSPACE/>,`inherit`|✔|
+|`g`|`gap`|`0`, <LinkSPACE/>,`inherit`|✔|
 |`cg`|`column-gap`|<LinkSPACE/>|✔|
 |`rg`|`row-gap`|<LinkSPACE/>|✔|
 
@@ -438,6 +445,7 @@ The examples below demonstrate positioning with `position: absolute`.
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
+|`fxf`|`flex-flow`|-|-|
 |`fxw`|`flex-wrap`|`wrap`|✔|
 |`fxd`|`flex-direction`|`column`,<br /> `column-reverse`,<br /> `row-reverse`|✔|
 |`fx`|`flex`|`1`|✔|
@@ -592,8 +600,16 @@ The examples below demonstrate positioning with `position: absolute`.
 
 |Shorthand|Property|To Class|BP|
 |---|---|---|---|
-|`bxsh`|`box-shadow`|[`SHADOW`](/en/docs/tokens/#shadow)|✔|
-|`bdrs`|`border-radius`|[`RADIUS`](/en/docs/tokens/#radius)|✔|
+|`bxsh`|`box-shadow`|`0`, [`SHADOW`](/en/docs/tokens/#shadow)|✔|
+|`bdrs`|`border-radius`|`0`, [`RADIUS`](/en/docs/tokens/#radius), <br/>`inner`|✔|
+|`bdrs-tl`|`border-top-left-radius`|-|-|
+|`bdrs-tr`|`border-top-right-radius`|-|-|
+|`bdrs-br`|`border-bottom-right-radius`|-|-|
+|`bdrs-bl`|`border-bottom-left-radius`|-|-|
+|`bdrs-ss`|`border-start-start-radius`|-|-|
+|`bdrs-se`|`border-start-end-radius`|-|-|
+|`bdrs-es`|`border-end-start-radius`|-|-|
+|`bdrs-ee`|`border-end-end-radius`|-|-|
 
 <Preview>
   <PreviewTitle>Examples</PreviewTitle>

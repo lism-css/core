@@ -108,8 +108,8 @@ export default {
     ta: { presets: [...(props.ta.presets || []), 'justify'] },
     // 既存propにutility値を追加
     p: { utils: { box: '2em' } },
-    // 新しいpropの追加（filterはデフォルトに含まれない）
-    filter: { utils: { blur: 'blur(3px)' } },
+    // 新しいpropの追加（filterはデフォルトに含まれない。出力するCSSプロパティを prop で指定する）
+    filter: { prop: 'filter', utils: { blur: 'blur(3px)' } },
   },
   tokens: {
     // トークンは { key: value } の値マップで定義（既定に deep-merge される）
@@ -221,7 +221,7 @@ import type { LismConfig } from 'lism-css/config-types';
 
 export default {
   props: {
-    filter: { utils: { blur: 'blur(3px)' } },
+    filter: { prop: 'filter', utils: { blur: 'blur(3px)' } },
   },
   breakpoints: {
     xs: '360px',
@@ -236,7 +236,7 @@ export default {
 /** @type {import('lism-css/config-types').LismConfig} */
 export default {
   props: {
-    filter: { utils: { blur: 'blur(3px)' } },
+    filter: { prop: 'filter', utils: { blur: 'blur(3px)' } },
   },
 };
 ```
@@ -288,7 +288,7 @@ npx lism-css build
   text-align: justify;
 }
 .-p\:box {
-  padding: 2em;
+  --p: 2em;
 }
 .-filter\:blur {
   filter: blur(3px);
@@ -297,6 +297,8 @@ npx lism-css build
   letter-spacing: var(--lts--2xl);
 }
 ```
+
+`p` のように常に `--p` 変数を経由して値を参照する Property Class（`alwaysVar` 指定のもの）では、`.-p\:box` は `padding` ではなく `--p` 変数に値をセットする形で出力されます。`padding` 自体は、`main.css` にあらかじめ出力されているベースのルール（`.-p, [class*='-p:']`）が `var(--p)` で指定します。
 
 `tokens` に値を書いておけば、`.-lts\:2xl { letter-spacing: var(--lts--2xl) }` のようにトークンを参照する Property Class に加えて、参照先のCSS変数（`:root { --lts--2xl: .5em }`）も生成されます。値に `'-'` を指定したキーは「名前だけを定義し、実値は出力しない」指定です。`palette.keycolor` のようにCSS変数を持たないトークンや、`bdrs.inner` のように実値を手書き SCSS 側で定義するトークンで使います。
 

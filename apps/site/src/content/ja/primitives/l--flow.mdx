@@ -24,7 +24,7 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
 
 `--flow--base` / `--flow--s` は `:root` で定義されたデザイントークンです。日本語環境（`lang="ja"`）では文字密度に合わせて `--flow--base` が少し広めに上書きされます。
 
-また、見出しタグのみ余白が大きくなるようになっています。
+また、見出しタグ（`h1`〜`h4`）のみ余白が大きくなるようになっています。
 
 
 ## CSS
@@ -168,8 +168,6 @@ import { DummyText } from '@lism-css/ui/astro/DummyText';
   ```
   </PreviewCode>
 </Preview>
-
-`l--flow`は`--flow`が未定義であればルートで定義された`--flow--base`がセットされますが、ネストされていると親の`--flow`を継承することに注意してください。
 
 
 ### `is--skipFlow`

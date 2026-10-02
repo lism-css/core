@@ -12,10 +12,10 @@ import { Wrapper, Box, Lism, Spacer } from "lism-css/astro";
 
 <SrcCode path="src/scss/trait/is/_wrapper.scss" />
 
-Direct children receive `inline-size: 100%`, so even elements whose natural width is below `--contentSize` (short paragraphs, `<table>`, etc.) always stretch to the parent width. This keeps widths consistent under `l--stack` and other vertical layouts and prevents jagged edges.
+Direct children receive `inline-size: 100%`, so even elements whose natural width is below `--contentSize` (short paragraphs, `<table>`, etc.) always stretch to the width of `--contentSize` (or to the parent element's width if the parent is narrower). This keeps widths consistent under `l--stack` and other vertical layouts and prevents jagged edges.
 
 :::warning
-A `<table>` that is a direct child of `is--wrapper` loses its content-driven natural width — it always stretches to fill the wrapper. To preserve the table's intrinsic width, wrap it in another element so it is no longer a direct child of `is--wrapper`.
+A `<table>` that is a direct child of `is--wrapper` loses its content-driven natural width — it always stretches to the width of `--contentSize` (or to the wrapper's width if the wrapper is narrower). To preserve the table's intrinsic width, wrap it in another element so it is no longer a direct child of `is--wrapper`.
 :::
 
 
@@ -38,7 +38,7 @@ A dedicated `<Wrapper>` component is also available as an alias for `<Lism isWra
 
 <ImportPackage component="Wrapper" />
 
-### Props
+### Commonly combined props
 
 | Prop | Description |
 |---|---|
