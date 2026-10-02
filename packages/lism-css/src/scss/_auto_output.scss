@@ -45,9 +45,9 @@ base_type:
     @if (meta.type-of($value) == map) {
       // マップ形式の場合は何もしない（将来の拡張用）
     } @else if $base_type == 2 {
-      // important は [class*=] についてるので不要
+      // [class*=] 側の !important は変数の値までは守らない。同じ変数をセットする他クラス（u--cbox 等）に負けないよう、ここにも付ける。
       #{$selector} {
-        --#{$key}: #{$value};
+        --#{$key}: #{$value}#{get_important_str($important)};
       }
     } @else {
       #{$selector} {

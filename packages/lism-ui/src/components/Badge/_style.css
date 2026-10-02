@@ -11,7 +11,7 @@
     color: var(--c);
     background-color: var(--bgc);
     font-size: var(--fz--xs);
-    padding: 0.25em 0.5em;
+    padding: 0.25em 0.625em;
     gap: 0.375em;
     border-radius: var(--bdrs--99);
 

@@ -3,7 +3,7 @@ title: 'CSSファイルの種類'
 description: 'Lism CSS に同梱されるCSSファイルの違いと、用途に応じた選び方を解説します。'
 ---
 
-`lism-css` パッケージは、用途に応じて複数のビルド済みCSSを同梱しています。読み込むファイルを差し替えるだけで、`@layer` のオン / オフや「全部入り」ビルドへ切り替えられます。通常は `main.css` を使い、必要なときだけほかのファイルに切り替えてください。
+`lism-css` パッケージは、用途に応じて複数のビルド済みCSSを同梱しています。読み込むファイルを差し替えるだけで、`@layer` のオン / オフを切り替えたり、全部入りビルドに変更したりできます。通常は `main.css` を使い、必要なときだけほかのファイルに切り替えてください。
 
 | ファイル | 内容 |
 |---|---|
@@ -15,26 +15,26 @@ description: 'Lism CSS に同梱されるCSSファイルの違いと、用途に
 
 ## `@layer` をオフにする
 
-`lism-css/main.css` の代わりに `lism-css/main_no_layer.css` を読み込むだけで、`@layer` をオフにできます。読み込むCSSファイルを切り替えるだけで、ほかの設定は不要です。
+`lism-css/main.css` の代わりに `lism-css/main_no_layer.css` を読み込むと、`@layer` をオフにできます。ほかの設定は不要です。
 
-`@layer` なし版は、既存サイトや WordPress テーマなど、カスケードを自分で制御できない環境での利用を想定しています。レイヤーで優先順位を付けられないぶん、次の方法で `main.css` と同じ「Property Class > Utility Class > 単一クラス」の序列を再現しています。
+`@layer` なし版は、既存サイトや WordPress テーマなど、ほかのCSSとの優先順位（カスケード）を自分で制御できない環境での利用を想定しています。レイヤーで優先順位を付けられないぶん、次の方法で `main.css` と同じ「Property Class > Utility Class > そのほかのクラス」の順を再現しています。
 
 | クラス | `@layer` なし版での出力 | 詳細度 |
 |---|---|---|
 | Property Class（`-p:20` など） | 常に `!important` 付き | 0-1-0 + `!important` |
 | Utility Class（`u--trim` / `u--trimAll` / `u--cbox`） | セレクタを二重化（`.u--trim.u--trim`） | 0-2-0 |
-| 上記以外のクラス | `main.css` と同じ | - |
+| そのほかのクラス | セレクタは `main.css` と同じ | 変更なし |
 
 そのため、`@layer` なし版では次の点に注意してください。
 
-- Property Class と同じプロパティを `style` 属性や JavaScript で指定しても、Property Class が勝ちます。値を変えるにはクラス自体を付け替えてください（`-p` のようにCSS変数で値を受け取るクラスは、`--p` の書き換えでも変えられます）。
-- `u--` クラスを自分の CSS で上書きするには、`.u--trim.u--trim` 以上の詳細度が必要です。
-- `lism.config.js` の `defaultImportant: false` や SCSS の `$default_important: 0` を指定しても、`@layer` なし版では `!important` は外れません。`props` の個別設定 `important: 0` も同様に無視されます。
+- Property Class と同じプロパティをインラインスタイルや JavaScript で指定しても、Property Class が勝ちます。値を変えるにはクラス自体を付け替えてください（`-p` のようにCSS変数で値を受け取るクラスは、`--p` の書き換えでも変えられます）。
+- Utility Class を自分のCSSで上書きするには、`.u--trim.u--trim` 以上の詳細度が必要です。
+- `lism.config.js` の `defaultImportant: false` や SCSS の `$default_important: 0` を指定しても、`@layer` なし版では無視され、`!important` は常に付きます。`props` の個別設定 `important: 0` も同様です。
 
 
 ## 全部入りビルド（full.css）を使う
 
-`lism-css/main.css` の代わりに `lism-css/full.css` を読み込むと、デフォルトでは出力されないクラスまで含めた「全部入り」のビルドを利用できます。
+`lism-css/main.css` の代わりに `lism-css/full.css` を読み込むと、`main.css` には含まれないクラスまで収録した全部入りビルドを利用できます。
 
 ```js
 import 'lism-css/full.css'; // @layer なし版は 'lism-css/full_no_layer.css'
@@ -42,11 +42,14 @@ import 'lism-css/full.css'; // @layer なし版は 'lism-css/full_no_layer.css'
 
 `full.css` には、`main.css` の内容に加えて以下が含まれます。
 
-- 変数出力専用（`isVar` 系＝クラスを出力せず CSS変数だけを出すプロパティ）、border ショートハンド系（`bd` と `bd-x` などの方向指定）、`lh` を除く、全 Property Class のブレイクポイント対応クラス（`-ta_lg` など）
-- border サブプロパティ `bds` / `bdc` のブレイクポイント対応クラス（`bdw` は `main.css` でも対応済み）。border のブレイクポイント対応は、ショートハンドではなくサブプロパティで行います
-- カラー系 Property Class（`bgc` / `c` / `bdc`）の全カラートークン分のクラス（`-bgc:red` など）。`main.css` では厳選したセマンティックカラーと `keycolor` だけがクラス化されますが、`full.css` では[パレットカラー](/docs/tokens/colors/)を含む全トークンが対象になります
+- 全 Property Class のブレイクポイント対応クラス（`-ta_lg` など）。ただし次のものは対象外です。
+  - 変数出力専用のプロパティ（`isVar` 系。クラスを出力せず、CSS変数だけを出力するもの）
+  - border ショートハンド系（`bd` と、`bd-x` などの方向指定）
+  - `lh`
+- border サブプロパティ `bds` / `bdc` のブレイクポイント対応クラス。どちらも変数出力専用ですが、例外として追加されます（`bdw` は `main.css` でも対応済み）。border のブレイクポイント対応は、ショートハンドではなくサブプロパティで行います。
+- カラー系 Property Class（`bgc` / `c` / `bdc`）の全カラートークン分のクラス（`-bgc:red` など）。`main.css` では厳選したセマンティックカラーと `keycolor` だけがクラス化されますが、`full.css` では[パレットカラー](/docs/tokens/colors/)を含む全トークンが対象になります。
 
-そのぶんCSSサイズは `main.css` より大きくなるため、**未使用のクラスをビルド時に削除する [CSS Purge](/docs/customize/purge/) との併用を推奨します**。
+そのぶんCSSサイズは `main.css` より大きくなるため、**未使用のクラスをビルド時に削除する [CSS Purge](/docs/customize/purge/) との併用を前提としています**。
 
 :::info
 `full.css` を読み込むだけでは、コンポーネント側の出力は変わりません（例: `t="20"` はインラインスタイルとして出力されます）。コンポーネントの出力も `full.css` に合わせるには、`lism.config.js` の [`isFullMode`](/docs/customize/config/#isfullmode) を有効にしてください。

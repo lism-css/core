@@ -8,6 +8,16 @@ This page documents the changes in each version of Lism CSS.
 
 <Divider bds="dashed" my="40" />
 
+## lism-css v1.0.1 (2026.10.02)
+
+- Fixed Property Classes that set a variable (such as `-c:brand` and `-p:20`) being overridden by `u--cbox` or custom classes that set the same variable in the no-`@layer` builds (`main_no_layer.css` / `full_no_layer.css`). The variable declarations now also carry `!important`.
+
+### `@lism-css/ui` v0.40.1 (2026.10.02)
+
+- Increased the horizontal `padding` of `Badge` from `0.5em` to `0.625em`.
+
+<Divider bds="dashed" my="40" />
+
 ## lism-css v1.0.0 (2026.10.01)
 
 The first stable release. There are no functional changes since v0.31.0.
