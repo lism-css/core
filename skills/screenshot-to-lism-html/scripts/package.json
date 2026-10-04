@@ -1,0 +1,14 @@
+{
+  "name": "screenshot-to-lism-html-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for the screenshot-to-lism-html Cursor skill",
+  "main": "split_image.js",
+  "scripts": {
+    "split": "node split_image.js",
+    "capture": "node capture_preview.js"
+  },
+  "dependencies": {
+    "sharp": "^0.33.0",
+    "puppeteer": "^22.0.0"
+  }
+}
