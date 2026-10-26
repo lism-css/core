@@ -2,6 +2,16 @@
 
 # 意思決定の記録
 
+## 2026-10-26: `b--`と`c--`の本体クラスの併用を許可する
+
+#546で独自クラスを`b--` / `c--`の2分類にしたとき、`lism-css-guide`の併用ルールに「`b--` + `c--`は禁止」を入れたが、理由は残っていなかった。`b--`が持つのは部品のベーススタイルで、モーダルをナビ用・検索用に使い分けるなど、使う場所ごとに見た目を変えたい場面は普通にある。`c--`の`lism-custom`は`b--`の`lism-block`より後ろのレイヤーなので、CSSの記述順に関係なく`c--`が勝つ。
+
+- 決定: `c--searchModal b--modal`のような併用を許可する。
+- 決定: `b--`同士・`c--`同士の併用は禁止のまま。同じレイヤー内でぶつかり、CSSの記述順で結果が変わる。
+- 決定: Modifierのプレフィックスは今までどおり本体クラスに合わせる。`b--btn c--btn--outline`はNG。
+- 却下: 場所ごとの差分を`b--`のModifierにする案。共通部品に特定ページ用の差分が入り込む。
+- 却下: 本体クラス同士は禁止のまま、`c--siteSearch_modal b--modal`のようなElementとの併用だけを許可する案。どの`c--`の子要素でもない部品にも、Element名を付けることになる。
+
 ## 2026-10-01: docsの`ui/`は「Blocks / Examples」の2分類にし、作例のURLを`/ui/examples/`へ統一する
 
 2026-08-15に3分類（Blocks / Block Examples / Components）へ再編したが、StepsとTimelineをpatternsのProcessへ移した（#659）結果、Block Examplesの公開ページはChatだけになった。Timelineは`ui/`では`b--timeline`、patternsでは`c--timeline`で書かれており、接頭辞は導入側の運用で変わる。patternsも`_style.css`付きの作例を載せているため、CSSの有無と`b--` / `c--`は置き場所の境界にならない。

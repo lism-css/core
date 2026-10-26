@@ -192,6 +192,8 @@ Element は `_`（アンダースコア）一つ区切りです。
 
 また、`c--` クラスは、[Block Class](#block-class) と同じ BEM 記法・併用ルールで BEM 構造（Block / Modifier / Element）を持つことができます。
 
+`b--` クラスとは併用できます。`b--` が持つのは部品のベーススタイルなので、使う場所ごとの調整は `c--` で上書きできます（例: `c--navModal b--modal`、`c--searchModal b--modal`）。`lism-custom` は `lism-block` より後ろのレイヤーなので、CSSの記述順に関係なく `c--` のスタイルが優先されます。
+
 
 ### Utility Class
 

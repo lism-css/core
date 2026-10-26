@@ -192,6 +192,8 @@ Names use camelCase after the prefix (see the [naming guide](/en/docs/naming/)).
 
 Also, `c--` classes can follow the same BEM notation and combination rules as [Block Class](#block-class), giving them a BEM structure (Block / Modifier / Element).
 
+A `c--` class can be combined with a `b--` class. Since `b--` provides a part's base styles, you can use `c--` to adjust them for each place the part is used (e.g. `c--navModal b--modal`, `c--searchModal b--modal`). Because the `lism-custom` layer comes after `lism-block`, the `c--` styles take precedence regardless of the order in which the CSS is written.
+
 ### Utility Class
 
 Utility classes with a clear decorative or functional purpose are defined as follows:
