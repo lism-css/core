@@ -16,7 +16,7 @@
 // - `-bd` などの bare クラス ⇔ `bd`（値なしの boolean prop。key が PROPS に存在するもののみ。
 //   本物の `val === true` → `-{prop}` と同じ規則。XML は値なし属性を書けないため前処理でマーカー化する。
 //   `--{prop}` 宣言を伴う場合は上のスペース区切り値として扱う）
-// - `-hov:val` クラス ⇔ `hov="val"` （hov は PROPS 外の特別扱い prop。文字列形式のみ・複数はカンマ結合。
+// - `-hov:val` クラス ⇔ `hov="val"` （hov は PROPS 外の特別扱い prop。文字列形式のみ・空白区切りで複数可。
 //   boolean（値なし -hov）/ オブジェクト形式（inline CSS 変数が絡む）は非対応で className 保持）
 // - `u--{name}` クラス ⇔ `util="{name}"` （util も PROPS 外の特別扱い prop。空白区切りで複数可）
 // - `set--{name}` クラス ⇔ `set="{name}"` （set も util と同じ分割規則＝本物の mergeSet。
@@ -581,7 +581,7 @@ const htmlElementToJsx = (el: Element): PrintableElement => {
 
   // 4. unit 列を元の並び順で属性へ実体化する。
   //    集約された prop はその prop の最初の出現位置に配列 prop として出す。
-  //    -hov:{val} は hov prop（文字列形式）へ。複数トークンはカンマ結合し、
+  //    -hov:{val} は hov prop（文字列形式）へ。複数トークンは空白結合し、
   //    最初のトークンの位置に hov 属性を出す（連続して書かれていれば往復で順序が保たれる）
   const propAttrs: string[] = [];
   const restClassTokens: string[] = [];
@@ -632,7 +632,7 @@ const htmlElementToJsx = (el: Element): PrintableElement => {
   }
   // hov / util / set の挿入は出現位置の後ろ側から行う（先に前方へ挿入すると後方の index がズレるため）
   const pendingAttrs: { index: number; attr: string }[] = [];
-  if (hovValues.length > 0) pendingAttrs.push({ index: hovAttrIndex, attr: attrToString('hov', hovValues.join(',')) });
+  if (hovValues.length > 0) pendingAttrs.push({ index: hovAttrIndex, attr: attrToString('hov', hovValues.join(' ')) });
   if (utilValues.length > 0) pendingAttrs.push({ index: utilAttrIndex, attr: attrToString('util', utilValues.join(' ')) });
   if (setValues.length > 0) pendingAttrs.push({ index: setAttrIndex, attr: attrToString('set', setValues.join(' ')) });
   pendingAttrs.sort((a, b) => b.index - a.index);
@@ -790,13 +790,10 @@ const jsxElementToHtml = (el: Element): PrintableElement => {
         classTokens.push(`-${attr.name}:${attr.value}`);
       }
     } else if (attr.name === 'hov') {
-      // 文字列形式の hov（カンマ区切りで複数可）を -hov:{val} クラスへ展開（本物の setHovProps と同じ規則）
-      for (const value of attr.value.split(',')) {
-        const trimmed = value.trim();
-        if (!trimmed) continue;
-        // hov は値を変換せずクラスへ素通しする仕様なので、スペース入りの値はクラスを壊す
-        if (/\s/.test(trimmed)) throw new JsxConvertError(`invalid hov value: ${trimmed}`);
-        classTokens.push(`-hov:${trimmed}`);
+      // 文字列形式の hov（空白区切り。カンマ互換）を -hov:{val} クラスへ展開（本物の setHovProps と同じ分割規則）
+      for (const value of attr.value.split(/[,\s]+/)) {
+        if (!value) continue;
+        classTokens.push(`-hov:${value}`);
       }
     } else if (attr.name === 'util') {
       // util prop（空白区切り。カンマ互換）を u--{name} クラスへ展開（本物の mergeSet と同じ分割規則）。
