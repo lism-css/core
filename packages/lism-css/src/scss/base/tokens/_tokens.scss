@@ -27,8 +27,8 @@
 :root {
   /**
    * shadow の構造変数
-   *   Memo: 影色そのものは color.shadow（--shadow）として tokens.ts 側で定義している。
-   *         --shc は .set--bxsh から上書きして使うために１階層挟む
+   *   Memo: 影色の基準は color.shadow（--shadow）として tokens.ts 側で定義している。
+   *         --shc は、--shadow を変えずに影の色だけを上書きできる専用の変数。要素単位で上書きするときは .set--bxsh と併用する。
    */
   --shc: var(--shadow);
   --shc--near: color-mix(in srgb, var(--shc), transparent 50%);

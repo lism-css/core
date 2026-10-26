@@ -38,7 +38,7 @@ export default {
     // ライトモード・ダークモードのどちらでもブレンドして使えるようなニュートラルカラー。
     //  Memo: 黒からの変化の方がわかりづらいため、明るめにする。
     neutral: 'hsl(220, 2%, 75%)',
-    // shadow: 影の色。--shc（手書き SCSS）はこの変数の別名で、.set--bxsh から上書きされる。
+    // shadow: 影色の基準。影の色だけを上書きする専用の変数 --shc（手書き SCSS）がこれを参照する。
     shadow: 'hsl(220 2% 4% / 8%)',
   },
 
@@ -122,7 +122,7 @@ export default {
   bdrs: { '10': '0.25rem', '20': '0.375rem', '30': '0.625rem', '40': '1rem', '50': '1.5rem', '99': '99rem', inner: '-' },
 
   // box-shadow: 構造変数 --shsz--*（手書き SCSS）と影色 --shc を合成。.set--bxsh で再宣言され影色 --shc を上書きできる。
-  //  Memo: --shc は color.shadow（--shadow）の別名（手書き SCSS で定義）。
+  //  Memo: --shc は --shadow を変えずに影の色だけを上書きできる専用の変数（手書き SCSS で定義）。
   bxsh: {
     '10': 'var(--shsz--5) var(--shc--near), var(--shsz--10) var(--shc)',
     '20': 'var(--shsz--10) var(--shc--near), var(--shsz--20) var(--shc)',
