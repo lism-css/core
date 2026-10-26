@@ -110,19 +110,21 @@ hr {
   padding-inline-start: var(--list-ps, 1.75em);
 }
 
-dt {
-  font-weight: var(--fw--bold);
-}
-dd + dt {
-  margin-block-start: var(--s20);
-}
-
 /* --------------------------------------------------
-  table
+  table, dl
 -------------------------------------------------- */
 td,
 th {
   padding: var(--cells-p, 0.625em 0.875em);
+}
+
+dt,
+th {
+  font-weight: var(--fw--bold);
+}
+
+dd + dt {
+  margin-block-start: var(--s20);
 }
 
 /* --------------------------------------------------
