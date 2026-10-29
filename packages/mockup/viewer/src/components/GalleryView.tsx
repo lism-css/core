@@ -27,13 +27,7 @@ interface GalleryViewProps {
   onOpenPage: (pageId: string) => void;
 }
 
-/**
- * Default view: every page side by side, each one inside its own iframe.
- *
- * Pages occupy the whole viewport by design (`position: fixed` headers, `100dvh`
- * sections), so they cannot share a document. One iframe per page gives each of
- * them the isolated viewport it was written for.
- */
+/** Default view: every page side by side, each inside its own iframe (why: see `App.tsx`). */
 export default function GalleryView({ groups, onOpenPage }: GalleryViewProps) {
   return (
     <Stack p="30" g="40">

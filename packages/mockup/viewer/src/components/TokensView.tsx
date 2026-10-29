@@ -9,7 +9,6 @@ import TokenPreview, { tokenGroupLayout } from './TokenPreview';
 /** Label of this view. Shared with the header, the nav and `document.title`. */
 export const TOKENS_VIEW_LABEL = 'Design tokens';
 
-/** Short badge text for the tokens the mockup's `tokens.json` touched. */
 const SOURCE_LABELS: Record<Exclude<ViewerToken['source'], 'default'>, string> = {
   overridden: 'Custom',
   custom: 'New',
@@ -24,15 +23,10 @@ const SOURCE_LABELS: Record<Exclude<ViewerToken['source'], 'default'>, string> =
 const sectionId = (id: string) => `tokenGroup-${id}`;
 
 /**
- * Column tracks of a group's rows.
- *
- * `TABLE` is preview (spanning two tracks) / name (+ badge) / value on one
- * line. `STACKED` keeps two tracks and two rows: the preview spans the first
- * row, then the name and value share the second. Which breakpoint swaps one
- * for the other depends on the group: a wide preview only leaves room for the
- * full table from `md`, everything else manages from `sm`. Responsive
- * positions are `[base, sm, md]`, so the wide variant skips `sm` with a
- * `null`.
+ * Column tracks of a group's rows. Groups with an `isWide` preview switch to the
+ * table from `md`, the others from `sm` (see `PreviewSpec.isWide` in
+ * TokenPreview). Responsive values are `[base, sm, md]`, so the wide variant
+ * skips `sm` with a `null`.
  *
  * The var name is not a column: it is the group's `varPrefix` plus the key, and
  * the prefix is shown once next to the heading instead of on every row.
@@ -42,21 +36,10 @@ const TABLE_COLUMNS = 'minmax(max-content, 20%) 1fr minmax(max-content, 20%) min
 const STACKED_AREAS = `'preview preview' 'name value'`;
 const TABLE_AREAS = `'preview preview name value'`;
 
-/**
- * Column tracks of a group whose keys are already the custom property names.
- *
- * Those rows only carry a name and a value, and there is no preview to line up,
- * so the two columns hold at any width — no responsive variant is needed.
- */
+/** Columns of a group whose keys are already custom property names: name and value only, no preview to line up, so no responsive variant. */
 const VAR_ONLY_COLUMNS = 'minmax(max-content, 30%) auto';
 
-/**
- * Outline entries, one per section. Built once at module scope: `tokenGroups` is
- * a constant of the generated module, and `useActiveSection` needs a stable
- * array of ids. Dark sections are entries of their own, so they need no extra
- * handling here — they are already in `tokenGroups`, right after the group they
- * mirror.
- */
+/** Built once at module scope: `useActiveSection` needs a stable array of ids. */
 const OUTLINE_ITEMS: OutlineItem[] = tokenGroups.map((section) => ({ label: section.label, id: sectionId(section.id) }));
 const SECTION_IDS = OUTLINE_ITEMS.map((item) => item.id);
 
@@ -70,10 +53,8 @@ const SECTION_IDS = OUTLINE_ITEMS.map((item) => item.id);
 export default function TokensView() {
   return (
     <>
-      {/* `is--wrapper` keeps the rows at a readable measure (its default
-          `--contentSize` is already `--sz--m`) instead of letting them stretch
-          across a wide screen. The end padding is wider than the start one
-          because that is where the floating outline sits. */}
+      {/* `is--wrapper` keeps the rows at a readable measure; the end padding is
+          wider because the floating outline sits there. */}
       <Stack isWrapper py="30" ps="30" pe="50" g="40">
         <Stack g="10">
           <Heading level="2" fz="l">
@@ -98,13 +79,10 @@ export default function TokensView() {
 }
 
 /**
- * The outline, with the section tracking it needs.
- *
- * `useActiveSection` changes state on every section the reader passes, so it is
- * kept in this leaf: called from `TokensView`, every one of those changes would
- * re-render the whole token list — hundreds of rows — for a highlight that only
- * moves inside the outline. Both constants it needs are module scope, so nothing
- * has to be handed down for this to be a component of its own.
+ * The outline with its section tracking, as a leaf of its own: `useActiveSection`
+ * changes state on every section the reader passes, and calling it from
+ * `TokensView` would re-render the whole token list (hundreds of rows) for a
+ * highlight that only moves inside the outline.
  */
 function ScrollSpyOutline() {
   const activeId = useActiveSection(SECTION_IDS);
@@ -125,11 +103,9 @@ function TokenGroupSection({ section }: TokenGroupSectionProps) {
   const { note, isBlock: isBlockPreview, isWide } = tokenGroupLayout(group);
 
   // A group whose prefix is empty (the leftover `vars` section) has the custom
-  // property name as its key, so its rows drop to name + value only. Checked on
-  // the tokens themselves rather than on the group name, so a group named
-  // differently but built the same way is laid out the same way. A group with a
-  // block preview keeps the normal row: its rows are not in a grid at all, so
-  // they have no columns to drop.
+  // property name as its key, so its rows drop to name + value. Checked on the
+  // tokens, not the group name. A block preview keeps the normal row (it is not
+  // in a grid, so has no columns to drop).
   const isVarOnly = !isBlockPreview && tokens.length > 0 && tokens.every((token) => token.key === token.varName);
 
   // The structural variables the group's values are computed from are knobs,
@@ -153,18 +129,15 @@ function TokenGroupSection({ section }: TokenGroupSectionProps) {
     <TokenRow key={token.key} group={group} token={token} isBlockPreview={isBlockPreview} isVarOnly={isVarOnly} isWide={isWide} hasBadge={!isDark} />
   ));
 
-  // The list is rendered inside the dark scope, not just labelled as dark:
-  // a shadow or a swatch close to the base color can only be judged against the
-  // background it will actually sit on. `bgc`/`c` resolve inside the scope, so
-  // the box paints itself with the dark values the rows below describe.
+  // Rendered inside the dark scope, not just labelled: a shadow or swatch close to
+  // the base color can only be judged against its real background. `bgc`/`c`
+  // resolve inside the scope.
   const listScope = isDark ? { className: darkScopeClass, bgc: 'base', c: 'text', p: '20', bdrs: '20' } : {};
 
   return (
-    // The outline scrolls sections to the top edge, so they keep a little air
-    // above them when it does.
-    // `isContainer` is what makes the rows below responsive: `is--wrapper` caps
-    // its children — this section — at `--sz--m`, so the section is exactly the
-    // box the rows live in and its width is the one worth querying.
+    // Keeps air above the section when the outline scrolls to it.
+    // `isContainer`: `is--wrapper` caps this section at `--sz--m` (its default
+    // `--contentSize`), so its width is the one worth querying.
     <Stack as="section" id={sectionId(id)} isContainer max-sz={isBlockPreview ? 'full' : undefined} g="15" style={{ scrollMarginBlockStart: '1rem' }}>
       <Flex ai="baseline" g="10" fxw="wrap">
         <Heading level="3" fz="xs" fw="bold" c="text-2" tt="uppercase" lts="l">
@@ -193,9 +166,9 @@ function TokenGroupSection({ section }: TokenGroupSectionProps) {
           {rows}
         </Stack>
       ) : (
-        // The columns are declared once here and every row inherits them through
-        // `subgrid`, so a column ends up exactly as wide as the widest cell of
-        // the group and no preview has to hard-code a width to line up.
+        // Columns are declared once here; rows inherit them through `subgrid` (see
+        // `PreviewSpec.placement`), so a column is as wide as the widest cell of
+        // the group.
         <Grid
           as="ul"
           gtc={isVarOnly ? VAR_ONLY_COLUMNS : isWide ? [STACKED_COLUMNS, null, TABLE_COLUMNS] : [STACKED_COLUMNS, TABLE_COLUMNS]}
@@ -225,14 +198,10 @@ function SourceBadge({ source }: { source: ViewerToken['source'] }) {
 }
 
 interface TokenRowProps {
-  /** Decides which preview shape the row gets. */
   group: string;
   token: ViewerToken;
-  /** Whether the preview takes a band under the row instead of a column beside it. */
   isBlockPreview: boolean;
-  /** Whether the row shows the custom property name and the value only. */
   isVarOnly: boolean;
-  /** Whether the group's table layout waits for `md` (see `STACKED_COLUMNS`). */
   isWide: boolean;
   /**
    * Whether the row may carry a source badge. A dark section is a list of
@@ -246,9 +215,7 @@ function TokenRow({ group, token, isBlockPreview, isVarOnly, isWide, hasBadge }:
   const preview = <TokenPreview group={group} tokenKey={token.key} varName={token.varName} ga={isBlockPreview ? undefined : 'preview'} />;
   const badge = hasBadge && <SourceBadge source={token.source} />;
 
-  // A group whose key is already the custom property name has nothing to show
-  // besides that name and its value: no preview shape is defined for it, and a
-  // key column would repeat the name. Two columns, no responsive variant.
+  // Name and value only (see `VAR_ONLY_COLUMNS`).
   if (isVarOnly) {
     return (
       <Grid as="li" gtc="subgrid" gc="1/-1" ai="center" g="25" py="10">
@@ -290,11 +257,8 @@ function TokenRow({ group, token, isBlockPreview, isVarOnly, isWide, hasBadge }:
   }
 
   return (
-    // `subgrid` takes the columns from the `ul`, so the cells line up with every
-    // other row without knowing anything about their own width. Named areas
-    // keep placement explicit: the preview spans the first row at narrow
-    // widths, while the name and value share the second row. At the group's
-    // table breakpoint all three line up, with the preview spanning two tracks.
+    // Takes the `ul`'s columns through `subgrid`; the areas place the cells per
+    // breakpoint.
     <Grid
       as="li"
       gtc="subgrid"

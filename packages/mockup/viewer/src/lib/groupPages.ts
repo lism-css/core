@@ -1,18 +1,12 @@
 import type { ViewerPage } from 'virtual:lism-mockup/pages';
 
-/** A nav group in the sidebar. */
 export interface PageGroup {
-  /** Stable React key. Uses a reserved key for the default group. */
   key: string;
-  /** Heading shown above the group. */
   label: string;
   pages: ViewerPage[];
 }
 
-/** Key used for pages that do not declare a `category`. */
 const DEFAULT_GROUP_KEY = '__lism-mockup:default__';
-
-/** Heading shown for pages without a `category`. */
 const DEFAULT_GROUP_LABEL = 'Pages';
 
 /**

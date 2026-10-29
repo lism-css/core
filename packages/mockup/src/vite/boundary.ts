@@ -197,7 +197,6 @@ function unresolvedMessage(specifier: string, resolution: PackageResolution): st
     : `Cannot resolve ${JSON.stringify(specifier)} from @lism-css/mockup. Reinstall @lism-css/mockup and try again.`;
 }
 
-/** import境界を`resolveId`で強制するViteプラグイン。 */
 export function importBoundaryPlugin(ctx: ImportBoundaryOptions): Plugin {
   // ファイル差し替え後の古いrealpath判定を使わないため、キャッシュはプラグイン単位に閉じwatcherで破棄する。
   const realpathCache = new Map<string, string>();

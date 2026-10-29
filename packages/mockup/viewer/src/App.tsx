@@ -25,7 +25,6 @@ import { groupPages } from './lib/groupPages';
 import { splitPinnedPage } from './lib/pinnedPage';
 import { useViewerRoute } from './lib/useViewerRoute';
 
-/** Fallback used when `mockup.config.json` does not declare a `title`. */
 const DEFAULT_TITLE = 'Lism Mockup';
 
 /** Id used to wire the sidebar's collapse / expand buttons to it (`aria-controls`). */
@@ -66,9 +65,8 @@ export default function App() {
     mainRef.current?.scrollTo({ top: 0 });
   }, [route]);
 
-  // Embedded mode (`?page=…&embed=1`), which the gallery loads inside its
-  // iframes: no shell at all, so the page owns the whole viewport again and its
-  // `position: fixed` / `100dvh` rules resolve against the iframe.
+  // Embedded mode (see the header): no shell, so the page owns the viewport
+  // inside the iframe.
   if (route.view === 'page' && route.embed) {
     return currentPage ? <PageView page={currentPage} /> : <EmptyState pages={allPages} requestedPageId={route.pageId} />;
   }

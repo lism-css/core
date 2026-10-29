@@ -18,7 +18,6 @@ import { MockupContractError } from '../core/types.js';
 export const LUCIDE_PACKAGE_NAME = 'lucide-react';
 
 export const VIRTUAL_LUCIDE_ID = 'virtual:lism-mockup/lucide-react';
-/** rollup 慣習の `\0` 付き解決済み id（他プラグインが触らないようにするため）。 */
 export const RESOLVED_VIRTUAL_LUCIDE_ID = `\0${VIRTUAL_LUCIDE_ID}`;
 
 /**
@@ -26,14 +25,9 @@ export const RESOLVED_VIRTUAL_LUCIDE_ID = `\0${VIRTUAL_LUCIDE_ID}`;
  *
  * どちらも呼び出し側が渡す `iconNode` を描画するだけでアイコンセットを参照しないため、
  * アイコンを1つも増やさずに本物と同じものを供給できる。
- * 生成コード側の識別子は小文字始まりにして（PascalCase のアイコン名と衝突しないように）、
- * export のときだけ本物の名前へ付け替える。
  */
 export const SUPPORTED_LUCIDE_API = ['Icon', 'createLucideIcon'] as const;
 
-/**
- * `check` で「そんな export は無い」という rollup のエラーが出た時に、これを説明へ差し替える。
- */
 const UNSUPPORTED_LUCIDE_EXPORTS: ReadonlyMap<string, string> = new Map([
   [
     'icons',
@@ -225,8 +219,7 @@ export function buildLucideIconIndex(iconSet: LucideIconSet): LucideIconIndex {
  *
  * ランタイムは `createElement` + `dangerouslySetInnerHTML` だけで、lucide-react の
  * `Icon` / `createLucideIcon` が作る `<svg>` と同じルート属性・class 名になるようにしている。
- * props（`size` / `color` / `strokeWidth` / `absoluteStrokeWidth` / `className` / その他 SVG 属性 / `ref`）も
- * lucide-react と同じ意味で受け取る。
+ * props も lucide-react と同じ意味で受け取る。
  */
 export function generateLucideModule(iconSet: LucideIconSet): string {
   const index = buildLucideIconIndex(iconSet);
@@ -397,7 +390,6 @@ function createLucideIcon(iconName, iconNode) {
 
 /**
  * rollup が「その export は無い」で落ちたとき、対応範囲を説明するメッセージへ差し替える。
- * 仮想モジュール以外のエラーには関与しない（null を返して元のメッセージを使わせる）。
  *
  * rollup のエラーは `code` / `binding` / `exporter` を持つので、メッセージ文字列ではなく
  * その3つで判定する。素の rollup エラーは `"icons" is not exported by " virtual:…"` のように

@@ -36,11 +36,7 @@ function walkPageFiles(dir: string, prefix: string, out: { id: string; file: str
   }
 }
 
-/**
- * `pages/`を再帰走査し、設定のメタデータをマージする。
- *
- * 並び順は `order` 昇順 → id 辞書順。`order` 未指定のページは指定済みページの後ろへ回す。
- */
+/** 並び順は `order` 昇順 → id 辞書順。`order` 未指定のページは指定済みページの後ろへ回す。 */
 export function discoverPages(dataDir: string, config: MockupConfigFile): PageEntry[] {
   const pagesDir = path.join(dataDir, PAGES_DIRNAME);
   if (!fs.existsSync(pagesDir) || !fs.statSync(pagesDir).isDirectory()) {
