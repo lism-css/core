@@ -285,7 +285,8 @@ See the [`hover` documentation page](/en/docs/property-class/hov#set--hov) for u
 ## `set--bleed`
 
 A class that generates the `--bleed` variable, used for building bleed layouts where only one side extends to the edge of the screen.
-The amount of space outside the content width (`--contentSize`) is set as its value. The gutter width (`--gutter-px`) acts as the lower bound — if the computed value falls below the gutter width, the gutter width is returned instead.
+The amount of space outside the content width (`--contentSize`) is set as its value. The gutter width acts as the lower bound — if the computed value falls below the gutter width, the gutter width is returned instead.
+The gutter width comes from `--gutter-px`. In 1.x, however, the deprecated `--gutter` takes precedence when it is set or inherited (inside a `.has--gutter`, the `--gutter` resolved on that `.has--gutter` element is inherited).
 
 <SrcCode path="src/scss/base/set/_bleed.scss" />
 

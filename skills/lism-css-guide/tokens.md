@@ -262,7 +262,7 @@ CSSコードを書く場合やコンポーネントのPropsに値を指定する
 
 同じ余白量に揃う箇所:
 
-- `.set--bleed` の `--bleed` の下限
+- `.set--bleed` の `--bleed` の下限（1.xでは `--gutter` が設定・継承されていればその値を優先）
 - `is--container` と `has--gutter` 併用時の `--sz--bleed`
 - `has--gutter` 直下の `-max-sz:full` の負 margin による hang 拡張
 
