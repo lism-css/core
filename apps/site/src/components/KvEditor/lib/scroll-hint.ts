@@ -4,9 +4,7 @@
 const FADE_MAX = 16; // フェードの最大高さ（px）
 
 /**
- * スクロールコンテナの上下端フェードを初期化する。
- * スクロール位置に応じて CSS 変数 --kvEditor-mask-top / --kvEditor-mask-bottom を更新する
- * （mask-image の定義は _kv-editor.scss 側）。
+ * スクロールコンテナの上下端フェードを初期化する（mask-image の定義は _kv-editor.scss 側）。
  * 戻り値は、スクロールを伴わないコンテンツ変更後に手動で呼ぶための更新関数
  */
 export function initScrollHint(el: HTMLElement): () => void {

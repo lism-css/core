@@ -44,7 +44,6 @@ export async function highlight(code: string, lang: EditorLang): Promise<string>
   return toHtml(await getHighlighter(), code, lang);
 }
 
-/** highlightSync を使えるようにするための事前初期化 */
 export async function preloadHighlighter(): Promise<void> {
   await getHighlighter();
 }

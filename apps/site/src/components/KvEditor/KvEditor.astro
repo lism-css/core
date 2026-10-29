@@ -1,10 +1,8 @@
 ---
 /**
- * KVヒーロー + ライブコードエディター + AIデモパネル
- *
- * ヒーローエリア（.c--kvEditorHero）はエディターの描画結果そのもの。
- * 初期状態は SEO のためサーバーサイドでレンダリングし、
- * クライアントではエディターの編集・AIシナリオ再生に応じて innerHTML を書き換える。
+ * KVヒーロー + ライブコードエディター + AIデモパネル（設計は README.md）。
+ * ヒーロー（.c--kvEditorHero）はエディターの描画結果そのもの。初期状態は SEO のためサーバー側で描画し、
+ * クライアントが編集・シナリオ再生に応じて innerHTML を書き換える。
  */
 import { getRootLang, t, type LangCode } from '@/lib/i18n';
 import { INITIAL_HTML_BY_LANG } from './initial-code';
@@ -47,7 +45,6 @@ const highlighted = await highlight(initialHtml, 'html');
           aria-controls="kv-editor-panel"
           data-kv-tab="html">HTML</button
         >
-        {/* roving tabindex: 非選択タブはフォーカス順から外す（矢印キーで移動する） */}
         <button
           class="c--kvEditor_tab"
           type="button"
@@ -61,16 +58,13 @@ const highlighted = await highlight(initialHtml, 'html');
       </div>
       {
         isLiveMode && (
-          /* ライブループ再生の「Live Demo ▶/⏸」トグル。自動で動き続けるデモの停止手段（WCAG 2.2.2）と、
-             ホバーを持たないタッチデバイスの再開導線を兼ねる。ラベルは「勝手に動いている」ことの説明で、
-             再生中はネオン風に発光する。アイコンは CSS（mask）で状態別に描画する。
+          /* ライブループ再生の「Live Demo ▶/⏸」トグル（停止手段と再開導線を兼ねる理由は loop.ts のヘッダー）。
+             ラベルは「勝手に動いている」ことの説明で、再生中はネオン風に発光する。アイコンは CSS（mask）で状態別に描画する。
              アクセシブルネームは aria-label が担うためラベルは aria-hidden（可視文言 "live demo" を含むので WCAG 2.5.3 も満たす） */
           <button class="c--kvEditor_playToggle" type="button" data-kv-loop-toggle data-kv-loop-state="paused" aria-label={STRINGS.playDemo}>
             <span class="c--kvEditor_playToggleLabel" aria-hidden="true">
               {STRINGS.liveDemo}
             </span>
-            {/* アイコンは span 実要素。mask と drop-shadow を同一要素に掛けると filter → mask の順で
-                影ごと切り抜かれるため、mask は ::before・グローの filter は span 本体に分離する */}
             <span class="c--kvEditor_playToggleIcon" aria-hidden="true" />
           </button>
         )
@@ -110,7 +104,7 @@ const highlighted = await highlight(initialHtml, 'html');
           <p class="c--kvEditor_placeholderText">Just ask. The code writes itself.</p>
         </div>
         <div class="c--kvEditor_messages" data-kv-messages />
-        {/* SR向けの隠しライブリージョン。タイピング演出の途中経過は告知せず、確定した文言だけを player.ts が流し込む */}
+        {/* SR向けの隠しライブリージョン（player.ts が確定文言だけを流し込む） */}
         <p class="u--srOnly" data-kv-live aria-live="polite" />
         <button class="c--kvEditor_ask" type="button" data-kv-play aria-label="Ask AI to edit... (play the AI demo)">
           <span class="c--kvEditor_askText" data-kv-ask-text>

@@ -6,10 +6,8 @@
 // 「空のときのリセット提案（永続）」の上に「上限到達の警告（自動クローズ）」が
 // 積まれても、提案が上書きで消えず Restore 手段が失われない。
 //
-// スタックの出入りは「折りたたみラッパー（.c--kvEditor_snackbarRow）」の height だけを
-// アニメーションさせる。隙間（gap）はカード側の margin-top で持たせ、ラッパーの
-// overflow: hidden（BFC 化）で height に内包しているため、「カード＋隙間」を
-// 1つの height トランジションで滑らかに畳める（詳細は _kv-editor.scss のコメント参照）。
+// スタックの出入りは折りたたみラッパー（.c--kvEditor_snackbarRow）の height だけをアニメーションさせる。
+// 隙間はカード側の margin で持つ（理由と詳細は _kv-editor.scss のコメント参照）。
 
 const AUTO_HIDE_MS = 4000;
 // height トランジション（0.2s）完了を待つ処理のフォールバック。
@@ -84,8 +82,8 @@ export function createSnackbar(container: HTMLElement): Snackbar {
     // これで上のスナックバーが一気に落ちず、隙間ごと滑らかに詰まる。
     row.style.height = `${row.getBoundingClientRect().height}px`;
     void row.offsetHeight; // 固定した height を確定させてから遷移を開始
-    card.classList.remove('is--show'); // カードはフェード＆スライドアウト
-    row.style.height = '0'; // ラッパーは高さを 0 へ（カードの margin ごと畳む）
+    card.classList.remove('is--show');
+    row.style.height = '0';
     item.settleCancel = onHeightSettled(row, () => {
       row.remove();
       // 畳んでいる間に同じ key が差し替えられていれば、そちらは消さない
@@ -100,8 +98,8 @@ export function createSnackbar(container: HTMLElement): Snackbar {
     const current = row.getBoundingClientRect().height;
     row.style.height = ''; // 自然高さ（隙間込み）を測る
     const target = row.getBoundingClientRect().height;
-    row.style.height = `${current}px`; // 畳みかけの高さへ戻す
-    void row.offsetHeight; // 固定した height を確定させてから遷移を開始
+    row.style.height = `${current}px`;
+    void row.offsetHeight;
     item.exiting = false;
     card.classList.add('is--show');
     row.style.height = `${target}px`;
@@ -132,9 +130,9 @@ export function createSnackbar(container: HTMLElement): Snackbar {
     // 実寸は追加直後（描画前）に測るため、全高フレームは表示されない。
     const target = row.getBoundingClientRect().height;
     row.style.height = '0';
-    void row.offsetHeight; // height 0 を確定
+    void row.offsetHeight;
     const item: Item = { row, card, message };
-    // rAF id を控え、発火前に row を取り除く側（remove / showAction の差し替え）がキャンセルできるようにする
+    // 発火前に取り除く側（remove / showAction）が取り消せるよう id を控える
     item.enterRaf = requestAnimationFrame(() => {
       item.enterRaf = undefined;
       card.classList.add('is--show');
@@ -176,7 +174,7 @@ export function createSnackbar(container: HTMLElement): Snackbar {
     // ボタンの異なる既存の提案は即時に差し替える（シングルトン）
     if (existing) {
       clearTimeout(existing.timer);
-      // 入場 rAF が未発火なら取り消してから取り除く（発火すると height を再設定して一瞬ゾンビ化するため）
+      // 入場 rAF が未発火なら取り消す（理由は remove 参照）
       if (existing.enterRaf !== undefined) cancelAnimationFrame(existing.enterRaf);
       existing.settleCancel?.();
       existing.row.remove();

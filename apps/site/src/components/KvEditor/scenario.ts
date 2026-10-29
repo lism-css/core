@@ -10,9 +10,7 @@
 import { INITIAL_HTML_BY_LANG, type DemoLang } from './initial-code';
 
 export interface ScenarioStep {
-  /** ユーザー側の依頼として表示するメッセージ */
   userMessage: string;
-  /** AIの応答として表示するメッセージ（HTMLタブ再生時） */
   aiMessage: string;
   /** JSXタブ再生時のAI応答（表記の違いを反映。省略時は aiMessage で代用） */
   aiMessageJsx?: string;

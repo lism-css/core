@@ -1,15 +1,11 @@
 // AIシナリオの再生エンジン（mode: 'ai' のチャット型デモ）。
 // 「Ask AI to...」クリックで全ステップを順に一気に再生する。
-// - 各ステップ: ユーザー発話（入力欄でタイピング → 送信で吹き出しに一括表示）→ AI発話（タイピング）→ コード書き換え（変更行のハンクごとの diffタイピング）
-// - アクティブタブの表記で再生する（シナリオの resultCode は HTML。JSXタブでは htmlToJsx で変換してタイピング）
-// - コードは「現在のエディター内容 → resultCode」の diff で書き換えるため、再生開始時にスナップしない（再生前のユーザー編集が出発点になる）
-//   ただしエディターが空のときは、初期コード全文のタイピングは冗長なため初期コード（initialHtml）へ即時復元してから再生する
-// - 再生中にエディターへ focus / pointerdown / タブ切替 / Ask ボタンのクリック → その場で即中断（書きかけのまま残す）し、チャットに "Interrupted" + Resume ボタンを表示
-// - Resume ボタン（または再生トリガー）→ 中断した瞬間の続きから再生する（吹き出しの途中テキスト・書きかけコードをそのまま残し、
-//   AI発話は止まった文字位置から続け、コードは現在のビュー → 目標コードの差分で残りを書き換える）
-// - 全ステップ完了 → チャット末尾に "Done" ステータス行を表示。再クリックでチャットをクリアし初期コードへ戻して最初から
+// - 各ステップ: ユーザー発話（入力欄でタイピング → 送信で吹き出し）→ AI発話（タイピング）→ コード書き換え（ハンクごとの diff タイピング）
+// - アクティブタブの表記で再生する（resultCode は HTML。JSXタブでは htmlToJsx で変換してタイピング）
+// - 再生中のエディター操作・タブ切替・Ask 再クリックは即中断（書きかけのまま残し "Interrupted" + Resume を表示）。Resume は止まった位置の続きから再生する
+// - 全ステップ完了 → "Done" 行を表示。再クリックでチャットをクリアし初期コードへ戻して最初から
 // - prefers-reduced-motion: タイピングを省略し、結果を即時適用する
-// コード書き換えアニメの実体は code-anim.ts（ライブループ再生の loop.ts と共有）
+// コード書き換えアニメの実体は code-anim.ts（loop.ts と共有）
 import type { ScenarioStep } from '../scenario';
 import { AbortedError, createCodeAnimator, sleep } from './code-anim';
 import type { EditorApi } from './editor';
@@ -117,7 +113,6 @@ export function createPlayer({ editor, messages, placeholder, playButtons, askTe
     }
   };
 
-  /** 入力欄トリガーをプレースホルダー表示に戻す */
   const resetAsk = (): void => {
     for (const el of askTexts) {
       el.classList.remove('is--typing');
@@ -190,7 +185,6 @@ export function createPlayer({ editor, messages, placeholder, playButtons, askTe
   // NOTE: 実体は後段で定義（run と相互参照のため）。呼び出しは常にユーザー操作時なので初期化済み
   let onPlayClick: () => void = () => {};
 
-  /** ステータス行（吹き出しではないシステム表示）をチャット末尾に追加する */
   const appendStatusRow = (labelText: string): HTMLElement => {
     const row = document.createElement('p');
     row.className = 'c--kvEditor_status';
@@ -202,7 +196,6 @@ export function createPlayer({ editor, messages, placeholder, playButtons, askTe
     return row;
   };
 
-  /** 中断ステータス行（"Interrupted" + Resume ボタン）をチャット末尾に追加する */
   const showInterrupted = (): void => {
     const row = appendStatusRow(STRINGS.interrupted);
     row.classList.add('is--interrupted');

@@ -90,7 +90,6 @@ export function findHtmlIssue(code: string): string | null {
     const lt = code.indexOf('<', i);
     if (lt === -1) break;
 
-    // コメント
     if (code.startsWith('<!--', lt)) {
       const end = code.indexOf('-->', lt + 4);
       if (end === -1) return 'unterminated comment';

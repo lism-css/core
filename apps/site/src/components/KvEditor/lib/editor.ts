@@ -53,7 +53,6 @@ export interface EditorApi {
   /**
    * 編集位置（行番号と行内の先行テキスト）を可視範囲へスクロールする。スクロールが発生したら true。
    * scrollWindow: false で textarea 内部のみスクロールし、ページ側は動かさない
-   * （自動ループ再生がユーザーのスクロール位置を奪わないため）
    */
   revealPosition(line: number, linePrefix: string, scrollWindow?: boolean): boolean;
   /** 保留中の構文チェック（デバウンス評価）と表示中の通知を破棄する */
@@ -154,6 +153,7 @@ export function initKvEditor(): void {
   // モバイルでは書き換え箇所がスクロール範囲外にあり演出が見えないことがあるため、
   // プレイヤーがハンクの書き換え前に呼ぶ。scrollTop/Left・clientWidth/Height・
   // フォント計測はすべて scale 変形前のローカル座標系で一貫しているのでそのまま計算できる
+
   // MediaQueryList は 1 回だけ生成して使い回す（.matches は live なので設定変更にも追従する）
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   let measureCtx: CanvasRenderingContext2D | null = null;
@@ -197,10 +197,9 @@ export function initKvEditor(): void {
       scrolled = true;
     }
 
-    // ページ側のスクロール: SP ではエディターの下の AI パネルを見ている間に
-    // 編集行がページのビューポート外へ出ていることがあるため、window 側も追従させる。
+    // ページ側のスクロール（ai モードの SP では、エディター下のパネルを見ている間に
+    // 編集行がビューポート外へ出うるため window 側も追従させる）。
     // 編集行の視覚位置 = textarea の画面上の位置 + （内部スクロール適用後の行オフセット × scale）
-    // 自動ループ再生（scrollWindow: false）ではユーザーのスクロール位置を奪わないためスキップする
     if (scrollWindow) {
       const rect = textarea.getBoundingClientRect();
       const scale = rect.width / textarea.offsetWidth;
@@ -413,7 +412,6 @@ export function initKvEditor(): void {
   const indentSelectedLines = (): void => {
     const { selectionStart: selStart, selectionEnd: selEnd } = textarea;
     const lineStarts = getSelectedLineStarts();
-    // 上限チェックは追加合計（2 × 対象行数）で行い、超えるなら中止する
     if (textarea.value.length + lineStarts.length * 2 > MAX_CODE_LENGTH) {
       snackbar?.show(STRINGS.characterLimit(MAX_CODE_LENGTH));
       return;
@@ -433,7 +431,7 @@ export function initKvEditor(): void {
       suppressInputEvents = false;
     }
     processInput();
-    // 選択範囲を論理的に同じ位置へ復元する（先頭行の挿入分 +2 を始点に、全行の挿入合計を終点に加算）
+    // 選択範囲を論理的に同じ位置へ復元する
     textarea.setSelectionRange(selStart + 2, selEnd + lineStarts.length * 2);
     saveSnapshot();
   };
@@ -448,8 +446,7 @@ export function initKvEditor(): void {
     const removedTotal = removeCounts.reduce((sum, n) => sum + n, 0);
     // 全行に削除対象がなければ何もしない（preventDefault 済みなのでフォーカスは移動しない = 挙動の予測可能性を保つ）
     if (removedTotal === 0) return;
-    // undo 履歴を保持するため execCommand を優先する（複数行の編集が行ごとの undo ステップに分かれるのは許容）。
-    // 行オフセットがずれないよう、最後の行から先頭行へ逆順に処理する
+    // execCommand 優先・逆順処理は indentSelectedLines と同じ
     suppressInputEvents = true;
     try {
       for (let i = lineStarts.length - 1; i >= 0; i--) {
@@ -457,7 +454,6 @@ export function initKvEditor(): void {
         const ls = lineStarts[i];
         textarea.setSelectionRange(ls, ls + removeCounts[i]);
         if (typeof document.execCommand === 'function' && document.execCommand('delete')) continue;
-        // フォールバック: input イベントは発火しないが、反映はループ後の processInput で同様に行われる
         textarea.setRangeText('', ls, ls + removeCounts[i], 'end');
       }
     } finally {
@@ -485,7 +481,6 @@ export function initKvEditor(): void {
       if (e.shiftKey) {
         outdentSelectedLines();
       } else if (textarea.value.slice(textarea.selectionStart, textarea.selectionEnd).includes('\n')) {
-        // 複数行にまたがる選択は選択を置換せず、行単位のインデントにする（一般的なコードエディターの動き）
         indentSelectedLines();
       } else {
         insertIndent();
@@ -515,7 +510,7 @@ export function initKvEditor(): void {
   // ---- 構文チェック・空チェック（デバウンス評価 → スナックバー） -------------
   let syntaxTimer: ReturnType<typeof setTimeout> | undefined;
   let syntaxReported = false; // 正常→不正の遷移時だけ表示する（不正のまま連発させない）
-  // 実体は後段で定義（setCode に依存するため）。呼び出しはデバウンス発火時なので初期化済み
+  // 実体は setCode に依存するため後段で定義する（呼び出しはデバウンス発火時なので初期化済み）
   let restoreInitialCode: () => void = () => {};
 
   // 初期コードのタブ別の表示テキスト。JSX 版は初回参照時にだけ変換する
@@ -533,7 +528,6 @@ export function initKvEditor(): void {
     snackbar?.showAction(STRINGS.restoreInitialCode, () => restoreInitialCode());
   };
 
-  /** 変更の有無に応じてリセット提案を出し入れする（構文警告の行とは独立して積まれる） */
   const syncRestorePrompt = (): void => {
     if (isModified()) showRestorePrompt();
     else snackbar?.hideAction();
@@ -569,8 +563,7 @@ export function initKvEditor(): void {
       syncRestorePrompt();
     }, SYNTAX_CHECK_DEBOUNCE_MS);
   };
-  // タブ切替・プログラム的な書き換え時は評価を破棄する（古いメッセージの誤表示防止）。
-  // 構文エラーの表示は両タブぶんまとめて消す（呼び出し側で片方を補わせない）
+  // 古いメッセージの誤表示を防ぐため、タブ切替・プログラム的な書き換え時に呼ぶ。エラー表示は両タブぶんまとめて消す（呼び出し側で片方を補わせない）
   const resetSyntaxCheck = (): void => {
     clearTimeout(syntaxTimer);
     syntaxReported = false;
@@ -696,8 +689,7 @@ export function initKvEditor(): void {
   });
 
   // ---- コードのプログラム的な書き換え --------------------------------------
-  // アクティブタブの表示テキストも同時に確定する。JSXタブなら htmlToJsx で変換した表記を表示する
-  //（表示テキストの決定は呼び出し側へ委ねず、ここで一括して行う。表示とモデルの乖離を作らないため）
+  // 表示テキストは呼び出し側へ委ねず、ここで一括して決める（表示とモデルの乖離を作らないため）
   const setCode = (code: string): void => {
     const viewText = state.activeTab === 'jsx' ? htmlToJsx(code) : code;
     if (textarea.value !== viewText) clearHighlights();
@@ -734,7 +726,6 @@ export function initKvEditor(): void {
     queueHighlight();
   };
 
-  // ハンク確定時のヒーロー反映。JSXタブは変換が通るときだけモデルを更新して反映する
   const commitView = (): void => {
     if (state.activeTab === 'html') {
       // モデルは setViewText がフレームごとに同期済みなのでヒーロー描画のみ
@@ -748,7 +739,6 @@ export function initKvEditor(): void {
     renderHero();
   };
 
-  // commitView が反映できる状態かの事前判定（HTMLタブは常に反映可能）
   const canCommitView = (): boolean => state.activeTab === 'html' || jsxToHtml(textarea.value) !== null;
 
   // リセット提案スナックバーの「Restore initial code」ボタン

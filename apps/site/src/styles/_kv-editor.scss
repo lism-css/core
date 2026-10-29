@@ -4,9 +4,7 @@
   :root {
     --kvEditor-sz: 56rem;
   }
-  /* ----------------------------------------
-      ヒーロー出力エリア（エディターの描画結果）
-   ---------------------------------------- */
+  /* ---- ヒーロー出力エリア（エディターの描画結果） ---- */
   .c--kvEditorHero {
     width: 100%;
 
@@ -25,7 +23,6 @@
     // href は言語でプレフィックスが変わる（en は /en/docs/installation/）ため後方一致で当てる
     a[href$='/docs/installation/'] {
       background-color: var(--gray-hi-c);
-      // ホバー時の色遷移
       transition:
         color 0.15s,
         background-color 0.15s;
@@ -35,7 +32,7 @@
       }
     }
 
-    // pathのd属性とLismのdisplay propが衝突するため、caret-rightをSVG直書きせずmaskで描く。
+    // caret-right は SVG 直書きせず mask で描く（理由は initial-code.ts の NOTE）。
     a[href$='/docs/installation/']::after {
       content: '';
       inline-size: 1em;
@@ -47,15 +44,12 @@
     }
   }
 
-  // ダークモードでは影を調整する。
   :root[data-theme='dark'] .c--kvEditorHero {
     // 暗い背景でも輪郭を保つため、影トークンを内側の線に置き換える。
     --bxsh--10: inset var(--shsz--10) var(--shc), 0 0 0 1px var(--divider);
   }
 
-  /* ----------------------------------------
-      "Edit Here!!" 手書き風装飾
-   ---------------------------------------- */
+  /* ---- "Edit Here!!" 手書き風装飾 ---- */
   // overflow:hiddenの外へ出すため、手書き風画像を高さ0の直前行から絶対配置する。
   .c--kvEditorEditHere {
     display: none;
@@ -84,9 +78,7 @@
     }
   }
 
-  /* ----------------------------------------
-      エディターウィンドウ + AIパネル
-   ---------------------------------------- */
+  /* ---- エディターウィンドウ + AIパネル ---- */
   .c--kvEditor {
     --kvEditor-bgc: hsl(228, 3%, 20%); // ウィンドウ全体の背景（Figmaモックアップ準拠のフラット構成）
     --kvEditor-surface: rgba(255, 255, 255, 0.08); // タブ・パネル・入力欄の面（白8%オーバーレイ）
@@ -234,7 +226,6 @@
 
       color: var(--kvEditor-neon);
 
-      // グローは mask 済みの ::before を内包する span 側に掛ける（アイコン形状の影になる）
       .c--kvEditor_playToggleIcon {
         filter: drop-shadow(0 0 4px color-mix(in srgb, var(--kvEditor-neon), transparent 50%));
       }
@@ -268,7 +259,7 @@
 
   /* ▶/⏸ アイコン（ラベルの右）。mask（形の切り抜き）と drop-shadow（グロー）は同一要素に掛けると
      filter → mask の順で適用されて影ごと切り抜かれてしまうため、mask は ::before に分離している
-     （グローの filter は再生中に外側のこの span へ掛かる。playToggle 側を参照） */
+     （グローの filter は再生中に外側のこの span へ掛かる） */
   .c--kvEditor_playToggleIcon {
     flex-shrink: 0;
 
@@ -283,9 +274,7 @@
     }
   }
 
-  /* ----------------------------------------
-      エディター（textarea + ハイライトpre の重ね）
-   ---------------------------------------- */
+  /* ---- エディター（textarea + ハイライトpre の重ね） ---- */
   .c--kvEditor_editor {
     position: relative;
     flex: 1;
@@ -394,7 +383,7 @@
   .c--kvEditor_input {
     position: absolute;
     inset: 0;
-    // iOSの自動ズームを避け、scale後もpreとcaret位置が合うよう寸法を逆補正する。
+    // scale後もpreとcaret位置が合うよう寸法を逆補正する。
     font-size: 16px;
     transform: scale(var(--kvEditor-input-scale));
     transform-origin: 0 0;
@@ -461,7 +450,6 @@
     align-items: center;
     gap: 0.5rem;
     max-width: 100%;
-    // スタック間の隙間。ラッパー(overflow:hidden)内なので height 折りたたみに含まれる
     margin-top: 0.5rem;
     padding: 0.5rem 0.5rem 0.5rem 0.75rem;
     border: 1px solid color-mix(in srgb, var(--kvEditor-warning), transparent 65%);
@@ -471,7 +459,7 @@
     color: var(--kvEditor-text);
     font-size: 0.75rem;
     line-height: 1.5;
-    pointer-events: none; // エディター操作を妨げない
+    pointer-events: none;
     opacity: 0;
     visibility: hidden;
     transform: translateY(0.5rem);
@@ -544,9 +532,7 @@
     }
   }
 
-  /* ----------------------------------------
-      AIパネル
-   ---------------------------------------- */
+  /* ---- AIパネル ---- */
   .c--kvEditor_panel {
     display: flex;
     flex-direction: column;
@@ -559,7 +545,6 @@
     border-inline-start: 1px solid rgba(255, 255, 255, 0.2);
 
     @media not (min-width: 800px) {
-      // SPは下段に全幅表示（境界は背景差のみ・ボーダーなし）
       border-inline-start: none;
     }
   }
@@ -726,7 +711,7 @@
     border-radius: 2px;
     background-color: #373a3d;
     color: #fff;
-    font-size: 0.5625rem; // 9px
+    font-size: 0.5625rem;
     line-height: 1;
   }
 }
@@ -741,7 +726,6 @@
   }
 }
 
-// 反映済み範囲のハイライトを減衰させる
 @keyframes kvEditor-applied-flash {
   from {
     opacity: 1;
