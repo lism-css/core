@@ -3,6 +3,7 @@ import { MenuIcon, SearchIcon } from '@lism-css/icons/astro';
 import { Flex, Cluster, Container, Icon, Lism, Group, Link, Inline } from 'lism-css/astro';
 import { Modal } from '@lism-css/ui/astro/Modal';
 import { siteConfig } from '@/config/site';
+import LangMenu from './LangMenu.astro';
 import SearchModal from './SearchModal.astro';
 import SiteNav from './SiteNav.astro';
 import SNSLinks from './SNSLinks.astro';
@@ -49,11 +50,12 @@ const headerText = t(currentLang, 'header');
 
     {/* X・Discord はスマホ幅だと入りきらないので非表示（モバイルメニュー内には表示される） */}
     <SNSLinks
-      icons={hasAllSns ? ['x', 'github', 'discord', 'lang'] : ['github', 'lang']}
+      icons={hasAllSns ? ['x', 'github', 'discord'] : ['github']}
       hideOnMobile={['x', 'discord']}
       d="flex"
       ms={{ base: 'calc(var(--s30) - var(--s15) / 2)', md: '30' }}
     />
+    <LangMenu ms={{ base: '15', md: '20' }} />
 
     <!-- 検索トリガーボタン -->
     <Lism
@@ -124,6 +126,7 @@ const headerText = t(currentLang, 'header');
           </Modal.Body>
           <Cluster class="c--siteNavModal_footer" g="10" fz="l" bd-t pbs="20" px="30">
             <SNSLinks />
+            <LangMenu ms="5" me="auto" />
             <ThemeSwitch />
           </Cluster>
         </Modal.Inner>

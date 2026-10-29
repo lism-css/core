@@ -7,7 +7,7 @@ type TranslationKeys = {
   siteNav: 'ariaLabel';
   main: 'ariaLabel';
   themeSwitch: 'ariaLabel' | 'system' | 'light' | 'dark';
-  langSelect: 'ariaLabel' | 'menuAriaLabel';
+  langMenu: 'ariaLabel' | 'menuAriaLabel';
   copyCode: 'copy' | 'copied';
   postNav: 'prev' | 'next' | 'ariaLabel';
   translationNotice: 'title' | 'description';
@@ -46,7 +46,7 @@ export const translations: Record<LangCode, UITranslations> = {
       light: 'ライトモード',
       dark: 'ダークモード',
     },
-    langSelect: {
+    langMenu: {
       ariaLabel: '言語を選択',
       menuAriaLabel: '利用可能な言語',
     },
@@ -108,7 +108,7 @@ export const translations: Record<LangCode, UITranslations> = {
       light: 'Light mode',
       dark: 'Dark mode',
     },
-    langSelect: {
+    langMenu: {
       ariaLabel: 'Select language',
       menuAriaLabel: 'Available languages',
     },

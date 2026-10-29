@@ -27,7 +27,7 @@ src/
 │   ├── TocItem.astro
 │   ├── FixedToc.astro
 │   ├── SearchModal.astro     # 検索モーダル
-│   ├── LanguageSelect.astro  # 言語切り替え
+│   ├── LangMenu.astro        # 言語切り替え
 │   ├── ThemeSwitch.astro     # テーマ切り替え
 │   ├── SNSLinks.astro
 │   ├── JsonLd.astro          # 構造化データ出力

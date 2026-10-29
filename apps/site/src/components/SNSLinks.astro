@@ -1,36 +1,18 @@
 ---
-import { Cluster, Icon, Lism, ListItem } from 'lism-css/astro';
+import { Cluster, Icon } from 'lism-css/astro';
 import { siteConfig } from '@/config/site';
-import { getAlternateUrls, getLangFromUrl, getLangLabel, t } from '@/lib/i18n';
-import { filterPatternAlternates } from '@/lib/patterns';
 
-type IconKey = 'x' | 'github' | 'discord' | 'lang';
+type IconKey = 'x' | 'github' | 'discord';
 interface Props {
   icons?: IconKey[];
-  hideOnMobile?: Exclude<IconKey, 'lang'>[];
+  hideOnMobile?: IconKey[];
   [key: string]: unknown;
 }
-const { icons = ['x', 'github', 'discord', 'lang'], hideOnMobile = [], ...props } = Astro.props;
+const { icons = ['x', 'github', 'discord'], hideOnMobile = [], ...props } = Astro.props;
 const show = (key: IconKey) => icons.includes(key);
 
 // SNSアイコンのクラス（hideOnMobile 指定分はスマホ幅で非表示）
-const snsBtnClass = (key: Exclude<IconKey, 'lang'>) => ['c--iconBtn l--center -c:inherit', hideOnMobile.includes(key) && '-hideOnMobile'];
-
-// 言語切替ドロップダウン用
-const currentLang = getLangFromUrl(Astro.url);
-const alternateUrls = filterPatternAlternates(getAlternateUrls(Astro.url));
-const langSelectText = t(currentLang, 'langSelect');
-
-// ドロップダウン項目の共通プロップ
-const langItemProps = {
-  d: 'block',
-  p: '0.25em',
-  fz: 's',
-  fw: '500',
-  lh: '1.5',
-  td: 'none',
-  bdrs: 'calc(var(--bdrs--10) - 0.125em)',
-} as const;
+const snsBtnClass = (key: IconKey) => ['c--iconBtn l--center -c:inherit', hideOnMobile.includes(key) && '-hideOnMobile'];
 ---
 
 <Cluster class="c--snsLinks" jc="center" {...props}>
@@ -61,80 +43,13 @@ const langItemProps = {
       </a>
     )
   }
-  {
-    show('lang') && (
-      <div class="c--langMenu -pos:relative">
-        <Lism
-          as="button"
-          type="button"
-          class="c--iconBtn c--langMenu_trigger"
-          c="inherit"
-          bd="none"
-          bgc="transparent"
-          title={langSelectText.ariaLabel}
-          aria-expanded="false"
-          aria-label={langSelectText.ariaLabel}
-        >
-          <Icon viewBox="0 0 20 20" fill="none">
-            <g clip-path="url(#language-switcher-clip)">
-              <path
-                d="M1.66675 10C1.66675 14.6025 5.39758 18.3334 10.0001 18.3334C14.6026 18.3334 18.3334 14.6025 18.3334 10C18.3334 5.39752 14.6026 1.66669 10.0001 1.66669C5.39758 1.66669 1.66675 5.39752 1.66675 10Z"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M10.8333 1.70836C10.8333 1.70836 13.3333 5.00003 13.3333 10C13.3333 15 10.8333 18.2917 10.8333 18.2917M9.16665 18.2917C9.16665 18.2917 6.66665 15 6.66665 10C6.66665 5.00003 9.16665 1.70836 9.16665 1.70836M2.19165 12.9167H17.8083M2.19165 7.08336H17.8083"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </g>
-            <defs>
-              <clipPath id="language-switcher-clip">
-                <rect width="20" height="20" fill="white" />
-              </clipPath>
-            </defs>
-          </Icon>
-        </Lism>
-        <Lism
-          as="ul"
-          class="c--langMenu_menu"
-          pos="absolute"
-          r="0"
-          z="100"
-          min-w="6rem"
-          p="0.5em"
-          bgc="base"
-          bdrs="10"
-          bxsh="30"
-          aria-label={langSelectText.menuAriaLabel}
-        >
-          {alternateUrls.map(({ lang, url }) => (
-            <ListItem>
-              {lang === currentLang ? (
-                <Lism as="span" class="c--langMenu_item -current" c="text-2" o="pp" aria-current="true" lang={lang} {...langItemProps}>
-                  {getLangLabel(lang)}
-                </Lism>
-              ) : (
-                <Lism as="a" class="c--langMenu_item" c="inherit" hov="-c" href={url} lang={lang} hreflang={lang} {...langItemProps}>
-                  {getLangLabel(lang)}
-                </Lism>
-              )}
-            </ListItem>
-          ))}
-        </Lism>
-      </div>
-    )
-  }
 </Cluster>
 
 <style>
   /* アイコン間の間隔（インラインstyleの --snsLinks-space 指定で上書き可能） */
   .c--snsLinks {
     --snsLinks-space: var(--s15);
+    column-gap: var(--snsLinks-space);
   }
   @container (min-width: 800px) {
     .c--snsLinks {
@@ -148,18 +63,12 @@ const langItemProps = {
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
-    /* アイコン間の間隔は gap ではなく padding で確保（アイコン間にホバーできない隙間を作らない） */
+    /* gap の半分ずつ padding でホバー領域を広げてアイコン間の隙間をなくし、同じ量の負の margin で、配置上はグリフの幅だけを占めるようにする */
     padding-inline: calc(var(--snsLinks-space) / 2);
+    margin-inline: calc(var(--snsLinks-space) / -2);
   }
   .c--iconBtn:hover {
     color: var(--link);
-  }
-  /* 両端の padding 分を打ち消し、アイコン列の外端を先頭・末尾のアイコンの端に揃える */
-  .c--snsLinks > :first-child {
-    margin-inline-start: calc(var(--snsLinks-space) / -2);
-  }
-  .c--snsLinks > :last-child {
-    margin-inline-end: calc(var(--snsLinks-space) / -2);
   }
 
   /* hideOnMobile 指定のアイコンはスマホ幅で非表示 */
@@ -167,97 +76,5 @@ const langItemProps = {
     .c--iconBtn.-hideOnMobile {
       display: none;
     }
-    /* 先頭が非表示になるとき、左端の padding 打ち消しを次のアイコンへ移す */
-    .c--iconBtn.-hideOnMobile:first-child + * {
-      margin-inline-start: calc(var(--snsLinks-space) / -2);
-    }
-  }
-
-  :global(.b--modal .c--snsLinks) {
-    margin-inline-end: auto;
-  }
-
-  /* 言語切替ドロップダウン（配置・状態などプロップで表現できないもののみ記述） */
-  .c--langMenu_menu {
-    top: calc(100% + 0.5em);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-0.25em);
-    transition:
-      opacity 0.15s,
-      visibility 0.15s,
-      transform 0.15s;
-  }
-  .c--langMenu[data-open] .c--langMenu_menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  /* PCではアイコン（グリフ左端）と左揃えで表示 */
-  @container (min-width: 800px) {
-    .c--langMenu_menu {
-      right: auto;
-      left: -0.25em;
-    }
-  }
-
-  .c--langMenu_item {
-    transition: color 0.15s;
-  }
-  /* 現在の言語（グレーアウト自体は c="text-2" o="pp" プロップで指定） */
-  .c--langMenu_item.-current {
-    cursor: default;
-  }
-
-  /* モーダル内では下端で見切れないよう上方向に展開 */
-  :global(.b--modal) .c--langMenu_menu {
-    top: auto;
-    bottom: calc(100% + 0.25em);
-    transform: translateY(0.25em);
-  }
-  :global(.b--modal) .c--langMenu[data-open] .c--langMenu_menu {
-    transform: translateY(0);
   }
 </style>
-
-<script>
-  // 言語切替ドロップダウンのトグル動作
-  document.querySelectorAll<HTMLElement>('.c--langMenu').forEach((menu) => {
-    const trigger = menu.querySelector<HTMLButtonElement>('.c--langMenu_trigger');
-    const menuList = menu.querySelector('.c--langMenu_menu');
-    if (!trigger || !menuList) return;
-
-    const close = () => {
-      const shouldRestoreFocus = menu.hasAttribute('data-open') && menuList.contains(document.activeElement);
-      menu.removeAttribute('data-open');
-      trigger.setAttribute('aria-expanded', 'false');
-      if (shouldRestoreFocus) trigger.focus();
-    };
-
-    // クリックでメニュー開閉
-    trigger.addEventListener('click', () => {
-      if (menu.hasAttribute('data-open')) {
-        close();
-      } else {
-        menu.setAttribute('data-open', '');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
-    });
-
-    // 外側クリックで閉じる
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target as Node)) close();
-    });
-
-    // Escキーで閉じる
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-    });
-
-    // Tab移動等でフォーカスがメニュー外へ出たら閉じる
-    // （focusout時点ではactiveElementがメニュー内に残っていないため、close()のフォーカス復元は発動しない）
-    menu.addEventListener('focusout', (e) => {
-      if (!menu.contains(e.relatedTarget as Node)) close();
-    });
-  });
-</script>
