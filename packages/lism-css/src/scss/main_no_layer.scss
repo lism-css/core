@@ -11,17 +11,13 @@
 // reset(ここはレイヤーあり）
 @use './reset' as reset;
 
-// base
 @use './base/index' as base;
 
-// Trait（独立レイヤー）
-// primitive より弱い位置に配置。詳細は _with_layer.scss のコメント参照。
+// trait: primitive より前に読み込み、primitive に負けるようにする（理由は _with_layer.scss）
 @use './trait/index' as trait;
 
-// Primitives
 @use './primitives/layout/index' as layout;
 @use './primitives/atomic/index' as atomic;
 
-// utility
 @use './utility/index' as utility;
 @use './props/index' as props;

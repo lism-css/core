@@ -36,7 +36,6 @@ export const WithBlur: Story = {
   },
 };
 
-// センター配置
 export const CenterLayer: Story = {
   name: 'センター配置',
   tags: ['!test'],

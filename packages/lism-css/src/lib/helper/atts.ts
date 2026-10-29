@@ -26,7 +26,6 @@ export default function atts(...args: AttsValue[]): string {
     }
   }
 
-  // 最後に重複削除
   classes = [...new Set(classes)];
   return classes.join(' ').trim();
 }

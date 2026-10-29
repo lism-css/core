@@ -17,10 +17,7 @@ type LismElementProps<T extends ElementType> = Omit<ComponentPropsWithoutRef<T>,
 /** HTML 属性のベースライン（T がジェネリクスのままでも id 等が補完される） */
 type LismHtmlBaseProps = Omit<HTMLAttributes<HTMLElement>, 'style'>;
 
-/**
- * Lism コンポーネントの Props 型
- * @template T - レンダリングする要素の型（デフォルトは 'div'）
- */
+/** Lism コンポーネントの Props 型 */
 export type LismComponentProps<T extends ElementType = 'div'> = Omit<LismProps, 'style'> &
   LismHtmlBaseProps &
   LayoutSpecificProps &
@@ -29,8 +26,6 @@ export type LismComponentProps<T extends ElementType = 'div'> = Omit<LismProps, 
 /**
  * layout が固定されたレイアウトコンポーネントの Props 型
  * layout プロパティは固定されるため受け付けない
- * @template T - レンダリングする要素の型（デフォルトは 'div'）
- * @template L - レイアウト固有の追加 Props 型
  */
 export type LayoutComponentProps<T extends ElementType = 'div', L = object> = Omit<LismProps, 'layout' | 'style'> &
   LismHtmlBaseProps &

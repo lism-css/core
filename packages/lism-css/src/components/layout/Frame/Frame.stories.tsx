@@ -21,7 +21,6 @@ export const Default: Story = {
   },
 };
 
-// ar をブレイクポイントごとに変更
 export const ResponsiveAspect: Story = {
   name: 'ar: レスポンシブ',
   args: {

@@ -3,10 +3,7 @@ import isMemberOf from './helper/isMemberOf';
 
 type TokenValue = string | number;
 
-/**
- * tokenKey のカタログに stringValue が登録されていれば `var(...)` を、無ければ null を返す。
- * 変数名の導出は getTokenVarName に集約し、ここは membership 判定だけを担う。
- */
+/** tokenKey のカタログに stringValue が登録されていれば `var(...)` を、無ければ null を返す。 */
 function resolveTokenVar(tokenKey: string, stringValue: string, TOKENS: TokensConfig): string | null {
   return isMemberOf(TOKENS[tokenKey], stringValue) ? `var(${getTokenVarName(tokenKey, stringValue)})` : null;
 }

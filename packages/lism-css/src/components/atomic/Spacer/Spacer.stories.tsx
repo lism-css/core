@@ -48,7 +48,6 @@ export const Responsive: Story = {
   },
 };
 
-// Flex 内で横方向のスペースを確保
 export const Horizontal: Story = {
   name: 'w 指定（横方向）',
   decorators: [

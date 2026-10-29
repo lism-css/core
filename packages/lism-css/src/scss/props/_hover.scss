@@ -1,9 +1,7 @@
 @use '../_mixin' as mixin;
 
 @media (any-hover: hover) {
-  /* ----------------------------------------
-   * .-hov:-{prop}
-   * ---------------------------------------- */
+  /* .-hov:-{prop} */
   .-hov\:-c:hover {
     color: var(--hov-c, var(--link)) #{mixin.$maybe_important};
   }
@@ -27,18 +25,13 @@
     transform: var(--hov-transform, translate(0, -4px)) #{mixin.$maybe_important};
   }
 
-  /* ----------------------------------------
-   * .-hov:{preset}
-   * ---------------------------------------- */
-  // underlineをつけるシンプルなエフェクト
+  /* .-hov:{preset} */
   .-hov\:underline:hover {
     text-decoration: underline #{mixin.$maybe_important};
   }
 }
 
-// ----------------------------------------
-// .-hov\:in （set--hov 連動の consumer class）
-// ----------------------------------------
+// .-hov:in（set--hov 連動の consumer class）
 
 .-hov\:in\:hide {
   --transitionProps: opacity;

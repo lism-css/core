@@ -1,6 +1,4 @@
-// ------------------------------------------------------------
 // 汎用ユーティリティ型
-// ------------------------------------------------------------
 
 /**
  * 最大 N 要素の配列型を生成するユーティリティ型
@@ -28,55 +26,14 @@ export type LimitedArray<T, N extends number, R extends T[] = [T]> = R['length']
  */
 export type WithArbitraryString<T> = T | (string & {});
 
-/**
- * 配列から要素の型を抽出
- *
- * @example
- * ```ts
- * type Element = ArrayElement<readonly ['a', 'b', 'c']>;
- * // 結果: 'a' | 'b' | 'c'
- * ```
- */
+/** 配列の要素の型 */
 export type ArrayElement<T> = T extends readonly (infer E)[] ? E : never;
 
-/**
- * オブジェクトから指定したキーの配列要素の型を抽出
- * 指定したキーが存在しない場合は never を返す
- *
- * @example
- * ```ts
- * type Presets = ExtractArrayValues<{ presets: readonly ['a', 'b'] }, 'presets'>;
- * // 結果: 'a' | 'b'
- *
- * type Values = ExtractArrayValues<{ values: readonly [1, 2, 3] }, 'values'>;
- * // 結果: 1 | 2 | 3
- * ```
- */
+/** T[K] の配列要素の型。K が無ければ never */
 export type ExtractArrayValues<T, K extends string> = T extends { [P in K]: readonly (infer E)[] } ? E : never;
 
-/**
- * オブジェクトから指定したキーのオブジェクトのキーを抽出
- * 指定したキーが存在しない場合は never を返す
- *
- * @example
- * ```ts
- * type Keys = ExtractObjectKeys<{ utils: { a: 'x', b: 'y' } }, 'utils'>;
- * // 結果: 'a' | 'b'
- * ```
- */
+/** T[K] のオブジェクトのキー。K が無ければ never */
 export type ExtractObjectKeys<T, K extends string> = T extends { [P in K]: infer U } ? (U extends object ? keyof U : never) : never;
 
-/**
- * オブジェクトから指定したキーのプロパティ値を抽出
- * 指定したキーが存在しない場合は never を返す
- *
- * @example
- * ```ts
- * type TokenKey = ExtractPropertyValue<{ token: 'fz' }, 'token'>;
- * // 結果: 'fz'
- *
- * type PropName = ExtractPropertyValue<{ prop: 'fontSize' }, 'prop'>;
- * // 結果: 'fontSize'
- * ```
- */
+/** T[K] の型。K が無ければ never */
 export type ExtractPropertyValue<T, K extends string> = T extends { [P in K]: infer V } ? V : never;

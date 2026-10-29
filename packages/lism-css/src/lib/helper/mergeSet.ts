@@ -5,8 +5,6 @@ import splitValues from './splitValues';
  * 値内の `-` prefix は除外マーカーとして扱われ、その識別子は base + value から除外される。
  *
  * `set` / `util` のいずれの prop でも共用できる汎用処理。
- *
- * 内部 API 用途として文字列配列も受け付けるが、配列形式はユーザー向けドキュメントでは紹介していない。
  */
 export default function mergeSet(base: unknown, value: unknown): string[] {
   const tokens = [...splitValues(base), ...splitValues(value)];

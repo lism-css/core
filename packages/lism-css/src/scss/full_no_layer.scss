@@ -2,8 +2,7 @@
   full版（@layer なし）:
   full.css と同じく isVar系を除く全propsのBPサポートを lg まで拡張し、
   main_no_layer.css と同じく @layer を使わずに出力するビルド。
-  $layer_mode: 0 により、Property Class は常に !important、u-- 系はセレクタ二重化（0-2-0）で出力される
-  （解決ロジックは _mixin.scss を参照）。
+  $layer_mode: 0 の挙動は main_no_layer.scss を参照。
   ※ @use ... with は対象モジュールの初回ロード前に行う必要があるため、
   setting → mixin の順で設定すること（mixin は内部で setting をロードする）。
 */
@@ -18,17 +17,13 @@
 // reset(ここはレイヤーあり）
 @use './reset' as reset;
 
-// base
 @use './base/index' as base;
 
-// Trait（独立レイヤー）
-// primitive より弱い位置に配置。詳細は _with_layer.scss のコメント参照。
+// trait: primitive より前に読み込み、primitive に負けるようにする（理由は _with_layer.scss）
 @use './trait/index' as trait;
 
-// Primitives
 @use './primitives/layout/index' as layout;
 @use './primitives/atomic/index' as atomic;
 
-// utility
 @use './utility/index' as utility;
 @use './props/index' as props;

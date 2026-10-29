@@ -41,7 +41,6 @@ export const WithFlowValue: Story = {
   },
 };
 
-// flow='s' でコンパクトな余白
 export const SmallFlow: Story = {
   name: 'flow:s',
   args: {

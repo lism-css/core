@@ -24,7 +24,6 @@ export const WithCustomStyle: Story = {
   },
 };
 
-// -wm:vertical-rl で縦方向の区切り線（Flex 内で使用）
 export const Vertical: Story = {
   name: 'writing-mode: vertical-rl（縦方向）',
   decorators: [

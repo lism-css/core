@@ -32,9 +32,7 @@ type FullPropOverride = { bp: 1; tokenClass?: 1 };
 
 /**
  * full.css 用の props オーバーライド設定（defaults/props.ts への差分のみ）。
- * isVar 系・border ショートハンド系を除く全 props の BP サポートを有効化する
- * （出力BPは $breakpoints の有効BPに従う）。ただし isVar 系のうち
- * border サブプロパティ（FULL_BP_ISVAR_KEYS）のみ例外として、導出後に個別で BP サポートを追加する。
+ * 出力BPは $breakpoints の有効BPに従う。
  *
  * キーを列挙せず defaults から導出しているのは、props 追加時に
  * このファイルの追従漏れで full.css から抜け落ちるのを防ぐため。

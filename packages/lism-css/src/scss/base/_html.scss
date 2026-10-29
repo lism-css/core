@@ -10,18 +10,14 @@ body {
   tab-size: 4;
 }
 
-/* --------------------------------------------------
-  line-height
+/* line-height
     Memo: --lh は @property 登録しない。未登録のまま継承と fallback を効かせることで、
-          unitless比率が子孫へ継承され、各要素の font-size で再計算される。
--------------------------------------------------- */
+          unitless比率が子孫へ継承され、各要素の font-size で再計算される。 */
 * {
   line-height: var(--lh, calc(1em + var(--hl) * 2));
 }
 
-/* --------------------------------------------------
-  Heading
--------------------------------------------------- */
+/* Heading */
 :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--headings-ff, inherit);
   font-weight: var(--headings-fw, var(--fw--bold));
@@ -43,9 +39,7 @@ h6 {
   font-size: var(--fz--m);
 }
 
-/* --------------------------------------------------
-  texts
--------------------------------------------------- */
+/* texts */
 a {
   color: var(--link-c, var(--link));
   text-decoration: var(--link-td, underline);
@@ -100,9 +94,7 @@ hr {
   border-block-start: 1px solid var(--divider);
 }
 
-/* --------------------------------------------------
-  list
--------------------------------------------------- */
+/* list */
 // classを持たないリスト要素はブラウザ標準のスタイルを復活させる。
 // Property Class だけの ul/ol など、明示的に戻したい場合は `.set--revert` を付与する（base/set/_revert.scss）。
 :is(ul, ol):where(:not([class])) {
@@ -110,9 +102,7 @@ hr {
   padding-inline-start: var(--list-ps, 1.75em);
 }
 
-/* --------------------------------------------------
-  table, dl
--------------------------------------------------- */
+/* table, dl */
 td,
 th {
   padding: var(--cells-p, 0.625em 0.875em);
@@ -127,9 +117,7 @@ dd + dt {
   margin-block-start: var(--s20);
 }
 
-/* --------------------------------------------------
-  Form fields
--------------------------------------------------- */
+/* Form fields */
 input:where(:not([type='range'])),
 button,
 textarea,

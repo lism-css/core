@@ -1,15 +1,11 @@
-// ------------------------------------------------------------
 // レイアウト固有 Props 型 & 判別可能ユニオン
-// ------------------------------------------------------------
 
 export type CssValue = string | number;
 
-// layout なし
 export interface NoLayoutProps {
   layout?: undefined;
 }
 
-// 固有 props なし（個別エクスポート用）
 export interface BoxProps {
   layout: 'box';
 }
@@ -38,7 +34,6 @@ export interface TileGridProps {
   layout: 'tileGrid';
 }
 
-// layout 固有の extra props を持つ型
 export interface FlowLayoutProps {
   layout: 'flow';
   flow?: CssValue;
@@ -58,7 +53,6 @@ export interface SwitchColumnsProps {
   breakSize?: CssValue;
 }
 
-// 判別可能ユニオン
 export type LayoutSpecificProps =
   | NoLayoutProps
   | BoxProps
@@ -75,7 +69,6 @@ export type LayoutSpecificProps =
   | SwitchColumnsProps
   | TileGridProps;
 
-// LayoutType は LayoutSpecificProps から導出（NoLayoutProps を除く）
 export type LayoutType = Exclude<LayoutSpecificProps, NoLayoutProps>['layout'];
 
 // LismProps に extends させるためのフラットなレイアウト関連 Props

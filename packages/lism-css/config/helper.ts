@@ -29,10 +29,8 @@ export function objDeepMerge<T extends Record<string, unknown>, U extends Record
         // origin側に存在しない新たなキーの場合はそのまま追加する
         result[key] = sourceValue;
       } else if (isObj(sourceValue) && isObj(originValue)) {
-        // どちらもオブジェクトの場合は再帰的にマージ
         result[key] = objDeepMerge(originValue, sourceValue);
       } else {
-        // どちらかのデータがobjectではない場合、そのまま上書き
         result[key] = sourceValue;
       }
     }
@@ -43,18 +41,12 @@ export function objDeepMerge<T extends Record<string, unknown>, U extends Record
 
 type DeepArrayToSet<T> = T extends unknown[] ? Set<T[number]> : T extends PlainObject ? { [K in keyof T]: DeepArrayToSet<T[K]> } : T;
 
-/**
- * オブジェクト内の配列を再帰的にSetに変換する関数
- * @param obj - 変換対象のオブジェクト
- * @returns 変換されたオブジェクト
- */
+/** オブジェクト内の配列を再帰的に Set へ変換する。 */
 export function arrayConvertToSet<T>(obj: T): DeepArrayToSet<T> {
-  // 配列の場合はSetに変換
   if (Array.isArray(obj)) {
     return new Set(obj) as DeepArrayToSet<T>;
   }
 
-  // オブジェクトの場合は再帰的に処理
   if (isObj(obj)) {
     const result: Record<string, unknown> = {};
     for (const key in obj) {
@@ -65,6 +57,5 @@ export function arrayConvertToSet<T>(obj: T): DeepArrayToSet<T> {
     return result as DeepArrayToSet<T>;
   }
 
-  // その他の値はそのまま返す
   return obj as DeepArrayToSet<T>;
 }
