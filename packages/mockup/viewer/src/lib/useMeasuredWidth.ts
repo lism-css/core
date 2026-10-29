@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
 
+/** Attach `ref` to the element to measure (`forwardedRef` on Lism components). `width` is its content width in px, `0` until the first observation. */
 export interface MeasuredWidth<T extends Element> {
-  /** Attach to the element to measure (`forwardedRef` on Lism components). */
   ref: RefObject<T | null>;
-  /** Content width in px. `0` until the first observation arrives. */
   width: number;
 }
 

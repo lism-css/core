@@ -5,7 +5,6 @@
     --icon-size: 1em;
     --icon-img: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><circle cx="5" cy="5" r="2"/></svg>');
     --li-ps: 1.875em;
-    /* --icon-clip: circle(0.225em at 50%); */
   }
 
   /* ボーダースタイルをつけれるように、li 側の ps で余白調整をする */

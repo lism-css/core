@@ -10,19 +10,16 @@
 //   集約は往復ガード付き: 配列へ束ねて再展開したとき元のクラス・宣言を文字単位で再現できる
 //   組だけを集約し、それ以外（変数だけ・クラスだけ・非正準な値）は素通しする）
 // - スペース区切り値: `-p` クラス + `--p` の style 変数 ⇔ `p="10 20"`（padding の一括指定など。
-//   本物はトークンでない値をプロパティクラスにせず変数で出力するため、その形に合わせる。
-//   対象は bp 対応 prop と alwaysVar の prop のみで、それ以外（`bd="1px solid red"` 等、本物は
-//   生のスタイル宣言を書く）は変換不能 → null（last-good 維持）。BP 配列の base スロットも非対応）
+//   理由と対象は expandVarProp / supportsVarForm 参照）。対象外の prop と BP 配列の base スロットは変換不能 → null（last-good 維持）
 // - `-bd` などの bare クラス ⇔ `bd`（値なしの boolean prop。key が PROPS に存在するもののみ。
 //   本物の `val === true` → `-{prop}` と同じ規則。XML は値なし属性を書けないため前処理でマーカー化する。
 //   `--{prop}` 宣言を伴う場合は上のスペース区切り値として扱う）
-// - `-hov:val` クラス ⇔ `hov="val"` （hov は PROPS 外の特別扱い prop。文字列形式のみ・複数はカンマ結合。
+// - `-hov:val` クラス ⇔ `hov="val"` （hov は PROPS 外の特別扱い prop。文字列形式のみ・空白区切りで複数可。
 //   boolean（値なし -hov）/ オブジェクト形式（inline CSS 変数が絡む）は非対応で className 保持）
 // - `u--{name}` クラス ⇔ `util="{name}"` （util も PROPS 外の特別扱い prop。空白区切りで複数可）
 // - `set--{name}` クラス ⇔ `set="{name}"` （set も util と同じ分割規則＝本物の mergeSet。
 //   `-` prefix の除外指定はどちらも非対応 → 変換エラー = last-good 維持）
-// - set / util の class 内の正準位置は本物の buildClassName の出力順と同じ:
-//   レイアウトクラスの直後に set-- → u-- → prop クラスの順
+// - set / util の class 内の正準位置は本物の buildClassName と同じ（実装は jsxElementToHtml の class 組み立て部のコメント参照）
 // - `l--{layout}` ⇔ レイアウトコンポーネント（Box / Center / Cluster / Columns / Flex / Frame /
 //   Grid / Stack / TileGrid。タグが div 以外なら as="tag"）
 // - h1〜h6 ⇔ <Heading level="n">、p ⇔ <Text>
@@ -61,15 +58,12 @@ const parsePropToken = (token: string): [string, string] | null => {
 export const escapeText = (text: string): string => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const escapeAttr = (value: string): string => escapeText(value).replace(/"/g, '&quot;');
 
-/** 属性の文字列表現 `name="value"` */
 const attrToString = (name: string, value: string): string => `${name}="${escapeAttr(value)}"`;
 
-// ---------------------------------------------------------------------------
-// レスポンシブ（BP）props の双方向変換コア
+// ---- レスポンシブ（BP）props の双方向変換コア ----
 // 本物の Lism は BP 値を「`-{prop}_{bp}` クラス + `--{prop}_{bp}` style 変数」の組で出力する
 // （src/lib/getLismProps.ts の setAttrs）。ここではそのデモ用サブセットを写し、
 // 「配列 → クラス + 変数」の展開（expandBpProp）を両方向で共有することで往復の正準形を一意にする。
-// ---------------------------------------------------------------------------
 
 /** `={[...]}` を XML 属性値へ書き換える際の目印（私用領域文字。通常の入力と衝突しない） */
 const BP_ARRAY_MARKER = '\uE000';
@@ -116,7 +110,7 @@ const maybeNumber = (value: string): string | number => {
   return Number.isFinite(n) && String(n) === value ? n : value;
 };
 
-/** space トークンの単一値を CSS 値へ（getMaybeSpaceVar と同じ規則） */
+/** space トークンの単一値を CSS 値へ（getMaybeSpaceVar の規則のうち、0 と整数・負の整数の変数化だけを写したもの。小数などは変換しない） */
 const spaceValueToCss = (value: string): string => {
   if (value === '0') return '0';
   if (/^\d+$/.test(value)) return `var(--s${value})`;
@@ -254,7 +248,6 @@ const parseStyleDecls = (style: string): StyleDecl[] | null => {
   return decls;
 };
 
-/** style 宣言の正準形（`name: value; name: value`） */
 const serializeStyleDecls = (decls: StyleDecl[]): string => decls.map((d) => `${d.name}: ${d.value}`).join('; ');
 
 /**
@@ -312,7 +305,7 @@ const parseBpArrayExpr = (source: string, start: number): [BpSlotValue[], number
 
 const printJsxBpArrayItem = (value: BpSlotValue): string => (value === null ? 'null' : typeof value === 'number' ? String(value) : `'${value}'`);
 
-/** 配列 prop の JSX 属性文字列（例 `fz={['4xl', null, '5xl']}`） */
+/** 例 `fz={['4xl', null, '5xl']}` */
 const printJsxBpArrayAttr = (key: string, values: BpSlotValue[]): string => `${key}={[${values.map(printJsxBpArrayItem).join(', ')}]}`;
 
 const sameStringSet = (a: string[], b: string[]): boolean => {
@@ -409,11 +402,9 @@ const tryAggregateVarProp = (key: string, decls: StyleDecl[]): VarAggregation | 
   return { value, declNames: [name] };
 };
 
-// ---------------------------------------------------------------------------
-// 共通プリンタ
+// ---- 共通プリンタ ----
 // ノード列を「要素・テキストごとに1行、2スペースインデント」で整形する。
 // 単一テキスト子だけを持つ要素は、行長が収まる場合のみインライン化（例: <span ...>⌘K</span>）。
-// ---------------------------------------------------------------------------
 
 interface PrintableElement {
   /** 出力タグ名（HTMLならタグ、JSXならコンポーネント名 or タグ） */
@@ -462,21 +453,17 @@ const printNodes = (nodes: PrintableNode[], depth: number, mode: 'jsx' | 'html')
   return lines;
 };
 
-/** テキストノードの中身を整形用に正規化（空白のみなら null = 出力しない） */
+/** テキストノードを整形用に行へ分割する（各行は前後の空白を除き、空白のみの行は除く） */
 const normalizeText = (raw: string | null): string[] => {
   if (!raw) return [];
-  // 改行で区切られた複数行テキストは行ごとに出力する
   return raw
     .split('\n')
     .map((line) => line.trim())
     .filter((line) => line !== '');
 };
 
-// ---------------------------------------------------------------------------
-// HTML → JSX
-// ---------------------------------------------------------------------------
+// ---- HTML → JSX ----
 
-/** `-bd` のような bare クラス（boolean prop） */
 const BARE_PROP_RE = /^-([a-zA-Z][a-zA-Z-]*)$/;
 
 /** class 属性の 1 トークンの分類結果（元の並び順を保ったまま実体化するための中間表現） */
@@ -581,14 +568,12 @@ const htmlElementToJsx = (el: Element): PrintableElement => {
 
   // 4. unit 列を元の並び順で属性へ実体化する。
   //    集約された prop はその prop の最初の出現位置に配列 prop として出す。
-  //    -hov:{val} は hov prop（文字列形式）へ。複数トークンはカンマ結合し、
-  //    最初のトークンの位置に hov 属性を出す（連続して書かれていれば往復で順序が保たれる）
+  //    -hov:{val} / u--{name} / set--{name} は空白結合で hov / util / set prop へ。
+  //    最初のトークンの位置に属性を出す（連続して書かれていれば往復で順序が保たれる）
   const propAttrs: string[] = [];
   const restClassTokens: string[] = [];
   const hovValues: string[] = [];
   let hovAttrIndex = -1;
-  // u--{name} / set--{name} クラスは util / set prop（空白区切りで複数可）へ。
-  // hov と同じく最初の出現位置に属性を出す
   const utilValues: string[] = [];
   let utilAttrIndex = -1;
   const setValues: string[] = [];
@@ -632,7 +617,7 @@ const htmlElementToJsx = (el: Element): PrintableElement => {
   }
   // hov / util / set の挿入は出現位置の後ろ側から行う（先に前方へ挿入すると後方の index がズレるため）
   const pendingAttrs: { index: number; attr: string }[] = [];
-  if (hovValues.length > 0) pendingAttrs.push({ index: hovAttrIndex, attr: attrToString('hov', hovValues.join(',')) });
+  if (hovValues.length > 0) pendingAttrs.push({ index: hovAttrIndex, attr: attrToString('hov', hovValues.join(' ')) });
   if (utilValues.length > 0) pendingAttrs.push({ index: utilAttrIndex, attr: attrToString('util', utilValues.join(' ')) });
   if (setValues.length > 0) pendingAttrs.push({ index: setAttrIndex, attr: attrToString('set', setValues.join(' ')) });
   pendingAttrs.sort((a, b) => b.index - a.index);
@@ -640,8 +625,6 @@ const htmlElementToJsx = (el: Element): PrintableElement => {
     propAttrs.splice(pending.index, 0, pending.attr);
   }
 
-  // Lism prop クラスを持つがコンポーネントに割り当てられなかったタグは
-  // span なら <Inline>（デフォルトタグ = span）、それ以外は <Lism as="tag">
   if (!name) {
     if (propAttrs.length > 0) {
       if (tag === 'span') {
@@ -687,7 +670,6 @@ const htmlNodesToPrintable = (nodes: NodeListOf<ChildNode>): PrintableNode[] => 
     } else if (node.nodeType === Node.ELEMENT_NODE) {
       result.push({ kind: 'element', el: htmlElementToJsx(node as Element) });
     }
-    // コメント等は無視
   }
   return result;
 };
@@ -699,9 +681,7 @@ export function htmlToJsx(html: string): string {
   return printNodes(htmlNodesToPrintable(template.content.childNodes), 0, 'jsx').join('\n');
 }
 
-// ---------------------------------------------------------------------------
-// JSX → HTML
-// ---------------------------------------------------------------------------
+// ---- JSX → HTML ----
 
 /** 変換不能な構文を表す内部例外 */
 class JsxConvertError extends Error {}
@@ -790,13 +770,10 @@ const jsxElementToHtml = (el: Element): PrintableElement => {
         classTokens.push(`-${attr.name}:${attr.value}`);
       }
     } else if (attr.name === 'hov') {
-      // 文字列形式の hov（カンマ区切りで複数可）を -hov:{val} クラスへ展開（本物の setHovProps と同じ規則）
-      for (const value of attr.value.split(',')) {
-        const trimmed = value.trim();
-        if (!trimmed) continue;
-        // hov は値を変換せずクラスへ素通しする仕様なので、スペース入りの値はクラスを壊す
-        if (/\s/.test(trimmed)) throw new JsxConvertError(`invalid hov value: ${trimmed}`);
-        classTokens.push(`-hov:${trimmed}`);
+      // 文字列形式の hov（空白区切り。カンマ互換）を -hov:{val} クラスへ展開（本物の splitValues と同じ分割規則）
+      for (const value of attr.value.split(/[,\s]+/)) {
+        if (!value) continue;
+        classTokens.push(`-hov:${value}`);
       }
     } else if (attr.name === 'util') {
       // util prop（空白区切り。カンマ互換）を u--{name} クラスへ展開（本物の mergeSet と同じ分割規則）。
@@ -903,7 +880,6 @@ const preprocessJsxAttrs = (source: string): string => {
       i = end + 1;
       continue;
     }
-    // 開始タグ: '<' + タグ名をコピーしてから属性を走査する
     out += ch;
     i += 1;
     while (i < len && isAttrNameChar(source[i])) {
@@ -928,7 +904,6 @@ const preprocessJsxAttrs = (source: string): string => {
         i += 1;
         continue;
       }
-      // 属性名
       let name = '';
       while (i < len && isAttrNameChar(source[i])) {
         name += source[i];
@@ -941,7 +916,6 @@ const preprocessJsxAttrs = (source: string): string => {
         i += 1;
       }
       if (source[i] !== '=') {
-        // 値なし属性 → boolean prop マーカー
         out += `${name}="${BOOL_MARKER}"${ws}`;
         continue;
       }

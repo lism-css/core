@@ -1,4 +1,4 @@
-// Preview コンポーネント用スタイル（docsから移植）
+// Preview コンポーネント用スタイル
 .c--preview + .c--preview {
   margin-block-start: var(--s40);
 }
@@ -24,7 +24,6 @@
 
   position: relative;
   transition: none !important;
-  // container-type: inline-size;
 
   &:not(:first-child) {
     margin-top: var(--s40);
@@ -32,12 +31,6 @@
 }
 
 .c--preview_area_frame {
-  // width: 160%;
-  // scale: 62.5%;
-  // width: 125%;
-  // scale: 0.8;
-  // transform-origin: 0 0;
-
   border: solid 3px var(--bdc);
   border-radius: 2px;
 }
@@ -48,7 +41,6 @@
   container-type: inline-size;
 
   &::before {
-    // content: '';
     position: absolute;
     z-index: -1;
     inset: 0;
@@ -56,21 +48,6 @@
     /* dot */
     background-image: radial-gradient(color-mix(in srgb, var(--divider), transparent 50%) 1px, transparent 0);
     background-size: 10px 10px;
-
-    /* stripe */
-    // --stripe-bdc: color-mix(in srgb, currentColor, transparent 95%);
-    // --stripe-bdw: 1px;
-    // --stripe-deg: -40deg;
-    // --stripe-interval: 0.5rem;
-    // background-image: repeating-linear-gradient(
-    // 	var(--stripe-deg),
-    // 	var(--stripe-bdc),
-    // 	var(--stripe-bdc) var(--stripe-bdw),
-    // 	transparent var(--stripe-bdw),
-    // 	transparent var(--stripe-interval)
-    // );
-
-    /* mask: linear-gradient(15deg, transparent 25%, black); */
   }
 
   &.is--resize {
@@ -95,8 +72,6 @@
     }
   }
 }
-
-// .c--preview_code {}
 
 .c--preview_area + .c--preview_code {
   overflow: hidden;

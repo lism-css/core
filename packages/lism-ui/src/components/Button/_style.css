@@ -18,7 +18,6 @@
     /* 異なる variant を並べてもサイズに差が出ないようにborderを常に指定 */
     border: solid var(--bdw) var(--bdc);
 
-    /* flex / grid 両方に対応 */
     place-content: center;
     place-items: center;
 

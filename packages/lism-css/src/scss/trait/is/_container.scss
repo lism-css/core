@@ -9,10 +9,8 @@
   --sz--bleed: 100cqi;
 }
 .is--container.has--gutter > * {
-  // has--gutterがある場合はその分を加算
   --sz--bleed: calc(100cqi + var(--gutter) * 2);
 }
 .is--container .is--container > * {
-  // --sz--bleed は一番先祖(最外側) の is--container で値をセットしたらあとは引き継ぐだけ
   --sz--bleed: inherit;
 }

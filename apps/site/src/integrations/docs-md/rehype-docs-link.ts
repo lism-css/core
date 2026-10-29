@@ -29,10 +29,6 @@ export function rehypeDocsLink() {
   };
 }
 
-/**
- * <a class="c--docsLink"> の子孫から最初に見つかった c--docsLink_title 要素配下の
- * text を連結して返す（trim 済み）。
- */
 function extractTitle(linkNode: Element): string {
   let titleEl: Element | undefined;
   visit(linkNode, 'element', (child: Element) => {

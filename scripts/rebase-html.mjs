@@ -5,11 +5,8 @@
 // テンプレ側に手書きされた絶対リンク（<a href="/posts/">）や public 資産参照（/favicon.svg・
 // /logo-black.svg 等）はそのまま残るため、ビルド後に prefix を付けてサブパスへ寄せる。
 //
-// 対象は HTML / CSS のみ。JS は実行時に URL を組むため静的置換の対象外（PR の方針どおり、
-// 実行時 JS が組む絶対 URL は低リスクとしてデプロイ後に目視確認する）。
-//
-//   node scripts/rebase-html.mjs <distDir> <prefix>
-//   prefix は先頭スラッシュ・末尾スラッシュ無し（例: /blog-astro-minimal, /blog-astro-minimal/en）
+// 対象は HTML / CSS のみ。JS は実行時に URL を組むため静的置換の対象外（実行時に組む絶対 URL は
+// 低リスクとして、デプロイ後に目視確認する）。
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 

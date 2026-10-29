@@ -9,18 +9,7 @@ type PropsConfig = typeof PROPS;
 type TokensConfig = typeof TOKENS;
 
 /**
- * TOKENS のキーから対応する値の型（= トークンのキー集合）を取得
- * - 配列 / Set 形式: その要素の型
- * - 値付きフラットマップ（{ key: value }）: その keyof（トークンのキー集合）
- *
- * @example
- * ```ts
- * type FzValues = TokenConfigValues<'fz'>;
- * // 結果: 'base' | '5xl' | ...
- *
- * type SpaceValues = TokenConfigValues<'space'>;
- * // 結果: '5' | '10' | '15' | ...
- * ```
+ * TOKENS のキー集合の型。配列 / Set は要素の型、値付きフラットマップ（{ key: value }）は keyof。
  */
 type TokenConfigValues<K extends keyof TokensConfig> = TokensConfig[K] extends readonly unknown[]
   ? ArrayElement<TokensConfig[K]>
@@ -43,24 +32,14 @@ type ExtractPropValues<T> = ExtractArrayValues<T, 'presets'> | ExtractObjectKeys
  */
 type UserPropValues<K> = K extends keyof CustomPropValueRegistry ? Extract<CustomPropValueRegistry[K], string> : never;
 
-// ============================================================
-// プロパティ値の型決定
-// ============================================================
+// --- プロパティ値の型決定 ---
 
-/**
- * プロパティの設定から値の型を決定
- * - presets/utils/token（+ user 追加分）がある場合: 具体的な値 + 任意文字列 + number | boolean | null
- * - ない場合: string | number（フォールバック）
- *
- * `[X] extends [never]` の tuple ラップで ExtraValues（naked 型パラメータ）の分配を防ぐ。
- */
+// [X] extends [never] の tuple ラップで ExtraValues（naked 型パラメータ）の分配を防ぐ。
 type PropValueType<T, ExtraValues = never> = [ExtractPropValues<T> | ExtraValues] extends [never]
   ? string | number | boolean
   : WithArbitraryString<ExtractPropValues<T> | ExtraValues> | number | boolean | null;
 
-// ============================================================
-// ブレイクポイント対応の判定
-// ============================================================
+// --- ブレイクポイント対応の判定 ---
 
 /**
  * bp プロパティでレスポンシブ（配列・オブジェクト形式）が有効かを判定
@@ -92,13 +71,9 @@ export type NonResponsivePropValueTypes = {
   [K in PropsWithoutBreakpoint]?: PropValueType<PropsConfig[K], UserPropValues<K>>;
 };
 
-/** defaults 由来の Props 型（full モード未適用時のデフォルト） */
 type DefaultPropValueTypes = MakeResponsive<ResponsivePropValueTypes> & NonResponsivePropValueTypes;
 
-// ============================================================
-// full モード（isFullMode）の型対応
-// ============================================================
-//
+// full モード（isFullMode）の型対応:
 // lism.config.js の isFullMode では、isVar 系を除く全 props が responsive 化する
 // （config/presets/props-full.ts のランタイム挙動）。これを型側にも反映する。
 // 静的型は .js の値を読めないため、FullModeRegistry の module augmentation で opt-in する。
@@ -134,7 +109,6 @@ type FullPropsWithBreakpoint = {
 
 type FullPropsWithoutBreakpoint = Exclude<AllPropKeys, FullPropsWithBreakpoint>;
 
-/** full モード適用時の Props 型（isVar 系を除く全 props がレスポンシブ） */
 type FullPropValueTypes = MakeResponsive<{
   [K in FullPropsWithBreakpoint]?: PropValueType<PropsConfig[K], UserPropValues<K>>;
 }> & {
@@ -152,7 +126,7 @@ type IsFullModeAdvertised = [keyof FullModeRegistry] extends [never] ? false : t
  * PROPS 設定から生成される Props 型（レスポンシブ対応含む）
  * - bp が有効なプロパティ: レスポンシブ対応（配列・オブジェクト形式可）
  * - bp なしのプロパティ: 単一値のみ
- * - presets/utils/token なしのプロパティ: string | number（フォールバック）
+ * - presets/utils/token なしのプロパティ: string | number | boolean（フォールバック）
  *
  * {@link FullModeRegistry} が拡張されている場合は full 版に切り替わり、isVar 系を除く
  * 全 props がレスポンシブになる（lism.config.js の isFullMode に型を追従させるための opt-in）。
@@ -165,8 +139,8 @@ type IsFullModeAdvertised = [keyof FullModeRegistry] extends [never] ? false : t
  * // bp なしのプロパティ（fw など）
  * fw?: 'thin' | 'light' | 'normal' | ...
  *
- * // presets/utils/token なしのプロパティ（bg など）
- * bg?: Responsive<string | number>
+ * // presets/utils/token なしで bp が有効なプロパティ（fxb など）
+ * fxb?: Responsive<string | number | boolean>
  * ```
  */
 export type PropValueTypes = IsFullModeAdvertised extends true ? FullPropValueTypes : DefaultPropValueTypes;

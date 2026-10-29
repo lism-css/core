@@ -24,8 +24,6 @@ type Story = StoryObj<typeof WithSide>;
 
 export const Default: Story = {
   args: {
-    // sideW: '12rem',
-    // mainW: '20rem',
     g: '30',
     children: (
       <>
@@ -76,7 +74,6 @@ export const WithMainWidth: Story = {
   },
 };
 
-// fxd='row-reverse' で横並び時にサイドを左側に配置
 export const Reversed: Story = {
   name: 'fxd: row-reverse（反転）',
   args: {

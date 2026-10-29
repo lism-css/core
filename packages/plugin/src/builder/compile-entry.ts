@@ -1,8 +1,6 @@
 /**
  * 単一SCSSエントリをCSS文字列へ変換するオンザフライ・コンパイラ。
- *
- * src/scssを作業ディレクトリへ複製し、生成SCSSだけをuser設定由来で差し替える。
- * `@use './prop-config.gen'` 等の相対参照を維持したまま node_modules を書き換えないため、素の sass 利用も壊さない。
+ * 作業ディレクトリへ複製した src/scss の生成SCSSだけをuser設定由来で差し替える（方式は compile.ts 冒頭と同じ）。
  */
 import path from 'node:path';
 import fs from 'node:fs';

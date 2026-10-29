@@ -10,7 +10,7 @@ interface Window {
 declare const window: Window;
 
 // isFullMode: full.css の読み込みを前提に、コンポーネント側の props 設定にも full preset を適用するモード。
-// 注: 静的型は defaults のまま維持する（lism.config.js での props 上書きと同じ制限。型レベルの full 対応は別途検討）。
+// 注: 静的型は defaults のまま。型側への full 反映は FullModeRegistry の拡張で opt-in する。
 const isFullMode = (userConfig as LismConfig).isFullMode;
 const baseConfig = isFullMode ? (objDeepMerge(defaultConfig, { props: propsFull }) as unknown as typeof defaultConfig) : defaultConfig;
 

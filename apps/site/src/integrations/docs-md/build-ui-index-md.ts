@@ -1,15 +1,10 @@
 /**
- * UI コンポーネント一覧ページ (`/ui/` および `/en/ui/`) 用の `.md` を生成する。
+ * UI コンポーネント一覧ページ (`/ui/` と `/en/ui/`) 用の `.md` を生成する。
  *
- * これらのインデックスページは `excludeFromSearch` で `data-pagefind-body` を持たないため、
- * 通常の HTML→MD 変換パイプライン (`convert-html-to-md`) では skip される。
- * AI ツールから一覧として参照できるよう、本モジュールが代替ルートとして
- * content collection を走査して簡素なリンクリスト形式の `.md` を出力する。
- *
- * - frontmatter (title / description / url) は dist 側 index.html から抽出して同期を保つ
- * - 本文は content/{lang}/ui/ 配下の `.mdx` から組み立てる（`_` 始まり / `draft: true` は除外）
- * - 見出しは Blocks（ui/ 直下）/ Examples（ui/examples/）の2分類
- * - リンクは個別ページの `.md`（`convert-html-to-md` が生成済み）を指す
+ * 一覧ページは `excludeFromSearch` で `data-pagefind-body` を持たず、通常の HTML→MD 変換 (`convert-html-to-md`) では skip されるため、
+ * 代替として content/{lang}/ui/ 配下の `.mdx` を走査し、Blocks（ui/ 直下）/ Examples（ui/examples/）の2見出しでリンクリストを出力する
+ * （`_` 始まりと `draft: true` は除外。リンク先は convert-html-to-md が生成した個別ページの `.md`）。
+ * frontmatter (title / description / url) は dist 側 index.html から抽出して同期を保つ。
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -54,7 +49,6 @@ export async function buildUiIndexMd(opts: {
 
   // _opt-in / _demo など `_` 始まりは公開対象外なので走査時に除外
   const files = await walkMdx(uiContentDir, { skipUnderscore: true });
-  // ui/ 直下（パッケージ提供）/ examples/ の2分類
   const blocks: Entry[] = [];
   const examples: Entry[] = [];
 

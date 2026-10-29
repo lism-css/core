@@ -2,14 +2,8 @@ type Primitive = string | number | boolean | null | undefined;
 type AttsValue = Primitive | AttsValue[] | Set<string | number> | Record<string, Primitive>;
 
 /**
- * 配列と文字列だけを受け取るようにしたclassnamesやclsxの代替関数。
- *   従来の使い方でObjectを渡したいようなケースが出てきた時は、以下のように書き換えて使える。
- *   atts({'foo': isFoo, 'bar': isBar });
- *     ↓
- *   atts(isFoo && 'foo', isBar && 'bar');
- *
- *   arguments&whileループとの差はなかった(結果が誤差の範囲 or その時によって反転する)
- *   flat()やfilter()を使うとシンプルになるが、処理速度が数倍になる。
+ * classnames / clsx 互換の軽量版。文字列・数値・配列・Set・オブジェクトを受け取り、重複を除いて結合する。
+ * flat() や filter() で書くと処理速度が数倍遅くなるため、素のループで実装している。
  */
 export default function atts(...args: AttsValue[]): string {
   let classes: (string | number)[] = [];
@@ -32,7 +26,6 @@ export default function atts(...args: AttsValue[]): string {
     }
   }
 
-  // 最後に重複削除
   classes = [...new Set(classes)];
   return classes.join(' ').trim();
 }

@@ -19,8 +19,8 @@ const { mainConfig, fullConfig } = computeBuildConfigs({
   objDeepMerge,
 });
 
-// 同梱デフォルトの _prop-config.scss / _prop-config-full.scss を更新する。
-// これらは素の sass 利用（@use 'lism-css/scss/setting' 等）が `@use './prop-config'` で読む実ファイル。
+// 同梱デフォルトの _prop-config.gen.scss / _prop-config-full.gen.scss を更新する。
+// これらは素の sass 利用（@use 'lism-css/scss/setting' 等）が `@use './prop-config.gen'` で読む実ファイル。
 // main/full のマージ順は CLI/Vite と同じ computeBuildConfigs に揃える。
 writePropConfigFiles({
   scssDir,

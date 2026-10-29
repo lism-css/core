@@ -19,7 +19,6 @@ export async function fetchSkillSource(skillName: SkillName, ref: string = DEFAU
   return { dir: tmpDir, ref };
 }
 
-/** fetchSkillSource で作成した一時ディレクトリを削除する */
 export function cleanupTempDir(dir: string): void {
   try {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -28,7 +27,6 @@ export function cleanupTempDir(dir: string): void {
   }
 }
 
-/** ディレクトリ配下のファイルを再帰走査し、ルートからの相対パス一覧を返す */
 function walkFiles(root: string): string[] {
   const results: string[] = [];
   const stack: string[] = [''];
@@ -47,7 +45,6 @@ function walkFiles(root: string): string[] {
   return results;
 }
 
-/** 指定ファイルの sha256 を 16 進で返す */
 function hashFile(filePath: string): string {
   const buf = fs.readFileSync(filePath);
   return crypto.createHash('sha256').update(buf).digest('hex');
@@ -64,12 +61,6 @@ export interface SkillDiff {
   localOnly: string[];
 }
 
-/**
- * ローカルスキルディレクトリとリモートスキルディレクトリを
- * ファイル単位の sha256 ハッシュで比較する。
- *
- * ローカルが存在しない場合は、リモートの全ファイルを `added` として返す。
- */
 export function compareSkillDirs(localDir: string, remoteDir: string): SkillDiff {
   const localExists = fs.existsSync(localDir);
   const remoteFiles = new Set(walkFiles(remoteDir));
@@ -95,7 +86,6 @@ export function compareSkillDirs(localDir: string, remoteDir: string): SkillDiff
   return diff;
 }
 
-/** 差分があるか（unchanged 以外が 1件でもあるか） */
 export function hasDiff(diff: SkillDiff): boolean {
   return diff.modified.length > 0 || diff.added.length > 0 || diff.localOnly.length > 0;
 }

@@ -11,9 +11,6 @@ type PanelProps<T extends ElementType = 'div'> = LayoutComponentProps<T, FlowLay
   isOpen?: boolean;
 };
 
-/**
- * パネル
- */
 export default function Panel<T extends ElementType = 'div'>({
   children,
   className,

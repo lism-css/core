@@ -35,7 +35,6 @@ export async function initCommand(options: InitOptions = {}): Promise<void> {
  * 生成する `ui:` セクションを決める（null なら core ひな形のみ）。
  * `--ui-*` はすべて ui セクションの値の先渡しなので、どれかの指定を UI 利用の意思とみなし、
  * オプションで埋まっていない質問だけを対話で行う。
- * - オプションなし: 利用確認（デフォルト No）→ Yes なら framework 選択
  * - --ui-framework あり: 利用確認のみ（意思表示済みなのでデフォルト Yes）
  * - --ui-dir のみ: framework 選択のみ（回答すること自体が利用同意を兼ねる）
  * - 非 TTY: 質問を出せないため --ui-framework があれば同意とみなして生成、

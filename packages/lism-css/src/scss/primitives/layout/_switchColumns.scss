@@ -7,4 +7,5 @@
 .l--switchColumns > * {
   flex-grow: 1;
   flex-basis: calc((var(--breakSize) - 100%) * 9999);
+  min-width: 0;
 }

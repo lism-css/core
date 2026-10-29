@@ -1,10 +1,5 @@
 import { resolveTabNavKey, toTabOrientation } from './tabsKeyNav';
 
-/**
- * タブ
- */
-
-// タブリスト内のタブボタン一覧
 const getTabBtns = (root: HTMLElement): HTMLElement[] => Array.from(root.querySelectorAll<HTMLElement>('[role="tab"]'));
 
 // 同じタブリスト内の全タブを走査して選択状態を同期する

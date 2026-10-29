@@ -27,7 +27,7 @@ $maybe_important: '';
 // $props の個別 important 指定（null なら未指定）を解決して 0 / 1 を返す。
 // no_layer で強制付与が有効な間は個別指定より 1 を優先する（個別に外せると
 // Property Class > Utility Class の序列が崩れるため）。
-// $default_important: 0 を明示した場合はその指定を尊重し、個別指定も従来どおり効く。
+// $default_important: 0 を明示した場合はその指定を尊重し、個別指定がそのまま効く。
 @function resolve_important($important) {
   @if $layer_mode == 0 and $default_important == 1 {
     @return 1;

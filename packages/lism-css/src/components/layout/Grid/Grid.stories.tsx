@@ -39,7 +39,6 @@ export const WithGtc: Story = {
   },
 };
 
-// gta でエリア名を指定し、ブレイクポイントでレイアウトを切り替える
 export const WithGridAreas: Story = {
   name: 'gta でエリアレイアウト',
   args: {

@@ -1,9 +1,7 @@
 @use '../_mixin' as mixin;
 
 @media (any-hover: hover) {
-  /* ----------------------------------------
-   * .-hov:-{prop}
-   * ---------------------------------------- */
+  /* .-hov:-{prop} */
   .-hov\:-c:hover {
     color: var(--hov-c, var(--link)) #{mixin.$maybe_important};
   }
@@ -11,7 +9,9 @@
     border-color: var(--hov-bdc, currentColor) #{mixin.$maybe_important};
   }
   .-hov\:-bgc:hover {
-    // デフォルトでニュートラルグレーを配色し、背景色明るくても暗くても使えるようにしておく。
+    // 優先順: --hov-bgc → --hov-bgc--default → color-mix()
+    //     color-mix(): デフォルトで現在の背景色に対してニュートラルグレーを配色し、背景色が明るくても暗くても使えるようにしている。
+    //     --bgc が使われているため、柔軟性を考えて少し複雑な構造になっている
     background-color: var(--hov-bgc, var(--hov-bgc--default, color-mix(in srgb, var(--bgc, var(--base)), var(--neutral) 20%)))
       #{mixin.$maybe_important};
   }
@@ -25,18 +25,13 @@
     transform: var(--hov-transform, translate(0, -4px)) #{mixin.$maybe_important};
   }
 
-  /* ----------------------------------------
-   * .-hov:{preset}
-   * ---------------------------------------- */
-  // underlineをつけるシンプルなエフェクト
+  /* .-hov:{preset} */
   .-hov\:underline:hover {
     text-decoration: underline #{mixin.$maybe_important};
   }
 }
 
-// ----------------------------------------
-// .-hov\:in （set--hov 連動の consumer class）
-// ----------------------------------------
+// .-hov:in（set--hov 連動の consumer class）
 
 .-hov\:in\:hide {
   --transitionProps: opacity;

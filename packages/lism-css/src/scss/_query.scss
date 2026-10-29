@@ -20,7 +20,6 @@
 }
 @mixin bp-down($bp_name) {
   $bp_size: map.get(setting.$breakpoints, $bp_name);
-  // サイズが 0 の時はスキップ(カスタマイズでオフにできるように）
   @if $bp_size and $bp_size != 0 {
     @if setting.$is_container_query == 1 {
       @container not (min-width: #{$bp_size}) {

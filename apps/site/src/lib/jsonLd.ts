@@ -7,14 +7,13 @@ import { siteConfig } from '@/config/site';
 
 export type SchemaType = 'HomePage' | 'SoftwareSourceCode' | 'TechArticle';
 
-/** 共通の Organization 情報 */
 const organization = {
   '@type': 'Organization',
   name: 'Lism CSS',
   url: 'https://github.com/lism-css',
 } as const;
 
-/** サイト全体を表す WebSite スキーマ（site name 補助シグナル用） */
+/** site name の補助シグナル用 */
 export function generateWebSiteSchema(params: { url: string; lang: string }) {
   return {
     '@type': 'WebSite',
@@ -25,7 +24,6 @@ export function generateWebSiteSchema(params: { url: string; lang: string }) {
   };
 }
 
-/** ソフトウェアプロジェクトとしての説明 */
 export function generateSoftwareSourceCodeSchema(params: { url: string; lang: string; description?: string }) {
   return {
     '@type': 'SoftwareSourceCode',
@@ -39,7 +37,6 @@ export function generateSoftwareSourceCodeSchema(params: { url: string; lang: st
   };
 }
 
-/** トップページ用: WebSite + SoftwareSourceCode を @graph で並列出力 */
 export function generateHomePageSchema(params: { url: string; lang: string; description?: string }) {
   return {
     '@context': 'https://schema.org',
@@ -47,7 +44,7 @@ export function generateHomePageSchema(params: { url: string; lang: string; desc
   };
 }
 
-/** ローカライズ版トップページ用: SoftwareSourceCode のみを単独出力（WebSite は root のみ） */
+/** ローカライズ版トップ用。WebSite は root のみ */
 export function generateLocalizedHomePageSchema(params: { url: string; lang: string; description?: string }) {
   return {
     '@context': 'https://schema.org',
@@ -55,7 +52,6 @@ export function generateLocalizedHomePageSchema(params: { url: string; lang: str
   };
 }
 
-/** ドキュメントページ用: 技術記事としての説明 */
 export function generateTechArticleSchema(params: { url: string; title: string; description?: string; lang: string; datePublished?: string }) {
   return {
     '@context': 'https://schema.org',
@@ -74,7 +70,6 @@ export function generateTechArticleSchema(params: { url: string; title: string; 
   };
 }
 
-/** schemaType に応じた JSON-LD オブジェクトを生成 */
 export function generateJsonLd(
   schemaType: SchemaType,
   params: {

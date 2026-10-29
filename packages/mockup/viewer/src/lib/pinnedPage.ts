@@ -3,30 +3,19 @@ import type { ViewerPage } from 'virtual:lism-mockup/pages';
 /**
  * Page id the viewer pins next to its own screens.
  *
- * The UI parts index is authored as an ordinary page (`pages/components.jsx`),
- * but it documents the mockup instead of being one of its screens. The viewer
- * therefore lifts it out of the page list and shows it in its own group, right
- * below the token list — the sidebar groups and the gallery keep showing the
- * actual screens only. A mockup without that page simply gets no such entry.
+ * `pages/components.jsx` (the UI parts index) documents the mockup instead of
+ * being one of its screens, so it is lifted out of the sidebar groups and the
+ * gallery and shown in its own group below the token list. A mockup without it
+ * gets no entry.
  */
 export const PINNED_PAGE_ID = 'components';
 
-/**
- * Label of the pinned page.
- *
- * Fixed by the viewer, exactly like the token list's: the page belongs to the
- * viewer's own group, so `mockup.config.json` does not describe it at all and
- * any `label` / `category` / `order` written for it is ignored — see
- * `splitPinnedPage()` for how that is enforced.
- */
+/** Fixed by the viewer: any `label` / `category` / `order` written for the pinned page in `mockup.config.json` is ignored (see `splitPinnedPage()`). */
 const PINNED_PAGE_LABEL = 'UI Parts';
 
 export interface SplitPages {
-  /** Every page, the pinned one normalized as described above. */
   all: ViewerPage[];
-  /** The pinned page, or `null` when the mockup does not have one. */
   pinned: ViewerPage | null;
-  /** Every remaining page, in the order it arrived. */
   screens: ViewerPage[];
 }
 

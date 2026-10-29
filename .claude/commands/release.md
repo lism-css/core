@@ -108,6 +108,9 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 ### Features
 - 変更内容の説明 (コミットハッシュ短縮形)
 
+### Changes
+- 変更内容の説明 (コミットハッシュ短縮形)
+
 ### Bug Fixes
 - 変更内容の説明 (コミットハッシュ短縮形)
 
@@ -115,12 +118,15 @@ argument-hint: "{lism-css|lism-ui|lism-cli|plugin} {バージョン}"
 - 変更内容の説明 (コミットハッシュ短縮形)
 ```
 
-| コミット | カテゴリ |
+コミットの種類は目安にとどめ、利用者から見た内容で振り分ける。
+
+| 内容 | カテゴリ |
 | --- | --- |
-| `feat` または新機能追加 | Features |
-| `fix` またはバグ修正 | Bug Fixes |
-| `chore` `refactor` `style` `perf` `ci` `build` | Other |
-| `docs`（ドキュメントのみ） | 除外 |
+| 新機能の追加（主に`feat`） | Features |
+| 既定値・名前・挙動など既存の仕様の変更。非推奨化を含む（コミットの種類は問わない） | Changes |
+| バグ修正（主に`fix`） | Bug Fixes |
+| 上記以外のコード変更（`chore` `refactor` `style` `perf` `ci` `build`） | Other |
+| ドキュメントのみの変更（`docs`） | 除外 |
 
 #### 5-B. changelog エントリ
 

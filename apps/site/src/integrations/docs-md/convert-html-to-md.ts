@@ -18,10 +18,7 @@ import { rehypeCallouts } from './rehype-callouts';
 import { rehypeExtractMeta, META_DATA_KEY, type DocMeta } from './rehype-extract-meta';
 import { rehypeAbsoluteUrls } from './rehype-absolute-urls';
 
-/**
- * 「記事本文 (article[data-pagefind-body]) が見つからない」専用エラー。
- * 呼び出し側はこの種類のみ skip 扱いとし、それ以外の例外は build を失敗させる。
- */
+/** 呼び出し側はこのエラーのみ skip 扱いとし、他の例外は build を失敗させる */
 export class ArticleNotFoundError extends Error {
   constructor() {
     super('article[data-pagefind-body] not found');
@@ -29,10 +26,6 @@ export class ArticleNotFoundError extends Error {
   }
 }
 
-/**
- * data-pagefind-body を持つ <article> 要素のみを残す rehype プラグイン。
- * 該当ノードが見つからない場合は ArticleNotFoundError を投げて呼び出し側に判定させる。
- */
 function rehypeKeepArticle() {
   return (tree: HastRoot) => {
     let target: Element | undefined;

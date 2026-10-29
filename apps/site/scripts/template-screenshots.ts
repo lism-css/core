@@ -28,6 +28,7 @@ import { spawn, spawnSync, type ChildProcess } from 'node:child_process';
 import net from 'node:net';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
+import { foregroundServerEnv } from './preview-server-env';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -222,10 +223,7 @@ function startPreviewServer(entry: TemplateEntry): Promise<ChildProcess> {
     // それ以外は `--port <port>` を渡す。`--` を挟むと pnpm がそのまま script へ渡し、astro は `--` 以降を無視する。
     const usePortEnv = entry.config.portViaEnv ?? false;
     const serverArgs = usePortEnv ? ['--filter', entry.pkgName, command] : ['--filter', entry.pkgName, command, '--port', String(port)];
-    // Astro 7 の dev / preview は AI エージェント環境（am-i-vibing の判定）を検出するとバックグラウンドのデーモンとして起動し、
-    // ロックファイルで管理する。このスクリプトは自分で止められる前面のサーバーが要るので、判定に使われる環境変数を外す
-    const env: NodeJS.ProcessEnv = { ...process.env };
-    for (const key of ['CLAUDECODE', 'CODEX_THREAD_ID', 'CURSOR_TRACE_ID', 'AGENT', 'AI_AGENT']) delete env[key];
+    const env = foregroundServerEnv();
     if (usePortEnv) env.PORT = String(port);
     const server = spawn('pnpm', serverArgs, {
       cwd: REPO_ROOT,

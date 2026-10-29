@@ -299,15 +299,10 @@ function resolveLangVariantDir(srcDir: string, variant: string, lang: Lang): str
 /**
  * single-project-variant 用の後処理。
  *
- * `src/` 直下のサブディレクトリ（`src/pages/`, `src/components/`, `src/styles/`, ...）について、
- * その中に対象 variant のディレクトリ（例: `src/components/{variant}/`）か言語別 variant のディレクトリ
- * （例: `src/components/{lang}/{variant}/`）が存在するものを「variant 規約のディレクトリ」とみなす。
- * （variant ディレクトリ直下はファイルのみを想定。ネストしたサブディレクトリ構成は非対応）
- *
- * `src/pages/{variant}/index.astro` の存在だけは必須（無ければエラー）。
- * 対象 variant を持つディレクトリでは base（`{variant}/`）→ lang（`{lang}/{variant}/`）の順に中身を親へ
- * マージし（同名ファイルは lang が上書き）、直下の全サブディレクトリを削除する。
- * lang 側には差分ファイルだけを置けばよく、base 側のファイルは `@/{dir}/{variant}/...` の alias で参照できる。
+ * `src/` 直下のサブディレクトリのうち、対象 variant（`{variant}/`）か言語別 variant（`{lang}/{variant}/`）を
+ * 持つものを「variant 規約のディレクトリ」とみなす（variant 直下はファイルのみ。ネストしたサブディレクトリは非対応）。
+ * `src/pages/{variant}/index.astro` は必須。lang 側には差分ファイルだけを置けばよく、
+ * base 側のファイルは `@/{dir}/{variant}/...` の alias で参照できる。
  */
 function extractVariantFiles(projectDir: string, tpl: SingleProjectVariantTemplateDef, lang: Lang): void {
   const srcDir = path.join(projectDir, 'src');
@@ -353,13 +348,6 @@ function extractVariantFiles(projectDir: string, tpl: SingleProjectVariantTempla
   rewriteVariantAliasImports(srcDir, variantDirs);
 }
 
-/**
- * 配布後のファイル群に対して、path alias 経由の `@/{dir}/{variant}/...` 形式の参照を
- * `@/{dir}/...` に置換する。`variantDirs` には base（`{variant}`）と lang（`{lang}/{variant}`）の
- * 両方を渡し、どちらの形式も置換する。variant 名にメタ文字が含まれても安全なように escape する。
- *
- * 対象拡張子はテキスト系のソース/スタイルのみ。マッチしないファイルはそのまま。
- */
 const ALIAS_REWRITE_EXTENSIONS = new Set([
   '.astro',
   '.ts',
@@ -379,6 +367,13 @@ const ALIAS_REWRITE_EXTENSIONS = new Set([
   '.html',
 ]);
 
+/**
+ * 配布後のファイル群に対して、path alias 経由の `@/{dir}/{variant}/...` 形式の参照を
+ * `@/{dir}/...` に置換する。`variantDirs` には base（`{variant}`）と lang（`{lang}/{variant}`）の
+ * 両方を渡し、どちらの形式も置換する。variant 名にメタ文字が含まれても安全なように escape する。
+ *
+ * 対象拡張子はテキスト系のソース/スタイルのみ。マッチしないファイルはそのまま。
+ */
 function rewriteVariantAliasImports(srcDir: string, variantDirs: string[]): void {
   if (!fs.existsSync(srcDir)) return;
 
@@ -488,14 +483,8 @@ const DEP_SECTIONS = ['dependencies', 'devDependencies', 'peerDependencies'] as 
 const REGISTRY_TIMEOUT_MS = 5000;
 
 /**
- * 取得後の package.json 内の `workspace:*` 依存を、依存パッケージごとの公開バージョンに書き換える。
- *
- * バージョンは npm レジストリの dist-tag `latest`（＝安定版）を解決して使う。これにより `lism-css` 等を
- * publish するだけで `lism-cli create` が最新版を取得でき、CLI 自体を再公開する必要がなくなる。
- * レジストリへ到達できない場合（オフライン / 障害 / 404 / タイムアウト）は、CLI ビルド時に焼き込んだ
- * `LISM_PACKAGE_VERSIONS` へ依存ごとに個別フォールバックする。いずれも書式は `^x.y.z`。
- *
- * 失敗しても警告に留め、生成自体は続行する（Best Effort）。
+ * 取得後の package.json 内の `workspace:*` 依存を、公開済みの `^x.y.z` に書き換える。
+ * レジストリの latest を使うので、lism-css 等の publish だけで CLI の再公開は要らない。失敗しても警告に留めて続行する。
  */
 async function rewriteWorkspaceDeps(projectDir: string): Promise<void> {
   const pkgPath = path.join(projectDir, 'package.json');
@@ -547,11 +536,8 @@ function bakedVersion(name: string): string {
 }
 
 /**
- * 単一依存の公開バージョンを解決する。
- *
- * CLI が把握している公開 Lism パッケージ（＝焼き込み済み）のみレジストリへ問い合わせ、latest を採用する。
- * 未知の workspace 依存は、無関係な npm パッケージを誤って引かないようレジストリへ問い合わせず焼き込み値を返す。
- * レジストリ取得に失敗した場合も焼き込み値へフォールバックする。
+ * 単一依存の公開バージョンを解決する。レジストリへ問い合わせるのは焼き込み済みの公開 Lism パッケージのみ。
+ * 未知の workspace 依存は、無関係な npm パッケージを誤って引かないよう問い合わせず焼き込み値を返す。
  */
 async function resolveDepVersion(name: string): Promise<string> {
   const baked = bakedVersion(name);
@@ -561,11 +547,9 @@ async function resolveDepVersion(name: string): Promise<string> {
 }
 
 /**
- * npm レジストリの `<pkg>/latest`（dist-tag latest ＝ 安定版）から version を取得する。
- *
- * パッケージ全体の最新 version を見ると prerelease を拾う恐れがあるため、必ず `/latest` を使う。
+ * npm レジストリの `<pkg>/latest` から version を取得する。失敗時は null（呼び出し側でフォールバック）。
+ * パッケージ全体の最新 version だと prerelease を拾う恐れがあるため、必ず `/latest` を使う。
  * スコープ名はスラッシュのみ `%2F` にエンコードする（`@lism-css/ui` → `@lism-css%2Fui`）。
- * 失敗（オフライン / タイムアウト / 非 2xx / 不正レスポンス）時は null を返し、呼び出し側でフォールバックする。
  */
 async function fetchLatestVersion(name: string): Promise<string | null> {
   const url = `${NPM_REGISTRY_BASE}/${name.replace(/\//g, '%2F')}/latest`;

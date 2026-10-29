@@ -11,7 +11,6 @@ export interface SidebarPostLike {
   data: { order?: number };
 }
 
-// サイドバーセクションがdir指定かどうかをチェックするヘルパー
 export function hasDirProperty(item: SidebarSection): item is SidebarSection & { dir: string } {
   return 'dir' in item;
 }
@@ -35,7 +34,6 @@ function getItemsReferencedSlugs(sectionItems: SidebarSection[]): Set<string> {
     if ('items' in section) {
       for (const item of section.items) {
         if (isSeparator(item)) continue;
-        // linkを取得（文字列の場合はそのまま、オブジェクトの場合は.linkプロパティ）
         const link = typeof item === 'string' ? item : item.link;
         slugs.add(extractSlugFromUrl(link));
       }
@@ -61,11 +59,8 @@ export function groupPostsBySidebarDirs<T extends SidebarPostLike>(allPosts: T[]
 
   const postsByCategory: Record<string, T[]> = {};
   for (const post of allPosts) {
-    // items で参照されている記事はルートカテゴリに含めない
     if (itemsReferencedSlugs.has(post.id)) continue;
 
-    // sidebarConfigで定義されたdirと記事のslugをマッチング
-    // 例: "ui/examples/Card" は "ui" ではなく "ui/examples" にマッチ
     let category = '/';
     for (const dir of configuredDirs) {
       if (dir === '/') {
@@ -82,7 +77,6 @@ export function groupPostsBySidebarDirs<T extends SidebarPostLike>(allPosts: T[]
     (postsByCategory[category] ??= []).push(post);
   }
 
-  // 各カテゴリー内をorder順にソート（未指定は999。同順位は入力順を維持＝サイドバー表示と同じ並び）
   Object.values(postsByCategory).forEach((posts) => {
     posts.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
   });
@@ -100,13 +94,11 @@ export function flattenPostsBySidebarOrder<T extends SidebarPostLike>(allPosts: 
   const orderedPosts: T[] = [];
   for (const section of sectionItems) {
     if (hasDirProperty(section)) {
-      // dir指定の場合：カテゴリ内の記事をソート順で追加
       const posts = postsByCategory[section.dir];
       if (posts && posts.length > 0) {
         orderedPosts.push(...posts);
       }
     } else {
-      // items指定の場合：指定された順序で記事を追加
       for (const navItem of section.items) {
         if (isSeparator(navItem)) continue;
         const link = typeof navItem === 'string' ? navItem : navItem.link;

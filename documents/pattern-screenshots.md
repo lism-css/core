@@ -74,6 +74,7 @@ apps/site/
     generate-screenshots.ts    # 撮影（new / force）
     compare-screenshots.ts     # 比較
     update-screenshots.ts      # 差分パターンの更新
+    preview-server-env.ts      # previewを前面で起動するための環境変数（テンプレ撮影と共用）
   public/screenshots/patterns/ # 公開用サムネ（Git管理）
     cta/cta01.webp            #   ja
     en/cta/cta01.webp         #   en

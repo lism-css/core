@@ -23,7 +23,6 @@ export interface CheckCommandOptions {
   viewerDir?: string;
 }
 
-/** rollup / vite が投げたエラーを、対象ファイルと原因が分かる契約エラーへ整形する。 */
 function toCheckError(error: unknown): MockupContractError {
   if (error instanceof MockupContractError) return error;
 

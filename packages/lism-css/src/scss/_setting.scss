@@ -7,7 +7,6 @@
 $default_important: props.$default_important !default;
 $is_container_query: 1 !default;
 
-// breakpoints: サイズ 0 は「無効」（_query.scss の bp-up / bp-down がスキップする）。
 $breakpoints: () !default;
 $breakpoints: map.merge(props.$breakpoints, $breakpoints);
 

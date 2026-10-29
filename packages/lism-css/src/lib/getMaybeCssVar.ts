@@ -4,7 +4,6 @@ import getMaybeTokenValue from './getMaybeTokenValue';
 
 type CssValue = string | number;
 
-// 対応するCSS変数があれば返す
 export default function getMaybeCssVar(value: CssValue, tokenKey: string | null | undefined | false): string {
   if (!tokenKey) return String(value);
 
@@ -26,11 +25,9 @@ export default function getMaybeCssVar(value: CssValue, tokenKey: string | null 
 export function getMaybeSpaceVar(value: CssValue): string {
   if (0 === value || '0' === value) return '0';
 
-  // spaceが 整数 or 整数を示す文字列 の場合
   if (typeof value === 'number' || isNumStr(value)) {
     const numValue = typeof value === 'number' ? value : Number(value);
 
-    // 負の値: calc(-1 * var(--s{absValue})) に変換
     if (numValue < 0) {
       return `calc(-1 * var(--s${Math.abs(numValue)}))`;
     }
@@ -38,21 +35,13 @@ export function getMaybeSpaceVar(value: CssValue): string {
     return `var(--s${value})`;
   }
 
-  //
-  // + があれば calcで足す?
-  // ...
-
-  // スペース区切りで一括指定されている場合
   if (typeof value === 'string' && value.includes(' ')) {
-    // calc(), var() 等 があれば対象外
     if (!value.includes('calc(') && !value.includes('var(') && !value.includes(',')) {
-      // spaceを' 'で配列化して、数値なら変数化する
       const spaceArr = value.split(' ');
       return spaceArr.map((_s) => getMaybeSpaceVar(_s)).join(' ');
     }
   }
 
-  // それ以外はそのまま返す
   return String(value);
 }
 

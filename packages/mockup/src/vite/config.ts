@@ -64,7 +64,6 @@ export function collectFsAllowRoots(options: {
   return [...roots];
 }
 
-/** devとcheckで共有するVite設定を組み立てる。 */
 export function createMockViteConfig({
   runtime,
   viewerDir,

@@ -10,7 +10,6 @@ export const MOCKUP_CONFIG_FILENAME = 'mockup.config.json';
 /**
  * `mockup.config.json` の許可トップレベルキー。
  * 未知キーはエラーにして、項目追加が必ず `schemaVersion` の更新を伴うようにする
- * （将来の拡張＝ここへキーを足しつつ SCHEMA_VERSION を上げる、という一本道にする）。
  */
 const CONFIG_KEYS = ['schemaVersion', 'title', 'imports', 'pages'] as const;
 const PAGE_META_KEYS = ['label', 'category', 'order'] as const;
@@ -28,9 +27,7 @@ function unknownKeys(value: Record<string, unknown>, allowed: readonly string[])
 /**
  * `imports` の追加パッケージを、データディレクトリを含むプロジェクトから解決するための
  * importer パス（`getResolveAnchor()` のデータディレクトリ版）。
- *
- * アンカーは実在ファイルである必要があるため、必ず存在する `mockup.config.json` を使う
- * （vite は存在しない importer だと解決の起点を `root` へフォールバックしてしまう）。
+ * 実在する `mockup.config.json` を使う理由も `getResolveAnchor()` と同じ。
  */
 export function getDataResolveAnchor(dataDir: string): string {
   return path.join(dataDir, MOCKUP_CONFIG_FILENAME);
@@ -47,7 +44,6 @@ export function resolveDataDir(dir: string): string {
   return safeRealpath(abs);
 }
 
-/** `mockup.config.json`を読み、データ契約を検証する。 */
 export function readMockConfig(dataDir: string): MockupConfigFile {
   const file = path.join(dataDir, MOCKUP_CONFIG_FILENAME);
 

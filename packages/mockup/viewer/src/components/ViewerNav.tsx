@@ -12,7 +12,6 @@ import { TOKENS_VIEW_LABEL } from './TokensView';
 
 interface ViewerNavProps {
   id: string;
-  /** Viewer title shown at the top of the sidebar. */
   title: string;
   /** When false the sidebar collapses into an icon-only rail. */
   isOpen: boolean;
@@ -37,14 +36,12 @@ interface ViewerLink {
   onSelect: () => void;
 }
 
-/** Cancels the default navigation on a plain click and runs `onSelect` instead. */
 const navClickHandler = (onSelect: () => void) => (event: MouseEvent<HTMLElement>) => {
   if (isModifiedClick(event)) return;
   event.preventDefault();
   onSelect();
 };
 
-/** Sidebar listing the viewer's own screens plus every page of the mockup. */
 export default function ViewerNav({
   id,
   title,
@@ -57,7 +54,6 @@ export default function ViewerNav({
   onOpenTokens,
   onOpenPage,
 }: ViewerNavProps) {
-  /** True while `pageId` is the page on screen. */
   const isCurrentPage = (pageId: string) => route.view === 'page' && pageId === route.pageId;
 
   // Each list is labelled by its own heading, so screen readers announce the group a
@@ -184,7 +180,6 @@ export default function ViewerNav({
   );
 }
 
-/** Heading of a nav group. Its `id` labels the group's list. */
 function NavGroupLabel({ id, children }: { id: string; children: ReactNode }) {
   return (
     <Text as="div" id={id} px="15" fz="2xs" fw="bold" c="text-2" o="p" tt="uppercase" lts="l" ovw="anywhere">

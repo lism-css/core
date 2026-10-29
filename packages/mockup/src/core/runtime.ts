@@ -85,11 +85,10 @@ function sharedDirRoot(): string {
  * `os.tmpdir()` 配下の安定した場所へ置いて起動間で使い回す（データディレクトリ側には書かないので、
  * 読み取り専用の配布物（npx キャッシュ等）から実行しても動く、という設計は維持できる）。
  *
- * 同じ入力で2つ同時に起動すると同じディレクトリを指すが、vite の依存最適化はキャッシュの
- * commit（rename の連続）にプロセス間の排他を持たず、同時に書くと ENOTEMPTY / ENOENT で
- * commit に失敗して負けた側が依存最適化を失う。そのため、書き込みを行う dev はこのパスを
- * そのまま使わず、`claimViteCacheDir()` で `<このパス>.inuse.<pid>` へ rename して占有してから
- * 使う（`prepareViteCacheDir()` 参照）。このパスが存在するのは「誰も使っていない」ときだけ。
+ * 同じ入力で2つ同時に起動すると同じディレクトリを指す。vite の依存最適化は同時書き込みで壊れるため
+ * （理由は `cache-claim.ts` 冒頭）、書き込みを行う dev はこのパスをそのまま使わず、
+ * `claimViteCacheDir()` で `<このパス>.inuse.<pid>` へ rename して占有してから使う
+ * （`prepareViteCacheDir()` 参照）。このパスが存在するのは「誰も使っていない」ときだけ。
  */
 export function resolveViteCacheDir(dataDir: string, imports: readonly string[] = []): string {
   return path.join(sharedDirRoot(), `lism-mockup-cache-${viteCacheDirKey(dataDir, imports)}`);
@@ -124,10 +123,9 @@ interface PreparedViteCacheDir {
  * ディレクトリ自体は作らない（占有した場合を除く）。事前バンドルを行う `dev` では vite が
  * 必要になった時点で作るため、キャッシュを使わない `check`（build）が空ディレクトリを残さずに済む。
  *
- * `exclusive`（依存の事前バンドルを書き込む dev）では、共有パスを `<共有パス>.inuse.<pid>` へ
- * rename して占有し、そこを cacheDir にする。占有できない（別プロセスが使用中、他ユーザー所有で
- * rename も新規作成もできない等）場合は、プロセス固有の一時ディレクトリへ退避して起動を止めない
- * （キャッシュの再利用を諦めて毎回事前バンドルするだけで、動作は変わらない）。
+ * `exclusive`（依存の事前バンドルを書き込む dev）では `claimViteCacheDir()` で共有パスを占有し、
+ * そこを cacheDir にする（競合の理由は `cache-claim.ts` 冒頭）。占有できなければプロセス固有の
+ * 一時ディレクトリへ退避し、起動は止めない。
  *
  * `exclusive` でない `check` は cacheDir へ読み書きしないため、占有せず共有パスを指すだけにする。
  */
@@ -160,7 +158,6 @@ function prepareGeneratedConfigDir(dataDir: string, imports: readonly string[] |
   }
 }
 
-/** データディレクトリ全体を検証し、実行時データへまとめる。 */
 export async function loadMockData(dir: string): Promise<MockupData> {
   const dataDir = resolveDataDir(dir);
   const config = readMockConfig(dataDir);
@@ -170,15 +167,10 @@ export async function loadMockData(dir: string): Promise<MockupData> {
 }
 
 export interface PrepareMockRuntimeOptions {
-  /**
-   * 共有 cacheDir を占有してから使う（依存の事前バンドルを書き込む dev 用）。
-   * 占有できない場合はプロセス固有の一時ディレクトリへ退避する。
-   * 依存の事前バンドルを行わず cacheDir へ書き込まない check（build）では不要。
-   */
+  /** dev 用。共有 cacheDir を占有して使う（理由は `cache-claim.ts`）。check（build）は cacheDir へ書き込まないので不要。 */
   exclusiveViteCache?: boolean;
 }
 
-/** 検証済みデータとVite用の生成物・キャッシュを準備する。 */
 export async function prepareMockRuntime(dir: string, options: PrepareMockRuntimeOptions = {}): Promise<MockupRuntime> {
   const data = await loadMockData(dir);
 

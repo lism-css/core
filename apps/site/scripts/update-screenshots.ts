@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { spawn, type ChildProcess } from 'node:child_process';
 import { PNG } from 'pngjs';
 import { capturePatternScreenshot } from './capture-pattern-screenshot';
+import { foregroundServerEnv } from './preview-server-env';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -111,6 +112,7 @@ function startPreviewServer(): Promise<ChildProcess> {
       stdio: ['ignore', 'pipe', 'pipe'],
       shell: true,
       detached: true,
+      env: foregroundServerEnv(),
     });
 
     let started = false;

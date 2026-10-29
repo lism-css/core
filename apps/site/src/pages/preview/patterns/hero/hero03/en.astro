@@ -15,13 +15,13 @@ import { Stack, Box, Divider, Frame, Flex, Grid, Media, Layer, Icon, Heading, Te
     class="c--hero03"
     isContainer
     pos="relative"
-    min-h="calc(100svh - var(--gutter))"
-    m="calc(var(--gutter) / 2)"
-    p="calc(var(--gutter))"
+    min-h="calc(100svh - var(--gutter-px))"
+    m="calc(var(--gutter-px) / 2)"
+    p="calc(var(--gutter-px))"
     bdrs="30"
     bgc="black"
     c="white"
-    style={{ '--gutter': 'max(var(--s30), 2.25vw)', '--ff--accent': "'Libre Baskerville', Georgia, serif" }}
+    style={{ '--gutter-px': 'max(var(--s30), 2.25vw)', '--ff--accent': "'Libre Baskerville', Georgia, serif" }}
   >
     <Frame isLayer bdrs="inherit">
       <Media
@@ -52,7 +52,7 @@ import { Stack, Box, Divider, Frame, Flex, Grid, Media, Layer, Icon, Heading, Te
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Text>
       </Stack>
-      <Box px="calc(var(--gutter) / 2)" pos="absolute" b="0" r="0">
+      <Box px="calc(var(--gutter-px) / 2)" pos="absolute" b="0" r="0">
         <Flex as="a" href="#" set="plain" wm="vertical-rl" ai="center" g="15" fz={['10px', '11px']} lh="1" lts="xl" tt="uppercase">
           <Inline>Scroll</Inline>
           <Divider h={['4em', '5em']} fxsh="0" bdc="current" o="ppp" />

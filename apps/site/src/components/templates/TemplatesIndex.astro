@@ -54,10 +54,8 @@ const buildCategoryUrl = (category: string) => getLocalizedUrl(`/templates/${cat
 ---
 
 <Stack g="50" data-pagefind-body>
-  {/* ===== ヘッダー ===== */}
   <PageHeader title={copy.title} description={copy.lead} />
 
-  {/* ===== クイックスタート ===== */}
   <Stack as="section" g="30">
     <Heading level="2">{copy.quickStart}</Heading>
     <Text hl="s">{copy.quickStartLead}</Text>
@@ -76,7 +74,6 @@ const buildCategoryUrl = (category: string) => getLocalizedUrl(`/templates/${cat
     <Text util="trim" c="text-2" fz="s" hl="s">{copy.commandLead}</Text>
   </Stack>
 
-  {/* ===== テンプレート一覧 ===== */}
   <Stack as="section" g="40" aria-labelledby="templates-list-title">
     <Stack g="30">
       <Heading id="templates-list-title" level="2">{copy.available}</Heading>
@@ -156,7 +153,7 @@ const buildCategoryUrl = (category: string) => getLocalizedUrl(`/templates/${cat
 
   <style>
     @layer lism-custom {
-      /* Quick start カード内のコードブロック：折り返し許可 */
+      /* Quick start カード内のコードブロック */
       .c--templatesCode {
         max-width: 100%;
         overflow-x: auto;
@@ -164,7 +161,6 @@ const buildCategoryUrl = (category: string) => getLocalizedUrl(`/templates/${cat
         overflow-wrap: anywhere;
       }
 
-      /* サムネイル：リンクとして拡大ホバー */
       .c--templatesCard_thumbLink img {
         transition: transform 0.3s ease;
       }

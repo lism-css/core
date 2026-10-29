@@ -130,6 +130,9 @@ export const astroRedirects: AstroRedirects = {
   // tokens/spacing ページを廃止し、tokens ページの SPACE セクションへ統合
   '/docs/tokens/spacing/': '/docs/tokens/#space',
   '/en/docs/tokens/spacing/': '/en/docs/tokens/#space',
+  // reset-css ページを廃止し、base-styles ページの Reset CSS セクションへ統合
+  '/docs/reset-css/': '/docs/base-styles/#reset-css',
+  '/en/docs/reset-css/': '/en/docs/base-styles/#reset-css',
   // half-leading を tokens/ 配下から CSS設計の独立ページへ移動
   '/docs/tokens/half-leading/': '/docs/half-leading/',
   '/en/docs/tokens/half-leading/': '/en/docs/half-leading/',

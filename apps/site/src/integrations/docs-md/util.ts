@@ -2,10 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Element } from 'hast';
 
-/**
- * hast Element の className に指定クラスが含まれるかを判定する。
- * properties.className は string[] / string / undefined のいずれかを取りうる。
- */
 export function hasClass(node: Element, cls: string): boolean {
   // @types/hast 3.0.5 は className を string[] に限定するが、実行時の揺れに備えて string も受ける
   const c: unknown = node.properties?.className;

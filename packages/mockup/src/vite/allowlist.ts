@@ -61,10 +61,7 @@ export interface ImportAllowlist {
   readonly specifiers: ReadonlySet<string>;
   readonly packageRoots: readonly string[];
   readonly dependencyRoots: readonly string[];
-  /**
-   * 標準パッケージの解決に使った `@lism-css/mockup` 側の node_modules ルート（近い順）。
-   * `server.fs.allow` でも同じ一覧が要るため、祖先方向の列挙を2度行わずここから受け渡す。
-   */
+  /** 標準パッケージの解決に使った `@lism-css/mockup` 側の node_modules ルート（近い順）。`server.fs.allow` へ同じ一覧を渡すために持つ。 */
   readonly mockupDependencyRoots: readonly string[];
   /**
    * 見つからなかった標準パッケージ名。
@@ -82,9 +79,8 @@ export interface ImportAllowlistOptions {
 }
 
 /**
- * 祖先ディレクトリの走査は起動のたびに何度も走るため、列挙（`ancestorNodeModules()`）は
- * 呼び出し側で1回だけ行い、複数パッケージの検索でその結果を使い回す。
- * 引数の順序が Node の解決順（近い順）である限り、結果は親方向へ1階層ずつ探すのと同じになる。
+ * `ancestorNodeModules()` の結果を複数パッケージの検索で使い回す入口。
+ * 引数が Node の解決順（近い順）である限り、結果は親方向へ1階層ずつ探すのと同じになる。
  */
 export function findPackageDirIn(nodeModulesRoots: readonly string[], pkgName: string): string | null {
   for (const root of nodeModulesRoots) {

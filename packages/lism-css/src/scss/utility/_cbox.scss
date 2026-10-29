@@ -14,9 +14,8 @@
   color: var(--c);
   background-color: var(--bgc);
 
-  // 相対カラー構文をサポートしているブラウザでは、 shadowのカラーもキーカラーに寄せる
+  // 相対カラー構文をサポートしているブラウザでは、背景に混ぜるキーカラーの彩度を落とす
   @supports (color: oklch(from red l c h)) {
     --mutedKeycolor: oklch(from var(--keycolor) l calc(c * 0.75) h);
-    // --shc: color-mix(in srgb, var(--shadow), oklch(from var(--keycolor) l c h / 0.25) var(--cbox-shPct, 50%));
   }
 }

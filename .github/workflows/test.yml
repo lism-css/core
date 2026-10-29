@@ -24,8 +24,11 @@ concurrency:
 # - 各ジョブは独立して並列に走る。typecheck / test は turbo の ^build 依存で必要な依存パッケージを自前でビルドするため、
 #   build ジョブの成果物を受け渡す必要がない（受け渡してもキャッシュが無い turbo は再ビルドしていた）
 # - apps/site のビルドは 4 分前後かかり他の全パッケージより長いので、別ジョブに分けて他のチェックを待たせない
-# - turbo のローカルキャッシュ（.turbo/cache）を actions/cache で run 間に引き継ぐ。deploy.yml と同じ restore-keys の接頭辞にして、
-#   main の deploy が残したキャッシュも PR から読めるようにする。キャッシュは同じ PR の前回 run と default branch（main）からしか読めない
+# - turbo のローカルキャッシュ（.turbo/cache）を actions/cache で run 間に引き継ぐ。restore-keys は自ジョブの接頭辞を先に探す。
+#   共通の Linux-turbo- だけだと最も新しく保存された別ジョブのキャッシュが選ばれ、自ジョブのタスク結果が当たらない
+#   （build-site は保存しないので、依存パッケージのビルド結果を持つ build ジョブのものを読む）
+# - PR から読めるのは同じ PR の前回 run と base / default branch のキャッシュ。dev では CI が走らず、main の deploy のキャッシュは
+#   dev とハッシュがずれてほぼ当たらないため、PR の初回 run は実質キャッシュ無しになる
 # - .turbo/cache は turbo 側で削除されず増え続けるので、保存前に 7 日以上前のエントリを消して肥大化を抑える（deploy.yml と同じ）
 
 jobs:
@@ -51,6 +54,7 @@ jobs:
           path: .turbo
           key: ${{ runner.os }}-turbo-build-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-turbo-build-
             ${{ runner.os }}-turbo-
 
       - name: Prune stale Turborepo cache entries
@@ -86,6 +90,7 @@ jobs:
           path: .turbo
           key: ${{ runner.os }}-turbo-build-site-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-turbo-build-
             ${{ runner.os }}-turbo-
 
       - name: Install dependencies
@@ -116,6 +121,7 @@ jobs:
           path: .turbo
           key: ${{ runner.os }}-turbo-typecheck-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-turbo-typecheck-
             ${{ runner.os }}-turbo-
 
       - name: Prune stale Turborepo cache entries
@@ -149,6 +155,7 @@ jobs:
           path: .turbo
           key: ${{ runner.os }}-turbo-lint-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-turbo-lint-
             ${{ runner.os }}-turbo-
 
       - name: Prune stale Turborepo cache entries
@@ -182,6 +189,7 @@ jobs:
           path: .turbo
           key: ${{ runner.os }}-turbo-test-${{ github.sha }}
           restore-keys: |
+            ${{ runner.os }}-turbo-test-
             ${{ runner.os }}-turbo-
 
       - name: Prune stale Turborepo cache entries
@@ -200,6 +208,7 @@ jobs:
 
   templates-private-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7

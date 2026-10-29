@@ -79,7 +79,7 @@
 - `src/config/translations.ts` - UI 翻訳テキスト
 - `src/lib/i18n.ts` - i18n ユーティリティ関数
 - `src/lib/content.ts` - コンテンツ取得（未翻訳は root 言語にフォールバック）
-- `src/components/LanguageSelect.astro` - 言語切り替え UI
+- `src/components/LangMenu.astro` - 言語切り替え UI
 - `src/components/TranslationNotice.astro` - 未翻訳注意書き
 - URL: root 言語（ja）は `/docs/xxx/`、非 root 言語（en）は `/en/docs/xxx/`
 

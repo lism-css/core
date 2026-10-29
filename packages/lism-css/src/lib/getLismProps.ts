@@ -11,7 +11,7 @@ import atts from './helper/atts';
 import isEmptyObj from './helper/isEmptyObj';
 import filterEmptyObj from './helper/filterEmptyObj';
 import mergeSet from './helper/mergeSet';
-import splitWithComma from './helper/splitWithComma';
+import splitValues from './helper/splitValues';
 import { type StyleWithCustomProps } from './types';
 import { type TraitProps, type SetPropValue, type UtilPropValue } from './types/TraitProps';
 import { type PropValueTypes } from './types/PropValueTypes';
@@ -45,7 +45,7 @@ const getTokenKey = (propName: string): string => {
   return (propData?.token as string) || '';
 };
 
-// 出力順のためのクラスバケット（結合順の唯一の定義点）
+// 出力順のためのクラスバケット
 export class LismPropsData {
   className: string = '';
   primitiveClass: string[] = [];
@@ -76,7 +76,7 @@ export class LismPropsData {
     this.className = this.buildClassName(userClassName, astroClassName);
   }
 
-  // 最終クラス順: [className&class] [primitiveClass] [setClasses] [traitClasses] [uClasses] [propClasses]。
+  // 結合順の唯一の定義点: [className&class] [primitiveClass] [setClasses] [traitClasses] [uClasses] [propClasses]。
   // classNameとclassは重複を除いて併合する。
   buildClassName(userClassName?: string, astroClassName?: string | null): string {
     return atts(userClassName, astroClassName, this.primitiveClass, this.setClasses, this.traitClasses, this.uClasses, this.propClasses);
@@ -87,7 +87,6 @@ export class LismPropsData {
     this.normalizeIsWrapper();
     this.normalizeHasTransition();
 
-    // set / util は attrs ループの前に取り出して各バケットへ振り分ける
     const rawSet = this.extractProp('set');
     const rawUtil = this.extractProp('util');
     mergeSet(undefined, rawSet).forEach((v) => this.addSet(v));
@@ -183,7 +182,6 @@ export class LismPropsData {
 
   /** 1つのProp値をproperty classまたはstyleへ出力する。 */
   setAttrs(propKey: string, val: unknown, propConfig: PropConfig = {}, bpKey: string = ''): void {
-    // 値が null, undefined, '', false の時はスキップ
     if (null == val || '' === val || false === val) return;
 
     const baseStyleName =
@@ -203,7 +201,7 @@ export class LismPropsData {
       return;
     }
 
-    // base値はpreset、token、shorthandの順にclass化を試す。
+    // base値はpreset、token、utils、shorthandの順にclass化を試す。
     if (!bpKey) {
       const { presets, tokenClass, utils, shorthands } = propConfig;
       if (presets && isPresetValue(presets, val)) {
@@ -268,8 +266,8 @@ export class LismPropsData {
     if (hoverData === true) {
       this.addProp(`-hov`);
     } else if (typeof hoverData === 'string') {
-      // カンマ区切りで複数指定可能（入力文字列をそのまま -hov:{...} として出力）
-      splitWithComma(hoverData).forEach((cls) => {
+      // 各値は変換せず、そのまま -hov:{...} として出力する
+      splitValues(hoverData).forEach((cls) => {
         this.addProp(`-hov:${cls}`);
       });
     } else if (typeof hoverData === 'object') {

@@ -1,22 +1,16 @@
 ---
-/**
- * ページネーションコンポーネント
- * 記事一覧のページ切り替えに使用
- * 言語対応：リンクに言語プレフィックスを追加
- */
 import { Flex, Lism } from 'lism-css/astro';
 import { getRootLang, getLocalizedUrl, type LangCode } from '@/lib/i18n';
 
 interface Props {
   currentPage: number;
   totalPages: number;
-  baseUrl?: string; // ベースURL（デフォルトは /page/）
-  lang?: LangCode; // 言語コード（省略時はroot言語）
+  baseUrl?: string;
+  lang?: LangCode;
 }
 
 const { currentPage, totalPages, baseUrl = '/page/', lang = getRootLang() } = Astro.props;
 
-// ページ番号リンクを生成するヘルパー関数
 function getPageUrl(page: number): string {
   if (page === 1) {
     return getLocalizedUrl('/', lang);
@@ -24,15 +18,12 @@ function getPageUrl(page: number): string {
   return getLocalizedUrl(`${baseUrl}${page}`, lang);
 }
 
-// 表示するページ番号の範囲を計算（現在ページの前後2ページを表示）
 const range = 2;
 const startPage = Math.max(1, currentPage - range);
 const endPage = Math.min(totalPages, currentPage + range);
 
-// ページ番号の配列を生成
 const pageNumbers: (number | 'ellipsis')[] = [];
 
-// 最初のページ
 if (startPage > 1) {
   pageNumbers.push(1);
   if (startPage > 2) {
@@ -40,12 +31,10 @@ if (startPage > 1) {
   }
 }
 
-// 中間のページ
 for (let i = startPage; i <= endPage; i++) {
   pageNumbers.push(i);
 }
 
-// 最後のページ
 if (endPage < totalPages) {
   if (endPage < totalPages - 1) {
     pageNumbers.push('ellipsis');
@@ -58,7 +47,6 @@ if (endPage < totalPages) {
   totalPages > 1 && (
     <nav class="c--pagination" aria-label="ページナビゲーション">
       <Flex g="10" jc="center" ai="center" fxw="wrap">
-        {/* 前のページ */}
         {currentPage > 1 ? (
           <a href={getPageUrl(currentPage - 1)} class="c--pagination_arrow -prev" aria-label="前のページ">
             ←
@@ -69,7 +57,6 @@ if (endPage < totalPages) {
           </Lism>
         )}
 
-        {/* ページ番号 */}
         {pageNumbers.map((page) =>
           page === 'ellipsis' ? (
             <Lism as="span" class="c--pagination_ellipsis" aria-hidden="true">
@@ -86,7 +73,6 @@ if (endPage < totalPages) {
           )
         )}
 
-        {/* 次のページ */}
         {currentPage < totalPages ? (
           <a href={getPageUrl(currentPage + 1)} class="c--pagination_arrow -next" aria-label="次のページ">
             →

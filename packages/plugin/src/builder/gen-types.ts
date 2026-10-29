@@ -1,13 +1,10 @@
-/**
- * lism.config.jsからmodule augmentationの`.d.ts`を生成する純粋関数（#427）。
- * propの値リテラルも型へ反映する（#450）。ファイル操作は`typegen.ts`が担う。
- */
+/** lism.config.jsからmodule augmentationの`.d.ts`を生成する純粋関数。ファイル操作は`typegen.ts`が担う。 */
 import type { BuildConfig, PropConfig } from './serialize';
 
 /** 型がデフォルトで広告済みのキー（`ResponsiveProps.ts` の `BreakpointRegistry` と一致させる）。 */
 const DEFAULT_ADVERTISED = ['sm', 'md', 'lg'];
 
-/** `config/index.ts`の`BREAK_POINTS_OBJ`と同期する。 */
+/** lism-cssの`config/defaults/breakpoints.ts`の`BREAK_POINTS_OBJ`（`base`を除く）と同期する。 */
 const KNOWN_BP_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 /** 自動生成物であることを示す識別マーカー。HEADER に埋め込み、削除時の安全判定にも使う。 */
@@ -41,10 +38,7 @@ export function extraCustomPropKeys(props: BuildConfig['props'] | undefined, def
   return Object.keys(props).filter((key) => !defaults.has(key));
 }
 
-/**
- * traits で追加解禁すべきキー = 「マージ後 traits にあり、default-config には無い」キー。
- * 既定 trait との衝突を避け、lism.config.js で新設された trait だけを型へ広告する。
- */
+/** traits で追加解禁すべきキー（`extraCustomPropKeys` と同じ規則）。 */
 export function extraCustomTraitKeys(traits: BuildConfig['traits'] | undefined, defaultTraitKeys: Iterable<string>): string[] {
   if (!traits) return [];
   const defaults = new Set(defaultTraitKeys);
@@ -161,10 +155,7 @@ function generateFullModeBlock(isFullMode: boolean): string | null {
   }`;
 }
 
-/**
- * configのbreakpoints・props・traits・tokensから`.d.ts`を生成する。
- * 追加解禁キーも追加値も isFullMode も無ければ `null`（= ファイル不要）を返す。
- */
+/** 追加解禁キーも追加値も isFullMode も無ければ `null`（= ファイル不要）を返す。 */
 export function generateLismEnvDts(
   mainConfig: Pick<BuildConfig, 'breakpoints' | 'props' | 'traits'> & Partial<Pick<BuildConfig, 'tokens'>>,
   defaultConfig: TypegenDefaultConfig,

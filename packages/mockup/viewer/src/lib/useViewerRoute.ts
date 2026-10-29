@@ -1,18 +1,12 @@
 import { useEffect, useState } from 'react';
 
-/** Query parameter that holds the id of the page to display. */
 export const PAGE_QUERY_KEY = 'page';
-
-/** Query parameter that selects one of the viewer's own screens. */
 export const VIEW_QUERY_KEY = 'view';
-
-/** Query parameter that strips the viewer shell (used by the gallery previews). */
 export const EMBED_QUERY_KEY = 'embed';
 
 /** `?view=` value of the token list. Pages are addressed with `?page=` instead. */
 const TOKENS_VIEW_VALUE = 'tokens';
 
-/** `?embed=` value that turns embedded mode on. */
 const EMBED_ON_VALUE = '1';
 
 /**
@@ -48,7 +42,6 @@ function buildHref(update: (params: URLSearchParams) => void): string {
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
-/** Builds a URL that shows `pageId` on its own, inside the viewer shell. */
 export function buildPageHref(pageId: string): string {
   return buildHref((params) => {
     params.set(PAGE_QUERY_KEY, pageId);
@@ -57,7 +50,6 @@ export function buildPageHref(pageId: string): string {
   });
 }
 
-/** Builds a URL that shows the gallery. A URL without parameters already is one. */
 export function buildGalleryHref(): string {
   return buildHref((params) => {
     params.delete(PAGE_QUERY_KEY);
@@ -66,7 +58,6 @@ export function buildGalleryHref(): string {
   });
 }
 
-/** Builds a URL that shows the token list. */
 export function buildTokensHref(): string {
   return buildHref((params) => {
     params.set(VIEW_QUERY_KEY, TOKENS_VIEW_VALUE);
@@ -75,7 +66,6 @@ export function buildTokensHref(): string {
   });
 }
 
-/** Builds the `src` of a gallery preview: the same page, but without the shell. */
 export function buildEmbedSrc(pageId: string): string {
   return buildHref((params) => {
     params.set(PAGE_QUERY_KEY, pageId);
@@ -85,13 +75,9 @@ export function buildEmbedSrc(pageId: string): string {
 }
 
 export interface ViewerRouteState {
-  /** The route the URL currently describes. */
   route: ViewerRoute;
-  /** Shows one page on its own. */
   openPage: (pageId: string) => void;
-  /** Shows the gallery. */
   openGallery: () => void;
-  /** Shows the token list. */
   openTokens: () => void;
 }
 

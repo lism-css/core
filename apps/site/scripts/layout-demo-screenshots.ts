@@ -21,6 +21,7 @@ import { existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn, type ChildProcess } from 'node:child_process';
+import { foregroundServerEnv } from './preview-server-env';
 
 // 現在のディレクトリを取得
 const __filename = fileURLToPath(import.meta.url);
@@ -107,6 +108,7 @@ function startPreviewServer(): Promise<ChildProcess> {
       stdio: ['ignore', 'pipe', 'pipe'],
       shell: true,
       detached: true,
+      env: foregroundServerEnv(),
     });
 
     let started = false;

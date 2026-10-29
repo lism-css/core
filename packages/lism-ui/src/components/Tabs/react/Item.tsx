@@ -5,8 +5,7 @@ type TabItemProps = {
   children?: ReactNode;
 };
 
-// Note: <Tabs>側でループして色々処理される。
-// 引数でちゃんと処理したいpropを書いておかないとだめ。
+// Tabs.Root が child.type で TabItem を識別し、Tab / Panel を取り出す。
 export default function TabItem({ isTabItem = true, children }: TabItemProps) {
   void isTabItem;
   return <div>{children}</div>;

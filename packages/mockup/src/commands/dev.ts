@@ -25,7 +25,6 @@ export interface DevCommandOptions {
 export type ReloadKind = 'pages' | 'tokens';
 type WatchEvent = 'add' | 'change' | 'unlink';
 
-/** 変更イベントから、作り直すデータを判定する。 */
 export function classifyDataEvent(dataDir: string, event: WatchEvent, file: string): ReloadKind | null {
   const target = path.resolve(file);
 
@@ -64,7 +63,6 @@ export function sameImports(before: readonly string[] = [], after: readonly stri
   return [...before].sort().every((name, index) => name === sortedAfter[index]);
 }
 
-/** runtimeを更新し、対応する仮想モジュールを無効化して再読み込みする。 */
 export async function applyDataChange(server: ViteDevServer, runtime: MockupRuntime, kind: ReloadKind): Promise<void> {
   try {
     if (kind === 'tokens') {
@@ -88,7 +86,6 @@ export async function applyDataChange(server: ViteDevServer, runtime: MockupRunt
   }
 }
 
-/** データ変更をまとめて処理するwatcherを登録する。 */
 export function watchDataDir(server: ViteDevServer, runtime: MockupRuntime): void {
   const { dataDir } = runtime.data;
   server.watcher.add([

@@ -1,4 +1,4 @@
-/** Shared by`dev`and`check`so their data contracts cannot diverge. */
+/** Shared by `dev` and `check` so their data contracts cannot diverge. */
 
 /** Supported `mockup.config.json` schema version. Bump when the contract changes. */
 export const SCHEMA_VERSION = 2;

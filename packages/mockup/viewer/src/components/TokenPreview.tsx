@@ -2,11 +2,8 @@ import type { ReactNode } from 'react';
 import { Box, Flex, Inline } from 'lism-css/react';
 
 /**
- * Visual preview of one design token, per token group.
- *
- * Previews use the token's Property Class where one exists. The remaining
- * previews read `var(--x)` directly, so every shape still reflects the actual
- * custom property, including runtime overrides.
+ * Previews use the token's Property Class where one exists; the rest read `var(--x)`
+ * directly, so every shape reflects the actual custom property, including runtime overrides.
  */
 interface PreviewSpec {
   /**
@@ -19,10 +16,7 @@ interface PreviewSpec {
    *   column. Nothing lines up, but the token is shown at its real size.
    */
   placement?: 'column' | 'block';
-  /**
-   * Cap for a preview whose natural width would stretch the shared column too
-   * far. Only the groups that would otherwise blow up need one.
-   */
+  /** Cap for a preview whose natural width (e.g. the largest font sizes) would stretch the shared column too far. */
   maxWidth?: string;
   /**
    * Set when the preview column is wide enough to crowd the rest of the row.
@@ -58,8 +52,6 @@ const PREVIEWS = new Map<string, PreviewSpec>([
   [
     'fz',
     {
-      // The largest sizes would otherwise make the shared column several times
-      // wider than the rest of the previews need it to be.
       maxWidth: '5rem',
       overflow: 'clip',
       // Font sizes are `em`-based, so this resolves against the row's own font
@@ -168,11 +160,8 @@ const PREVIEWS = new Map<string, PreviewSpec>([
 ]);
 
 export interface TokenGroupLayout {
-  /** Caption the group's preview needs to be read correctly, if any. */
   note?: string;
-  /** Whether the preview takes a band under the row instead of a column beside it. */
   isBlock: boolean;
-  /** Whether the preview column is wide enough to delay the table layout. */
   isWide: boolean;
 }
 
@@ -188,13 +177,9 @@ export function tokenGroupLayout(group: string): TokenGroupLayout {
 }
 
 interface TokenPreviewProps {
-  /** Token group the preview shape is picked from. */
   group: string;
-  /** Token key passed to Property Class-backed previews (e.g. `4xl`). */
   tokenKey: string;
-  /** Custom property used when the preview has no compatible token class. */
   varName: string;
-  /** Named grid area used when the preview participates in a token row grid. */
   ga?: string;
 }
 

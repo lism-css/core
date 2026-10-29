@@ -58,8 +58,6 @@ export default {
     // 旧クラス名 -tt:upper / -tt:lower との互換。props の upper / lower を -tt:uppercase / -tt:lowercase に解決する。
     shorthands: { upper: 'uppercase', lower: 'lowercase' },
   },
-  // te: { prop: 'textEmphasis', presets: ['filled'] },
-  // tsh: { prop: 'textShadow' },
 
   d: {
     prop: 'display',
@@ -74,7 +72,7 @@ export default {
   // overflow-clip-margin → safariで使えない
   ar: {
     prop: 'aspectRatio',
-    presets: ['21/9', '16/9', '3/2', '1/1'], // 4/3, 2/1
+    presets: ['21/9', '16/9', '3/2', '1/1'],
     token: 'ar',
     tokenClass: 1,
     bp: 1,
@@ -113,13 +111,6 @@ export default {
   bgr: { prop: 'backgroundRepeat', presets: ['no-repeat'] },
   bgp: { prop: 'backgroundPosition', presets: ['center'] },
   bgsz: { prop: 'backgroundSize', presets: ['cover', 'contain'] },
-  // bga: { prop: 'backgroundAttachment' }, // fixed
-  // bgo: { prop: 'backgroundOrigin' }, // border, padding, content
-  // bgblend: { prop: 'backgroundBlendMode' },
-  // bgclip: {
-  // 	prop: 'backgroundClip',
-  // 	presets: ['text'],
-  // },
   bgc: {
     prop: 'backgroundColor',
     // keycolor は palette カタログ経由で var(--keycolor) に解決される（#479）。
@@ -132,13 +123,11 @@ export default {
   },
 
   c: {
-    // Note: bg系（bgclip）より後にくるように。
     prop: 'color',
     presets: ['base', 'text', 'text-2', 'brand', 'accent', 'keycolor', 'inherit'],
     token: 'color',
     exUtility: {
       inherit: { color: 'inherit' }, // --c ではなく color で出力したい
-      // mix: {'--_c1:currentColor;--_c2:transparent;--c:color-mix(in srgb, var(--_c1) var(--_mix-c, 50%), var(--_c2))'},
     },
     alwaysVar: 1,
   },
@@ -262,7 +251,6 @@ export default {
   fxb: { prop: 'flexBasis', bp: 1 },
 
   // grid
-  // gd: { prop: 'grid' },
   gt: {
     prop: 'gridTemplate',
     bp: 1,
@@ -278,7 +266,7 @@ export default {
     presets: ['subgrid'],
     bp: 1,
   },
-  gaf: { prop: 'gridAutoFlow', presets: ['row', 'column'], bp: 1 }, //dense
+  gaf: { prop: 'gridAutoFlow', presets: ['row', 'column'], bp: 1 },
   gac: { prop: 'gridAutoColumns' },
   gar: { prop: 'gridAutoRows' },
 
@@ -292,7 +280,6 @@ export default {
   gre: { prop: 'gridRowEnd' },
 
   // places
-  // -(ai|ac|ji|jc|aslf|jslf):   /    -$1:
   ai: {
     prop: 'alignItems',
     presets: [...PLACE_PRESETS, 'stretch', ...PLACE_FX_PRESETS],
@@ -334,40 +321,9 @@ export default {
   pslf: { prop: 'placeSelf', presets: PLACE_PRESETS },
   order: { prop: 'order', presets: ['0', '-1', '1'], bp: 1 },
 
-  // transform
-  // translate: {
-  // 	prop: 'translate',
-  // 	utils: {
-  // 		'-50X': '-50% 0',
-  // 		'-50Y': '0 -50%',
-  // 		'-50XY': '-50% -50%',
-  // 	},
-  // },
-
-  // rotate: {
-  // 	prop: 'rotate',
-  // 	utils: {
-  // 		[`45`]: '45deg',
-  // 		'-45': '-45deg',
-  // 		[`90`]: '90deg',
-  // 		'-90': '-90deg',
-  // 		// '180': '180deg',
-  // 	},
-  // },
-
-  // scale: {
-  // 	prop: 'scale',
-  // 	utils: {
-  // 		'-X': '-1 1',
-  // 		'-Y': '1 -1',
-  // 		'-XY': '-1 -1',
-  // 	},
-  // },
-
   // others
   ovw: { prop: 'overflowWrap', presets: ['anywhere'] },
   whs: { prop: 'whiteSpace', presets: ['nowrap'] },
-  // wordbreak: { prop: 'wordBreak', utils: { keep: 'keep-all', all: 'break-all' } },
   float: { prop: 'float', presets: ['left', 'right'] },
   clear: { prop: 'clear', presets: ['both'] },
   iso: { prop: 'isolation', presets: ['isolate'] },

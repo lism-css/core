@@ -238,7 +238,6 @@ const panelAttrs = (id: string, isActive: boolean) => ({
   const SIZE_TYPE = 'lism-preview-size';
   const REQUEST_TYPE = 'lism-preview-size-request';
 
-  // '3/2' → 1.5
   const parseRatio = (value: string): number => {
     const [w, h] = value.split('/').map((n) => parseFloat(n));
     return w > 0 && h > 0 ? w / h : 3 / 2;
@@ -272,7 +271,6 @@ const panelAttrs = (id: string, isActive: boolean) => ({
       applyHeight();
     });
 
-    // サイズ切替
     const sizeButtons = stage.querySelectorAll<HTMLElement>('.c--previewSizeSwitcher_btn');
     sizeButtons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -287,7 +285,6 @@ const panelAttrs = (id: string, isActive: boolean) => ({
       });
     });
 
-    // プレビュー / コードのタブ切替
     const tabs = Array.from(stage.querySelectorAll<HTMLElement>('.c--previewTabs_tab'));
     if (tabs.length === 0) return;
 

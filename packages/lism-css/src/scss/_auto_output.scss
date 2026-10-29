@@ -12,11 +12,8 @@
 base_type:
 	0 →　なし（ユーティリティクラス以外は普通のインラインスタイルのみ）
 	1 →　.-d{display: var(--d)} 　(メリット：importantなしでbp対応できる)
-	2 → alwaysVar 対象。 .-p, [class*='-p\:'] {padding: var(--p);} の形式で、
-	    ユーティリティクラスは --p をセットする形になる（state 変数として扱う）。
-	    BPクラスも .-p_$bp { padding: var(--p); --p: var(--p_$bp) !important; } を出力し、
-	    --p が常に現在値を参照できるようになる。
-	    デメリット: *= は処理負荷が高い。
+	2 → alwaysVar 対象（定義は config/defaults/props.ts）。
+	    デメリット: [class*=] は処理負荷が高い。
 */
 
 @function map_get_with_default($map, $key, $default) {
@@ -124,7 +121,6 @@ $bp_support_list: ();
 // 2. BP対応propを出力先BPごとに振り分ける。
 $bp_names: map.keys(setting.$breakpoints);
 // min-width カスケード順は $breakpoints の正準順序（xs, sm, md, lg, xl）に従う。
-// 無効BP（サイズ0）は後段の query.bp-up でスキップされる。
 $bp_outputs: ();
 @each $bp in $bp_names {
   $bp_outputs: map.merge(
@@ -134,7 +130,6 @@ $bp_outputs: ();
     )
   );
 }
-/* __stylelint-disable */
 @each $key in $bp_support_list {
   $prop_data: map.get(setting.$props, $key);
   $prop_bp_data: map.get($prop_data, bp);
@@ -163,7 +158,7 @@ $bp_outputs: ();
       }
     }
   } @else {
-    // 有効な全BPへ出力し、サイズ0のBPはquery.bp-upで除外する。
+    // 有効な全BPへ出力する。
     @each $bp in $bp_names {
       $_bp_list: map.get($bp_outputs, $bp);
       $_bp_list: list.join($_bp_list, $key);

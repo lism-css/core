@@ -8,7 +8,6 @@
     --icon-transform: rotate(90deg);
   }
 
-  /* 開いている時 */
   .b--accordion_item[data-opened] {
     --icon-transform: rotate(0deg);
     --_panelH: auto; /* Note: アニメーション時、jsでセットされる */
@@ -38,7 +37,6 @@
     position: absolute;
   }
 
-  /* アイコンの描画 */
   .b--accordion_icon {
     display: grid;
     place-items: center;
@@ -69,7 +67,6 @@
     outline-offset: -3px; /* offset 調整だけだとブラウザ間の差が大きい */
   }
 
-  /* --- 「視差効果を減らす」設定を考慮 --- */
   @media (prefers-reduced-motion: reduce) {
     .b--accordion_item {
       --duration: 0s;

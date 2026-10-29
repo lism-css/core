@@ -11,7 +11,7 @@ import {
   extraPropValueEntries,
   generateLismEnvDts,
 } from './gen-types';
-import { writeLismEnvDts, TYPES_FILENAME } from './vite-typegen';
+import { writeLismEnvDts, TYPES_FILENAME } from './typegen';
 
 // generateLismEnvDts へ渡すマージ前 default-config のフィクスチャ。
 const DEFAULT_CONFIG = {

@@ -3,7 +3,6 @@ import { Icon, Flex, Lism } from 'lism-css/astro';
 import { getLangFromUrl, t } from '@/lib/i18n';
 import { siteConfig } from '@/config/site';
 
-// 現在のURLから言語を取得
 const lang = getLangFromUrl(Astro.url);
 const themeSwitch = t(lang, 'themeSwitch');
 

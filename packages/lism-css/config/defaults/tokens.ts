@@ -9,7 +9,7 @@
 export default {
   // 構造変数: 他トークンの計算式から参照される、出力専用のグループ。
   //  - props からは参照されない（ユーティリティ生成・prop 受理の対象外）。
-  //  - キーがそのまま CSS 変数名になる（[[token-var-prefix]] の空プレフィックス）。
+  //  - キーがそのまま CSS 変数名になる（token-var-prefix.ts の空プレフィックス）。
   //  - lism.config の tokens.vars で既存キーの値を上書きする用途（新規キーの追加は想定しない）。
   vars: {
     // パレットカラーの基準の明度・彩度（赤基準。各色は palette 側の計算式で微調整）
@@ -38,7 +38,7 @@ export default {
     // ライトモード・ダークモードのどちらでもブレンドして使えるようなニュートラルカラー。
     //  Memo: 黒からの変化の方がわかりづらいため、明るめにする。
     neutral: 'hsl(220, 2%, 75%)',
-    // shadow: 影の色。--shc（手書き SCSS）はこの変数の別名で、.set--bxsh から上書きされる。
+    // shadow: 影色の基準。手書き SCSS の --shc がこれを参照する。
     shadow: 'hsl(220 2% 4% / 8%)',
   },
 
@@ -90,7 +90,7 @@ export default {
   },
 
   // font-weight
-  fw: { light: '300', normal: '400', bold: '600' },
+  fw: { light: '300', normal: '400', bold: '700' },
 
   // half-leading: --hl-unit は vars グループの構造変数。
   hl: {
@@ -122,7 +122,6 @@ export default {
   bdrs: { '10': '0.25rem', '20': '0.375rem', '30': '0.625rem', '40': '1rem', '50': '1.5rem', '99': '99rem', inner: '-' },
 
   // box-shadow: 構造変数 --shsz--*（手書き SCSS）と影色 --shc を合成。.set--bxsh で再宣言され影色 --shc を上書きできる。
-  //  Memo: --shc は color.shadow（--shadow）の別名（手書き SCSS で定義）。
   bxsh: {
     '10': 'var(--shsz--5) var(--shc--near), var(--shsz--10) var(--shc)',
     '20': 'var(--shsz--10) var(--shc--near), var(--shsz--20) var(--shc)',

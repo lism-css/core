@@ -38,9 +38,7 @@
   }
 }
 
-/* ----------------------------------------
-    guide
- ---------------------------------------- */
+/* guide */
 @layer lism-custom {
   .has--itemGuide > * {
     padding: 0 4px;
@@ -53,9 +51,7 @@
   }
 }
 
-/* ----------------------------------------
-    Property Class
- ---------------------------------------- */
+/* Property Class */
 .-bd\:guide {
   border: 1px dashed rgba(160, 160, 160, 0.5);
 }
@@ -69,6 +65,5 @@
     border: 1px dashed rgba(150, 150, 160, 0.4);
     content: '';
     inset: 0;
-    // box-sizing: border-box;
   }
 }

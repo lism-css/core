@@ -22,7 +22,7 @@ export type FullBpExcludedKey = (typeof FULL_BP_EXCLUDED_KEYS)[number];
 export type FullBpIsVarKey = (typeof FULL_BP_ISVAR_KEYS)[number];
 
 // isVar 系（state 変数扱いの props）は BP 拡張の対象外。
-// デフォルトで bp を持つもの（bdw, cols, rows）はデフォルト値のまま維持される。
+// デフォルトで bp を持つものはデフォルト値のまま維持される。
 type NonVarPropKey = { [K in PropKey]: (typeof PROPS)[K] extends { isVar: 1 } ? never : K }[PropKey];
 // lh は unitless比率が画面サイズに依らず維持されるのが本領のため、full でも BP 拡張しない（#582）。
 type FullPropKey = Exclude<NonVarPropKey, FullBpExcludedKey | 'lh'> | FullBpIsVarKey;
@@ -32,9 +32,7 @@ type FullPropOverride = { bp: 1; tokenClass?: 1 };
 
 /**
  * full.css 用の props オーバーライド設定（defaults/props.ts への差分のみ）。
- * isVar 系・border ショートハンド系を除く全 props の BP サポートを有効化する
- * （出力BPは $breakpoints の有効BPに従う）。ただし isVar 系のうち
- * border サブプロパティ（FULL_BP_ISVAR_KEYS）のみ例外として、導出後に個別で BP サポートを追加する。
+ * 出力BPは $breakpoints の有効BPに従う。
  *
  * キーを列挙せず defaults から導出しているのは、props 追加時に
  * このファイルの追従漏れで full.css から抜け落ちるのを防ぐため。
@@ -58,8 +56,5 @@ for (const key of FULL_BP_ISVAR_KEYS) {
 for (const key of FULL_COLOR_TOKEN_CLASS_KEYS) {
   propsFull[key] = { ...propsFull[key], tokenClass: 1 };
 }
-
-// スペーシング系の方向指定 props（padding / margin / gap）の space トークンユーティリティクラスは
-// defaults 側で tokenClass:1 になったため、ここでの上書きは不要。
 
 export default propsFull;

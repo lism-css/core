@@ -1,16 +1,8 @@
 /**
- * Next.js（16以降）用の統合エントリ。
- *
- * Next.js には Vite/Astro のような「bare CSS import をオンザフライで横取りする口」が無いため、
- * config 反映済み CSS を `<root>/.lism-css/css/*` へ**事前生成**し、`lism-css/<entry>.css` をその生成物へ
- * alias で差し替える方式を取る（中立コア `generated-css` / `webpack-alias` を共有）。
- *
- * aliasのパス形式は`webpack-alias.ts`の制約に従う。
- * CSS事前生成とtypegenが非同期なため、async config関数を返す。
- *
- * Next dev には Vite/Astro の watch API や webpack compiler hook 相当の汎用注入口が無いため、dev 中の
- * `lism.config.js` 変更追従は `watchLismConfig`（`fs.watch` ベース）が担う。dev フェーズで起動し、config 変更時に
- * CSS / 型を再生成する。生成 CSS の変更は Turbopack（および `--webpack` dev の webpack）が拾うため、再起動なしで反映される。
+ * Next.js（16以降）用の統合エントリ。Vite/Astro のような bare CSS import の横取り口が無いため、
+ * config 反映済み CSS を `<root>/.lism-css/css/*` へ事前生成し、`lism-css/<entry>.css` を alias で差し替える
+ * （alias の形式は `webpack-alias.ts` の制約に従う）。dev 中の config 追従は `watchLismConfig` が担い、
+ * 生成 CSS の変更は Turbopack（および `--webpack` dev の webpack）が拾うため再起動なしで反映される。
  */
 import path from 'node:path';
 
@@ -76,8 +68,6 @@ export function withLism<T extends Record<string, any>>(nextConfig?: T, opts?: W
       await syncLismEnvDts(projectRoot, { configPath: opts?.configPath });
     }
 
-    // dev フェーズかつ user lism.config がある場合のみ、変更追従の watcher を 1 つ起動する。
-    // 起動時生成（上）に加え、dev 中の保存でも CSS / 型を再生成して Turbopack に反映させる。
     if (phase === PHASE_DEVELOPMENT_SERVER && generated.userConfigPath && !watchedConfigs.has(generated.userConfigPath)) {
       const userConfigPath = generated.userConfigPath;
       watchedConfigs.add(userConfigPath);
@@ -98,12 +88,10 @@ export function withLism<T extends Record<string, any>>(nextConfig?: T, opts?: W
     const existingTurbopack = base.turbopack as TurbopackConfig | undefined;
     const userWebpack = base.webpack as WebpackFn | undefined;
 
-    // 既存 nextConfig を壊さない浅いクローンへ alias をマージして返す。
     return {
       ...base,
       turbopack: {
         ...existingTurbopack,
-        // 既存 resolveAlias は保持し、lism の alias を上書き追加する。
         resolveAlias: { ...existingTurbopack?.resolveAlias, ...turboAlias },
       },
       // 既存 webpack カスタマイズがあれば compose（先に user 関数を通してから alias を足す）。

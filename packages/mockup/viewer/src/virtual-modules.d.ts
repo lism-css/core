@@ -3,7 +3,7 @@
  * supply to the bundled viewer.
  *
  * The viewer never reads the data directory directly: everything it knows about
- * a mockup comes through these two modules.
+ * a mockup comes through these modules.
  */
 
 declare module 'virtual:lism-mockup/pages' {

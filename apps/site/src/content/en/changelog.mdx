@@ -8,6 +8,26 @@ This page documents the changes in each version of Lism CSS.
 
 <Divider bds="dashed" my="40" />
 
+## lism-css v1.1.0 (2026.10.29)
+
+### Changed the default of `--fw--bold` to `700` (#671)
+
+- Changed the default value of `--fw--bold` from `600` to `700`, the same as CSS `bold`. Headings (`h1`–`h6`), `b` / `strong`, `dt`, `th`, and `-fw:bold` are now bolder.
+- To keep the previous weight, override `--fw--bold` with `600` on `:root` in your CSS. If you use `@lism-css/plugin`, you can also set `fw: { bold: '600' }` under `tokens` in `lism.config.js`.
+- `th` now also uses `--fw--bold` for its bold weight. It previously used the browser's default `bold`, so overriding `--fw--bold` did not affect `th`.
+
+### Renamed the `has--gutter` spacing variable to `--gutter-px` (#669)
+
+- The horizontal padding of [`has--gutter`](/en/docs/trait-class/#has--gutter) is now set with `--gutter-px`. Override it on `:root` to change it site-wide, or on a specific element to change it for that element and any `has--gutter` inside it.
+- `--gutter--base` and `--gutter` are now deprecated. They remain for compatibility throughout 1.x, so overriding `--gutter--base` on `:root` and overriding or referencing `--gutter` on elements keep working. They are planned for removal in v2, so we recommend switching to `--gutter-px`.
+
+### Other
+
+- `hov` now accepts space-separated values in string form, the same as `set` / `util` (e.g. `hov="-c -bxsh"`). Comma-separated values still work (#666).
+- Added `min-width: 0` to the children of `l--switchColumns`. This fixes children overflowing their parent and columns becoming uneven when they contain content that cannot wrap, such as long URLs (#667).
+
+<Divider bds="dashed" my="40" />
+
 ## lism-css v1.0.1 (2026.10.02)
 
 - Fixed Property Classes that set a variable (such as `-c:brand` and `-p:20`) being overridden by `u--cbox` or custom classes that set the same variable in the no-`@layer` builds (`main_no_layer.css` / `full_no_layer.css`). The variable declarations now also carry `!important`.

@@ -2,8 +2,7 @@
 // 言語別テンプレ overlay（.lang/<lang>/）を一時的に src へマージしてビルドするヘルパー。
 // `lism-cli create --lang <lang>` と同じ overlay マージをローカルで再現する用途。
 //
-// build 後に src を元へ復元するので作業ツリーは汚れない。dist には指定言語の出力が残るため、
-// 続けて `nr preview:template <pkg>` で英語版などを確認できる。
+// build 後に src を元へ復元するので作業ツリーは汚れない。dist には指定言語の出力が残る。
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdtempSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';

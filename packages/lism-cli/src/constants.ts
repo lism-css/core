@@ -1,13 +1,4 @@
-/**
- * CLI 全体で参照する内部定数を集約するファイル。
- *
- * ここに置く対象:
- * - GitHub の取得元（リポジトリ名 / raw base URL / リポジトリ内パス）
- * - npm レジストリの base URL（公開バージョン解決に使用）
- * - giget で参照する ref のデフォルト値
- *
- * 注: ユーザーが触る `lism.config.js` の設定とは別物。ユーザー設定は config.ts を参照。
- */
+/** CLI 全体で参照する内部定数（取得元リポジトリ・レジストリ URL・giget の既定 ref）。ユーザー設定 `lism.config.js` は config.ts を参照。 */
 
 /** 配信元の GitHub リポジトリ（owner/repo） */
 export const SOURCE_REPO = 'lism-css/core';
@@ -18,12 +9,7 @@ export const RAW_GITHUB_BASE = 'https://raw.githubusercontent.com';
 /** npm レジストリの base URL（`lism-cli create` の workspace:* 置換時に公開最新版を解決するのに使用） */
 export const NPM_REGISTRY_BASE = 'https://registry.npmjs.org';
 
-// -----------------------------------------------------------------------------
-// Default refs
-//
-// ブランチに関係なく常に 'main' 固定（dev / main のマージで切り替えない）。
-// dev 側の変更を試すときは各コマンドの `--ref` で指定する。運用は documents/cli-guide.md を参照。
-// -----------------------------------------------------------------------------
+// 常に'main'固定。PRブランチ名にしない（削除で公開済みCLIが壊れる）。詳細は documents/cli-guide.md「既定ref」
 
 /** `lism-cli ui add` / `lism-cli ui list` が参照する lism-ui ソースの ref */
 export const DEFAULT_UI_REF = 'main';
@@ -33,10 +19,6 @@ export const DEFAULT_SKILL_REF = 'main';
 
 /** `lism-cli create` が参照する templates の ref */
 export const DEFAULT_TEMPLATES_REF = 'main';
-
-// -----------------------------------------------------------------------------
-// Repository internal paths
-// -----------------------------------------------------------------------------
 
 /** lism-ui のコンポーネントソース（giget で個別ディレクトリを取得） */
 export const UI_COMPONENTS_PATH = 'packages/lism-ui/src/components';
@@ -59,8 +41,6 @@ export const SKILL_SOURCE_BASE = 'skills';
  */
 export const SKILL_NAMES = ['lism-css-guide', 'lism-css-refactor', 'lism-mockup-guide'] as const;
 
-/** 配布対象スキル名 */
 export type SkillName = (typeof SKILL_NAMES)[number];
 
-/** templates の配置ディレクトリ */
 export const TEMPLATES_PATH = 'templates';

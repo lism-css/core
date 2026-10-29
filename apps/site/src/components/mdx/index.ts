@@ -1,4 +1,3 @@
-// MDX本文へ渡す共通コンポーネントをまとめる
 export { default as Callout } from './Callout.astro';
 export { default as DocsLink } from './DocsLink.astro';
 

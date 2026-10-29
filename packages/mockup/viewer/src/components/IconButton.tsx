@@ -2,14 +2,12 @@ import type { ElementType } from 'react';
 import { Center, Icon } from 'lism-css/react';
 
 interface IconButtonProps {
-  /** Icon component (a lucide-react icon). */
   icon: ElementType;
   /** Accessible name. Also used as the tooltip. */
   label: string;
   onClick: () => void;
   /** Rendered as `aria-expanded` when the button controls a disclosure. */
   isExpanded?: boolean;
-  /** Id of the element this button controls. */
   controls?: string;
 }
 

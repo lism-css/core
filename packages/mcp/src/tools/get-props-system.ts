@@ -37,7 +37,6 @@ export function registerGetPropsSystem(server: McpServer): void {
       try {
         const md = loadPropsMarkdown();
 
-        // prop 未指定: 全文を返す
         if (!prop) {
           return markdownResponse(md);
         }
@@ -45,7 +44,6 @@ export function registerGetPropsSystem(server: McpServer): void {
         const queryLower = parsePropClassName(prop) ?? prop.toLowerCase();
         const rows = parsePropRows(md);
 
-        // 一致する行を探す
         const matched = rows.filter((row) => {
           if (row.prop.toLowerCase() === queryLower) return true;
           const normalizedCss = normalizeCssProperty(row.cssProperty);
@@ -63,10 +61,8 @@ export function registerGetPropsSystem(server: McpServer): void {
           );
         }
 
-        // 一致したセクション名のユニーク一覧を取得
         const sections = [...new Set(matched.map((r) => r.sectionName))];
 
-        // property-class.md から対象セクションを抽出して結合
         const lines = md.split('\n');
         const resultParts: string[] = [`## Search results: "${prop}"\n`];
 

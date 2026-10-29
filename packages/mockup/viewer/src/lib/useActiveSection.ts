@@ -9,18 +9,13 @@ const READING_LINE_PERCENT = 30;
 /**
  * How far a band reaches past the scroll area, in px.
  *
- * Both bands below have to be open-ended on the side the sections come from: an
- * entry is only delivered when a section *enters or leaves* the band, so a band
- * that ended near the content could be jumped over within a single frame (Home /
- * End, or a long smooth scroll from the outline) and that crossing would go
- * unnoticed. Reaching this far past the content makes such a jump-over
- * impractical, which is what the bands rely on.
- *
- * It is an overshoot rather than a true half-plane, though, so "not
- * intersecting" does not by itself say which side the section is on. Only the
- * end band cares — a `hasStarted` that goes stale far above the reading line
- * cannot change which section is the *last* one that started — and it reads the
- * side off the entry's geometry instead.
+ * An entry is only delivered when a section enters or leaves a band, so a band
+ * that ended near the content could be jumped over within one frame (Home / End,
+ * a long smooth scroll) and the crossing missed. Both bands are therefore
+ * open-ended on the side the sections come from.
+ * That makes them an overshoot, not a true half-plane: "not intersecting" alone
+ * does not say which side the section is on. Only the end band needs to know, so
+ * it reads the side off the entry's geometry (see `endObserver`).
  */
 const BAND_OVERSHOOT = '100000px';
 
@@ -45,8 +40,7 @@ const END_BAND_MARGIN = `-100% 0px ${BAND_OVERSHOOT} 0px`;
  * document itself. With the implicit (viewport) root, every measurement would be
  * clipped by that `<main>`, so the band below it — the one the last section
  * relies on — could never be reached. Looking the container up from the section
- * keeps this hook free of any knowledge about the viewer's layout, the way the
- * capture-phase `scroll` listener it replaces was.
+ * keeps this hook free of any knowledge about the viewer's layout.
  *
  * `null` means "no scroll container above": then the document itself scrolls and
  * the implicit root is the right one.
@@ -65,15 +59,11 @@ function findScrollRoot(element: Element): Element | null {
  * `ids` must be a stable array (a module constant or a memoized value): it is
  * the effect's dependency, so a new array on every render would re-subscribe
  * every render.
- *
- * @param ids DOM ids of the sections, in document order.
- * @returns The id of the current section, or null when there are no sections.
  */
 export function useActiveSection(ids: readonly string[]): string | null {
   const [activeId, setActiveId] = useState<string | null>(ids[0] ?? null);
 
   useEffect(() => {
-    // No sections to track: nothing can be current, so drop whatever was.
     if (ids.length === 0) {
       setActiveId(null);
       return;

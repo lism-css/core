@@ -1,4 +1,5 @@
 .has--gutter {
-  --gutter: var(--gutter--base);
+  // --gutter は 1.x の互換用（非推奨）。要素での --gutter の上書きと、内側からの var(--gutter) の参照を保つ。
+  --gutter: var(--gutter-px);
   padding-inline: var(--gutter);
 }

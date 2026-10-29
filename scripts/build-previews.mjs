@@ -6,11 +6,7 @@
 // 各単位を build-preview.mjs（base/site 注入ビルド）→ rebase-html.mjs（手書き絶対参照の prefix 付与）
 // に通して `.preview/merged/<dest>/` へ配置する。最後に全体 noindex の `_headers` を出力する。
 //
-// 配信パス設計（PR の決定事項どおり）:
-//   - project                           : /{slug}/        （en overlay があれば /{slug}/en/ も）
-//   - single-project-variant（lp/astro）: /{prefix}/      （en は dist 同梱の /{prefix}/en/...）
-//     prefix = sourcePath.replace('/', '-')（lp/astro → lp-astro）
-//   - draft variant は merged から除外する
+// 配信パスは previewPaths() と templates/manifest.ts の previewUrl に対応する。draft variant は merged から除外する。
 import { execFileSync } from 'node:child_process';
 import { readFileSync, rmSync, mkdirSync, existsSync, writeFileSync, copyFileSync } from 'node:fs';
 import path from 'node:path';
@@ -28,14 +24,12 @@ const MERGED = path.join(ROOT, '.preview', 'merged');
 // 集約サイトのホスト名。sitemap / canonical に使われる（noindex なので実害は無いが正しく付与する）
 const SITE = 'https://templates.lism-css.com';
 
-// ランディング（merged/index.html）は Lism CSS 本体を使って組む。
-// packages/lism-css の dist を merged ルートへコピーし、この相対パスで配信する。
+// ランディング（merged/index.html）の組版に使う Lism CSS 本体。
 const LISM_CSS_SRC = path.join(ROOT, 'packages', 'lism-css', 'dist', 'css', 'main.css');
 const LISM_CSS_HREF = '/lism.css';
 
-// --landing-only: 既存の merged を再利用し、各テンプレのビルドをスキップして
-// ランディング（index.html + lism.css）だけを高速に再生成するモード。
-// 一度フルビルドで merged を作っていれば、以降のランディング調整はこれで一瞬で反映できる。
+// --landing-only: 既存の merged を再利用し、各テンプレのビルドを省いて
+// ランディング（index.html + lism.css）だけを再生成する。
 const landingOnly = process.argv.includes('--landing-only');
 
 // テンプレの package.json から name と build スクリプトを読む（pagefind 有無の判定に使う）
@@ -44,9 +38,7 @@ function readPkg(sourcePath) {
   return { name: pkg.name, build: pkg.scripts?.build ?? '' };
 }
 
-// --- ランディング（merged/index.html）生成 ---------------------------------
-
-// カテゴリの表示順とラベル（docs の categories と揃える）
+// カテゴリの表示順とラベル（apps/site/src/config/templates.ts の categories と揃える）
 const CATEGORY_ORDER = [
   { id: 'minimal', label: 'Minimal' },
   { id: 'blog', label: 'Blog' },
@@ -54,10 +46,10 @@ const CATEGORY_ORDER = [
   { id: 'web', label: 'Web' },
 ];
 
-// stack 表示ラベル（docs の stackLabels と揃える）
+// stack 表示ラベル（apps/site/src/config/templates.ts の stackLabels と揃える）
 const STACK_LABELS = { astro: 'Astro', next: 'Next.js', vite: 'Vite + React' };
 
-// テンプレ定義から ja / en の配信パスを導出（build-previews のパス設計と対）。
+// テンプレ定義から ja / en の配信パスを導出（templates/manifest.ts の previewUrl と対）。
 function previewPaths(t) {
   if (t.kind === 'single-project-variant') {
     const prefix = t.sourcePath.replace(/\//g, '-');
@@ -141,9 +133,8 @@ ${sections.join('\n')}
 `;
 }
 
-// merged/index.html を出力する。Lism CSS 本体（main.css）も merged ルートへコピーする。
+// merged/index.html を出力し、Lism CSS 本体（main.css）を /lism.css として merged ルートへコピーする。
 function writeLanding() {
-  // ランディングは Lism CSS で組んでいるため、本体 CSS を /lism.css として同梱する。
   if (!existsSync(LISM_CSS_SRC)) {
     throw new Error(`lism-css の main.css が見つかりません: ${path.relative(ROOT, LISM_CSS_SRC)}（先に pnpm build:core を実行してください）`);
   }
@@ -158,7 +149,6 @@ function writeLanding() {
 
 const units = [];
 
-// --- project: slug ごとに 1 ユニット（en overlay があれば en も） ---
 for (const t of TEMPLATES) {
   if (t.kind === 'single-project-variant') continue;
   if (t.draft) continue; // 単独 draft は配信しない
@@ -203,7 +193,6 @@ for (const [sourcePath, g] of variantGroups) {
 
 // --- merged を作り直して各ユニットを構築（--landing-only 時はスキップ）---
 if (landingOnly) {
-  // 既存 merged を前提にランディングだけ差し替える。merged が無ければ案内して中断。
   if (!existsSync(MERGED)) {
     throw new Error(
       '.preview/merged が見つかりません。先に通常の `tsx scripts/build-previews.mjs` を実行してください（--landing-only は既存 merged の再利用が前提です）。'
@@ -236,13 +225,9 @@ if (landingOnly) {
   }
 }
 
-// --- ルートランディング（全テンプレ一覧）を merged ルートへ出力 ---
-// `/` の 404 を解消し、各テンプレの ja / en プレビューへの入口を 1 枚にまとめる。
-// manifest を SSOT にしつつ、実際に merged へ出力された index.html の有無で掲載可否を判定するため、
-// draft 除外や en 未配信のテンプレを取りこぼさず正確に反映できる。
+// --- ルートランディング（各テンプレの ja / en プレビューへの入口）を merged ルートへ出力 ---
 writeLanding();
 
-// --- 全体 noindex の _headers を merged ルートへ出力 ---
 execFileSync('node', ['scripts/write-noindex-headers.mjs', MERGED], { stdio: 'inherit', cwd: ROOT });
 
 console.log(

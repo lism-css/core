@@ -69,7 +69,11 @@ import getSvgUrl from '@/utils/getSvgUrl';
 
 | クラス名 | 余白量 |初期値 |
 |---|---|---|
-| `has--gutter` | `--gutter`（基準値: `--gutter--base`） | `var(--s30)` |
+| `has--gutter` | `--gutter-px` | `var(--s30)` |
+
+余白量を変えるときは`--gutter-px`を上書きします。`:root`で上書きするとサイト全体に、特定の要素で上書きするとその要素と内側の`has--gutter`に反映されます。
+
+旧変数の`--gutter--base`と`--gutter`も1.xの間は使えますが、非推奨です。`--gutter--base`の上書きは`:root`でのみ効きます。
 
 <SrcCode path="src/scss/trait/has/_gutter.scss" />
 

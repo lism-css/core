@@ -18,7 +18,6 @@ export interface InitOptions {
  */
 const TEMPLATES_DIR = fileURLToPath(new URL('../../templates/', import.meta.url));
 
-/** List every template file as a POSIX-style path relative to the template root. */
 async function collectTemplateFiles(root: string, relative = ''): Promise<string[]> {
   const entries = await readdir(path.join(root, relative), { withFileTypes: true });
   const files: string[] = [];
@@ -35,7 +34,6 @@ async function collectTemplateFiles(root: string, relative = ''): Promise<string
   return files;
 }
 
-/** What occupies a path, without following the last symlink. */
 type PathKind = 'missing' | 'directory' | 'file' | 'symlink';
 
 function pathKind(target: string): PathKind {
@@ -66,10 +64,6 @@ function targetDirIsBlocked(targetDir: string): boolean {
   }
 }
 
-/**
- * Every directory that has to exist before the scaffold can be written, as a
- * POSIX-style path relative to the target directory.
- */
 function requiredDirectories(templateFiles: string[]): string[] {
   const directories = new Set<string>();
 
@@ -134,10 +128,8 @@ function assertNoSymlinkOnPath(targetDir: string, relative: string): void {
 /**
  * Scaffold a data directory (sample pages + contract guide).
  *
- * Existing files are never touched without `--force`: the whole file list is
- * checked up front and a single collision aborts the command before anything is
- * written. The parent directories of every output are checked too, so a known
- * collision can never leave a half-written directory behind.
+ * Existing files are never touched without `--force`: every collision is checked
+ * up front, so a single one aborts the command before anything is written.
  */
 export async function initCommand(dir: string, options: InitOptions): Promise<void> {
   const targetDir = path.resolve(dir);

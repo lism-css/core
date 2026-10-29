@@ -19,6 +19,7 @@
     /* 字間 */
     --lts--base: 0.025em;
 
+    --fw--bold: 600;
     --headings-fw: 500;
   }
 

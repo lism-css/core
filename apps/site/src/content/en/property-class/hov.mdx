@@ -152,7 +152,7 @@ For buttons and button-like links, lowering the whole element's opacity makes th
 <Preview>
   <PreviewTitle>Changing text and border colors</PreviewTitle>
   <PreviewArea p="30">
-    <BoxLink href="###" hov="-c,-bdc" bd p="20">
+    <BoxLink href="###" hov="-c -bdc" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
   </PreviewArea>
@@ -164,8 +164,8 @@ For buttons and button-like links, lowering the whole element's opacity makes th
     ```
   </PreviewCode>
   <PreviewCode slot="tab" label="JSX">
-    ```jsx 'hov="-c,-bdc"'
-    <BoxLink href="###" hov="-c,-bdc" bd p="20">
+    ```jsx 'hov="-c -bdc"'
+    <BoxLink href="###" hov="-c -bdc" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
     ```
@@ -179,7 +179,7 @@ Combining `-hov:-bxsh` and `-hov:-transform` adds a shadow and moves the element
 <Preview>
   <PreviewTitle>Combining movement and shadow</PreviewTitle>
   <PreviewArea p="30">
-    <BoxLink href="###" hasTransition hov="-bxsh,-transform" bd p="20">
+    <BoxLink href="###" hasTransition hov="-bxsh -transform" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
   </PreviewArea>
@@ -191,8 +191,8 @@ Combining `-hov:-bxsh` and `-hov:-transform` adds a shadow and moves the element
     ```
   </PreviewCode>
   <PreviewCode slot="tab" label="JSX">
-    ```jsx 'hov="-bxsh,-transform"' 'hasTransition'
-    <BoxLink href="###" hasTransition hov="-bxsh,-transform" bd p="20">
+    ```jsx 'hov="-bxsh -transform"' 'hasTransition'
+    <BoxLink href="###" hasTransition hov="-bxsh -transform" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
     ```
@@ -314,7 +314,7 @@ On the [`<Lism>` component](/en/docs/core-components/lism/) (and components that
 
 ### When passing a string
 
-The string you pass is output as-is as a `-hov:{string}` class. You can also pass multiple classes separated by commas.
+The string you pass is output as-is as a `-hov:{string}` class. You can also pass multiple classes separated by spaces.
 
 ```jsx
 <Lism hov="-o">...</Lism>
@@ -323,7 +323,7 @@ The string you pass is output as-is as a `-hov:{string}` class. You can also pas
 <Lism hov="shadowUp">...</Lism>
 // → <div class="-hov:shadowUp">...</div>
 
-<Lism hov="-c,-bxsh">...</Lism>
+<Lism hov="-c -bxsh">...</Lism>
 // → <div class="-hov:-c -hov:-bxsh">...</div>
 ```
 

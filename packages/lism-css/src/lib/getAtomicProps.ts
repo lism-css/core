@@ -28,7 +28,7 @@ interface InputProps extends BaseProps, AtomicOwnProps {
 
 // スペーストークンへの一括変換（w / h 用）
 // 値は BP 形 ({base, md, ...}) のまま返し、後段の analyzeLismProp に渡す。
-// トークン → CSS var への解決はここでしかできないため（後段は token 名を知らない）、
+// spacer の w / h は space トークンで解決したいが、後段は w / h を sz トークンで解決するため、
 // BP 形を維持したまま各ブレークポイント値に getMaybeCssVar を適用する。
 function toSpaceValue(val: unknown): unknown {
   const bpObj = getBpData(val as Parameters<typeof getBpData>[0]);

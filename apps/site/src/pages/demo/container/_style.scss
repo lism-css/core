@@ -63,7 +63,7 @@ body {
   &::after {
     content: '';
     display: block;
-    width: var(--gutter--base);
+    width: var(--gutter-px);
     height: 100%;
     background-color: var(--purple);
     grid-area: guide;

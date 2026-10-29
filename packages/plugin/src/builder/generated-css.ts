@@ -6,8 +6,7 @@
  * そこでこれらの環境では、config 反映済み CSS を `<root>/.lism-css/css/*` のような実ディレクトリへ**事前生成**し、
  * `lism-css/<entry>.css` をその生成物へ alias で差し替える方式を取る（Next.js 16 / Turbopackで確認済み）。
  *
- * 本 helper は bundler 非依存。CLI の `buildCssToDir` を流用して出力し、生成結果から
- * 「`lism-css/<entry>.css`（bare specifier）→ 生成 CSS の絶対パス」の alias map を組み立てて返す。
+ * 本 helper は bundler 非依存で、CLI の `buildCssToDir` を流用して出力する。
  */
 import path from 'node:path';
 
@@ -38,7 +37,6 @@ export interface GeneratedCss {
   userConfigPath: string | null;
 }
 
-/** config反映済みCSSを一時複製から生成し、bare import用のalias mapを返す。 */
 export async function generateCssToDir(opts: GenerateCssOptions): Promise<GeneratedCss> {
   const { projectRoot, outDir, configPath, full = false, minify = true, log } = opts;
 

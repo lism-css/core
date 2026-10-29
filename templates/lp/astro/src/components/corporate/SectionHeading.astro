@@ -17,7 +17,7 @@ const { en, ja, level = '2' } = Astro.props;
 ---
 
 <Heading level={level} class="c--sectionHeading" layout="stack" pos="relative" fz="m" lts="xl" ai="center" g="5">
-  <Inline lang="en" fz="3xl" fw="400" aria-hidden="true">{en}</Inline>
+  <Inline lang="en" fz="3xl" aria-hidden="true">{en}</Inline>
   <Inline d="flex" ai="center" g="20" fz="s" fw="normal" o="p">{ja}</Inline>
 </Heading>
 

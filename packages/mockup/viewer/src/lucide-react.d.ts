@@ -1,10 +1,8 @@
 /**
  * Ambient declaration for `lucide-react`, for the bundled viewer only.
  *
- * `@lism-css/mockup` does not depend on the real `lucide-react` package (45MB of icon
- * modules that npx would download on every run). The CLI resolves the specifier to a
- * virtual module built from `@iconify-json/lucide` instead (`src/vite/lucide-icons.ts`),
- * so the import stays exactly the same but there is no package on disk to read types from.
+ * The CLI resolves `lucide-react` to a virtual module instead of the real package (see
+ * `src/vite/lucide-icons.ts`), so there is no package on disk to read types from.
  *
  * The declarations users get are generated from that same icon data
  * (`src/vite/lucide-types.ts` → `types/lucide-react.d.ts`), which is where the full,

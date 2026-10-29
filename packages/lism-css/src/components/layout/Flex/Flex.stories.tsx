@@ -46,7 +46,6 @@ export const WithAlign: Story = {
   },
 };
 
-// fxw='wrap' で折り返し + jc を組み合わせ
 export const WithWrap: Story = {
   name: 'fxw: wrap',
   args: {

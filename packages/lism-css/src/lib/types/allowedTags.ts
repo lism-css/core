@@ -1,7 +1,4 @@
-// ------------------------------------------------------------
-// セマンティックラッパーコンポーネントの as prop 許容タグ定義
-// React・Astro 両コンポーネントで共通して使用する
-// ------------------------------------------------------------
+// セマンティックラッパーの as prop 許容タグ定義（React・Astro 共通）
 
 export type GroupAllowedTag = 'div' | 'section' | 'article' | 'figure' | 'nav' | 'aside' | 'header' | 'footer' | 'main' | 'fieldset' | 'hgroup';
 

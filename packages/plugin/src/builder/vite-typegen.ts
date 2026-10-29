@@ -9,9 +9,6 @@ import { findUserConfigPath } from './load-config';
 import { syncLismEnvDts } from './typegen';
 import { normalizePath } from './normalize-path';
 
-// 後方互換のため、中立コアの公開 API を本エントリからも re-export する。
-export { TYPES_FILENAME, writeLismEnvDts, syncLismEnvDts, type SyncTypesOptions } from './typegen';
-
 export interface LismTypegenOptions {
   disabled?: boolean;
   configPath?: string;

@@ -36,7 +36,7 @@ export interface ImportBoundaryContext {
   /**
    * importer ファイルの realpath キャッシュ（`importerFile` → realpath）。
    * `importBoundaryPlugin` がプラグインインスタンス単位で作り、watcher イベントで無効化する
-   * （下記 `classifyImport` のコメント参照）。テストから直接 `classifyImport` を呼ぶ場合など、
+   * （`importBoundaryPlugin` 参照）。テストから直接 `classifyImport` を呼ぶ場合など、
    * 未指定ならキャッシュせず毎回 `safeRealpath` を実行する。
    */
   realpathCache?: Map<string, string>;
@@ -102,10 +102,10 @@ export function classifyImport(source: string, importer: string | undefined, ctx
 
   const { pathname, query } = splitQuery(source);
 
-  // vite / plugin が注入する内部モジュール（`/@react-refresh`・`/@vite/client`・仮想モジュール）は誤拒否しない。
   if (pathname.startsWith(FS_PREFIX)) {
     throw violation(ctx.dataDir, realImporter, source, `"${FS_PREFIX}" paths are not allowed. Use a relative path inside the data directory.`);
   }
+  // vite / plugin が注入する内部モジュール（`/@react-refresh`・`/@vite/client`・仮想モジュール）は誤拒否しない。
   if (isViteInternalId(pathname)) return { kind: 'passthrough' };
 
   if (pathname === '.' || pathname === '..' || pathname.startsWith('./') || pathname.startsWith('../')) {
@@ -197,7 +197,6 @@ function unresolvedMessage(specifier: string, resolution: PackageResolution): st
     : `Cannot resolve ${JSON.stringify(specifier)} from @lism-css/mockup. Reinstall @lism-css/mockup and try again.`;
 }
 
-/** import境界を`resolveId`で強制するViteプラグイン。 */
 export function importBoundaryPlugin(ctx: ImportBoundaryOptions): Plugin {
   // ファイル差し替え後の古いrealpath判定を使わないため、キャッシュはプラグイン単位に閉じwatcherで破棄する。
   const realpathCache = new Map<string, string>();

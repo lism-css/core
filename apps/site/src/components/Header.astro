@@ -3,10 +3,10 @@ import { MenuIcon, SearchIcon } from '@lism-css/icons/astro';
 import { Flex, Cluster, Container, Icon, Lism, Group, Link, Inline } from 'lism-css/astro';
 import { Modal } from '@lism-css/ui/astro/Modal';
 import { siteConfig } from '@/config/site';
+import LangMenu from './LangMenu.astro';
 import SearchModal from './SearchModal.astro';
 import SiteNav from './SiteNav.astro';
 import SNSLinks from './SNSLinks.astro';
-// import LanguageSelect from './LanguageSelect.astro';
 import ThemeSwitch from './ThemeSwitch.astro';
 import { getLangFromUrl, getLocalizedUrl, t } from '@/lib/i18n';
 
@@ -17,17 +17,13 @@ interface Props {
 
 const { hasMobileMenu = true, hasAllSns = true } = Astro.props;
 
-// 現在の言語を取得
 const currentLang = getLangFromUrl(Astro.url);
-// サイトトップへのリンク（言語対応）
 const homeUrl = getLocalizedUrl('/', currentLang);
-// 翻訳テキスト
 const searchText = t(currentLang, 'search');
 const headerText = t(currentLang, 'header');
 ---
 
 <Container as="header" class="c--siteHeader" layout="flex" ai="center">
-  {/* 全体のgridレイアウトの切り替えと、ハンバーガーボタンの表示タイミングがずれないように hasGutterは内側につける */}
   <Flex ai="center" w="100%" mx="auto" p="20" class="b--shadowBox">
     <Group me="auto">
       <Link href={homeUrl} class="c--siteTitle" layout="flex" ai="center" g="5" fw="normal" c="inherit" td="none">
@@ -51,13 +47,13 @@ const headerText = t(currentLang, 'header');
 
     {/* X・Discord はスマホ幅だと入りきらないので非表示（モバイルメニュー内には表示される） */}
     <SNSLinks
-      icons={hasAllSns ? ['x', 'github', 'discord', 'lang'] : ['github', 'lang']}
+      icons={hasAllSns ? ['x', 'github', 'discord'] : ['github']}
       hideOnMobile={['x', 'discord']}
       d="flex"
       ms={{ base: 'calc(var(--s30) - var(--s15) / 2)', md: '30' }}
     />
+    <LangMenu ms={{ base: '15', md: '20' }} />
 
-    <!-- 検索トリガーボタン -->
     <Lism
       as="button"
       type="button"
@@ -106,9 +102,6 @@ const headerText = t(currentLang, 'header');
           hov={{ bgc: 'base-2' }}
           aria-labelledby="menu-open-label"
         >
-          {/* <Icon icon={MenuIcon} fz={['xl', null, 'l']} viewBox="0 0 256 256">
-            <path d="M112,60a16,16,0,1,1,16,16A16,16,0,0,1,112,60Zm16,52a16,16,0,1,0,16,16A16,16,0,0,0,128,112Zm0,68a16,16,0,1,0,16,16A16,16,0,0,0,128,180Z" />
-          </Icon> */}
           <Icon icon={MenuIcon} fz={['xl', null, 'l']} />
           <Inline d="none" id="menu-open-label">
             {headerText.openMenu}
@@ -118,7 +111,7 @@ const headerText = t(currentLang, 'header');
     }
   </Flex>
 
-  {/* モーダル（モバイルのみ表示・hasMobileMenu が false 出力しない） */}
+  {/* モーダル（モバイルのみ表示・hasMobileMenu が false なら出力しない） */}
   {
     hasMobileMenu && (
       <Modal.Root id="site-nav" isContainer isWrapper="s" py="40" px="30">
@@ -129,7 +122,7 @@ const headerText = t(currentLang, 'header');
           </Modal.Body>
           <Cluster class="c--siteNavModal_footer" g="10" fz="l" bd-t pbs="20" px="30">
             <SNSLinks />
-            {/* <LanguageSelect /> */}
+            <LangMenu ms="5" me="auto" />
             <ThemeSwitch />
           </Cluster>
         </Modal.Inner>
@@ -138,8 +131,6 @@ const headerText = t(currentLang, 'header');
   }
 </Container>
 <style>
-  /* logo */
-
   .c--siteTitle {
     font-family: var(--ff--mono);
   }
@@ -159,7 +150,6 @@ const headerText = t(currentLang, 'header');
     }
   }
 
-  /* 検索トリガーボタン */
   .c--searchTrigger {
     @container (min-width: 800px) {
       & {
@@ -169,7 +159,6 @@ const headerText = t(currentLang, 'header');
     }
   }
 
-  /* ハンバーガーメニュー（site-nav モーダル） */
   :global(#site-nav.b--modal) .c--siteNavModal_inner {
     background-color: var(--base);
     box-shadow: var(--bxsh--base);

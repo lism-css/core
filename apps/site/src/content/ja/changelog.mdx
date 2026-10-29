@@ -8,6 +8,26 @@ Lism CSSの各バージョンの変更点を記載します。
 
 <Divider bds="dashed" my="40" />
 
+## lism-css v1.1.0 (2026.10.29)
+
+### `--fw--bold`の既定値を`700`に変更 (#671)
+
+- `--fw--bold`の既定値を、`600`からCSSの`bold`と同じ`700`に変更しました。見出し（`h1`〜`h6`）・`b` / `strong`・`dt`・`th`・`-fw:bold`が、これまでより太くなります。
+- これまでの太さのままにしたい場合は、CSSの`:root`で`--fw--bold`を`600`に上書きしてください。`@lism-css/plugin`を使っている場合は、`lism.config.js`の`tokens`に`fw: { bold: '600' }`を指定する方法もあります。
+- `th`の太字も`--fw--bold`で指定するようにしました。これまではブラウザ標準の`bold`だったため、`--fw--bold`を上書きしても`th`には反映されませんでした。
+
+### `has--gutter`の余白の変数を`--gutter-px`に変更 (#669)
+
+- [`has--gutter`](/docs/trait-class/#has--gutter)の左右の余白の量を`--gutter-px`で指定するようにしました。`:root`で上書きするとサイト全体に、特定の要素で上書きするとその要素と内側の`has--gutter`に反映されます。
+- これまでの`--gutter--base`と`--gutter`は非推奨になりました。1.xの間は互換として残すため、`:root`での`--gutter--base`の上書きと、要素での`--gutter`の上書き・参照は引き続き効きます。v2で削除する予定のため、`--gutter-px`への置き換えをおすすめします。
+
+### その他
+
+- `hov`を文字列で指定するとき、`set` / `util`と同じくスペース区切りでも書けるようにしました（例: `hov="-c -bxsh"`）。カンマ区切りも引き続き使えます（#666）。
+- `l--switchColumns`の子要素に`min-width: 0`を付けました。長いURLなど改行できない中身があるときに、子要素が親からはみ出したり、列幅が揃わなくなったりする問題を修正しています（#667）。
+
+<Divider bds="dashed" my="40" />
+
 ## lism-css v1.0.1 (2026.10.02)
 
 - `@layer`なし版（`main_no_layer.css` / `full_no_layer.css`）で、変数をセットするProperty Class（`-c:brand`・`-p:20`など）が、同じ変数をセットする`u--cbox`や自作クラスに負ける不具合を修正しました。変数の宣言にも`!important`を付けます。
