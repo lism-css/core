@@ -1954,7 +1954,7 @@
     "category": "guide",
     "headings": ["set--bleed"],
     "keywords": ["set--bleed", "ブリード", "bleed", "full-bleed", "--bleed", "--contentSize", "片側ブリード", "ガター"],
-    "snippet": "コンテンツ幅（--contentSize）の外側の余白量を --bleed 変数としてセット。ガター幅（--gutter-px。1.xでは --gutter が設定・継承されていればその値を優先）を下限として、片側ブリードレイアウト（コンテナ外まではみ出す要素）を組む際に活用。"
+    "snippet": "コンテンツ幅（--contentSize）の外側の余白量を --bleed 変数としてセット。ガター幅（--gutter-px）を下限として、片側ブリードレイアウト（コンテナ外まではみ出す要素）を組む際に活用。"
   },
   {
     "sourcePath": "trait-class.mdx",
