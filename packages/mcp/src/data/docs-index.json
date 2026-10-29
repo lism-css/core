@@ -495,15 +495,6 @@
     "snippet": "CSS変数とクラスを組み合わせたレスポンシブ対応。コンテナクエリをデフォルトで採用。p={[20, 30, 40, 50]} のような配列記法（base→sm→md→lg→xl の順で固定）またはオブジェクト記法（{ base, sm, md, lg }）でブレークポイントの値を指定。xs は配列記法では指定できずオブジェクト記法のみ。CSSの実装パターンは「ブレークポイントごとに上書き」と「常に変数で参照（alwaysVar）」の2種類がある。ブレークポイントは sm(480px) / md(800px) / lg(1120px) の3段階で xs / xl は予約済みだがデフォルト無効。型補完は `@lism-css/plugin` 統合プラグイン使用時に lism-env.d.ts で自動生成、不使用時は BreakpointRegistry を手書き拡張。"
   },
   {
-    "sourcePath": "reset-css.mdx",
-    "title": "Reset CSS",
-    "description": "Lism CSS が提供する軽量な Reset CSS の内容と読み込み方法について解説します。",
-    "category": "guide",
-    "headings": [],
-    "keywords": ["reset", "リセット", "normalize", "reset css"],
-    "snippet": "Lism CSS に組み込まれたリセットCSS。reset.css レベルからサイト全体のCSS設計を担う。"
-  },
-  {
     "sourcePath": "customize.mdx",
     "title": "カスタマイズの基本",
     "description": "Lism CSS の設定方法の選び方と、CSS Purgeによる未使用CSSの削除について解説します。",

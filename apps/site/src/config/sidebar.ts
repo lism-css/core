@@ -134,7 +134,6 @@ const docsSidebar: SidebarSection[] = [
       '/docs/tokens/colors/',
       '/docs/tokens/typography/',
       { type: 'separator' },
-      // '/docs/reset-css/',
       '/docs/half-leading/',
       '/docs/base-styles/',
       '/docs/set-class/',
