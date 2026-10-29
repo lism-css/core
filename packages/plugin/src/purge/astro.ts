@@ -84,8 +84,7 @@ async function purgeCssFiles(
     const oldBase = basename(file);
     const match = HASHED_CSS_NAME.exec(oldBase);
     if (match) {
-      // 内容ベースのハッシュ部を新内容で再計算し、ファイル名を更新する。
-      // 参照側 (HTML/JS/manifest) も後段で同期して書き換えるためキャッシュ整合が保たれる。
+      // 参照側 (HTML/JS/manifest) も後段で同期して書き換える。
       const newHash = shortContentHash(output);
       const newBase = `${match[1]}.${newHash}.css`;
       if (newBase !== oldBase) {
@@ -97,7 +96,6 @@ async function purgeCssFiles(
         await writeFile(file, output, 'utf8');
       }
     } else {
-      // ハッシュ無しの CSS は in-place 上書き
       await writeFile(file, output, 'utf8');
     }
     await deleteStaleCssMap(file);

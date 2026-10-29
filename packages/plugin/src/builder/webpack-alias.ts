@@ -20,11 +20,7 @@ export interface LismAliasInput {
   userConfigPath: string | null;
 }
 
-/**
- * webpack `resolve.alias` 形式（絶対パス）を返す。
- * - `lism-css/<entry>.css` → 生成 CSS（prefix 一致でよい。css は通常クエリ無し）。
- * - `lism-css/config.js$` → user config（完全一致で他の `lism-css/*` を巻き込まない）。
- */
+/** webpack `resolve.alias` 形式（絶対パス）を返す。css は prefix 一致でよい（通常クエリ無し）。config は冒頭のとおり `$` 完全一致。 */
 export function buildWebpackAlias({ generated, userConfigPath }: LismAliasInput): Record<string, string> {
   const alias: Record<string, string> = { ...generated.aliasMap };
   if (userConfigPath) {
@@ -33,10 +29,7 @@ export function buildWebpackAlias({ generated, userConfigPath }: LismAliasInput)
   return alias;
 }
 
-/**
- * Turbopack `resolveAlias` 形式（project-relative パス）を返す。
- * 絶対パスは Turbopack で解決に失敗するため、`projectRoot` 起点の `./`-始まり相対パスへ変換する。
- */
+/** Turbopack `resolveAlias` 形式（`projectRoot` 起点の `./` 始まり相対パス）を返す。 */
 export function buildTurbopackAlias({ generated, userConfigPath }: LismAliasInput, projectRoot: string): Record<string, string> {
   const alias: Record<string, string> = {};
   for (const [spec, abs] of Object.entries(generated.aliasMap)) {

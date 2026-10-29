@@ -20,9 +20,7 @@ interface MessageEntry {
 }
 
 export const messages = {
-  // ---------------------------------------------------------------------------
-  // Commander description / arguments / options
-  // ---------------------------------------------------------------------------
+  // --- commander ---
   'cli.description': {
     ja: 'Lism CSS / UI 向け CLI',
     en: 'CLI for Lism CSS / UI',
@@ -146,9 +144,7 @@ export const messages = {
     en: 'Deploy to {path}',
   },
 
-  // ---------------------------------------------------------------------------
-  // create
-  // ---------------------------------------------------------------------------
+  // --- create ---
   'create.templateNotFound': {
     ja: 'テンプレート "{name}" は見つかりません。利用可能: {list}',
     en: 'Template "{name}" not found. Available: {list}',
@@ -230,9 +226,7 @@ export const messages = {
     en: 'Failed to rewrite package.json: {reason}',
   },
 
-  // ---------------------------------------------------------------------------
-  // init
-  // ---------------------------------------------------------------------------
+  // --- init ---
   'init.alreadyExists': {
     ja: '{filename} は既に存在するため、何も変更しませんでした。',
     en: '{filename} already exists; nothing was changed.',
@@ -250,9 +244,7 @@ export const messages = {
     en: 'Cannot generate the ui section from --ui-dir alone in a non-interactive environment. Specify --ui-framework.',
   },
 
-  // ---------------------------------------------------------------------------
-  // ui
-  // ---------------------------------------------------------------------------
+  // --- ui ---
   // ui 共通（add / list / promptUiConfig で共有）
   'ui.promptFramework': {
     ja: 'フレームワークを選択してください:',
@@ -351,9 +343,7 @@ export const messages = {
     en: 'Total: {count} components',
   },
 
-  // ---------------------------------------------------------------------------
-  // mockup
-  // ---------------------------------------------------------------------------
+  // --- mockup ---
   'mockup.guide': {
     ja:
       '画面モックアップ機能は別パッケージ @lism-css/mockup が提供します。\n\n' +
@@ -369,9 +359,7 @@ export const messages = {
       'If installed, you can also run it via the lism-mockup bin.',
   },
 
-  // ---------------------------------------------------------------------------
-  // skill
-  // ---------------------------------------------------------------------------
+  // --- skill ---
   // skill add
   'skill.add.detected': {
     ja: '検出した AI ツール: {list}',
@@ -460,9 +448,7 @@ export const messages = {
     en: 'deleted {count}',
   },
 
-  // ---------------------------------------------------------------------------
-  // config
-  // ---------------------------------------------------------------------------
+  // --- config ---
   'config.invalidFramework': {
     ja: 'ui.framework は "react" または "astro" を指定してください。',
     en: 'ui.framework must be "react" or "astro".',
@@ -484,9 +470,7 @@ export const messages = {
     en: 'Cannot create {path} because it already exists.',
   },
 
-  // ---------------------------------------------------------------------------
-  // common
-  // ---------------------------------------------------------------------------
+  // --- common ---
   'common.done': {
     ja: '完了しました。',
     en: 'Done.',

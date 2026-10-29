@@ -12,8 +12,7 @@
  * ```
  * webpack は `module.exports` が Promise でも受け付けるため、`withLismWebpack` は async（Promise を返す）でよい。
  *
- * SCSS-source 消費者向けの bridge SCSS 生成（`generateLismScss`）は webpack 評価とタイミングが異なるため、
- * `withLismWebpack` には含めず builder の独立 export とする。
+ * bridge SCSS 生成（`generateLismScss`）は含めない。理由は scss-source.ts 冒頭を参照。
  *
  * NOTE: webpack / `@wordpress/scripts` には依存しない。webpack config / compiler はジェネリック `T` や最小の
  * 構造的型で扱い、webpack 型を import しない。
@@ -42,14 +41,12 @@ export interface WithLismWebpackOptions {
   full?: boolean;
 }
 
-/** webpack config の最小構造（webpack 非依存。実際の型は `T` 側に従う）。 */
 interface WebpackConfig {
   resolve?: { alias?: Record<string, unknown>; [key: string]: unknown };
   plugins?: unknown[];
   [key: string]: unknown;
 }
 
-/** tapable hook の最小構造（compiler.hooks を webpack 型 import 無しで扱う）。 */
 interface Compiler {
   hooks: {
     watchRun: { tapPromise(name: string, fn: () => Promise<void>): void };
@@ -57,7 +54,6 @@ interface Compiler {
   };
 }
 
-/** プラグインへ渡す設定（保持して watch / afterCompile で使う）。 */
 interface LismCssWebpackPluginOptions {
   projectRoot: string;
   outDir: string | null;
@@ -73,7 +69,7 @@ interface LismCssWebpackPluginOptions {
  * CSS・型の再生成とconfig依存の登録を担うwatch用プラグイン。
  *
  * webpack 型は import せず、`apply(compiler)` の compiler / compilation を最小の構造的型で扱う。
- * - watchRun: `css` / `typegen` が有効な時だけ CSS / `lism-env.d.ts` を再生成する（`css: false` では CSS を再生成しない）。
+ * - watchRun: `css` / `typegen` が有効な時だけ CSS / `lism-env.d.ts` を再生成する。
  * - afterCompile: `lism.config.js` を `fileDependencies` へ登録し、config 変更でも再ビルドを発火させる。
  */
 class LismCssWebpackPlugin {
@@ -95,7 +91,7 @@ class LismCssWebpackPlugin {
       });
     }
 
-    // lism.config.js を watch 依存へ登録し、config 変更でも再ビルドが走るようにする（css の有無に依らず維持）。
+    // css の有無に依らず登録する。
     if (userConfigPath) {
       compiler.hooks.afterCompile.tap('LismCssWebpack', (compilation) => {
         compilation.fileDependencies.add(userConfigPath);
@@ -122,7 +118,7 @@ export async function withLismWebpack<T extends Record<string, any>>(webpackConf
   // css: true の時だけ CSS を事前生成する（`.lism-css/css` を作らない / CSS alias を張らない no-op を死守）。
   let generated: GeneratedCss | null = null;
   if (css && outDir) {
-    // bundler（webpack）側が最終 minify するため、ここでは minify せず生成する。
+    // 最終 minify は webpack 側で行う。
     generated = await generateCssToDir({ projectRoot, outDir, configPath: opts?.configPath, full, minify: false });
   }
 
@@ -130,10 +126,8 @@ export async function withLismWebpack<T extends Record<string, any>>(webpackConf
     await syncLismEnvDts(projectRoot, { configPath: opts?.configPath });
   }
 
-  // CSS 生成済みならその userConfigPath を流用し、未生成なら独立して探索する。
   const userConfigPath = generated ? generated.userConfigPath : findUserConfigPath(projectRoot, opts?.configPath);
 
-  // alias は css / config の各トグルに応じて個別に組む。
   const alias: Record<string, string> = {};
   if (css && generated) Object.assign(alias, generated.aliasMap);
   if (configAlias && userConfigPath) alias[`${CONFIG_TARGET_ID}$`] = userConfigPath;
@@ -157,7 +151,6 @@ export async function withLismWebpack<T extends Record<string, any>>(webpackConf
     );
   }
 
-  // 既存 config を壊さない浅いクローン。resolve.alias / plugins は既存を保持して lism の追加分を上書き追記する。
   return {
     ...base,
     resolve: {

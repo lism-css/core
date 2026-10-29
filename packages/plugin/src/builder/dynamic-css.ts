@@ -99,12 +99,10 @@ export function lismDynamicCss(options: LismDynamicCssOptions = {}): Plugin {
     return configs;
   }
 
-  /** エントリ名 → 自身の dist/css 上の絶対パス（id）。 */
   function idForEntry(entry: string): string {
     return `${cssDistDir}/${entry}.css`;
   }
 
-  /** id（クエリ付き可）が自身の dist/css 配下の CSS なら、エントリ名を返す。 */
   function entryForId(id: string): string | null {
     const filePath = normalizePath(id.split('?')[0]);
     if (!filePath.startsWith(`${cssDistDir}/`) || !filePath.endsWith('.css')) return null;

@@ -30,7 +30,7 @@ interface AddOptions {
 type OverwritePolicy = 'all' | 'none' | 'per-component';
 
 export async function addCommand(names: string[], options: AddOptions): Promise<void> {
-  // 設定読み込み・プロンプトのエラー（Ctrl+C 中断含む）はエントリポイントで一括処理する。#500
+  // エラー・Ctrl+C 中断は index.ts のエントリポイントで一括処理する。
   let config = await readConfig();
   let needsGuidance = false;
 

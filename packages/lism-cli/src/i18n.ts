@@ -33,10 +33,6 @@ function detectAppleLanguage(): string | null {
   }
 }
 
-/**
- * 環境変数 / OS 表示言語 / Intl から現在のロケールを検出する。
- * `override` に `ja` / `en` が渡された場合はそれを優先。
- */
 export function detectLang(override?: string): Lang {
   if (override === 'ja' || override === 'en') return override;
   const raw = (process.env.LC_ALL || process.env.LANG || '').toLowerCase();
@@ -82,7 +78,6 @@ export function preScanLang(argv: string[]): void {
   }
 }
 
-/** 現在の言語のメッセージを取得し、プレースホルダーを展開する。 */
 export function t(key: MessageKey, vars?: Record<string, string | number>): string {
   const entry = messages[key];
   if (!entry) return key;

@@ -39,7 +39,6 @@ function tokenCatalogKeys(catalog: unknown): string[] {
   return [];
 }
 
-/** presets・utils・tokenからユーティリティ値を生成する。 */
 function generateUtilities(propConfig: PropConfig, TOKENS: Tokens): Record<string, string> {
   const { utils = {}, presets: basePresets = [], token = '', tokenClass = 0 } = propConfig;
 
@@ -69,7 +68,6 @@ function generateUtilities(propConfig: PropConfig, TOKENS: Tokens): Record<strin
   return utilities;
 }
 
-/** 1つのprop設定をSCSSのmap entryへ変換する。 */
 function generatePropScss(propKey: string, propConfig: PropConfig, TOKENS: Tokens): string {
   const { prop = '', bp, isVar, alwaysVar, important } = propConfig;
 
@@ -145,7 +143,6 @@ function generatePropScss(propKey: string, propConfig: PropConfig, TOKENS: Token
   return scss;
 }
 
-/** マージ済み・Set化前のCONFIGを直列化する。 */
 export function serializePropConfig(CONFIG: BuildConfig): string {
   const { props: PROPS } = CONFIG;
   const TOKENS = CONFIG.tokens;
@@ -189,16 +186,12 @@ export function serializeBreakpoints(CONFIG: BuildConfig): string {
 
 /**
  * CONFIG.defaultImportantを`$default_important`へ直列化する。
- *
- * 未指定時も `$default_important: 0;` を出力し、
- * `_setting.scss` の `props.$default_important` 参照が常に解決できるようにする
- * （未定義メンバ参照による sass エラーの防止。`serializeBreakpoints` と同じ方針）。
+ * 未指定時も `$default_important: 0;` を出力する（serializeBreakpoints と同じ理由）。
  */
 export function serializeDefaultImportant(CONFIG: BuildConfig): string {
   return `$default_important: ${CONFIG.defaultImportant ? 1 : 0};\n`;
 }
 
-/** prop・breakpoint・defaultImportantを1つのSCSS設定へまとめる。 */
 export function serializeConfigScss(CONFIG: BuildConfig): string {
   return `${serializePropConfig(CONFIG)}\n${serializeBreakpoints(CONFIG)}\n${serializeDefaultImportant(CONFIG)}`;
 }

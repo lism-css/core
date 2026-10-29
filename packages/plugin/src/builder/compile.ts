@@ -1,11 +1,6 @@
 /**
- * 「config → CSS」変換の共有コア。
- *
- * 方針: 同梱の SCSS（`_setting.scss` 等）は `@use './prop-config.gen'` のまま **ディスク実ファイル**を参照する。
- * これにより素の sass / docs の `@use 'lism-css/scss/setting' with (...)` 等のスタンドアロン利用が維持される。
- *
- * ユーザー設定を反映した CSS を作る時は、**node_modules を書き換えず**に、src/scss を一時ディレクトリへ
- * 複製してそこの `_prop-config*.gen.scss` / `_tokens.gen.scss` だけ差し替えてコンパイルする。
+ * 「config → CSS」変換の共有コア。同梱 SCSS は `@use './prop-config.gen'` のままディスク実ファイルを参照し、素の sass / docs の `@use 'lism-css/scss/setting' with (...)` 等のスタンドアロン利用を維持する。
+ * ユーザー設定を反映する時は、node_modules を書き換えず src/scss を一時ディレクトリへ複製し、生成 SCSS だけ差し替えてコンパイルする。
  * パッケージ自身のビルドは、同梱デフォルトの生成 SCSS を更新しつつ src/scss を直接コンパイルする。
  */
 import path from 'node:path';
@@ -23,20 +18,17 @@ export type { BuildConfig } from './serialize';
 
 const MAIN_PROP_CONFIG = '_prop-config.gen.scss';
 const FULL_PROP_CONFIG = '_prop-config-full.gen.scss';
-// トークン値の生成 partial。
 const TOKENS_GEN_PARTIAL = 'base/tokens/_tokens.gen.scss';
 // 生成物であることを明示するヘッダ。値が空でもこのヘッダは常に書き出され、同梱デフォルトと一致させる。
 const TOKENS_GEN_HEADER =
   '// このファイルは自動生成されます。直接編集しないでください（次回ビルド時に上書きされます）。\n' +
   '// 生成元: コア → config/defaults/tokens.ts / 利用側 → defaults + lism.config.js の tokens\n';
-// prop-config（main / full 共通）にも同じく付ける。
 const PROP_CONFIG_GEN_HEADER =
   '// このファイルは自動生成されます。直接編集しないでください（次回ビルド時に上書きされます）。\n' +
   '// 生成元: コア → config/defaults の props / breakpoints（full は config/presets/props-full.ts も） / 利用側 → defaults + lism.config.js\n';
 
 function resolvePostcssPlugins(minify: boolean): AcceptedPlugin[] {
-  // minify=true: autoprefixer + cssnano（dist/css 出力相当）。
-  // minify=false: autoprefixer のみ（Vite が最終 minify する用途）。
+  // minify=false は Vite が最終 minify する用途。
   return minify ? [autoprefixer, cssnano] : [autoprefixer];
 }
 
@@ -77,7 +69,6 @@ export interface CompileTreeOptions {
 
 /**
  * scssDir 配下の全エントリ（`_*.scss` を除く）をコンパイルして distDir へ書き出す。
- * prop-config は scssDir に存在する実ファイルを `@use './prop-config.gen'` 経由で読む。
  */
 export async function compileCssTree({ scssDir, distDir, ignore = [], minify = true, log = console.log }: CompileTreeOptions): Promise<string[]> {
   // glob は CJS 互換だが ESM からも利用可能。動的 import で external 化に追従。
@@ -120,11 +111,7 @@ export interface BuildToDirOptions {
   log?: (message: string) => void;
 }
 
-/**
- * ユーザー設定を反映した CSS を生成する（CLI 用）。
- * scssDir を一時ディレクトリへ複製し、そこの prop-config だけ差し替えてコンパイルする。
- * インストール済みの node_modules/src/scss は一切書き換えない。
- */
+/** ユーザー設定を反映した CSS を一時ディレクトリ経由で生成する（CLI 用）。 */
 export async function buildCssToDir({
   scssDir,
   distDir,
@@ -138,7 +125,6 @@ export async function buildCssToDir({
   try {
     // src/scss をまるごと複製（相対 @use が一時ディレクトリ内で完結するように）。
     fs.cpSync(scssDir, tmpDir, { recursive: true });
-    // ユーザー設定由来の prop-config を一時ディレクトリ側にだけ上書き。
     writePropConfigFiles({ scssDir: tmpDir, mainConfig, fullConfig });
     return await compileCssTree({ scssDir: tmpDir, distDir, ignore, minify, log });
   } finally {

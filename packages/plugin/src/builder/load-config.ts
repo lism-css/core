@@ -1,13 +1,4 @@
-/**
- * 「config 読み込み」の共有ロジック。bin CLI と Vite プラグインが共有する。
- *
- * - `computeBuildConfigs`: defaults / full preset / full CSS defaults / userConfig をマージして main / full の BuildConfig を作る純粋関数。
- *   マージ順（later wins）は lism-css の `config/index.ts` と一致させる（JS ランタイムと CSS 出力の乖離防止）。
- * - `loadBuildConfigs`: lism-css の default-config / props-full preset / helper と
- *   projectRoot の `lism.config.{js,mjs,ts}` を読み込んでマージする。consumer 環境（インストール済みパッケージ）で実行される前提。
- *   user 設定は jiti（`moduleCache: false`）経由で import し、dev での `lism.config.*` 変更を再評価できるようにする。
- * - `loadDefaultConfig`: マージ前の default-config だけが要る呼び出し向けの軽量版。
- */
+/** config 読み込みの共有ロジック（bin CLI と Vite プラグインが共有）。 */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -103,7 +94,7 @@ export interface ComputeBuildConfigsInput {
  *   - fullConfig: defaults → full preset → full CSS defaults → userConfig
  *   - mainConfig: isFullMode 時は fullConfig と同一、それ以外は defaults → userConfig
  *
- * full CSS defaults 以外は lism-css の `config/index.ts`（コンポーネント側）と同じ順序。
+ * full CSS defaults 以外は lism-css の `config/index.ts`（コンポーネント側）と同じ順序（JS ランタイムと CSS 出力の乖離防止）。
  * full CSS defaults は CSS 出力だけに効く設定なので、ランタイム側には無い。
  */
 export function computeBuildConfigs({ defaultConfig, propsFull, userConfig, objDeepMerge }: ComputeBuildConfigsInput): {
@@ -140,6 +131,7 @@ export interface LoadBuildConfigsOptions {
 
 /**
  * projectRoot の lism.config を反映した main / full の BuildConfig を読み込む。
+ * consumer 環境（インストール済みパッケージ）で実行される前提。
  */
 export async function loadBuildConfigs(projectRoot: string, opts: LoadBuildConfigsOptions = {}): Promise<LoadedBuildConfigs> {
   const userConfigPath = findUserConfigPath(projectRoot, opts.configPath);
