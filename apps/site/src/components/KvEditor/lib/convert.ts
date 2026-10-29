@@ -116,7 +116,7 @@ const maybeNumber = (value: string): string | number => {
   return Number.isFinite(n) && String(n) === value ? n : value;
 };
 
-/** space トークンの単一値を CSS 値へ（getMaybeSpaceVar と同じ規則） */
+/** space トークンの単一値を CSS 値へ（getMaybeSpaceVar の規則のうち、0 と整数・負の整数の変数化だけを写したもの。小数などは変換しない） */
 const spaceValueToCss = (value: string): string => {
   if (value === '0') return '0';
   if (/^\d+$/.test(value)) return `var(--s${value})`;
@@ -790,7 +790,7 @@ const jsxElementToHtml = (el: Element): PrintableElement => {
         classTokens.push(`-${attr.name}:${attr.value}`);
       }
     } else if (attr.name === 'hov') {
-      // 文字列形式の hov（空白区切り。カンマ互換）を -hov:{val} クラスへ展開（本物の setHovProps と同じ分割規則）
+      // 文字列形式の hov（空白区切り。カンマ互換）を -hov:{val} クラスへ展開（本物の splitValues と同じ分割規則）
       for (const value of attr.value.split(/[,\s]+/)) {
         if (!value) continue;
         classTokens.push(`-hov:${value}`);

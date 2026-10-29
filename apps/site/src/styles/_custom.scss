@@ -145,7 +145,7 @@
     position: sticky;
     top: calc(var(--header-h) + var(--s20));
     height: calc(100vh - var(--header-h) - var(--s30));
-    /* html の smooth を継承すると、現在地への初期スクロールがアニメーションする */
+    /* html に smooth を指定した場合も、現在地への初期スクロールをアニメーションさせない */
     scroll-behavior: auto;
   }
 

@@ -78,7 +78,7 @@ const scanTag = (code: string, from: number): { end: number; selfClosing: boolea
 };
 
 /**
- * HTMLのタグ対応をチェックし、問題があれば表示用メッセージを、なければ null を返す。
+ * HTMLのタグ対応をチェックし、問題があれば診断用メッセージを、なければ null を返す。
  * 検知対象: 書きかけのタグ / 閉じ漏れ / 対応しない閉じタグ / 未終了コメント
  * 戻り値の文言は内部用の短い英語（表示側は一律 'Invalid HTML syntax' を使う）
  */

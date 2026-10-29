@@ -151,6 +151,8 @@ function getNextTool(entry: DocsEntry, guideTopics?: ReadonlySet<string>): strin
   }
 }
 
+const PRESERVE_CASE_PREFIXES = ['primitives/', 'trait-class/'];
+
 /**
  * `sourcePath`（実 MDX ファイルの相対パス）を公開 URL のスラッグに変換する。
  *
@@ -162,8 +164,6 @@ function getNextTool(entry: DocsEntry, guideTopics?: ReadonlySet<string>): strin
  * 別ワークスペース（apps/site）なので直接 import できず、ローカル実装で複製している。
  * apps/site 側を変更した場合は必ずここも合わせて更新する。
  */
-const PRESERVE_CASE_PREFIXES = ['primitives/', 'trait-class/'];
-
 export function sourcePathToUrlSlug(sourcePath: string): string {
   const withoutExt = sourcePath.replace(/\.mdx$/, '');
   return PRESERVE_CASE_PREFIXES.some((prefix) => withoutExt.startsWith(prefix)) ? withoutExt : withoutExt.toLowerCase();

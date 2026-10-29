@@ -6,7 +6,7 @@
 // 各単位を build-preview.mjs（base/site 注入ビルド）→ rebase-html.mjs（手書き絶対参照の prefix 付与）
 // に通して `.preview/merged/<dest>/` へ配置する。最後に全体 noindex の `_headers` を出力する。
 //
-// 配信パス設計（PR の決定事項どおり）:
+// 配信パス設計:
 //   - project                           : /{slug}/        （en overlay があれば /{slug}/en/ も）
 //   - single-project-variant（lp/astro）: /{prefix}/      （en は dist 同梱の /{prefix}/en/...）
 //     prefix = sourcePath.replace('/', '-')（lp/astro → lp-astro）
@@ -46,7 +46,7 @@ function readPkg(sourcePath) {
 
 // --- ランディング（merged/index.html）生成 ---------------------------------
 
-// カテゴリの表示順とラベル（docs の categories と揃える）
+// カテゴリの表示順とラベル（apps/site/src/config/templates.ts の categories と揃える）
 const CATEGORY_ORDER = [
   { id: 'minimal', label: 'Minimal' },
   { id: 'blog', label: 'Blog' },
@@ -54,7 +54,7 @@ const CATEGORY_ORDER = [
   { id: 'web', label: 'Web' },
 ];
 
-// stack 表示ラベル（docs の stackLabels と揃える）
+// stack 表示ラベル（apps/site/src/config/templates.ts の stackLabels と揃える）
 const STACK_LABELS = { astro: 'Astro', next: 'Next.js', vite: 'Vite + React' };
 
 // テンプレ定義から ja / en の配信パスを導出（build-previews のパス設計と対）。

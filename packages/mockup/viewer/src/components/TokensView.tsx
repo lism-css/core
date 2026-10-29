@@ -196,9 +196,6 @@ function TokenGroupSection({ section }: TokenGroupSectionProps) {
         // The columns are declared once here and every row inherits them through
         // `subgrid`, so a column ends up exactly as wide as the widest cell of
         // the group and no preview has to hard-code a width to line up.
-        // The preview track is `minmax(0, auto)` rather than `auto` so a wide
-        // preview — the `space` bars run to `--s70` — can give way instead of
-        // pushing the row past the section.
         <Grid
           as="ul"
           gtc={isVarOnly ? VAR_ONLY_COLUMNS : isWide ? [STACKED_COLUMNS, null, TABLE_COLUMNS] : [STACKED_COLUMNS, TABLE_COLUMNS]}

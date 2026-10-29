@@ -353,13 +353,6 @@ function extractVariantFiles(projectDir: string, tpl: SingleProjectVariantTempla
   rewriteVariantAliasImports(srcDir, variantDirs);
 }
 
-/**
- * 配布後のファイル群に対して、path alias 経由の `@/{dir}/{variant}/...` 形式の参照を
- * `@/{dir}/...` に置換する。`variantDirs` には base（`{variant}`）と lang（`{lang}/{variant}`）の
- * 両方を渡し、どちらの形式も置換する。variant 名にメタ文字が含まれても安全なように escape する。
- *
- * 対象拡張子はテキスト系のソース/スタイルのみ。マッチしないファイルはそのまま。
- */
 const ALIAS_REWRITE_EXTENSIONS = new Set([
   '.astro',
   '.ts',
@@ -379,6 +372,13 @@ const ALIAS_REWRITE_EXTENSIONS = new Set([
   '.html',
 ]);
 
+/**
+ * 配布後のファイル群に対して、path alias 経由の `@/{dir}/{variant}/...` 形式の参照を
+ * `@/{dir}/...` に置換する。`variantDirs` には base（`{variant}`）と lang（`{lang}/{variant}`）の
+ * 両方を渡し、どちらの形式も置換する。variant 名にメタ文字が含まれても安全なように escape する。
+ *
+ * 対象拡張子はテキスト系のソース/スタイルのみ。マッチしないファイルはそのまま。
+ */
 function rewriteVariantAliasImports(srcDir: string, variantDirs: string[]): void {
   if (!fs.existsSync(srcDir)) return;
 

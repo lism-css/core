@@ -12,7 +12,9 @@
  * ランタイム側の有効化はあくまで lism.config.js の `isFullMode` で行う。ここで切り替えるのは
  * 「型が提示・許可する範囲」だけで、両者を一致させるのはユーザーの責務（`BreakpointRegistry` と同じ設計）。
  *
- * @example プロジェクト直下の型定義ファイル（例: `src/lism-env.d.ts`）で full モードを型に反映する
+ * `@lism-css/plugin` を使う場合は、`isFullMode: true` から生成される lism-env.d.ts にこの拡張が含まれる。
+ *
+ * @example プロジェクト側の型定義ファイル（例: `src/lism.d.ts`）で full モードを型に反映する
  * ```ts
  * import 'lism-css';
  *

@@ -11,8 +11,8 @@ import { GUIDE_TOPIC_KEYS } from './get-guide.js';
 const DOC_CATEGORIES = ['all', 'core-components', 'primitives', 'property-class', 'ui', 'guide'] as const;
 
 /**
- * property-class.md のテーブルから CSSプロパティ名 → Lism prop名 のマップを構築する。
- * search.ts の buildCssPropertyMap と同じインターフェースを返す。
+ * Prop テーブル（`loadPropsMarkdown()`）から CSSプロパティ名 → Lism prop名 のマップを作る。
+ * `searchDocs` の `cssPropertyMap` に渡す。
  */
 function buildCssPropertyMapFromMarkdown(md: string): Map<string, string[]> {
   const map = new Map<string, string[]>();

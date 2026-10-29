@@ -119,7 +119,7 @@ function acquire(sharedPath: string, inuse: string): boolean {
   }
 }
 
-/** 占有できなかった死んだ pid の残骸を捨てる（best-effort。失敗しても占有の成否には影響しない）。 */
+/** 死んだ pid の残骸を捨てる（best-effort。失敗しても占有の成否には影響しない）。 */
 function sweepStaleClaims(sharedPath: string, inuse: string): void {
   try {
     for (const entry of readInuseEntries(sharedPath) ?? []) {

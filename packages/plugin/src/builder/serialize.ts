@@ -207,7 +207,7 @@ export function serializeConfigScss(CONFIG: BuildConfig): string {
  * CONFIG.tokensをCSS変数の宣言へ直列化する。
  *
  * - 値が `'-'`（センチネル）または空のキーは出力しない（カタログ登録のみ・実値は手書き SCSS）。
- * - TOKEN_SCOPE 登録トークンは `:root` ではなく `:root, .{scope} { ... }` で出力する（詳細は [[token-scope]]）。
+ * - TOKEN_SCOPE 登録トークンは `:root` ではなく `:root, .{scope} { ... }` で出力する（詳細は lism-css の config/defaults/token-scope.ts）。
  *
  * 出力する宣言が無くても `:root {}` を返し、同梱デフォルトと生成物の体裁を一致させる。
  */

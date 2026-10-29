@@ -66,7 +66,7 @@ export function registerGetPropsSystem(server: McpServer): void {
         // 一致したセクション名のユニーク一覧を取得
         const sections = [...new Set(matched.map((r) => r.sectionName))];
 
-        // property-class.md から対象セクションを抽出して結合
+        // Prop テーブル（`loadPropsMarkdown()`）から対象セクションを抽出して結合
         const lines = md.split('\n');
         const resultParts: string[] = [`## Search results: "${prop}"\n`];
 

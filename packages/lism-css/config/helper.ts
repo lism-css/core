@@ -15,10 +15,7 @@ type DeepMergeResult<T, U> = T extends PlainObject
     : T;
 
 /**
- * 深いマージを行う関数
- * @param origin - マージ先となる元オブジェクト
- * @param source - マージするソース（このデータに更新される）
- * @returns マージされたオブジェクト
+ * 深いマージを行う。origin は変更せず、source の値で上書きした新しいオブジェクトを返す。
  */
 export function objDeepMerge<T extends Record<string, unknown>, U extends Record<string, unknown>>(origin: T, source: U): DeepMergeResult<T, U> {
   const result = { ...origin } as Record<string, unknown>;

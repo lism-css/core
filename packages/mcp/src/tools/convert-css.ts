@@ -82,7 +82,7 @@ function parseCssDeclarations(cssText: string): CssDeclaration[] {
 }
 
 // ----------------------------------------------------------------
-// property-class.md からのマッピング構築
+// Prop テーブル（`loadPropsMarkdown()`）からのマッピング構築
 // ----------------------------------------------------------------
 
 interface PropMapping {

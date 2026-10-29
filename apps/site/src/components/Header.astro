@@ -27,7 +27,6 @@ const headerText = t(currentLang, 'header');
 ---
 
 <Container as="header" class="c--siteHeader" layout="flex" ai="center">
-  {/* 全体のgridレイアウトの切り替えと、ハンバーガーボタンの表示タイミングがずれないように hasGutterは内側につける */}
   <Flex ai="center" w="100%" mx="auto" p="20" class="b--shadowBox">
     <Group me="auto">
       <Link href={homeUrl} class="c--siteTitle" layout="flex" ai="center" g="5" fw="normal" c="inherit" td="none">
@@ -118,7 +117,7 @@ const headerText = t(currentLang, 'header');
     }
   </Flex>
 
-  {/* モーダル（モバイルのみ表示・hasMobileMenu が false 出力しない） */}
+  {/* モーダル（モバイルのみ表示・hasMobileMenu が false なら出力しない） */}
   {
     hasMobileMenu && (
       <Modal.Root id="site-nav" isContainer isWrapper="s" py="40" px="30">

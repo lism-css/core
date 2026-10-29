@@ -7,7 +7,7 @@ import type { BuildConfig, PropConfig } from './serialize';
 /** 型がデフォルトで広告済みのキー（`ResponsiveProps.ts` の `BreakpointRegistry` と一致させる）。 */
 const DEFAULT_ADVERTISED = ['sm', 'md', 'lg'];
 
-/** `config/index.ts`の`BREAK_POINTS_OBJ`と同期する。 */
+/** lism-cssの`config/defaults/breakpoints.ts`の`BREAK_POINTS_OBJ`（`base`を除く）と同期する。 */
 const KNOWN_BP_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 /** 自動生成物であることを示す識別マーカー。HEADER に埋め込み、削除時の安全判定にも使う。 */

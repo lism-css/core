@@ -50,7 +50,7 @@ type UserPropValues<K> = K extends keyof CustomPropValueRegistry ? Extract<Custo
 /**
  * プロパティの設定から値の型を決定
  * - presets/utils/token（+ user 追加分）がある場合: 具体的な値 + 任意文字列 + number | boolean | null
- * - ない場合: string | number（フォールバック）
+ * - ない場合: string | number | boolean（フォールバック）
  *
  * `[X] extends [never]` の tuple ラップで ExtraValues（naked 型パラメータ）の分配を防ぐ。
  */
@@ -152,7 +152,7 @@ type IsFullModeAdvertised = [keyof FullModeRegistry] extends [never] ? false : t
  * PROPS 設定から生成される Props 型（レスポンシブ対応含む）
  * - bp が有効なプロパティ: レスポンシブ対応（配列・オブジェクト形式可）
  * - bp なしのプロパティ: 単一値のみ
- * - presets/utils/token なしのプロパティ: string | number（フォールバック）
+ * - presets/utils/token なしのプロパティ: string | number | boolean（フォールバック）
  *
  * {@link FullModeRegistry} が拡張されている場合は full 版に切り替わり、isVar 系を除く
  * 全 props がレスポンシブになる（lism.config.js の isFullMode に型を追従させるための opt-in）。
@@ -165,8 +165,8 @@ type IsFullModeAdvertised = [keyof FullModeRegistry] extends [never] ? false : t
  * // bp なしのプロパティ（fw など）
  * fw?: 'thin' | 'light' | 'normal' | ...
  *
- * // presets/utils/token なしのプロパティ（bg など）
- * bg?: Responsive<string | number>
+ * // presets/utils/token なしで bp が有効なプロパティ（fxb など）
+ * fxb?: Responsive<string | number | boolean>
  * ```
  */
 export type PropValueTypes = IsFullModeAdvertised extends true ? FullPropValueTypes : DefaultPropValueTypes;

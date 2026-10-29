@@ -21,7 +21,7 @@
       color: var(--gray-hi-c);
     }
 
-    // トークン化できない任意色のためここで当てる（-hov:-o は初期HTMLから削除）
+    // トークン化できない任意色のためここで当てる
     // href は言語でプレフィックスが変わる（en は /en/docs/installation/）ため後方一致で当てる
     a[href$='/docs/installation/'] {
       background-color: var(--gray-hi-c);
@@ -73,7 +73,6 @@
         content: '';
         position: absolute;
         right: clamp(-5.6rem, calc(var(--kvEditor-sz) + 6rem - 100vw), -0.5rem);
-        // --kvEditor-sz
         bottom: -3.125rem; // エディター上端（この行の 3.5rem 下）の少し上に矢印の先端が乗る位置
         width: 10rem;
         aspect-ratio: 424 / 232; // 書き出し PNG の実寸比
@@ -92,7 +91,7 @@
     --kvEditor-bgc: hsl(228, 3%, 20%); // ウィンドウ全体の背景（Figmaモックアップ準拠のフラット構成）
     --kvEditor-surface: rgba(255, 255, 255, 0.08); // タブ・パネル・入力欄の面（白8%オーバーレイ）
     --kvEditor-snackbar-bgc: #1d2126;
-    --kvEditor-text: #e1e4e8; // コード既定色は github-dark に合わせる（ハイライト色は現行維持）
+    --kvEditor-text: #e1e4e8; // コード既定色は github-dark に合わせる
     --kvEditor-text-dim: #bfbfbf;
     --kvEditor-selection-bgc: hsla(215, 100%, 70%, 0.4);
     --kvEditor-code-lh: 1.375;
@@ -315,7 +314,7 @@
     }
   }
 
-  // lism-base の `* { line-height: calc(1em + var(--hl) * 2) }` が
+  // lism-base の `* { line-height: var(--lh, calc(1em + var(--hl) * 2)) }` が
   // shiki の code / span にも直接当たり textarea とズレるため、子孫は必ず親から継承させる
   .c--kvEditor_pre pre * {
     font-family: inherit;

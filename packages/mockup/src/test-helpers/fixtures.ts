@@ -1,7 +1,7 @@
 /**
  * テスト用のデータディレクトリ生成ヘルパー。
  *
- * ビューアは worker 分担の関係でここに最小 fixture（`viewer/`）を置き、同梱ビューアの実装に依存させない。
+ * 同梱ビューアの実装に依存させないため、ここに最小 fixture（`viewer/`）を置く。
  */
 import fs from 'node:fs';
 import os from 'node:os';

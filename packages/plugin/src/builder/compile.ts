@@ -23,7 +23,7 @@ export type { BuildConfig } from './serialize';
 
 const MAIN_PROP_CONFIG = '_prop-config.gen.scss';
 const FULL_PROP_CONFIG = '_prop-config-full.gen.scss';
-// トークン値の生成 partial（@forward 順序とその理由は base/index.scss を参照）。
+// トークン値の生成 partial。
 const TOKENS_GEN_PARTIAL = 'base/tokens/_tokens.gen.scss';
 // 生成物であることを明示するヘッダ。値が空でもこのヘッダは常に書き出され、同梱デフォルトと一致させる。
 const TOKENS_GEN_HEADER =

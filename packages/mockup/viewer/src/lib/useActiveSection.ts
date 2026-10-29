@@ -45,8 +45,7 @@ const END_BAND_MARGIN = `-100% 0px ${BAND_OVERSHOOT} 0px`;
  * document itself. With the implicit (viewport) root, every measurement would be
  * clipped by that `<main>`, so the band below it — the one the last section
  * relies on — could never be reached. Looking the container up from the section
- * keeps this hook free of any knowledge about the viewer's layout, the way the
- * capture-phase `scroll` listener it replaces was.
+ * keeps this hook free of any knowledge about the viewer's layout.
  *
  * `null` means "no scroll container above": then the document itself scrolls and
  * the implicit root is the right one.

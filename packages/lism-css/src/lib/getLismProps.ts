@@ -203,7 +203,7 @@ export class LismPropsData {
       return;
     }
 
-    // base値はpreset、token、shorthandの順にclass化を試す。
+    // base値はpreset、token、utils、shorthandの順にclass化を試す。
     if (!bpKey) {
       const { presets, tokenClass, utils, shorthands } = propConfig;
       if (presets && isPresetValue(presets, val)) {
