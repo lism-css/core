@@ -84,9 +84,7 @@
     }
   }
 
-  /* -------------------------- */
   /* 見出しデザイン */
-  /* -------------------------- */
   /* 記事本文・ページヘッダー・一覧セクションの見出し色を揃える。プレビュー内は除外 */
   .c--siteMain :is(h1, h2, h3):not(.c--preview_area *) {
     color: var(--gray-hi-c);
@@ -100,9 +98,7 @@
     font-weight: 700;
   }
 
-  /* -------------------------- */
   /* リストデザイン */
-  /* -------------------------- */
   .c--content > :is(ul, ol) {
     li + li {
       margin-block-start: 0.375em;
@@ -111,13 +107,7 @@
 }
 
 @layer lism-block {
-  /* 
-    以下のように figurecaption をつけた時の figure > blockquote 構造の時のスタイル（rehypeで変換）
-
-    > 引用文
-    >
-    > -- 出典
-  */
+  /* `> 引用文` + `> -- 出典` を lib/satteri/blockquote-cite.ts が変換した figure > blockquote + figcaption 構造 */
   .b--blockquote {
     margin-block: var(--s40);
     display: grid;

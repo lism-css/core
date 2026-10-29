@@ -17,11 +17,8 @@ interface Props {
 
 const { hasMobileMenu = true, hasAllSns = true } = Astro.props;
 
-// 現在の言語を取得
 const currentLang = getLangFromUrl(Astro.url);
-// サイトトップへのリンク（言語対応）
 const homeUrl = getLocalizedUrl('/', currentLang);
-// 翻訳テキスト
 const searchText = t(currentLang, 'search');
 const headerText = t(currentLang, 'header');
 ---
@@ -57,7 +54,6 @@ const headerText = t(currentLang, 'header');
     />
     <LangMenu ms={{ base: '15', md: '20' }} />
 
-    <!-- 検索トリガーボタン -->
     <Lism
       as="button"
       type="button"
@@ -135,8 +131,6 @@ const headerText = t(currentLang, 'header');
   }
 </Container>
 <style>
-  /* logo */
-
   .c--siteTitle {
     font-family: var(--ff--mono);
   }
@@ -156,7 +150,6 @@ const headerText = t(currentLang, 'header');
     }
   }
 
-  /* 検索トリガーボタン */
   .c--searchTrigger {
     @container (min-width: 800px) {
       & {
@@ -166,7 +159,6 @@ const headerText = t(currentLang, 'header');
     }
   }
 
-  /* ハンバーガーメニュー（site-nav モーダル） */
   :global(#site-nav.b--modal) .c--siteNavModal_inner {
     background-color: var(--base);
     box-shadow: var(--bxsh--base);

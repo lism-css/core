@@ -1,10 +1,6 @@
 ---
+/** sidebar.ts の順序に従って前後の記事へのリンクを表示する */
 import { ArrowRightIcon } from '@lism-css/icons/astro';
-/**
- * 前後記事ナビゲーションコンポーネント
- * sidebar.ts の順序に従って前後の記事へのリンクを表示
- * カテゴリ内に記事がない場合は次のカテゴリを探す
- */
 import { Flex, Stack, Lism, Inline, Link, Icon } from 'lism-css/astro';
 import { getPostsByLang, type PostEntry } from '@/lib/content';
 import { getRootLang, getLocalizedUrl, t, getPathWithoutLang, type LangCode } from '@/lib/i18n';
@@ -18,30 +14,23 @@ interface Props {
 
 const { currentSlug, lang = getRootLang() } = Astro.props;
 
-// 現在のセクション（docs または ui）を取得
 const currentPathWithoutLang = getPathWithoutLang(Astro.url);
 const currentSection = getSiteSection(currentPathWithoutLang);
 
-// 現在のセクションに対応するサイドバー設定を取得
 const sectionItems = sidebarConfig.sections[currentSection];
 
-// 指定言語の全記事を取得
 const allPosts = await getPostsByLang(lang);
 
 // sidebar.ts の順序（SiteNav と同じ最長dir一致・order順）で全記事をフラットに並べる
 const orderedPosts = flattenPostsBySidebarOrder(allPosts, sectionItems);
 
-// 現在の記事のインデックスを取得
 const currentIndex = orderedPosts.findIndex((post) => post.id === currentSlug);
 
-// 前後の記事を取得
 const prevPost: PostEntry | undefined = currentIndex > 0 ? orderedPosts[currentIndex - 1] : undefined;
 const nextPost: PostEntry | undefined = currentIndex < orderedPosts.length - 1 ? orderedPosts[currentIndex + 1] : undefined;
 
-// 前後の記事がどちらもない場合は何も表示しない
 const hasNavigation = prevPost || nextPost;
 
-// 翻訳テキスト
 const label = t(lang, 'postNav');
 ---
 
@@ -49,7 +38,6 @@ const label = t(lang, 'postNav');
   hasNavigation && (
     <nav class="c--postNav" aria-label={label.ariaLabel}>
       <Flex fxw="wrap" g="20" jc="space-between">
-        {/* 前の記事 */}
         <Lism class="c--postNav_item -prev" fx="1">
           {prevPost ? (
             <Link href={getLocalizedUrl(getPostUrl(prevPost.id), lang)} class="c--postNav_link" set="plain" layout="flex" g="15" p="20" ps="0">
@@ -68,7 +56,6 @@ const label = t(lang, 'postNav');
           )}
         </Lism>
 
-        {/* 次の記事 */}
         <Lism class="c--postNav_item -next" ta="right" fx="1">
           {nextPost ? (
             <Link href={getLocalizedUrl(getPostUrl(nextPost.id), lang)} class="c--postNav_link" set="plain" layout="flex" g="15" p="20" pe="0">

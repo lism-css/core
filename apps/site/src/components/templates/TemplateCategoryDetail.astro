@@ -83,7 +83,6 @@ const representativePreviewUrl = representative ? getPreviewUrl(representative, 
   {
     category.aggregateView ? (
       <Fragment>
-        {/* 対応 stack（詳細ページのメタ行と同じ位置に並べる） */}
         <Cluster g="10">
           {stacks.map((stack) => (
             <Inline d="inline-flex" px="10" fz="2xs" ff="mono" c="text-2" bd bdc="current" bdrs="99">
@@ -92,7 +91,6 @@ const representativePreviewUrl = representative ? getPreviewUrl(representative, 
           ))}
         </Cluster>
 
-        {/* インストールコマンド（カテゴリ slug 版 + stack 別 slug 版） */}
         <Group>
           <PreviewTitle>{copy.install}</PreviewTitle>
           <Stack g="20" p="20" bd bdrs="20" bgc="base">
@@ -113,7 +111,6 @@ const representativePreviewUrl = representative ? getPreviewUrl(representative, 
           </Stack>
         </Group>
 
-        {/* プレビュー（representative slug の 1 枚のみ） */}
         <Group>
           {representativePreviewUrl ? (
             <PreviewFrame url={representativePreviewUrl} hasSizeSwitch externalButtonLabel={copy.viewDemo} />
@@ -196,7 +193,6 @@ const representativePreviewUrl = representative ? getPreviewUrl(representative, 
 
 <style>
   @layer lism-custom {
-    /* サムネイル：リンクとして拡大ホバー */
     .c--templateSection_thumbLink img {
       transition: transform 0.3s ease;
     }

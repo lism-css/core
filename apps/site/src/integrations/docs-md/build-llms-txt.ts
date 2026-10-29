@@ -34,10 +34,7 @@ const HEADER = `# Lism CSS
 - npm: \`lism-css\` (core CSS + React components; Astro components via \`lism-css/astro\` subpath), \`@lism-css/ui\` (UI components)
 - License: MIT`;
 
-/**
- * MDX 冒頭の YAML frontmatter から title / description / draft を抽出する。
- * フィールドは単一行のスカラーのみ想定（このリポジトリでは現状すべてその形式）。
- */
+/** 単一行のスカラーのみ対応（現状すべてこの形式） */
 export function parseFrontmatter(content: string): FrontMatter {
   const m = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!m) return {};

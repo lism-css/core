@@ -11,10 +11,6 @@ import { fileURLToPath } from 'node:url';
 const DOCS_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const JSON_PATH = resolve(DOCS_ROOT, 'lastmod-map.json');
 
-/**
- * lastmod-map.json から URL→ISO日時文字列 のマップを読み込む
- * ファイルが存在しない場合は空マップを返す（開発時など）
- */
 export function loadLastmodMap(): Map<string, string> {
   try {
     const raw = readFileSync(JSON_PATH, 'utf-8');

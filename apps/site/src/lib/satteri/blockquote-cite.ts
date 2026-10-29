@@ -1,38 +1,14 @@
 /**
- * blockquote 内の `-- ` で始まる最後の段落を出典として抽出し、
- * <figure> + <blockquote> + <figcaption> 構造に変換する HAST プラグイン。
+ * blockquote 末尾の `-- 出典` 段落を figure > blockquote + figcaption に変換する HAST プラグイン。
+ * 先頭は `-- `、`— `（em ダッシュ）、`– `（en ダッシュ）に対応。出典が URL 付きリンクなら blockquote[cite] にも設定し、
+ * リンクなしなら cite 属性なし・figcaption はテキストのみ。
  *
- * 例1（URLあり）:
- * 入力（Markdown）:
- *   > これは引用文です。
- *   >
- *   > -- [出典元の名前](https://example.com)
- *
- * 出力（HTML）:
+ * 入力: `> 引用文` / `>` / `> -- [出典名](https://example.com)`
+ * 出力:
  *   <figure class="b--blockquote">
- *     <blockquote cite="https://example.com">
- *       <p>これは引用文です。</p>
- *     </blockquote>
- *     <figcaption>
- *       <a href="https://example.com">出典元の名前</a>
- *     </figcaption>
+ *     <blockquote cite="https://example.com"><p>引用文</p></blockquote>
+ *     <figcaption><a href="https://example.com">出典名</a></figcaption>
  *   </figure>
- *
- * 例2（URLなし）:
- * 入力（Markdown）:
- *   > これは引用文です。
- *   >
- *   > -- 出典元の名前
- *
- * 出力（HTML）:
- *   <figure class="b--blockquote">
- *     <blockquote>
- *       <p>これは引用文です。</p>
- *     </blockquote>
- *     <figcaption>出典元の名前</figcaption>
- *   </figure>
- *
- * 対応パターン: `-- `、`— `（em ダッシュ）、`– `（en ダッシュ）で始まる行
  */
 import { defineHastPlugin } from 'satteri';
 import type { Element, ElementContent } from 'hast';

@@ -28,7 +28,6 @@ export function getAllLangs(): { code: LangCode; label: string; isRoot: boolean 
   }));
 }
 
-// URLプレフィックスから言語を決め、未指定ならroot言語を返す
 export function getLangFromUrl(url: URL | string): LangCode {
   const pathname = typeof url === 'string' ? url : url.pathname;
   const segments = pathname.split('/').filter(Boolean);
@@ -65,7 +64,6 @@ export function getPathWithoutLang(url: URL | string): string {
   return pathname;
 }
 
-// 既存の言語プレフィックスを除いてから、指定言語用URLへ組み直す
 export function getLocalizedUrl(path: string, lang: LangCode): string {
   const cleanPath = getPathWithoutLang(path);
 

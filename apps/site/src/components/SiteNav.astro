@@ -8,7 +8,6 @@ import { groupPostsBySidebarDirs, hasDirProperty, getPostUrl } from '@/lib/sideb
 import { getPostsByLang, type PostEntry } from '@/lib/content';
 import { getLangFromUrl, getLocalizedUrl, getPathWithoutLang, t } from '@/lib/i18n';
 
-// 現在の言語とセクションに合わせて、固定項目と記事一覧を組み立てる
 const currentLang = getLangFromUrl(Astro.url);
 // nav ランドマークのラベル（目次・記事ナビと区別するため）
 const navText = t(currentLang, 'siteNav');
@@ -40,7 +39,6 @@ allPosts.forEach((post) => {
 // カテゴリーでグループ化（最長dir一致・items参照記事の除外・order順ソートは PostNavigation と共通ロジック）
 const postsByCategory = groupPostsBySidebarDirs(allPosts, sectionItems);
 
-// rootPathからの相対階層を求める
 function getNestedDepth(url: string, rootPath: string): number {
   const normalizedUrl = url.endsWith('/') ? url.slice(0, -1) : url;
   const normalizedRoot = rootPath.endsWith('/') ? rootPath.slice(0, -1) : rootPath;
@@ -50,7 +48,6 @@ function getNestedDepth(url: string, rootPath: string): number {
   return segments.length - 1;
 }
 
-// dirからの相対階層を求める
 function getDirNestedDepth(postId: string, dir: string): number {
   const relativePath = postId.startsWith(dir + '/') ? postId.slice(dir.length + 1) : postId;
   const segments = relativePath.split('/').filter(Boolean);
@@ -59,7 +56,6 @@ function getDirNestedDepth(postId: string, dir: string): number {
 ---
 
 <Stack as="nav" class="c--siteNav" g="10" fx="1" min-h="0" aria-label={navText.ariaLabel}>
-  {/* トップレベルリンク */}
   {
     topLevelLinks.length > 0 && (
       <div class="c--siteNav_toplinks b--shadowBox">
@@ -83,7 +79,6 @@ function getDirNestedDepth(postId: string, dir: string): number {
     )
   }
 
-  {/* 通常のナビゲーションセクション */}
   <Stack class="b--shadowBox is--scrollPanel c--siteNav_sections" fx="1" min-h="0">
     <Stack class="c--siteNav_sections_scroll">
       <Stack class="c--siteNav_sections_inner" g="30">

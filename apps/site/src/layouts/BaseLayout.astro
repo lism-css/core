@@ -1,18 +1,12 @@
 ---
-// Lism CSS のスタイルシート読み込み
 import 'lism-css/main.css';
-// import 'lism-css/scss/main.scss';
 
-// プロジェクト固有のスタイル
 import '../styles/main.scss';
 
-// サイト設定
 import { siteConfig } from '@/config/site';
 
-// 多言語対応
 import { getRootLang, t, type LangCode } from '@/lib/i18n';
 
-// コンポーネント
 import Head from '../components/Head.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Header from '../components/Header.astro';

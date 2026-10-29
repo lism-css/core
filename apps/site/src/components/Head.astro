@@ -20,7 +20,6 @@ interface Props {
 
 const { title, description, ogImage, lang, noindex = false } = Astro.props;
 
-// 開発環境かどうか
 const isDev = import.meta.env.DEV;
 
 // canonical URL: 開発環境では現在のURLをそのまま使用、本番では Astro.site を使用
@@ -30,23 +29,19 @@ const canonicalUrl = isDev ? Astro.url.toString() : Astro.site ? new URL(Astro.u
 const getOgImageUrl = (imgPath?: string): string | undefined => {
   if (!imgPath) return undefined;
 
-  // 開発環境では相対パスをそのまま返す
   if (isDev) {
     return imgPath;
   }
 
-  // 本番環境では Astro.site を使って絶対URLに変換
   if (Astro.site) {
     return new URL(imgPath, Astro.site).toString();
   }
 
-  // Astro.site が未設定の場合は相対パスを返す
   return imgPath;
 };
 
 const ogImageUrl = getOgImageUrl(ogImage || '/ogimg-default.png');
 
-// タイトルメタテキスト（ページタイトル - サイト名 の形式）
 const titleMetaText = title === siteConfig.name ? title : `${title} - ${siteConfig.name}`;
 
 // 言語に応じた og:locale を生成

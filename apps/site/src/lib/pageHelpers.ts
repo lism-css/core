@@ -5,12 +5,9 @@ import sharp from 'sharp';
 import { renderOgSvg } from '@/lib/ogImage';
 import { findUncoveredChars, loadOgFontChars } from '@/lib/ogFontCoverage';
 
-// 記事ページ、一覧、OG画像の静的パスと生成処理をまとめる
 const langCodes = Object.keys(siteConfig.langs) as LangCode[];
 
-// ============================================================
 // 記事詳細ページ関連
-// ============================================================
 
 export interface PostPath {
   params: { slug: string; lang?: string };
@@ -53,16 +50,13 @@ export async function getPostPathsForNonRoot(): Promise<PostPathNonRoot[]> {
   return paths;
 }
 
-// ============================================================
 // ページネーション関連
-// ============================================================
 
 export interface PaginationPath {
   params: { num: string; lang?: string };
   props: { lang: LangCode; posts: PostEntry[]; currentPage: number; totalPages: number };
 }
 
-// 記事を日付順に分割し、2ページ目以降の静的パスを作る
 export async function getPaginationPathsForRoot(): Promise<PaginationPath[]> {
   const rootLang = getRootLang();
   const postsPerPage = siteConfig.pagination.postsPerPage;
@@ -89,7 +83,6 @@ export async function getPaginationPathsForRoot(): Promise<PaginationPath[]> {
   });
 }
 
-// 各非root言語の記事を日付順に分割し、2ページ目以降の静的パスを作る
 export async function getPaginationPathsForNonRoot(): Promise<PaginationPath[]> {
   const nonRootLangs = langCodes.filter((lang) => !isRootLang(lang));
   const postsPerPage = siteConfig.pagination.postsPerPage;
@@ -121,16 +114,13 @@ export async function getPaginationPathsForNonRoot(): Promise<PaginationPath[]> 
   return paths;
 }
 
-// ============================================================
 // タグ一覧関連
-// ============================================================
 
 export interface TagPath {
   params: { tag: string; lang?: string };
   props: { lang: LangCode; posts: PostEntry[] };
 }
 
-// 記事のタグを集め、タグごとの一覧パスを作る
 export async function getTagPathsForRoot(): Promise<TagPath[]> {
   const rootLang = getRootLang();
   const posts = await getPostsByLang(rootLang);
@@ -145,7 +135,6 @@ export async function getTagPathsForRoot(): Promise<TagPath[]> {
   });
 }
 
-// 各非root言語のタグ一覧パスを作る
 export async function getTagPathsForNonRoot(): Promise<TagPath[]> {
   const rootLang = getRootLang();
   const nonRootLangs = langCodes.filter((lang) => !isRootLang(lang));
@@ -175,9 +164,7 @@ export async function getTagPathsForNonRoot(): Promise<TagPath[]> {
   return paths;
 }
 
-// ============================================================
 // OG画像関連
-// ============================================================
 
 export interface OgPath {
   params: { slug: string; lang?: string };
@@ -245,7 +232,6 @@ export async function getUiOgPathsForNonRoot(): Promise<OgPath[]> {
   return paths;
 }
 
-// 記事を取得してOG画像を生成する
 export async function generateOgImage(lang: LangCode, slug: string): Promise<Response> {
   const { entry: post } = await getPostWithFallback(lang, slug);
 

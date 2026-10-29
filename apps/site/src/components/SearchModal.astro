@@ -4,13 +4,11 @@ import { Flex, Stack, Lism, Inline } from 'lism-css/astro';
 import { Modal } from '@lism-css/ui/astro/Modal';
 import { getLangFromUrl, t } from '@/lib/i18n';
 
-// 開発環境かどうかを判定
 const isDev = import.meta.env.DEV;
 const lang = getLangFromUrl(Astro.url);
 const searchText = t(lang, 'search');
 ---
 
-<!-- 検索モーダル -->
 <Modal.Root id="search-modal" isContainer isWrapper p="30" py="40" jc="start">
   <Modal.Inner layout="stack" pos="relative" w="100%" max-h="100%" p="30" g="30" bdrs="20" bxsh="40">
     <Modal.CloseBtn modalId="search-modal" pos="absolute" t="0" r="0" z="1" fz="xl" p="10" m="20" />
@@ -20,8 +18,7 @@ const searchText = t(lang, 'search');
     <Modal.Body layout="stack" g="30" ov-y="auto">
       {
         isDev ? (
-          // <!-- 開発環境では検索インデックスが存在しないため注意メッセージを表示 -->
-
+          // 開発環境では検索インデックスが無いため案内を表示する
           <Stack ai="center" g="20">
             <Inline fz="3xl" hl="0">
               🔍
@@ -54,7 +51,7 @@ const searchText = t(lang, 'search');
   // ⌘K (Mac) / Ctrl+K (Windows) で検索モーダルを開く
   document.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault(); // ブラウザのデフォルト動作を防止
+      e.preventDefault();
       const openBtn = document.querySelector<HTMLElement>('[data-modal-open="search-modal"]');
       openBtn?.click();
     }
@@ -62,9 +59,7 @@ const searchText = t(lang, 'search');
 </script>
 
 <style is:global>
-  /* ========================================
-     Pagefind UI のスタイルオーバーライド
-     ======================================== */
+  /* Pagefind UI のスタイルオーバーライド */
 
   #search {
     --pagefind-ui-font: inherit;
@@ -101,14 +96,6 @@ const searchText = t(lang, 'search');
   }
   #search .pagefind-ui__result-inner > .pagefind-ui__result-excerpt {
     display: none;
-    /* position: absolute;
-		right: 0;
-		top: 0;
-		font-size: 0.8em;
-		width: 25%;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis; */
   }
   #search .pagefind-ui__result-link {
     position: static;

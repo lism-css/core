@@ -1,34 +1,10 @@
 /**
- * <div class="c--docsNote"> を GFM Alert 風 blockquote に変換する rehype プラグイン。
+ * <div class="c--docsNote"> を GFM Alert（`> [!NOTE]`）の blockquote へ変換する rehype プラグイン。
+ * 色（--keycolor）→種別は COLOR_TO_ALERT（色と preset の対応は mdx/Callout.astro）。未知の色・keycolor なしは NOTE。
+ * アイコン要素は除去し、タイトルは <strong> 段落として Alert 内に残す。
  *
- * 入力 HTML:
- *   <div class="c--docsNote" style="--keycolor:var(--blue)">
- *     <div class="c--docsNote_icon"><svg>...</svg></div>
- *     <p>For more details ...</p>
- *   </div>
- *
- * 出力 HTML（後段で rehype-remark が Markdown 化）:
- *   <blockquote>
- *     <p>[!NOTE]</p>
- *     <p>For more details ...</p>
- *   </blockquote>
- *
- * 結果として生成される Markdown:
- *   > [!NOTE]
- *   >
- *   > For more details ...
- *
- * keycolor → GFM Alert 種別マッピング（Callout.astro の preset に対応）:
- *   blue (info)    → NOTE
- *   green (check)  → TIP
- *   gray (note)    → NOTE
- *   orange (point) → IMPORTANT
- *   yellow (warn)  → WARNING
- *   red (alert)    → CAUTION
- *   purple (help)  → NOTE
- *   未知の色 / keycolor 不在 → NOTE
- *
- * c--docsNote_title が含まれる場合、<strong> 段落として GFM Alert 内に保持する。
+ * 入力: <div class="c--docsNote" style="--keycolor:var(--blue)"><div class="c--docsNote_icon">…</div><p>本文</p></div>
+ * 出力: <blockquote><p>[!NOTE]</p><p>本文</p></blockquote>（後段の rehype-remark が `> [!NOTE]` にする）
  */
 import { visit } from 'unist-util-visit';
 import type { Root, Element, ElementContent, Parents } from 'hast';
@@ -60,10 +36,7 @@ function detectAlertType(node: Element): GfmAlertType {
   return 'NOTE';
 }
 
-/**
- * c--docsNote_title の div を <strong> 段落に変換する。
- * その他の子要素はそのまま返す。
- */
+/** c--docsNote_title の div を <strong> 段落に変換する（他の子はそのまま） */
 function transformChild(child: ElementContent): ElementContent {
   if (child.type !== 'element') return child;
   if (child.tagName !== 'div') return child;

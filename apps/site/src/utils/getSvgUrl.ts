@@ -9,7 +9,6 @@ const getSvgUrl = (svg: string, encode = '') => {
     return `url(data:image/svg+xml;base64,${svg})`;
   }
 
-  // シングルクォートをダブルクォートに変換
   svg = svg.replace(/'/g, '"');
   // カラーコードの先頭の # → %23 に置換
   svg = svg.replace(/="#/g, '="%23');

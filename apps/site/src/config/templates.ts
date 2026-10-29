@@ -43,7 +43,6 @@ export interface TemplateItem {
   previewUrlEn?: string;
   /** true の場合、本番ビルドでは一覧・詳細ページ・パス生成から除外する（dev では表示） */
   draft?: boolean;
-  /** 紹介カードに表示する機能リスト（任意） */
   features?: Record<LangCode, string[]>;
 }
 
@@ -113,7 +112,7 @@ export const categories: CategoryDef[] = [
   },
 ];
 
-/** Stack 表示ラベル（CLI 側の STACK_LABELS と揃える） */
+/** CLI 側の STACK_LABELS と揃える */
 export const stackLabels: Record<Stack, string> = {
   astro: 'Astro',
   next: 'Next.js',
@@ -161,22 +160,18 @@ export const templates: TemplateItem[] = manifestTemplates.map((tpl: TemplateDef
   };
 });
 
-/** 言語に応じた thumb を返す（en は en スクショ優先・未撮影なら ja にフォールバック） */
 export function getThumb(tpl: TemplateItem, lang: LangCode): ImageMetadata {
   return lang === 'en' ? (tpl.thumbEn ?? tpl.thumb) : tpl.thumb;
 }
 
-/** 長い説明を返す（intro 未指定なら description にフォールバック） */
 export function getIntro(tpl: TemplateItem, lang: LangCode): string {
   return tpl.intro?.[lang] ?? tpl.description[lang];
 }
 
-/** カテゴリの長い説明を返す（intro 未指定なら description にフォールバック） */
 export function getCategoryIntro(category: CategoryDef, lang: LangCode): string {
   return category.intro?.[lang] ?? category.description[lang];
 }
 
-/** 言語に応じたプレビュー URL を返す（en は en 用 URL 優先・無ければ ja にフォールバック） */
 export function getPreviewUrl(tpl: TemplateItem, lang: LangCode): string | undefined {
   return lang === 'en' ? (tpl.previewUrlEn ?? tpl.previewUrl) : tpl.previewUrl;
 }
@@ -211,7 +206,6 @@ export function getAggregateRepresentative(category: CategoryDef, items: Templat
   return items.find((tpl) => tpl.category === category.id);
 }
 
-/** カテゴリ内の全 template を返す（stack 表示順） */
 export function getCategoryTemplates(categoryId: CategoryId, items: TemplateItem[] = visibleTemplates): TemplateItem[] {
   const filtered = items.filter((tpl) => tpl.category === categoryId);
   return [...filtered].sort((a, b) => stackOrder.indexOf(a.stack) - stackOrder.indexOf(b.stack));

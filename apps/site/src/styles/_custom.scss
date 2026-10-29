@@ -1,6 +1,4 @@
-/* -------------------------- */
 /* 下書き記事のスタイル（開発環境のみ） */
-/* -------------------------- */
 /* Property Class より強くしておきたいので非レイヤーのまま */
 ._draft {
   position: relative;
@@ -48,9 +46,7 @@
     }
   }
 
-  /* -------------------------- */
   /* サイト全体のレイアウト */
-  /* -------------------------- */
   .c--siteWrapper {
     --wrapper-gta: 'header' 'main';
     --wrapper-gtc: 1fr;
@@ -176,9 +172,7 @@
     font-feature-settings: 'palt';
   }
 
-  /* -------------------------- */
   /* 前後記事ナビゲーション */
-  /* -------------------------- */
   .c--postNav {
     margin-block-start: 5rem;
     border-block-start: 1px solid var(--divider);
@@ -204,9 +198,7 @@
     display: none;
   }
 
-  /* -------------------------- */
   /* ページネーション */
-  /* -------------------------- */
   .c--pagination {
     margin-block-start: var(--s40);
   }

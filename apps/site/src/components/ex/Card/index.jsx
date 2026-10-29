@@ -10,7 +10,6 @@ export default function Card({ layout = 'withSide', className, ...props }) {
     ov: 'h',
   };
 
-  // hrefが指定されていればlink化
   if (props.href) {
     defaultProps.tag = 'a';
     defaultProps.isBoxLink = true;

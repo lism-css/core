@@ -66,7 +66,6 @@ const features = template.features?.[lang];
     </Text>
   </PageHeader>
 
-  {/* stack と機能リスト（ヘッダーの責務から外し、直下に独立した行として置く） */}
   <Cluster ai="center" g="10 15">
     <Inline d="inline-flex" px="10" fz="2xs" ff="mono" c="text-2" bd bdc="current" bdrs="99">
       {stackLabels[template.stack]}
@@ -74,7 +73,6 @@ const features = template.features?.[lang];
     {features && features.length > 0 && <TemplateFeatures features={features} />}
   </Cluster>
 
-  {/* インストールコマンド */}
   <Group>
     <PreviewTitle>{copy.install}</PreviewTitle>
     <Stack g="10" p="20" bd bdrs="20" bgc="base">
@@ -83,7 +81,6 @@ const features = template.features?.[lang];
     </Stack>
   </Group>
 
-  {/* プレビュー */}
   <Group>
     {
       previewUrl ? (

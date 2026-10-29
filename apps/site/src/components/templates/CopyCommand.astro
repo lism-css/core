@@ -4,7 +4,6 @@
  *
  * テンプレートカード内などで使う、`$ {command}` の表示とクリップボードコピー機能。
  * script は Astro により重複排除されるため、ループ内で複数回使ってもバンドルされるのは1度だけ。
- * 親ファイルから分離することで、編集時の HMR 範囲を狭める目的もある。
  */
 import { Lism } from 'lism-css/astro';
 import type { ComponentProps } from 'astro/types';
@@ -23,7 +22,6 @@ const { command, copyLabel, copiedLabel, ...rest } = Astro.props as Props;
 <Lism as="div" class="c--copyCmd" py="10" px="10" ps="15" bgc="base-2" fz="xs" hl="xs" ff="mono" {...rest}>
   <code title={`$ ${command}`}>$ {command}</code>
   <button type="button" class="c--copyCmd_btn" data-copy-command={command} data-copied-label={copiedLabel} aria-label={copyLabel} title={copyLabel}>
-    {/* コピーアイコン（通常時） */}
     <svg
       class="c--copyCmd_iconCopy"
       width="14"
@@ -39,7 +37,6 @@ const { command, copyLabel, copiedLabel, ...rest } = Astro.props as Props;
       <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
     </svg>
-    {/* チェックアイコン（コピー完了時） */}
     <svg
       class="c--copyCmd_iconCheck"
       width="14"
