@@ -68,7 +68,11 @@ Adds predefined space to the left and right of content. It is kept separate from
 
 | Class name | Spacing | Default value |
 |---|---|---|
-| `has--gutter` | `--gutter` (baseline: `--gutter--base`) | `var(--s30)` |
+| `has--gutter` | `--gutter-px` | `var(--s30)` |
+
+To change the spacing, override `--gutter-px`. Overriding it on `:root` applies site-wide; overriding it on a specific element applies to that element and any `has--gutter` inside it.
+
+The old variables `--gutter--base` and `--gutter` still work throughout 1.x but are deprecated. Overrides of `--gutter--base` only take effect on `:root`.
 
 <SrcCode path="src/scss/trait/has/_gutter.scss" />
 

@@ -10,25 +10,22 @@
 
 ```scss
 .has--gutter {
-  --gutter: var(--gutter--base);
+  // --gutter は 1.x の互換用（非推奨）。要素での --gutter の上書きと、内側からの var(--gutter) の参照を保つ。
+  --gutter: var(--gutter-px);
   padding-inline: var(--gutter);
 }
 ```
-
-ガター変数は `--flow--base` / `--flow` と同じ「基準値 + 要素ローカル機能変数」の2層構造を採る。
-
-- `--gutter--base`: `:root` で `var(--s30)` をデフォルトに持つサイト全体の基準値
-- `--gutter`: `.has--gutter` で `var(--gutter--base)` に初期化される要素ローカルの機能変数
 
 ## CSS 変数
 
 | 変数 | 役割 | デフォルト |
 | --- | --- | --- |
-| `--gutter--base` | サイト全体のガター基準値（`:root` 定義） | `var(--s30)` |
-| `--gutter` | `.has--gutter` 要素ローカルの機能変数 | `var(--gutter--base)` |
+| `--gutter-px` | `.has--gutter` の左右余白の量（`:root` 定義） | `var(--s30)` |
 
-- サイト全体の基準を変えたい場合は `:root` 等で `--gutter--base` を上書きする
-- 個別要素のみガター量を変えたい場合は、その要素で `style="--gutter: 20px"` のように `--gutter` を直接上書きする
+- サイト全体の余白を変えたい場合は `:root` で `--gutter-px` を上書きする
+- 特定のセクションや要素だけ変えたい場合は、その要素で `style="--gutter-px: 20px"` のように上書きする。内側の `.has--gutter` にも引き継がれる
+- `.has--gutter` の外でガターと同じ幅を使いたい場合も `var(--gutter-px)` を参照する
+- `--gutter--base` と `--gutter` は1.xの互換用の非推奨変数。新しく書くコードでは使わない
 
 ## 関連
 
