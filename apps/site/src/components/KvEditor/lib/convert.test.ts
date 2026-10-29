@@ -75,8 +75,9 @@ describe('スペース区切りの prop 値', () => {
     expect(jsxToHtml('<Box bd="1px solid red">x</Box>')).toBeNull();
   });
 
-  it('hov のスペース値は変換不能（クラスを壊すため）', () => {
-    expect(jsxToHtml('<Box hov="fade in">x</Box>')).toBeNull();
+  it('hov の空白区切りは複数の -hov クラスと往復する', () => {
+    expect(jsxToHtml('<Box hov="-c -bdc">x</Box>')).toBe('<div class="l--box -hov:-c -hov:-bdc">x</div>');
+    expectRoundTrip('<div class="l--box -hov:-c -hov:-bdc">x</div>');
   });
 
   it('スペースなしの値は従来どおりプロパティクラス', () => {

@@ -501,8 +501,8 @@ describe('getLismProps', () => {
       expect(result.className).toContain('-hov:fade');
     });
 
-    test('hov: カンマ区切りで複数のクラスが追加される', () => {
-      const result = getLismProps({ hov: 'fade,shadow' });
+    test('hov: スペース区切りで複数のクラスが追加される', () => {
+      const result = getLismProps({ hov: 'fade shadow' });
       expect(result.className).toContain('-hov:fade');
       expect(result.className).toContain('-hov:shadow');
     });

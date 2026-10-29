@@ -11,7 +11,7 @@ import atts from './helper/atts';
 import isEmptyObj from './helper/isEmptyObj';
 import filterEmptyObj from './helper/filterEmptyObj';
 import mergeSet from './helper/mergeSet';
-import splitWithComma from './helper/splitWithComma';
+import splitValues from './helper/splitValues';
 import { type StyleWithCustomProps } from './types';
 import { type TraitProps, type SetPropValue, type UtilPropValue } from './types/TraitProps';
 import { type PropValueTypes } from './types/PropValueTypes';
@@ -268,8 +268,8 @@ export class LismPropsData {
     if (hoverData === true) {
       this.addProp(`-hov`);
     } else if (typeof hoverData === 'string') {
-      // カンマ区切りで複数指定可能（入力文字列をそのまま -hov:{...} として出力）
-      splitWithComma(hoverData).forEach((cls) => {
+      // 各値は変換せず、そのまま -hov:{...} として出力する
+      splitValues(hoverData).forEach((cls) => {
         this.addProp(`-hov:${cls}`);
       });
     } else if (typeof hoverData === 'object') {
