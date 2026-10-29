@@ -11,7 +11,9 @@
     border-color: var(--hov-bdc, currentColor) #{mixin.$maybe_important};
   }
   .-hov\:-bgc:hover {
-    // デフォルトでニュートラルグレーを配色し、背景色明るくても暗くても使えるようにしておく。
+    // 優先順: --hov-bgc → --hov-bgc--default → color-mix()
+    //     color-mix(): デフォルトで現在の背景色に対してニュートラルグレーを配色し、背景色が明るくても暗くても使えるようにしている。
+    //     --bgc が使われているため、柔軟性を考えて少し複雑な構造になっている
     background-color: var(--hov-bgc, var(--hov-bgc--default, color-mix(in srgb, var(--bgc, var(--base)), var(--neutral) 20%)))
       #{mixin.$maybe_important};
   }

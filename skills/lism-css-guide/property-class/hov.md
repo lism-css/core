@@ -37,7 +37,17 @@ hover 時の挙動を制御する Property Class。`:hover` 擬似クラスで�
 
 `-hov:-bgc` は初期値として、現在の背景色を `--neutral` へブレンドした背景色を使う。ライト/ダークどちらの背景でも使いやすいhover背景にしたい場合は、`hov="-bgc"` を基本形として使う。
 
-プロジェクト全体で `-hov:-bgc` のデフォルト値を差し替えたい場合は、`:root` 等で `--hov-bgc--default` を定義する。フォールバック順は `--hov-bgc`（要素ごとの明示指定）→ `--hov-bgc--default`（プロジェクト全体）→ `color-mix(...)`（フレームワーク既定）の 3 段。
+プロジェクト全体で `-hov:-bgc` のデフォルト値を差し替えたい場合は、`--hov-bgc--default` を定義する。フォールバック順は `--hov-bgc`（要素ごとの明示指定）→ `--hov-bgc--default`（既定値の差し替え）→ `color-mix(...)`（フレームワーク既定）の 3 段。
+
+固定の色なら `:root` に書いてよい。`var(--bgc)` を使う値（既定の `color-mix` の比率調整など）は、`:root` に書くとルートの背景色で計算されてしまうため、`.-hov\:-bgc` に書く。
+
+```css
+.-hov\:-bgc {
+  --hov-bgc--default: color-mix(in srgb, var(--bgc, var(--base)), var(--neutral) 25%);
+}
+```
+
+この時、既定値の差し替えに `--hov-bgc` を使うと、親から継承した `--hov-bgc`（NavMenu の `hovBgc` 等）を上書きしてしまうため使わない。
 
 ## `-hov:{preset}` — プリセット
 
