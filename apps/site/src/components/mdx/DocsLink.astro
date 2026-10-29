@@ -48,7 +48,7 @@ const displayDescription = manualDescription || entry?.data.description || '';
 const href = getLocalizedUrl(pathWithoutHash, currentLang) + (hash ? `#${hash}` : '');
 ---
 
-<BoxLink href={href} class="c--docsLink" layout="flex" ai="center" my="40" bd bdc="base-2" bxsh="10" hov="-bxsh,-bdc" hasTransition set="hov">
+<BoxLink href={href} class="c--docsLink" layout="flex" ai="center" my="40" bd bdc="base-2" bxsh="10" hov="-bxsh -bdc" hasTransition set="hov">
   <Flex class="c--docsLink_icon" c="link" p="0.3125rem" hl="0" pos="absolute" t="15" l="15">
     <Icon viewBox="0 0 256 256" size="1.125rem">
       <path

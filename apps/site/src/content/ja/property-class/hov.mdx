@@ -152,7 +152,7 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
 <Preview>
   <PreviewTitle>文字色と枠線の色を変える例</PreviewTitle>
   <PreviewArea p="30">
-    <BoxLink href="###" hov="-c,-bdc" bd p="20">
+    <BoxLink href="###" hov="-c -bdc" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
   </PreviewArea>
@@ -164,8 +164,8 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
     ```
   </PreviewCode>
   <PreviewCode slot="tab" label="JSX">
-    ```jsx 'hov="-c,-bdc"'
-    <BoxLink href="###" hov="-c,-bdc" bd p="20">
+    ```jsx 'hov="-c -bdc"'
+    <BoxLink href="###" hov="-c -bdc" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
     ```
@@ -179,7 +179,7 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
 <Preview>
   <PreviewTitle>移動と影を組み合わせる例</PreviewTitle>
   <PreviewArea p="30">
-    <BoxLink href="###" hasTransition hov="-bxsh,-transform" bd p="20">
+    <BoxLink href="###" hasTransition hov="-bxsh -transform" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
   </PreviewArea>
@@ -191,8 +191,8 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
     ```
   </PreviewCode>
   <PreviewCode slot="tab" label="JSX">
-    ```jsx 'hov="-bxsh,-transform"' 'hasTransition'
-    <BoxLink href="###" hasTransition hov="-bxsh,-transform" bd p="20">
+    ```jsx 'hov="-bxsh -transform"' 'hasTransition'
+    <BoxLink href="###" hasTransition hov="-bxsh -transform" bd p="20">
       <p>BoxLink</p>
     </BoxLink>
     ```
@@ -314,7 +314,7 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
 
 ### 文字列で指定する場合
 
-入力した文字列がそのまま`-hov:{入力文字列}`クラスとして出力されます。カンマ区切りで複数指定も可能です。
+入力した文字列がそのまま`-hov:{入力文字列}`クラスとして出力されます。スペース区切りで複数指定も可能です。
 
 ```jsx
 <Lism hov="-o">...</Lism>
@@ -323,7 +323,7 @@ Lismのコアパッケージでは、以下のクラスを標準で用意して�
 <Lism hov="shadowUp">...</Lism>
 // → <div class="-hov:shadowUp">...</div>
 
-<Lism hov="-c,-bxsh">...</Lism>
+<Lism hov="-c -bxsh">...</Lism>
 // → <div class="-hov:-c -hov:-bxsh">...</div>
 ```
 
