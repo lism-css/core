@@ -48,7 +48,6 @@ export const ResponsiveColumns: Story = {
   name: 'cols: responsive',
   args: {
     g: '20',
-    // TODO: null を許容するようにする
     cols: ['2', '3'],
     children: <DemoItems />,
   },

@@ -20,7 +20,6 @@ import Footer from '../components/Footer.astro';
 import Sidebar from '../components/Sidebar.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import FixedToc from '../components/FixedToc.astro';
-// import ShareBtns from '../components/ShareBtns.astro';
 import { PAGE_TITLE_ID, type TocItem } from '../lib/generateToc';
 import type { SchemaType } from '../lib/jsonLd';
 import { Grid, Stack, Container, Box } from 'lism-css/astro';
@@ -48,12 +47,6 @@ const {
   excludeFromSearch = false,
   noindex = false,
 } = Astro.props;
-
-// 開発環境かどうか（ShareBtns用のURL生成に使用）
-const isDev = import.meta.env.DEV;
-
-// canonical URL（ShareBtns用）
-const canonicalUrl = isDev ? Astro.url.toString() : Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString();
 ---
 
 <html lang={lang}>
@@ -101,7 +94,6 @@ const canonicalUrl = isDev ? Astro.url.toString() : Astro.site ? new URL(Astro.u
         <FixedToc>
           {/* スクロールするので、左右の余白(px)は目次側に付ける。上下(py)は親(Modal.Body) */}
           <TableOfContents toc={toc} px="30" />
-          {/* <ShareBtns url={canonicalUrl} title={title} px="30" /> */}
         </FixedToc>
       )
     }

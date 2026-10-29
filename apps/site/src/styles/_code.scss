@@ -16,20 +16,9 @@ astro-code: Astro の <Code>コンポーネント
   --codeBlock-mark-c: rgba(138, 145, 150, 0.1);
   --codeBlock-mark-bgc: rgba(147, 153, 155, 0.15);
   --codeBlock-mark-bdc: hsla(207, 43%, 47%, 0.8);
-
-  /* Preview コンポーネント用 */
-  // --lsdoc-codeBlock-bgc: hsl(200, 18%, 95%);
-  // --lsdoc-codeBlock-radius: 4px;
-  // --lsdoc-preview_resize-bdc: hsl(200, 16%, 60%);
-  // --lsdoc-preview_help-bg: rgba(250, 250, 255, 0.5);
 }
 :root[data-theme='dark'] {
   --codeBlock-bgc: var(--base-2) !important;
-
-  /* Preview コンポーネント用 */
-  // --lsdoc-codeBlock-bgc: hsl(200, 12%, 12%);
-  // --lsdoc-preview_resize-bdc: hsl(200, 16%, 40%);
-  // --lsdoc-preview_help-bg: rgba(50, 50, 55, 0.5);
 }
 
 pre {
@@ -169,8 +158,6 @@ pre {
     background-color: var(--base-2);
     box-shadow: inset 1px 2px 4px -2px rgb(0 0 0 / 0.1);
     position: relative;
-    // border-bottom: 1px solid var(--base);
-    // overflow: visible;
     overflow-y: visible;
 
     &::after {
@@ -183,7 +170,6 @@ pre {
   }
   .b--tabs_tab {
     background-color: var(--_isSelected, var(--codeBlock-bgc)) var(--_notSelected, transparent);
-    // color: var(--_isSelected, var(--text)) var(--_notSelected, var(--text-2));
     color: var(--text);
     border-inline-end: solid 1px var(--base);
     font-weight: var(--_isSelected, 600);
@@ -192,7 +178,6 @@ pre {
 
     opacity: var(--_notSelected, 0.7);
     &::before {
-      // content: var(--_notSelected, '');
       position: absolute;
       inset: 0;
       box-shadow: inset 1px 2px 4px -1px rgb(0 0 0 / 0.1);

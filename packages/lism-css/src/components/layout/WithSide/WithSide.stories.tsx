@@ -24,8 +24,6 @@ type Story = StoryObj<typeof WithSide>;
 
 export const Default: Story = {
   args: {
-    // sideW: '12rem',
-    // mainW: '20rem',
     g: '30',
     children: (
       <>

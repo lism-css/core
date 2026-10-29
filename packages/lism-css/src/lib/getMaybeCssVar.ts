@@ -38,10 +38,6 @@ export function getMaybeSpaceVar(value: CssValue): string {
     return `var(--s${value})`;
   }
 
-  //
-  // + があれば calcで足す?
-  // ...
-
   // スペース区切りで一括指定されている場合
   if (typeof value === 'string' && value.includes(' ')) {
     // calc(), var() 等 があれば対象外

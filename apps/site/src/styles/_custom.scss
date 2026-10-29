@@ -65,7 +65,6 @@
   }
 
   .c--siteHeader {
-    /* grid-area: header; */
     position: sticky;
     top: var(--s10);
     z-index: 100;
@@ -119,11 +118,6 @@
   .c--siteMain_inner {
     scroll-padding-top: var(--s40); // inner の py="40" 分
 
-    // scroll-behavior: smooth;
-    // @media (prefers-reduced-motion: reduce) {
-    //   scroll-behavior: auto;
-    // }
-
     &:focus {
       outline: none;
     }
@@ -155,8 +149,6 @@
     top: calc(var(--header-h) + var(--s20));
     height: calc(100vh - var(--header-h) - var(--s30));
     width: var(--toc-w);
-    /* border-inline-start: 1px solid var(--divider);
-  	background-color: var(--base); */
   }
   .no-toc .c--siteToc {
     display: none !important;
@@ -176,7 +168,6 @@
     overflow: hidden;
   }
 
-  /* .hero {} */
   .c--hero_content {
     min-width: 20rem;
   }

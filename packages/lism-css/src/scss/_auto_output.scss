@@ -134,7 +134,6 @@ $bp_outputs: ();
     )
   );
 }
-/* __stylelint-disable */
 @each $key in $bp_support_list {
   $prop_data: map.get(setting.$props, $key);
   $prop_bp_data: map.get($prop_data, bp);

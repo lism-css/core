@@ -8,7 +8,6 @@ type TranslationKeys = {
   main: 'ariaLabel';
   themeSwitch: 'ariaLabel' | 'system' | 'light' | 'dark';
   langSelect: 'ariaLabel' | 'menuAriaLabel';
-  share: 'share' | 'copy' | 'copied';
   copyCode: 'copy' | 'copied';
   postNav: 'prev' | 'next' | 'ariaLabel';
   translationNotice: 'title' | 'description';
@@ -50,11 +49,6 @@ export const translations: Record<LangCode, UITranslations> = {
     langSelect: {
       ariaLabel: '言語を選択',
       menuAriaLabel: '利用可能な言語',
-    },
-    share: {
-      share: 'シェア',
-      copy: 'コピー',
-      copied: 'コピー完了',
     },
     copyCode: {
       copy: 'コードをコピー',
@@ -117,11 +111,6 @@ export const translations: Record<LangCode, UITranslations> = {
     langSelect: {
       ariaLabel: 'Select language',
       menuAriaLabel: 'Available languages',
-    },
-    share: {
-      share: 'Share',
-      copy: 'Copy',
-      copied: 'Copied!',
     },
     copyCode: {
       copy: 'Copy code',

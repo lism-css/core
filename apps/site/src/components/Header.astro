@@ -6,7 +6,6 @@ import { siteConfig } from '@/config/site';
 import SearchModal from './SearchModal.astro';
 import SiteNav from './SiteNav.astro';
 import SNSLinks from './SNSLinks.astro';
-// import LanguageSelect from './LanguageSelect.astro';
 import ThemeSwitch from './ThemeSwitch.astro';
 import { getLangFromUrl, getLocalizedUrl, t } from '@/lib/i18n';
 
@@ -105,9 +104,6 @@ const headerText = t(currentLang, 'header');
           hov={{ bgc: 'base-2' }}
           aria-labelledby="menu-open-label"
         >
-          {/* <Icon icon={MenuIcon} fz={['xl', null, 'l']} viewBox="0 0 256 256">
-            <path d="M112,60a16,16,0,1,1,16,16A16,16,0,0,1,112,60Zm16,52a16,16,0,1,0,16,16A16,16,0,0,0,128,112Zm0,68a16,16,0,1,0,16,16A16,16,0,0,0,128,180Z" />
-          </Icon> */}
           <Icon icon={MenuIcon} fz={['xl', null, 'l']} />
           <Inline d="none" id="menu-open-label">
             {headerText.openMenu}
@@ -128,7 +124,6 @@ const headerText = t(currentLang, 'header');
           </Modal.Body>
           <Cluster class="c--siteNavModal_footer" g="10" fz="l" bd-t pbs="20" px="30">
             <SNSLinks />
-            {/* <LanguageSelect /> */}
             <ThemeSwitch />
           </Cluster>
         </Modal.Inner>

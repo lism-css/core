@@ -1,8 +1,6 @@
 ---
 import { Stack } from 'lism-css/astro';
 import SiteNav from './SiteNav.astro';
-// import ThemeSwitch from './ThemeSwitch.astro';
-// import LanguageSelect from './LanguageSelect.astro';
 ---
 
 {/* 中身はサイトナビだけなので aside（補足ランドマーク）にはしない。nav は SiteNav 側 */}
@@ -10,10 +8,6 @@ import SiteNav from './SiteNav.astro';
   <Stack class="c--siteSidebar_nav" fx="1" min-h="0">
     <SiteNav />
   </Stack>
-  <!-- <Flex jc="between" g="5" px="15">
-    <LanguageSelect />
-    <ThemeSwitch />
-  </Flex> -->
 </Stack>
 
 <script>

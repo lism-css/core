@@ -1,13 +1,10 @@
 @layer lism-base {
   :root {
-    // --divider: hsl(224, 20%, 92%);
-
     --code-c: currentColor;
     --code-bgc: color-mix(in srgb, var(--divider), transparent 60%);
 
     --ff--base: 'Gen Interface JP', 'Hiragino Sans', sans-serif;
     --lts--base: 0.0125em;
-    // --fz-mol: 8;
 
     // 基本背景はコアのデフォルト（hsl(220 0% 99%)）より白くする（docsサイトのみの調整）
     --base: #fff;
@@ -20,14 +17,12 @@
     --docs-bg: #fafafa;
     --card-bg: var(--base);
 
-    // --bxsh--base: 0 1px 4px 0 rgba(0, 0, 0, 0.03), 0 2px 16px 0 rgba(0, 0, 0, 0.05);
     --bxsh--base: var(--bxsh--20);
     --bxsh--code: 0 10px 50px 0 rgba(0, 0, 0, 0.2), 0 20px 30px 0 rgba(0, 0, 0, 0.3);
     --bxsh--search-border: inset 0 0 0 1px var(--divider);
 
     // レイアウト
     --sz--m: 55rem; // 880px
-    // --sc--siteHeader: 26.25rem; // 420px
     --header-h: 3.875rem; // 62px
     --sidebar-w: clamp(240px, 16vw, 320px);
     --toc-w: clamp(240px, 16vw, 300px);
@@ -74,10 +69,6 @@
      下層ページの本文スクロールは .c--siteMain_inner 側。ここはトップページなど document がスクロールする場合用 */
   html {
     scroll-padding-top: calc(var(--header-h) + 1rem);
-    // scroll-behavior: smooth;
-
-    // text-spacing-trim: trim-start;
-    /* line-break: strict; */
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -90,11 +81,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  /* ダイアログ展開時のガタツキを防ぐ */
-  /* html:has(:modal[open]) {
-		scrollbar-gutter: stable;
-	} */
 
   /* モーダル背景 */
   dialog:modal {
@@ -125,13 +111,6 @@
     text-decoration-thickness: 0.2em;
     text-decoration-skip-ink: none;
   }
-
-  /* ------------------------------------------------------------
-	折り返し制御
-	------------------------------------------------------------ */
-  /* :is(h1, h2, h3, h4, h5, h6) {
-		text-wrap: balance;
-	} */
 }
 
 @layer lism-block {

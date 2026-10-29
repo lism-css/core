@@ -17,7 +17,4 @@
   z-index: 2; // .is--coverLink::before + 1
 }
 
-/* これをしてしまうと z-index 関係がややこしくなる。リンク以外のz-indexはデフォのままにする。 */
-// .is--boxLink > * {
-// 	z-index: 0;
-// }
+// .is--boxLink > * には z-index を付けない（リンク以外の z-index を既定のままにし、重なり順を単純に保つ）。

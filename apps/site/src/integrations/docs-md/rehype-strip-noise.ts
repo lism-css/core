@@ -2,7 +2,7 @@
  * .md 出力に不要な要素・属性を除去する rehype プラグイン。
  *
  * - <nav class="c--postNav">: 前後記事ナビ
- * - <button class="c--copyBtn"> / class="c--urlCopyBtn">: コピーボタン
+ * - <button class="c--copyBtn">: コピーボタン
  *   （内側に display:none のラベル span がありテキストが漏れるため）
  * - <script> / <style>: クライアント側の挙動・装飾用（Markdown には不要）
  * - data-astro-cid-* 属性: Astro のスコープ CSS 識別子
@@ -12,7 +12,7 @@ import type { Root, Element, Parents } from 'hast';
 import { hasClass } from './util';
 
 const DROP_TAG = new Set(['script', 'style']);
-const DROP_BUTTON_CLASSES = ['c--copyBtn', 'c--urlCopyBtn'];
+const DROP_BUTTON_CLASSES = ['c--copyBtn'];
 
 export function rehypeStripNoise() {
   return (tree: Root) => {
@@ -34,7 +34,7 @@ export function rehypeStripNoise() {
         return SKIP;
       }
 
-      // button.c--copyBtn / button.c--urlCopyBtn で除去
+      // button.c--copyBtn で除去
       if (node.tagName === 'button' && DROP_BUTTON_CLASSES.some((cls) => hasClass(node, cls))) {
         removals.push({ parent, index });
         return SKIP;
