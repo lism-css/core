@@ -249,8 +249,27 @@
       "LH: line-height",
       "LTS: letter-spacing"
     ],
-    "keywords": ["typography", "タイポグラフィ", "font", "文字", "テキスト", "heading", "font-size", "line-height", "hl", "lh", "行間"],
-    "snippet": "フォントサイズ（調和数列ベース）、行間（ハーフレディングトークン --hl--xs〜xl と -hl:{token} クラス、line-height比率トークン --lh--xs〜xl と -lh:{token} クラス）、文字間隔などのタイポグラフィ設計を解説。フォントサイズのスケーリング規則を紹介。"
+    "keywords": [
+      "typography",
+      "タイポグラフィ",
+      "font",
+      "文字",
+      "テキスト",
+      "heading",
+      "font-size",
+      "line-height",
+      "hl",
+      "lh",
+      "行間",
+      "font-weight",
+      "fw",
+      "--fw--bold",
+      "bold",
+      "太字",
+      "letter-spacing",
+      "lts"
+    ],
+    "snippet": "フォントウェイト（--fw--light 300 / --fw--normal 400 / --fw--bold 700 と -fw:100〜-fw:900）、フォントサイズ（調和数列ベース）、行間（ハーフレディングトークン --hl--xs〜xl と -hl:{token} クラス、line-height比率トークン --lh--xs〜xl と -lh:{token} クラス）、文字間隔などのタイポグラフィ設計を解説。フォントサイズのスケーリング規則を紹介。"
   },
   {
     "sourcePath": "half-leading.mdx",
@@ -736,6 +755,9 @@
     "description": "Lism CSS の各バージョンにおける変更履歴をまとめています。",
     "category": "guide",
     "headings": [
+      "lism-css v1.1.0 (2026.10.29)",
+      "--fw--boldの既定値を700に変更 (#671)",
+      "has--gutterの余白の変数を--gutter-pxに変更 (#669)",
       "lism-css v1.0.1 (2026.10.02)",
       "@lism-css/ui v0.40.1 (2026.10.02)",
       "lism-css v1.0.0 (2026.10.01)",
@@ -785,6 +807,13 @@
       "has--transition",
       "peerDependencies",
       "v1.0.0",
+      "v1.1.0",
+      "--fw--bold",
+      "--gutter-px",
+      "has--gutter",
+      "非推奨",
+      "hov",
+      "l--switchColumns",
       "安定版",
       "getLismProps",
       "lism-component",
@@ -792,7 +821,7 @@
       "SideMain",
       "Dummy"
     ],
-    "snippet": "Lism CSS の各バージョンにおける変更内容を記載。v1.0.0 (2026.10.01) は最初の安定版でv0.31.0からの機能変更はなく、lism-css/lib/・lism-css/react/・lism-css/astro/ 配下のファイルを直接指すパスのうち公開APIは lism-css/lib/getLismProps のみと明記（@lism-css/ui v0.40.0 は lism-css への依存を ^1.0.0 に変更）。v0.31.0 (2026.09.30) では lism-component レイヤー・非推奨エイリアス SideMain / FluidCols / SwitchCols と Dummy コンポーネント（WithSide / AutoColumns / SwitchColumns / @lism-css/ui の DummyText へ移行）・_propConfig（lism.config.js の props で設定）を削除（破壊的変更）。@lism-css/ui v0.31.0 は lism-base と b--* の順序不具合と Astro 版 Tabs / Accordion / Modal の ClientRouter 遷移後の不具合を修正。v0.30.0 (2026.09.22) では公開 .d.ts の config 相対 import による props 型の any 化、Astro の exProps が Lism Props として処理される問題を修正し、lism-css/base/set.css の単体出力を廃止。@lism-css/plugin v0.5.1 は Astro 7 / Vite 8 に対応、@lism-css/ui v0.30.0 は Tabs.Tab を button 固定にし（破壊的変更）React 版 Tabs.Item なしの手動構成に対応。v0.29.1/v0.29.0 (2026.09.13) ではIconの名前指定プリセットとコアSVGデータを廃止し `@lism-css/icons` として別提供（破壊的変更）、sz/min-sz/max-szをBP対応に変更、lhトークンスケール変更（m=1.5基準の0.25刻み）、tt:upper→tt:uppercaseへ変更（破壊的変更）。@lism-css/plugin v0.5.0でlism-cssをpeerDependenciesへ変更。v0.28.x (2026.09.05〜10) ではl--flow見出しの上余白調整・余白トークン--s45追加と--s80削除・u--divide/u--encloseをコアから削除（破壊的変更）。v0.27.0 (2026.09.04) ではlhを比率指定propに変更（hlへの置き換え必要）・bdrsスケール変更・has--transitionの既定対象を限定化（破壊的変更）・Tooltip/Popoverを追加。v0.26.0 (2026.08.16) ではlism-blockレイヤー追加・b--/c--の2分類命名規約へ整理（@lism-css/ui全コンポーネントをc--からb--へ移行、破壊的変更）。v0.25.0以前の変更は主要項目のみバレット掲載。"
+    "snippet": "Lism CSS の各バージョンにおける変更内容を記載。v1.1.0 (2026.10.29) では --fw--bold の既定値を 600 から 700 に変更（見出し・b / strong・dt・th・-fw:bold が太くなる。従来の太さに戻すには :root、または lism.config.js の tokens で 600 に上書き。th の太字も --fw--bold 参照に変更）、has--gutter の余白変数を --gutter-px に変更（--gutter--base と --gutter は非推奨で、1.x の間は互換として残し v2 で削除予定）、hov の文字列指定をスペース区切りでも書けるように変更、l--switchColumns の子要素に min-width: 0 を付けて長いURLなどでのはみ出し・列幅の乱れを修正。v1.0.1 (2026.10.02) は @layer なし版（main_no_layer.css / full_no_layer.css）で、変数をセットする Property Class が同じ変数をセットする u--cbox や自作クラスに負ける不具合を修正（変数の宣言にも !important を付与）、@lism-css/ui v0.40.1 は Badge の左右 padding を 0.5em から 0.625em に変更。v1.0.0 (2026.10.01) は最初の安定版でv0.31.0からの機能変更はなく、lism-css/lib/・lism-css/react/・lism-css/astro/ 配下のファイルを直接指すパスのうち公開APIは lism-css/lib/getLismProps のみと明記（@lism-css/ui v0.40.0 は lism-css への依存を ^1.0.0 に変更）。v0.31.0 (2026.09.30) では lism-component レイヤー・非推奨エイリアス SideMain / FluidCols / SwitchCols と Dummy コンポーネント（WithSide / AutoColumns / SwitchColumns / @lism-css/ui の DummyText へ移行）・_propConfig（lism.config.js の props で設定）を削除（破壊的変更）。@lism-css/ui v0.31.0 は lism-base と b--* の順序不具合と Astro 版 Tabs / Accordion / Modal の ClientRouter 遷移後の不具合を修正。v0.30.0 (2026.09.22) では公開 .d.ts の config 相対 import による props 型の any 化、Astro の exProps が Lism Props として処理される問題を修正し、lism-css/base/set.css の単体出力を廃止。@lism-css/plugin v0.5.1 は Astro 7 / Vite 8 に対応、@lism-css/ui v0.30.0 は Tabs.Tab を button 固定にし（破壊的変更）React 版 Tabs.Item なしの手動構成に対応。v0.29.1/v0.29.0 (2026.09.13) ではIconの名前指定プリセットとコアSVGデータを廃止し `@lism-css/icons` として別提供（破壊的変更）、sz/min-sz/max-szをBP対応に変更、lhトークンスケール変更（m=1.5基準の0.25刻み）、tt:upper→tt:uppercaseへ変更（破壊的変更）。@lism-css/plugin v0.5.0でlism-cssをpeerDependenciesへ変更。v0.28.x (2026.09.05〜10) ではl--flow見出しの上余白調整・余白トークン--s45追加と--s80削除・u--divide/u--encloseをコアから削除（破壊的変更）。v0.27.0 (2026.09.04) ではlhを比率指定propに変更（hlへの置き換え必要）・bdrsスケール変更・has--transitionの既定対象を限定化（破壊的変更）・Tooltip/Popoverを追加。v0.26.0 (2026.08.16) ではlism-blockレイヤー追加・b--/c--の2分類命名規約へ整理（@lism-css/ui全コンポーネントをc--からb--へ移行、破壊的変更）。v0.25.0以前の変更は主要項目のみバレット掲載。"
   },
   {
     "sourcePath": "property-class/bd.mdx",
@@ -843,7 +872,7 @@
       "in:show",
       "in:hide"
     ],
-    "snippet": "ホバー関連のProp。-hov:-{prop}（変数受け取り型）、-hov:{preset}（プリセット型。標準は -hov:underline で、-hov:shadowUp のように自作クラスにまとめることも可能）、-hov:in:{preset}（親ホバー連動型）の3形式。各クラスの初期値あり（-hov:-bgc は color-mix で neutral mix）。has--transition との組み合わせでアニメーション実現。set--hov と -hov:in:xxx クラスで親要素ホバー時の子要素スタイル制御も可能（in:zoom, in:show, in:hide）。Lismコンポーネントでは hov prop に文字列またはオブジェクトを渡して制御。"
+    "snippet": "ホバー関連のProp。-hov:-{prop}（変数受け取り型）、-hov:{preset}（プリセット型。標準は -hov:underline で、-hov:shadowUp のように自作クラスにまとめることも可能）、-hov:in:{preset}（親ホバー連動型）の3形式。各クラスの初期値あり（-hov:-bgc は color-mix で neutral mix）。has--transition との組み合わせでアニメーション実現。set--hov と -hov:in:xxx クラスで親要素ホバー時の子要素スタイル制御も可能（in:zoom, in:show, in:hide）。Lismコンポーネントでは hov prop に文字列（スペース区切りで複数指定可。例: hov=\"-c -bxsh\"）またはオブジェクトを渡して制御。"
   },
   {
     "sourcePath": "property-class/max-sz.mdx",
@@ -1660,7 +1689,7 @@
       "NavMenu.Link",
       "NavMenu.Nest"
     ],
-    "snippet": "ナビゲーションメニューコンポーネント（b--navMenu）。NavMenu.Root / NavMenu.Item / NavMenu.Link / NavMenu.Nest で構成。hovBgc/hovC/itemP などの専用Props で一括スタイル指定が可能。ネスト構造・アコーディオン展開・横並びhoverドロップダウンなど様々なパターンを実装可能。@lism-css/uiパッケージで提供。"
+    "snippet": "ナビゲーションメニューコンポーネント（b--navMenu）。NavMenu.Root / NavMenu.Item / NavMenu.Link / NavMenu.Nest で構成。hovBgc/hovC/itemP などの専用Props で一括スタイル指定が可能。NavMenu.Link の hov prop でhover時のスタイルを指定でき（既定は -bgc、hov=\"-bgc -c\" のようにスペース区切りで複数指定可）、ネスト構造・アコーディオン展開・横並びhoverドロップダウンなど様々なパターンを実装可能。@lism-css/uiパッケージで提供。"
   },
   {
     "sourcePath": "ui/ShapeDivider.mdx",
