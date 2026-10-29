@@ -216,19 +216,3 @@ export function getCategoryTemplates(categoryId: CategoryId, items: TemplateItem
   const filtered = items.filter((tpl) => tpl.category === categoryId);
   return [...filtered].sort((a, b) => stackOrder.indexOf(a.stack) - stackOrder.indexOf(b.stack));
 }
-
-/** templates 内に存在する stack の一覧（フィルタ chips 用） */
-export function getAvailableStacks(items: TemplateItem[] = visibleTemplates): Stack[] {
-  return stackOrder.filter((stack) => items.some((tpl) => tpl.stack === stack));
-}
-
-/** stack ごとの件数を返す */
-export function countByStack(items: TemplateItem[] = visibleTemplates): Record<Stack, number> {
-  return stackOrder.reduce(
-    (acc, stack) => {
-      acc[stack] = items.filter((tpl) => tpl.stack === stack).length;
-      return acc;
-    },
-    {} as Record<Stack, number>
-  );
-}
