@@ -22,7 +22,7 @@
   構造系トークン（手書き）
     Memo: トークンのインライン値は tokens.ts → _tokens.gen.scss へ自動生成される。
           構造変数（--L / --C / --s-unit 等）も tokens.ts の vars グループへ移動したため、
-          ここに残すのは、カタログを持たない変数（--shc / --shsz--* / --gutter--base 等）だけ。
+          ここに残すのは、カタログを持たない変数（--shc / --shsz--* / --gutter-px 等）だけ。
 -------------------------------------------------- */
 :root {
   /**
@@ -40,10 +40,12 @@
   --shsz--50: 0px 16px 48px;
 
   /**
-   * コンテンツの左右につける余白量
-   *   Memo: -max-sz\:full などからも参照されるのでrootで定義している
+   * .has--gutter の左右余白（padding-inline）
+   *   Memo: .set--bleed など .has--gutter の外からも参照するので :root で定義している。
+   *         --gutter--base は 1.x の互換用（非推奨）。:root での上書きを効かせるため、--gutter-px から参照する（docs/deprecations.md）。
    */
   --gutter--base: var(--s30);
+  --gutter-px: var(--gutter--base);
 
   /**
    * コンテンツ間の余白バリエーションを定義

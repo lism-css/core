@@ -2,6 +2,16 @@
 
 # 意思決定の記録
 
+## 2026-10-29: `.has--gutter`の余白量の変数を`--gutter-px`にし、`--gutter--base`と`--gutter`は1.xの間だけ互換で残す
+
+#409で`--flow` / `--flow--base`に揃え、`:root`の基準値`--gutter--base`と、`.has--gutter`で基準値に戻す`--gutter`の2層にした。しかし`--{prop}--{token}`はトークンのカタログ用の形で、gutterには`base`以外の値がなく、`base`の定義（`:root`/`body`の初期値にセットされるもの）にも当たらない。また`.has--gutter`の外では`--gutter`が未定義なので、利用側は`--gutter--base`を直接読んでいた。祖先で`--gutter`を上書きすると入れ子の`.has--gutter`だけ基準値に戻り、`.set--bleed`や`-max-sz:full`と余白がずれる。
+
+- 決定: 余白量の変数は`--gutter-px`にする。命名規則の`--{target}-{prop}`（targetは`.has--gutter`、propは`padding-inline`の省略名`px`）に当たり、`:root`で定義できる。
+- 決定: 1.xの間は`--gutter--base`と`.has--gutter`の`--gutter`を互換で残す。`--gutter-px`が`--gutter--base`を参照する向きにして、`:root`での`--gutter--base`の上書きを効かせる。`.set--bleed`・`-max-sz:full`・`--sz--bleed`の参照を`--gutter-px`へ変えるのもv2で行う。1.xで変えると、要素で上書きした`--gutter`が届かなくなる。v2の作業は[deprecations.md](./deprecations.md)に置く。
+- 却下: `:root`に1語の`--gutter`を置いて1本化する案。`:root`で定義する1語の変数はカラートークンと色の計算用の変数だけで、命名規則上は色に見える。
+- 却下: `.has--gutter`で`--gutter`をセットせず`padding-inline: var(--gutter, var(--gutter-px))`にする案。`.has--gutter`の内側で`var(--gutter)`を読むコードが壊れ、`--gutter`が子孫へ引き継がれて`--gutter-px`より優先される。
+- 受容: `:root`以外で`--gutter--base`を上書きしても効かなくなる。`--gutter-px`は`:root`で値が決まって子孫へ引き継がれるため。リポジトリ内に使用例はない。
+
 ## 2026-10-26: `b--`と`c--`の本体クラスの併用を許可する
 
 #546で独自クラスを`b--` / `c--`の2分類にしたとき、`lism-css-guide`の併用ルールに「`b--` + `c--`は禁止」を入れたが、理由は残っていなかった。`b--`が持つのは部品のベーススタイルで、モーダルをナビ用・検索用に使い分けるなど、使う場所ごとに見た目を変えたい場面は普通にある。`c--`の`lism-custom`は`b--`の`lism-block`より後ろのレイヤーなので、CSSの記述順に関係なく`c--`が勝つ。

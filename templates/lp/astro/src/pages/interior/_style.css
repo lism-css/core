@@ -51,7 +51,7 @@
   }
 
   .c--mv_visual {
-    padding: var(--gutter--base);
+    padding: var(--gutter-px);
     padding-block-start: calc(var(--title-offset) + var(--visual-offset));
     filter: contrast(0.9) brightness(1.05) saturate(1.1);
   }

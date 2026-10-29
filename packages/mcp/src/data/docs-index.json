@@ -1954,7 +1954,7 @@
     "category": "guide",
     "headings": ["set--bleed"],
     "keywords": ["set--bleed", "ブリード", "bleed", "full-bleed", "--bleed", "--contentSize", "片側ブリード", "ガター"],
-    "snippet": "コンテンツ幅（--contentSize）の外側の余白量を --bleed 変数としてセット。ガター幅（--gutter / --gutter--base）を下限として、片側ブリードレイアウト（コンテナ外まではみ出す要素）を組む際に活用。"
+    "snippet": "コンテンツ幅（--contentSize）の外側の余白量を --bleed 変数としてセット。ガター幅（--gutter-px）を下限として、片側ブリードレイアウト（コンテナ外まではみ出す要素）を組む際に活用。"
   },
   {
     "sourcePath": "trait-class.mdx",
@@ -1962,8 +1962,8 @@
     "description": "コンテンツの左右に統一した余白をつける Trait クラス。",
     "category": "guide",
     "headings": ["has--gutter"],
-    "keywords": ["has--gutter", "ガター", "左右余白", "サイド余白", "padding", "--gutter", "--gutter--base"],
-    "snippet": "サイト全体で統一した左右余白を確保するクラス。--gutter--base を基準値とし、.has--gutter が要素ローカルの --gutter へ初期化して余白量を制御。"
+    "keywords": ["has--gutter", "ガター", "左右余白", "サイド余白", "padding", "--gutter-px", "--gutter", "--gutter--base"],
+    "snippet": "サイト全体で統一した左右余白を確保するクラス。余白量は --gutter-px で、:root で上書きするとサイト全体、要素で上書きするとその内側に効く。旧変数の --gutter--base と --gutter は非推奨。"
   },
   {
     "sourcePath": "features.mdx",

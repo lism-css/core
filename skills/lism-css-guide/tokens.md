@@ -254,18 +254,19 @@ CSSコードを書く場合やコンポーネントのPropsに値を指定する
 
 ## ガター (gutter)
 
-サイト全体のガター（左右余白）量を扱う変数群。`--flow--base` / `--flow` と同じく「基準値（`:root`）+ 要素ローカル機能変数」の2層構造を採る。
+`.has--gutter` の左右余白（`padding-inline`）の量を扱う変数。
 
 | CSS変数 | 初期値 | 説明 |
 | --- | --- | --- |
-| `--gutter--base` | `var(--s30)` | サイトコンテンツの左右余白の基準値（`:root` で定義） |
-| `--gutter` | `var(--gutter--base)` | `.has--gutter` で要素ローカルに初期化される機能変数。要素単位で `style="--gutter: 20px"` のように上書き可能 |
+| `--gutter-px` | `var(--s30)` | `.has--gutter` の左右余白の量（`:root` で定義）。`:root` で上書きするとサイト全体、要素で上書きするとその要素と内側の `.has--gutter` に効く |
 
-参照される主な箇所:
+同じ余白量に揃う箇所:
 
-- `has--gutter` の `padding-inline: var(--gutter)`
-- `is--container` と `has--gutter` 併用時の `--sz--bleed` 計算（`100cqi + var(--gutter) * 2`）
-- `-max-sz:full` の負 margin による hang 拡張（`var(--gutter)` を参照）
+- `.set--bleed` の `--bleed` の下限
+- `is--container` と `has--gutter` 併用時の `--sz--bleed`
+- `has--gutter` 直下の `-max-sz:full` の負 margin による hang 拡張
+
+`--gutter--base` と `--gutter` は1.xの互換用の非推奨変数。新しく書くコードでは使わない。
 
 
 ## カラー
