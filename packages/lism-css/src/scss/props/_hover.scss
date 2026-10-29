@@ -12,8 +12,7 @@
   }
   .-hov\:-bgc:hover {
     // デフォルトでニュートラルグレーを配色し、背景色明るくても暗くても使えるようにしておく。
-    background-color: var(--hov-bgc, var(--hov-bgc--default, color-mix(in srgb, var(--bgc, var(--base)), var(--neutral) 20%)))
-      #{mixin.$maybe_important};
+    background-color: var(--hov-bgc, color-mix(in srgb, var(--bgc, var(--base)), var(--neutral) 20%)) #{mixin.$maybe_important};
   }
   .-hov\:-o:hover {
     opacity: var(--hov-o, var(--o--p)) #{mixin.$maybe_important};

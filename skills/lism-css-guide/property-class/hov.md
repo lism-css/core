@@ -28,7 +28,7 @@ hover 時の挙動を制御する Property Class。`:hover` 擬似クラスで�
 | --- | --- | --- |
 | `-hov:-c` | `color` | `var(--hov-c, var(--link))` |
 | `-hov:-bdc` | `border-color` | `var(--hov-bdc, currentColor)` |
-| `-hov:-bgc` | `background-color` | `var(--hov-bgc, var(--hov-bgc--default, color-mix(in srgb, var(--bgc, var(--base)), var(--neutral) 20%)))` |
+| `-hov:-bgc` | `background-color` | `var(--hov-bgc, color-mix(in srgb, var(--bgc, var(--base)), var(--neutral) 20%))` |
 | `-hov:-o` | `opacity` | `var(--hov-o, var(--o--p))` |
 | `-hov:-bxsh` | `box-shadow` | `var(--hov-bxsh, var(--bxsh--50))` |
 | `-hov:-transform` | `transform` | `var(--hov-transform, translate(0, -4px))` |
@@ -37,7 +37,7 @@ hover 時の挙動を制御する Property Class。`:hover` 擬似クラスで�
 
 `-hov:-bgc` は初期値として、現在の背景色を `--neutral` へブレンドした背景色を使う。ライト/ダークどちらの背景でも使いやすいhover背景にしたい場合は、`hov="-bgc"` を基本形として使う。
 
-プロジェクト全体で `-hov:-bgc` のデフォルト値を差し替えたい場合は、`:root` 等で `--hov-bgc--default` を定義する。フォールバック順は `--hov-bgc`（要素ごとの明示指定）→ `--hov-bgc--default`（プロジェクト全体）→ `color-mix(...)`（フレームワーク既定）の 3 段。
+プロジェクト全体で `-hov:-bgc` のデフォルト値を差し替えたい場合は、`:root` で `--hov-bgc` を定義する。ただし `:root` で定義した値の中の `var(--bgc)` は `:root` で解決されるため、要素ごとの背景色には追従しない。
 
 ## `-hov:{preset}` — プリセット
 
