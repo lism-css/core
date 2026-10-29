@@ -30,7 +30,6 @@ export function loadMarkdown(filename: string): string {
 // property-class.md 単体では bd 系などの一部しか拾えない（#474）。
 const PROP_SOURCE_FILES = ['property-class.md', 'property-class/all-props.md'];
 
-/** Prop 検索用の Markdown（property-class.md + 分冊の all-props.md）を結合して返す */
 export function loadPropsMarkdown(): string {
   return PROP_SOURCE_FILES.map((filename) => loadMarkdown(filename)).join('\n\n');
 }
@@ -51,7 +50,6 @@ function walkMarkdownFiles(dir: string, baseDir: string = dir): string[] {
   return results;
 }
 
-/** 利用可能なガイドファイル名の一覧（サブディレクトリ配下も含む）を返す */
 export function getGuideFilenames(): string[] {
   return walkMarkdownFiles(guidesDir);
 }

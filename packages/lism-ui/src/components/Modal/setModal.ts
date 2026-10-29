@@ -81,7 +81,6 @@ export function setEvent(target: HTMLElement): void {
   // モーダルを閉じるトリガーを取得
   const closeTriggers = modal.querySelectorAll<HTMLElement>(`[data-modal-close="${modal.id}"]`);
 
-  // scrollbar幅を固定してdialogを開き、次フレームで開始属性を付ける。
   const openDialog = () => {
     // rAF前の連打によるshowModal()の二重実行を防ぐため、open属性で判定する。
     if (modal.hasAttribute('open')) return;
@@ -97,7 +96,6 @@ export function setEvent(target: HTMLElement): void {
     });
   };
 
-  // 開始属性を外し、終了アニメーション後にdialogを閉じる。
   const closeDialog = async (): Promise<void> => {
     // すでに閉じている場合は何もしない
     if (!modal.hasAttribute('data-is-open')) {

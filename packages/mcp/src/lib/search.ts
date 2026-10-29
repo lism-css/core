@@ -69,7 +69,6 @@ export interface SearchDocsOptions {
 export function searchDocs(entries: DocsEntry[], query: string, options?: SearchDocsOptions): SearchResult[] {
   const { category, limit = 10, cssPropertyMap, guideTopics } = options ?? {};
 
-  // CSSプロパティ名とProperty Class記法も同じ検索対象へ展開する。
   const expandedQuery = expandQuery(query, cssPropertyMap);
   const queryTokens = tokenize(expandedQuery);
   if (queryTokens.length === 0) return [];

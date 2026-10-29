@@ -7,9 +7,6 @@
 //
 // 対象は HTML / CSS のみ。JS は実行時に URL を組むため静的置換の対象外（実行時に組む絶対 URL は
 // 低リスクとして、デプロイ後に目視確認する）。
-//
-//   node scripts/rebase-html.mjs <distDir> <prefix>
-//   prefix は先頭スラッシュ・末尾スラッシュ無し（例: /blog-astro-minimal, /blog-astro-minimal/en）
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 

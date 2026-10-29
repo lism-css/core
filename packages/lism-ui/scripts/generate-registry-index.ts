@@ -2,10 +2,6 @@
  * packages/lism-ui/src/ を走査し、CLI 用のカタログ JSON
  * (packages/lism-ui/registry-index.json) を生成する。
  *
- * - `src/components/<Pascal>/` を 1 コンポーネントとして列挙
- * - 各コンポーネント内のファイルを読んで helper 依存（`../../helper/xxx`）を抽出
- * - `src/helper/*` から helper 一覧を抽出（テスト / 内部ファイルは除外）
- *
  * 出力は CLI の `lism-cli ui list` / `--all` が giget で fetch して利用する。
  */
 
@@ -36,7 +32,6 @@ interface CatalogJson {
   helpers: string[];
 }
 
-/** コンポーネントディレクトリから除外するルート直下のファイル（内部エクスポート） */
 const EXCLUDE_COMPONENT_FILES = ['__contexts.js', 'react.ts', 'astro.ts'];
 const EXCLUDE_COMPONENT_FILES_SET = new Set(EXCLUDE_COMPONENT_FILES);
 
@@ -104,7 +99,6 @@ function generateCatalog(): CatalogJson {
     components.push({ name, helpers: [...helperSet].sort() });
   }
 
-  // helper 一覧（テストファイル除外）
   const helperSet = new Set<string>();
   if (fs.existsSync(HELPER_DIR)) {
     for (const rel of walkFiles(HELPER_DIR)) {

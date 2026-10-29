@@ -50,9 +50,7 @@ export function listHeadings(md: string): { level: number; text: string; line: n
   });
 }
 
-// ----------------------------------------------------------------
-// Property Class テーブルパーサー
-// ----------------------------------------------------------------
+// --- Property Class テーブルパーサー ---
 
 export interface PropRow {
   prop: string;
@@ -117,9 +115,7 @@ export function parsePropRows(md: string): PropRow[] {
   return rows;
 }
 
-// ----------------------------------------------------------------
-// コンポーネント検索
-// ----------------------------------------------------------------
+// --- コンポーネント検索 ---
 
 /** 各コンポーネントが`## ComponentName`で始まる文書向け。 */
 export function findComponentByHeading(md: string, name: string): string {

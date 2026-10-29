@@ -136,7 +136,6 @@
       --_side: inline-end;
     }
 
-    /* align: side 系統が用意した候補から選ぶ */
     .b--popover_popup:where([data-align='start']) {
       --_span: var(--_spanStart);
       place-self: var(--_placeStart);

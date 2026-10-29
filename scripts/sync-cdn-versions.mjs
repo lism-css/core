@@ -10,11 +10,9 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 
-// lism-css の現在バージョンを取得
 const pkgJsonPath = resolve(ROOT, 'packages/lism-css/package.json');
 const { version } = JSON.parse(readFileSync(pkgJsonPath, 'utf-8'));
 
-// CDN URL を含むファイル一覧
 const targets = [
   'apps/site/src/content/ja/installation.mdx',
   'apps/site/src/content/ja/base-styles.mdx',

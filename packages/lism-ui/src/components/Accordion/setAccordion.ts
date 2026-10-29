@@ -10,7 +10,6 @@ type AccordionElements = {
   content: HTMLElement;
 };
 
-// アコーディオン要素から必要な要素を取得
 const getAccordionElements = (accordionItem: HTMLElement): AccordionElements => {
   const heading = accordionItem.querySelector<HTMLElement>('.b--accordion_heading')!;
   const panel = accordionItem.querySelector<HTMLElement>('.b--accordion_panel')!;

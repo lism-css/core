@@ -7,15 +7,8 @@
 // config ファイルを書き換えず CLI フラグで注入する（既存 `site:` キーとの競合や
 // JS 正規表現置換の脆さを避けるための選択）。
 //
-//   astro: astro build --base /<prefix>/ [--site <url>]   ( + techlog は pagefind --site dist )
-//   vite : vite build --base /<prefix>/
-//
-// --lang <lang> 指定時は build-template-lang.mjs と同じ流儀で `.lang/<lang>/` overlay を
-// src へ一時マージしてからビルドし、build 後に src を必ず復元する（作業ツリーを汚さない）。
-//
-// base CLI フラグは Astro/Vite が生成するバンドル資産（/_astro/・/assets/）のみ書き換える。
-// 手書きの絶対リンク（<a href="/posts/">）や public 資産参照（/favicon.svg）は別途
-// rebase-html.mjs で prefix を付与する。
+// --base は Astro/Vite が生成するバンドル資産（/_astro/・/assets/）しか書き換えない。
+// 手書きの絶対参照は rebase-html.mjs で別途 prefix を付与する。
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdtempSync, rmSync, statSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -102,7 +95,7 @@ try {
   }
 } finally {
   if (backupDir) {
-    // overlay マージした src を元の状態へ復元（.lang は build に影響しないので触らない）
+    // overlay マージした src を元の状態へ復元
     rmSync(srcDir, { recursive: true, force: true });
     cpSync(backupDir, srcDir, { recursive: true });
     rmSync(backupDir, { recursive: true, force: true });

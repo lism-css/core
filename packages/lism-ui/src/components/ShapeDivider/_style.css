@@ -4,11 +4,9 @@
   .b--shapeDivider {
     --level: 5;
 
-    /* svg配置調整用 */
     --inner-offset: 0px;
     --inner-stretch: 1;
 
-    /* flip がオンなら -1 にセット */
     --_flipX: 1;
     --_flipY: 1;
 
@@ -39,7 +37,6 @@
     display: block;
   }
 
-  /* 左右にスライドするアニメーション */
   :where([data-has-animation='true']) .b--shapeDivider_svg {
     /* ↓ X 100% にしてるのは translateXのcalc計算で * -1 をしなくていいように。*/
     transform-origin: 100% 0;

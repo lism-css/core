@@ -27,9 +27,7 @@ const ComponentSuggestionSchema = z.object({
 });
 type ComponentSuggestion = z.infer<typeof ComponentSuggestionSchema>;
 
-// ----------------------------------------------------------------
-// CSS パース
-// ----------------------------------------------------------------
+// --- CSS パース ---
 
 function detectAtRules(cssText: string): string | null {
   const atRuleMatch = cssText.match(/^@(\w[\w-]*)/m);
@@ -46,7 +44,6 @@ function parseCssDeclarations(cssText: string): CssDeclaration[] {
 
   cleaned = cleaned.replace(/[^{}]*\{/g, '').replace(/\}/g, '');
 
-  // 括弧の深さを追いながら宣言単位に分ける。
   const segments: string[] = [];
   let current = '';
   let parenDepth = 0;
@@ -81,9 +78,7 @@ function parseCssDeclarations(cssText: string): CssDeclaration[] {
   return declarations;
 }
 
-// ----------------------------------------------------------------
-// Prop テーブル（`loadPropsMarkdown()`）からのマッピング構築
-// ----------------------------------------------------------------
+// --- Prop テーブルからのマッピング構築 ---
 
 interface PropMapping {
   prop: string;
@@ -125,9 +120,7 @@ function buildCssPropertyMap(mappings: PropMapping[]): Map<string, PropMapping> 
   return map;
 }
 
-// ----------------------------------------------------------------
-// 値のマッピング
-// ----------------------------------------------------------------
+// --- 値のマッピング ---
 
 const VALUE_ALIASES: Record<string, string> = {
   'space-between': 'between',
@@ -146,9 +139,7 @@ function suggestValue(mapping: PropMapping, cssValue: string): string | null {
   return null;
 }
 
-// ----------------------------------------------------------------
-// コンポーネント検出
-// ----------------------------------------------------------------
+// --- コンポーネント検出 ---
 
 /** display関連の宣言から利用できるLismレイアウトコンポーネントを提案する。 */
 function detectComponent(declarations: CssDeclaration[]): ComponentSuggestion | null {
@@ -194,9 +185,7 @@ function detectComponent(declarations: CssDeclaration[]): ComponentSuggestion | 
   return null;
 }
 
-// ----------------------------------------------------------------
-// 変換メイン
-// ----------------------------------------------------------------
+// --- 変換メイン ---
 
 function findCategory(mappings: PropMapping[], propName: string): string {
   const found = mappings.find((m) => m.prop === propName);
@@ -245,9 +234,7 @@ function buildExample(conversions: ConversionEntry[], component: ComponentSugges
   return result;
 }
 
-// ----------------------------------------------------------------
-// ツール登録
-// ----------------------------------------------------------------
+// --- ツール登録 ---
 
 export function registerConvertCss(server: McpServer): void {
   server.registerTool(
@@ -291,7 +278,6 @@ export function registerConvertCss(server: McpServer): void {
           return error('No CSS declarations found. Provide CSS in "property: value;" format.');
         }
 
-        // 各宣言をLism Propと候補値へ変換する。
         const conversions: ConversionEntry[] = declarations.map((decl) => {
           const mapping = cssPropertyMap.get(decl.property);
 
@@ -323,7 +309,6 @@ export function registerConvertCss(server: McpServer): void {
           };
         });
 
-        // 変換結果からコンポーネント候補と使用例を組み立てる。
         const suggestedComponent = detectComponent(declarations);
 
         const example = buildExample(conversions, suggestedComponent);
