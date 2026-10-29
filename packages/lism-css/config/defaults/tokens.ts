@@ -90,7 +90,7 @@ export default {
   },
 
   // font-weight
-  fw: { light: '300', normal: '400', bold: '600' },
+  fw: { light: '300', normal: '400', bold: '700' },
 
   // half-leading: --hl-unit は vars グループの構造変数。
   hl: {
