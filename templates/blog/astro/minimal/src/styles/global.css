@@ -1,4 +1,8 @@
 @layer lism-base {
+  :root {
+    --fw--bold: 600;
+  }
+
   .c--content pre {
     font-size: 0.875rem;
     padding: var(--s20);

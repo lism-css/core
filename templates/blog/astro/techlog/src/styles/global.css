@@ -11,6 +11,7 @@
     /* 800px ~ 1000px で変化*/
     --fz--base: clamp(1rem, 0.8rem + 0.4vw, 1.05rem);
     --lts--base: 0.02em;
+    --fw--bold: 600;
     --headings-fw: 500;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

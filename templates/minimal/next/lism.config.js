@@ -11,5 +11,7 @@ export default {
     color: {
       success: 'oklch(0.6 0.15 150)',
     },
+    // 既定値の上書き: `--fw--bold` を 700 から 600 にする。
+    fw: { bold: '600' },
   },
 };

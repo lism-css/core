@@ -1,7 +1,12 @@
 @import 'lism-css/main.css';
 
-/* Override token values (Dark mode) */
+/* Override token values */
 @layer lism-base {
+  :root {
+    --fw--bold: 600;
+  }
+
+  /* Dark mode */
   /* :root {
     --base: hsl(220, 4%, 12%);
     --base-2: hsl(220, 8%, 4%);
