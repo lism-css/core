@@ -1,4 +1,4 @@
-基準日: 2026-09-19・コミット9feef9fa0
+基準日: 2026-10-30・コミットcd1e474d1
 
 # テンプレート スクリーンショット
 
@@ -44,7 +44,7 @@ pnpm --filter lism-site screenshot:templates -- --no-build
 | プロパティ | 型 | 既定値 | 説明 |
 | --- | --- | --- | --- |
 | `command` | `'preview' \| 'dev'` | `'preview'` | 起動コマンド。`preview`は事前にbuildする |
-| `port` | number | — | プレビューサーバーのポート。テンプレ間で重複させない |
+| `port` | number | — | プレビューサーバーのポート。テンプレは1つずつ順に起動・停止するので、テンプレ間で同じ番号を使ってよい |
 | `portViaEnv` | boolean | `false` | `true`なら`port`をCLI引数でなく`PORT`環境変数で渡す。`next start` / `next dev`が`--`後の`--port`をディレクトリ引数と誤解してエラーになるための回避策 |
 | `waitAfterLoad` | number | `500` | ページ読み込み後の待機ms |
 | `reducedMotion` | boolean | `false` | `true`なら`prefers-reduced-motion: reduce`を適用して撮る。入場アニメーションや背景の常時アニメーションがあるテンプレで、完了後の静止状態を安定して撮るため。テンプレ側にreduced-motion用のスタイル分岐が必要 |

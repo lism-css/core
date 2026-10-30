@@ -1,17 +1,17 @@
-基準日: 2026-10-01・コミットa1ea2a076
+基準日: 2026-10-30・コミットcd1e474d1
 
 # docs-md integration 処理フロー
 
 `apps/site/src/integrations/docs-md/`のAstro integration。ビルド時にMDXレンダリング後のHTMLから、AI向けの`.md`と`llms.txt`を生成する。共通処理は`util.ts`。
 
-`data-pagefind-body`はPagefind検索の索引対象を示す属性で、レイアウトの`excludeFromSearch`で外れる。このintegrationはこれを「本文のある記事ページ」の目印に使い、持たないページ（一覧・リダイレクト先等）は変換しない。
+`data-pagefind-body`はPagefind検索の索引対象を示す属性で、記事ページのテンプレート（`src/pages/`の`docs/[...slug].astro`・`ui/[...slug].astro`と、それぞれの`[lang]/`版）が`article`に付ける。`[lang]/`版は、未翻訳で日本語へフォールバックしたページには付けない。このintegrationはこれを「本文のある記事ページ」の目印に使い、持たないページ（一覧・リダイレクト先・フォールバック表示等）は変換しない。
 
 
 ## 全体像（`index.ts`）
 
 | フック | 処理 |
 | --- | --- |
-| `astro:config:done` | `config.site`を`siteUrl`として保持（絶対URL化用）。`content/en`の絶対パスも保持 |
+| `astro:config:done` | `config.site`を`siteUrl`として保持（絶対URL化用。未設定ならthrowしてビルドを止める）。`content/en`・`content/ja`の絶対パスも保持 |
 | `astro:build:done` | `pages`を走査してHTML→MD変換。続けてUI一覧`.md`、最後に`llms.txt`を生成 |
 
 - 対象は`INCLUDE_PREFIXES`（`docs/` `ui/` `en/docs/` `en/ui/`）に当たり、かつ`EXCLUDE_PREFIXES`（`docs/layout-demos/` `en/docs/layout-demos/`：記事本文を持たない設定データ駆動ページ）に当たらないパスだけ。`patterns/` `templates/` `_demo/` `preview/` `og/`等は対象外。
@@ -59,9 +59,9 @@
 
 ## UI一覧`.md`生成（`build-ui-index-md.ts`）
 
-`/ui/`と`/en/ui/`の一覧ページは`excludeFromSearch`で`data-pagefind-body`を持たず、通常の変換ではスキップされる。その代替として、リンク集の`dist/ui.md`と`dist/en/ui.md`を`astro:build:done`内でja / en各1回生成する。
+`/ui/`と`/en/ui/`の一覧ページは記事ページのテンプレートを使わないので`data-pagefind-body`を持たず、通常の変換ではスキップされる。その代替として、リンク集の`dist/ui.md`と`dist/en/ui.md`を`astro:build:done`内でja / en各1回生成する。
 
-- frontmatter（title / description / url）: ビルド済み`dist/{lang}/ui/index.html`から`rehype-extract-meta`と同等の処理で取得し、一覧ページ本体と同期させる。
+- frontmatter（title / description / url）: ビルド済みの一覧ページ（ja: `dist/ui/index.html`、en: `dist/en/ui/index.html`）から`rehype-extract-meta`と同等の処理で取得し、一覧ページ本体と同期させる。
 - 本文: `content/{ja,en}/ui/`を`walkMdx`で走査する。`_`始まりのファイル・ディレクトリと`draft: true`は除外。
 - 見出し: `ui/`直下は`## Blocks`、`examples/`は`## Examples`。各タイトル昇順。
 - リンク先: 各ページの`.md`（`convert-html-to-md.ts`の生成物）。
@@ -77,4 +77,4 @@
 
 ## 出力の確認
 
-`.md`の件数と`llms.txt`のエントリ数はコンテンツで変わるので固定値は記録しない。ビルドログ（`generated N markdown files (M skipped)` / `generated llms.txt (N entries)`）で確認する。想定内のスキップは`/ui/` `/en/ui/`の一覧ページだけ。他がスキップされたら原因を調べる。
+`.md`の件数と`llms.txt`のエントリ数はコンテンツで変わるので固定値は記録しない。ビルドログ（`generated N markdown files (M skipped)` / `generated llms.txt (N entries)`）で確認する。想定内のスキップは`/ui/` `/en/ui/`の一覧ページと、英語版が未翻訳で日本語へフォールバックしたページだけ。他がスキップされたら原因を調べる。
