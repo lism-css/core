@@ -1,4 +1,4 @@
-基準日: 2026-09-03・コミット105422df
+基準日: 2026-10-30・コミットa51ebe839
 
 # Lismスキル群 解説
 
@@ -168,3 +168,5 @@ SKILL_NAMES × ALL_SKILL_TOOLS の全組から、配置先に SKILL.md がある
 ### `skill update`（`commands/skill/update.ts`）
 
 `skillAddCommand(undefined, { ...options, overwrite: true })`を呼ぶだけの薄いラッパー。skill引数なし・`--overwrite`強制の`add`と同義で、登録済みの全skillを対象ツールへ強制上書きする。
+
+上書きは配置先のディレクトリを丸ごと消してからコピーする。`--overwrite`なしの`add`は差分サマリでlocalOnlyのファイルを一覧して確認を取るが、`update`と`add --overwrite`は差分を表示せず確認なしで消すので、利用者が足したファイルも残らない。
