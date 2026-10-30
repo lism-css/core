@@ -1,7 +1,7 @@
 /**
  * UI コンポーネント一覧ページ (`/ui/` と `/en/ui/`) 用の `.md` を生成する。
  *
- * 一覧ページは `excludeFromSearch` で `data-pagefind-body` を持たず、通常の HTML→MD 変換 (`convert-html-to-md`) では skip されるため、
+ * 一覧ページは記事ページのテンプレートを使わないので `data-pagefind-body` を持たず、通常の HTML→MD 変換 (`convert-html-to-md`) では skip されるため、
  * 代替として content/{lang}/ui/ 配下の `.mdx` を走査し、Blocks（ui/ 直下）/ Examples（ui/examples/）の2見出しでリンクリストを出力する
  * （`_` 始まりと `draft: true` は除外。リンク先は convert-html-to-md が生成した個別ページの `.md`）。
  * frontmatter (title / description / url) は dist 側 index.html から抽出して同期を保つ。
