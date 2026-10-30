@@ -1,4 +1,4 @@
-基準日: 2026-09-19・コミット9feef9fa0
+基準日: 2026-10-30・コミット2298c68d2
 
 # lism.config.js メモ（運営者向け）
 
@@ -65,7 +65,7 @@
 2. `lism-css/config.js`をユーザーの`lism.config.js`へaliasする。React / Astroコンポーネントの`CONFIG`もユーザー設定を読む。
 3. CSSビルドも同じ設定を読む。マージ順は`defaultConfig`→`lism.config.js`。`full.css`用は`defaultConfig`→`full preset`→`FULL_CSS_DEFAULTS`（`breakpoints.xs: '360px'`）→`lism.config.js`。`FULL_CSS_DEFAULTS`は`packages/plugin/src/builder/load-config.ts`で定義し、purge併用を前提に`xs`を有効化する。ユーザー設定で上書きできる。
 4. `isFullMode:true`なら、`main.css`系で使う設定も手順3のfull用設定と同じになり、`xs`の既定有効化も含む。
-5. `import 'lism-css/main.css'`等をViteプラグインが捕捉し、設定反映済みCSSをその場でコンパイルして返す。`node_modules`内は書き換えず、一時ディレクトリへSCSSを複製して生成SCSS（`_prop-config.gen.scss` / `_prop-config-full.gen.scss` / `_tokens.gen.scss`）だけ差し替える。
+5. `import 'lism-css/main.css'`等をViteプラグインが捕捉し、設定反映済みCSSをその場でコンパイルして返す。`node_modules`内は書き換えず、一時ディレクトリへSCSSを複製して生成SCSS（`_prop-config.gen.scss` / `_prop-config-full.gen.scss` / `base/tokens/_tokens.gen.scss`）だけ差し替える。
 6. 型生成が有効なら、`breakpoints`の追加BP、`props` / `traits`の追加キー、`isFullMode`、既定propへの追加値を`lism-env.d.ts`へ反映する（`generateLismEnvDts`）。追加値は`presets` / `utils`と参照するtokensから抽出し、`CustomPropValueRegistry`を拡張する。たとえば`tokens.space`にキーを足すと、`p`など`space`を参照するpropの値の型・補完に加わる。
 7. `purge:true`時は、設定反映済みの`full.css`からknown selectorを作る。configで追加したクラスもpurge対象になる。
 
