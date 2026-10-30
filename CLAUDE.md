@@ -26,8 +26,7 @@ Lism CSS は軽量なCSS設計フレームワーク。レイアウトプリミ�
 
 - `skills/lism-css-guide/`: `lism-cli skill add` と skills.sh の配信元
 - `templates/`: `lism-cli create` のテンプレート
-- `docs/*.md`: プロジェクト文書（`docs/decisions.md`等）。サイト本体は`apps/site`、`/docs/`はサイトのURLパス。
-- `documents/*.md`: 運営者向け現行文書。
+- `docs/*.md`: 運営者向けの現行文書と設計判断の記録（`docs/decisions.md`）。サイト本体は`apps/site`、`/docs/`はサイトのURLパス。
 - `.plan/*.md`: 実装プラン文書。
 
 各ワークスペースの詳細は、それぞれのCLAUDE.mdやREADME.mdを参照。

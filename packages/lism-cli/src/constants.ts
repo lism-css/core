@@ -9,7 +9,7 @@ export const RAW_GITHUB_BASE = 'https://raw.githubusercontent.com';
 /** npm レジストリの base URL（`lism-cli create` の workspace:* 置換時に公開最新版を解決するのに使用） */
 export const NPM_REGISTRY_BASE = 'https://registry.npmjs.org';
 
-// 常に'main'固定。PRブランチ名にしない（削除で公開済みCLIが壊れる）。詳細は documents/cli-guide.md「既定ref」
+// 常に'main'固定。PRブランチ名にしない（削除で公開済みCLIが壊れる）。詳細は docs/cli-guide.md「既定ref」
 
 /** `lism-cli ui add` / `lism-cli ui list` が参照する lism-ui ソースの ref */
 export const DEFAULT_UI_REF = 'main';

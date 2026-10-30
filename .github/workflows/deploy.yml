@@ -7,7 +7,6 @@ on:
     # .github/ は丸ごと除外せず個別に列挙する（このファイル自体の変更で動作確認できるようにするため）
     paths-ignore:
       - "docs/**"
-      - "documents/**"
       - ".plan/**"
       - "skills/**"
       - ".claude/**"

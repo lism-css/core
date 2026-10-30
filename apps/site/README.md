@@ -140,4 +140,4 @@ src/
 
 ## docs-md integration
 
-`src/integrations/docs-md/` は、ビルド後の HTML を AI エージェント向けの Markdown に変換する Astro integration です。`docs` / `ui` セクションの各ページを `dist/{path}.md` として出力するほか、`/ui/` 一覧ページ用の `dist/ui.md` と、サイト全体のインデックスとなる `dist/llms.txt` を生成します。詳細な処理フローは [`documents/docs-md.md`](../../documents/docs-md.md) を参照してください。
+`src/integrations/docs-md/` は、ビルド後の HTML を AI エージェント向けの Markdown に変換する Astro integration です。`docs` / `ui` セクションの各ページを `dist/{path}.md` として出力するほか、`/ui/` 一覧ページ用の `dist/ui.md` と、サイト全体のインデックスとなる `dist/llms.txt` を生成します。詳細な処理フローは [`docs/docs-md.md`](../../docs/docs-md.md) を参照してください。

@@ -46,4 +46,4 @@
 - 本番のビルドと配信は[deploy.yml](../.github/workflows/deploy.yml)が担当する。`main`へのpushで`build:site`→`apps/site`からWranglerでCloudflare Workersへデプロイする。手動で`main`へpushした場合も同じ経路になる。
 - 変更がワークフローの`paths-ignore`に列挙されたパスだけなら実行されない。除外対象の正本は同ファイル。運営文書だけの変更は除外されるが、公開記事の`apps/site/src/content/`は対象になる。
 - 認証にはGitHub secretsの`CLOUDFLARE_API_TOKEN`と`CLOUDFLARE_ACCOUNT_ID`を使う。値は文書やリポジトリへ保存しない。
-- 配信設定は[wrangler.jsonc](../apps/site/wrangler.jsonc)、Markdown応答の仕様は[docs-md.md](./docs-md.md#mdの応答ヘッダー)を参照する。Workers BuildsのGit連携は解除済みで、Cloudflare側ではビルドしない。移行理由は[意思決定の記録](../docs/decisions.md#2026-09-17-appssiteのデプロイをworkers-buildsからgithub-actionsへ移す)にある。secretsの設定状況はコードだけでは確認できないため、環境を引き継ぐ際に確認する。
+- 配信設定は[wrangler.jsonc](../apps/site/wrangler.jsonc)、Markdown応答の仕様は[docs-md.md](./docs-md.md#mdの応答ヘッダー)を参照する。Workers BuildsのGit連携は解除済みで、Cloudflare側ではビルドしない。移行理由は[意思決定の記録](./decisions.md#2026-09-17-appssiteのデプロイをworkers-buildsからgithub-actionsへ移す)にある。secretsの設定状況はコードだけでは確認できないため、環境を引き継ぐ際に確認する。

@@ -105,7 +105,7 @@ rg -n '[一-龥ぁ-んァ-ヶー々]' apps/site/src/pages/preview/patterns --glo
 
 ### 基本方針
 
-共通コピーと通貨・表記・スタイルの日英差分は[パターン運用メモ](../../documents/pattern-notes.md)に従う。以下の同一化ルールは、同文書で定めた言語差分を除く。
+共通コピーと通貨・表記・スタイルの日英差分は[パターン運用メモ](../../docs/pattern-notes.md)に従う。以下の同一化ルールは、同文書で定めた言語差分を除く。
 
 - コンポーネント構造・import・props・CSS クラス名は `index.astro` と同じにする
 - `import './_style.css'` は `index.astro` にあるときだけ同じく書く（両言語で共有。無いパターンでは書かない）

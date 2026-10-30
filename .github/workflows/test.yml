@@ -6,7 +6,6 @@ on:
     # ビルド・テストに影響しない文書だけの変更では走らせない
     paths-ignore:
       - "docs/**"
-      - "documents/**"
       - ".plan/**"
       - ".claude/**"
       - ".github/copilot-instructions.md"
