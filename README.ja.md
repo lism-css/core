@@ -23,7 +23,7 @@ Lism CSSは、Webサイトのレイアウトを素早く、かつ美しく構築
 
 ## 特徴
 
-- **軽量** — CSSバンドル全体で約30 KB（gzip圧縮時約8 KB）。
+- **軽量** — CSSバンドル全体で約40 KB（gzip圧縮時約10 KB）。
 - **ゼロビルドフレームワーク** — CDNまたはnpmでプレーンHTMLでも動作。ビルドツールや設定は不要。
 - **レイアウト優先プリミティブ** — プリビルトのレイアウトパターン: `l--flex`、`l--stack`、`l--grid`、`l--columns`、`l--center`、`l--withSide` など。
 - **CSSレイヤー構造** — `@layer`（lism-base → lism-block → lism-trait → lism-primitive → lism-custom → lism-utility）を使用した明確な詳細度管理。`lism-block` はベーススタイルをCSS側で管理する基礎部品（`b--`）用レイヤーで、明示的に付与したクラス（`is--` / `has--` / `l--` など）が勝つように弱い位置へ配置されています。`lism-trait` は `is--` / `has--` のTraitクラス用レイヤー、`lism-primitive` の内部は `layout` / `atomic` のサブレイヤーに分かれています。`lism-custom` はユーザーの独自クラスや上書き用のレイヤーです。詳細度の衝突を最小限に抑えます。
@@ -189,10 +189,6 @@ https://lism-css.com/llms.txt
 ## コミュニティ
 
 フィードバックや質問は、[Lism CSS Discordサーバー](https://discord.gg/6PMcFHvc4h)までお気軽にどうぞ。
-
-## クレジット
-
-- [Phosphor Icons](https://phosphoricons.com/) — MIT License ([source](https://github.com/phosphor-icons))
 
 ## ライセンス
 

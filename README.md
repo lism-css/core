@@ -23,7 +23,7 @@ No build step or configuration is required. Simply load the CSS file via CDN or 
 
 ## Features
 
-- **Lightweight** — The entire CSS bundle is approximately 30 KB (~8 KB gzipped).
+- **Lightweight** — The entire CSS bundle is approximately 40 KB (~10 KB gzipped).
 - **Zero-Build Framework** — Works with plain HTML via CDN or npm. No build tool or configuration needed.
 - **Layout-First Primitives** — Pre-built layout patterns: `l--flex`, `l--stack`, `l--grid`, `l--columns`, `l--center`, `l--withSide`, etc.
 - **CSS Layer Structure** — `@layer` (lism-base → lism-block → lism-trait → lism-primitive → lism-custom → lism-utility) for clear specificity management. `lism-block` is the layer for shared base components (`b--`) whose base styles are managed in CSS — placed low in the order so explicitly added classes (`is--` / `has--` / `l--`, etc.) take precedence. `lism-trait` is the layer for `is--` / `has--` trait classes. `lism-primitive` contains `layout` / `atomic` sub-layers. `lism-custom` is the layer for user-defined classes and overrides. Minimizes specificity conflicts.
@@ -189,10 +189,6 @@ Try Lism CSS in a sandbox environment: [lism-css/lism-playgrounds](https://githu
 ## Community
 
 For feedback or questions, [join the Lism CSS Discord server](https://discord.gg/6PMcFHvc4h).
-
-## Credits
-
-- [Phosphor Icons](https://phosphoricons.com/) — MIT License ([source](https://github.com/phosphor-icons))
 
 ## License
 

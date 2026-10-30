@@ -15,7 +15,7 @@ No build step or configuration is required. Simply load the CSS file via CDN or 
 
 ## Features
 
-- **Lightweight** — The entire CSS bundle is approximately 30 KB (~8 KB gzipped).
+- **Lightweight** — The entire CSS bundle is approximately 40 KB (~10 KB gzipped).
 - **Zero-Build Framework** — Works with plain HTML by simply loading a CSS file. No build tool, preprocessor, or configuration needed. Available via CDN or npm.
 - **Layout-First Primitive Architecture** — Pre-built layout primitives (`l--flex`, `l--stack`, `l--grid`, `l--columns`, `l--center`, `l--withSide`, etc.) let you compose common layout patterns without writing custom CSS.
 - **CSS Layer Structure** — Uses `@layer` (lism-base → lism-block → lism-trait → lism-primitive → lism-custom → lism-utility) for clear specificity management. `lism-block` is the layer for shared base components (`b--`) whose base styles are managed in CSS — placed low in the order so explicitly added classes (`is--` / `has--` / `l--`, etc.) take precedence. `lism-trait` is the layer for `is--` / `has--` trait classes. `lism-primitive` contains `layout` / `atomic` sub-layers. `lism-custom` is the layer for user-defined classes and overrides. Minimizes specificity conflicts.
