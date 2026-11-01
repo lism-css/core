@@ -1,389 +1,345 @@
-基準日: 2026-10-01・コミットa1ea2a076
+# 設計判断の記録
+
+decisionsの決定記録はあくまでただ記録。今後の方針を確定させるものではない。再検討が必要な場合は、最新の現状を踏まえて考え直すこと。
+
+- 領域ごとに、今有効な判断だけを置く。判断を覆したときは項目を足さず、同じ項目を書き換える。
+- 日付順に積んでいた旧形式の記録は、[18107fc0cの`docs/decisions.md`](https://github.com/lism-css/core/blob/18107fc0c8c881200d8a6137d3e4808b89240f73/docs/decisions.md)で読める。
+- アイコンの形状・収録・正本の判断は、[lism-css/iconsの記録](https://github.com/lism-css/icons/blob/main/docs/decisions.md)に置く。
+
+## CSS設計
+
+<a name="css-layers"></a>
+### CSSレイヤーの構成と順序
+
+- **決定と理由**:
+  - コアは`lism-base → lism-block → lism-trait → lism-primitive → lism-custom → lism-utility`の6層の順序を先頭で宣言する（`packages/lism-css/src/scss/_with_layer.scss`）。各層の役割は[css-methodology.mdx](../apps/site/src/content/ja/css-methodology.mdx)に置く。
+  - `b--`のベーススタイルを置く`lism-block`は`lism-base`の直後に置く。利用者が明示的に足す`is--`・`has--`・`l--`等に、`b--`のベーススタイルが記述順に関係なく必ず負けるようにするため。
+  - 旧`lism-component`（v0.26.0より前の`c--`の置き場）は宣言に残さない。宣言だけ残すと公開文書の6層の表記と食い違い、互換のための説明を利用者向けに足すことになる。
+- **守る条件**: 宣言からレイヤー名を外すと、利用者CSSの同名の`@layer`はエラーにならず初出の位置で登録され、優先度だけが変わる。並べ替えも利用者CSSの優先度を黙って変える。どちらも破壊的変更として扱う。
+- **受容**: `@layer lism-component`を書いた利用者CSSや`@lism-css/ui` v0.26.0未満の`_style.css`は、エラーにならず優先度だけが変わる（lism-cssより後に読み込むと`lism-utility`より強く、前に読み込むと最弱）。移行先は`lism-block` / `lism-custom`。
+- **関連**: uiのCSSがこの順序を崩さないための宣言は[ui-css-layer-order](#ui-css-layer-order)。
+
+<a name="class-prefixes"></a>
+### 独自クラスの接頭辞（`b--`・`c--`）の意味と併用
+
+- **決定と理由**:
+  - `b--`は「ベーススタイルをCSS（`lism-block`）で管理する基礎部品」の印にし、パッケージの提供物に限らない。利用者のプロジェクトにも`lism-block`があり、docsの作例のCSSを`lism-block`へ置いて`lism-custom`の`c--`で上書きする使い方が、レイヤー構成のままできるため。`b--`にする条件と命名の形は[css-rules.md](../skills/lism-css-guide/css-rules.md)の「独自クラスの選び方（2分類）」に置く。
+  - `c--searchModal b--modal`のような、`b--`と`c--`の本体クラスの併用を許可する。モーダルをナビ用・検索用に使い分けるなど、使う場所ごとに見た目を変えたい場面は普通にあり、`c--`の`lism-custom`は`lism-block`より後ろのレイヤーなので記述順に関係なく`c--`が勝つ。
+- **守る条件**:
+  - 使う場所ごとの差分は`c--`側に書き、`b--`のModifierにしない。共通部品に特定ページ用の差分が入り込む。
+  - 併用を`c--`のElement（`c--siteSearch_modal b--modal`）に限らない。どの`c--`の子要素でもない部品にも、Element名を付けることになる。
+  - `b--`同士・`c--`同士の本体クラスは併用しない。同じレイヤー内でぶつかり、CSSの記述順で結果が変わる。
+  - 接頭辞の混在を許すのは本体クラスどうしだけ。Modifierの接頭辞は本体クラスに合わせる（`b--btn c--btn--outline`は不可）。
+- **関連**: [css-methodology.mdx](../apps/site/src/content/ja/css-methodology.mdx)のBlock Class・Custom Class、[ui-package-scope](#ui-package-scope)
+
+<a name="divide-utilities"></a>
+### 区切り線のUtility（`u--divide`・`u--enclose`）の扱い
+
+- **決定と理由**: コアのCSSにも`util` propのプリセット型にも持たず、Utility ClassページのOpt-in節で`@layer lism-utility`へ足すCSS例として案内する。`gap`と子要素の`box-shadow`で線を描く方式で、`border`より描画がやや粗く、フレックスボックスで子要素自体が折り返すと行末にも線が出る。並び方向が切り替わるレイアウトの区切り線は`bdw`のブレイクポイント切り替えで`border`として描けるので、コアに持つ必要は薄い。コアから外しておけば、より良い実装が出たときに互換を抱えずに済む。`u--enclose`も同じ方式で同じ弱点を持つので、`u--divide`とそろえて扱う。
+- **関連**: [utility-class.mdx](../apps/site/src/content/ja/utility-class.mdx)のOpt-in節
+
+<a name="tt-values"></a>
+### text-transformのクラス値の名前
+
+- **決定と理由**:
+  - クラス値は`-tt:uppercase` / `-tt:lowercase`と省略しない。値名の規則「6文字以上で意味が通るものは省略可」（[naming.mdx](../apps/site/src/content/ja/naming.mdx)）には当たるが、`uppercase`はTailwind等でも省略されずに使われる語で、CSSを知っている人ほど`-tt:uppercase`と書いてしまう。実際に自前スキルの例文でも、当時は存在しなかった`-tt:uppercase`を書いていた。
+  - 旧クラス`-tt:upper` / `-tt:lower`はCSSから消し、propsの`tt="upper"` / `tt="lower"`だけを互換として残す。propsは`packages/lism-css/config/defaults/props.ts`の`tt`の`shorthands`で新しいクラスへ解決できるので、旧クラスをCSSに抱えずに、propsで書いた既存コードを壊さずに済む。
+- **守る条件**:
+  - 省略形の`fit`・`between`・`current`は維持する。Tailwindと同じ略し方で定着しており、`currentColor`はcamelCaseがクラス値として扱いづらい。
+  - このリポジトリで管理するdocs・templates・patterns・mockupは、propsでも`uppercase` / `lowercase`を使う。
+- **関連**: [deprecations.md](./deprecations.md)
+
+<a name="space-tokens"></a>
+### 余白トークンの刻み
+
+- **決定と理由**:
+  - 主軸の10刻みは係数がフィボナッチ数列で、タイポグラフィの縦のリズムを作るためのもの。水平方向のgapやpaddingはこのリズムに縛られなくてよいので、5刻みを隣り合う主軸の係数のちょうど中間値として置く。
+  - 5刻みは`50`まで。`50`を超えるサイズは水平方向には使わないので中間値を置かない。「50までは5刻み」で覚えやすい。
+  - 主軸は`70`まで。それより大きいサイズはトークンではなく個別の値で指定する。
+- **守る条件**: 中間値の係数は、隣り合う主軸の係数のちょうど中間にする。`45`の係数を切りのいい`6`（48px = 3rem）にする案は、この規則から外れるので採らない。
+- **前提**（2026-09-05時点）: `40`と`50`の間は水平方向のgapとしてまだ使う範囲だった。`80`（272px）はトークンで扱うサイズを超えていて、リポジトリ内に使用箇所がなかった。
+- **関連**: `packages/lism-css/config/defaults/tokens.ts`の`space`
+
+<a name="gutter-vars"></a>
+### `.has--gutter`の余白量の変数
+
+- **決定と理由**:
+  - 余白量の変数は`:root`で定義する`--gutter-px`にする。命名規則の`--{target}-{prop}`（targetは`.has--gutter`、propは`padding-inline`の省略名`px`）に当たり、`.set--bleed`など`.has--gutter`の外からも同じ値を読める。以前の`--gutter--base`（`:root`の基準値）と`--gutter`（`.has--gutter`で基準値に戻す）の2層は、`--{prop}--{token}`がトークンのカタログ用の形なのにgutterには`base`以外の値がなく、`base`の定義（`:root`/`body`の初期値にセットされるもの）にも当たらなかった。祖先で`--gutter`を上書きすると入れ子の`.has--gutter`だけ基準値に戻り、`.set--bleed`や`-max-sz:full`と余白がずれた。
+  - 1.xの間は`--gutter--base`と、`.has--gutter`がセットする`--gutter`を互換で残す。利用者が書いた上書きと参照をメジャーバージョンの中で壊さないため。`--gutter-px`が`--gutter--base`を参照する向きにして、`:root`での`--gutter--base`の上書きを効かせる。`.set--bleed`・`-max-sz:full`・`--sz--bleed`が`--gutter`を読むのも1.xの間は変えない。変えると、要素で上書きした`--gutter`が届かなくなる。
+- **守る条件**:
+  - `:root`に1語の`--gutter`を置いて1本化しない。`:root`で定義する1語の変数はカラートークンと色の計算用の変数だけで、命名規則上は色に見える。
+  - 1.xの間、`.has--gutter`は`--gutter`をセットし続ける。`--gutter`をセットせずに`padding-inline: var(--gutter, var(--gutter-px))`とする案では、`.has--gutter`の内側で`var(--gutter)`を読むコードが壊れ、祖先で上書きした`--gutter`が子孫へ引き継がれて`--gutter-px`より優先される。
+- **前提**（2026-10-29時点）: リポジトリ内に、`:root`以外で`--gutter--base`を上書きしている箇所はない。
+- **受容**: `:root`以外で`--gutter--base`を上書きしても効かない。`--gutter-px`は`:root`で値が決まって子孫へ引き継がれるため。
+- **関連**: v2で行う作業は[deprecations.md](./deprecations.md)、利用者向けの説明は[trait-class.mdx](../apps/site/src/content/ja/trait-class.mdx)
+
+<a name="lts-tokens"></a>
+### `lts`トークンの値の持ち方
+
+- **決定と理由**: `xs`〜`xl`は`--lts--base`からの相対値（`calc(var(--lts--base) ± n)`）にし、`--lts--base`の既定は`0em`にする。固定のem値だと、フォントに合わせて基本字間を少し詰めたいときに全段階を上書きすることになる。`normal`は`calc()`に入れられないので、描画が`normal`と同じ`0em`を既定にする。
+- **守る条件**: `--lts--base`の上書きは`:root`で行う前提にする。`var()`は宣言元の`:root`で置換されるので、子孫要素で上書きしても`xs`〜`xl`には伝わらない。
+- **前提**（2026-09-05時点）: 子孫要素で`lts`を部分的に上書きする用途がないので、`TOKEN_SCOPE`に登録して`set--lts`を作ることはしない（公開クラスが増えるだけ）。必要になったら`packages/lism-css/config/defaults/token-scope.ts`の`TOKEN_SCOPE`へ1行で足せる。
+- **受容**: 利用側が`--lts--base: normal`と書くと、`xs`〜`xl`の`calc()`が無効になる。長さで指定することを[tokens/typography.mdx](../apps/site/src/content/ja/tokens/typography.mdx)に書いている。
+
+<a name="lh-tokens"></a>
+### `lh`トークンの値の持ち方
+
+- **決定と理由**: `lh`は[lts-tokens](#lts-tokens)と違い、`--lh--base`を置かずに各段階を固定値で持ち、中央のキーは`m`にする。`lh`はbodyにセットしない独立したスケールで、`hl`や`lts`のような「本文の既定」という意味の`base`が当てはまらない。
+- **守る条件**: docsで`hl`と`lh`の既定値を互いに関連づけて説明しない。16px時にたまたま一致する程度の関係しかない。
+- **前提**（2026-09-10時点）: `base`の上書きで`lh`全体を動かしたい場面は`lts`ほどない。
+- **関連**: `packages/lism-css/config/defaults/tokens.ts`の`lh`
+
+## コンポーネント
+
+<a name="icon-data"></a>
+### `Icon`とアイコンデータの分担
+
+- **決定と理由**:
+  - `lism-css`はアイコンのSVGデータを持たず、名前で指定するプリセットも持たない。`Icon`（`packages/lism-css`の`src/components/atomic/Icon/`と`astro/atomic/Icon/`）は、渡されたコンポーネント・SVG文字列・`viewBox`付きのSVG子要素・画像を描画する機能だけを持つ。コアに入れるアイコンを用途や利用頻度で選び続ける必要をなくし、描画機能とアイコンデータの責務を分けるため。
+  - `@lism-css/ui`の既定アイコン（Alert・Callout・Modal・Popoverが使うもの）は、ui側の`src/helper/icons.ts`にSVG文字列で持つ。UIの既定値はUI側で完結させる。中身はiconsリポジトリのビルド結果から`scripts/generate-icons.mjs`で生成し、手で二重管理しない。同期の方法は[icons-repo](#icons-repo)。
+  - templates・patterns・サイトのサンプルでアイコンを使うときは、`@lism-css/icons`のコンポーネントをimportして`Icon`へ渡す。
+- **守る条件**: UIで使うアイコンだけでもコアへ戻さない。名前で引くプリセットは1つのオブジェクトにまとめてバンドルされるのでtree-shakingが効かず、収録を増やすほどコアが重くなる。
+- **関連**: アイコンの形状・収録・`weight`の段階値は[iconsリポジトリの判断記録](https://github.com/lism-css/icons/blob/main/docs/decisions.md)、依存の指定は[icons-dependency-range](#icons-dependency-range)。
+
+<a name="icon-weight"></a>
+### `Icon`の`weight`と線幅の扱い
+
+- **決定と理由**:
+  - `Icon`は`weight`を解釈しない。外部コンポーネントにはそのまま渡し、ネイティブ要素（SVG文字列から描くsvg・`img`・`span`等）には出力しない。値の解釈と線幅への変換はアイコンパッケージが担う。コアが変換すると`@lism-css/icons`の段階値と二重管理になり、外部パッケージ固有の`weight`の値（Phosphorの`duotone`等）も妨げる。
+  - `strokeWidth`・`weight`などの値は、素材の既定（iconオブジェクトの値・SVG文字列の属性）→ `Icon`のトップレベルのprops → `exProps`の順に後勝ちでマージする（`getProps.ts`の`getProps`）。利用側の指定が素材の既定に負けないようにするため。
+  - `weight`の段階値と線幅指定との優先順位は、サイトの`@lism-css/icons`解説ページ（`apps/site/src/content/ja/packages/icons.mdx`）にだけ書き、Icon解説と配布用スキルからはそこへリンクする。アイコン側の更新のたびに複数の文書を直さずに済む。
+- **守る条件**: `_icon.scss`の`.a--icon`に`stroke-width`の既定を入れない。`.a--icon`はlucide等の外部アイコンにも付き、CSSはSVGの属性より強いので、外部アイコンが自分で持つ`stroke-width`を上書きしてしまう。
+- **関連**: マージ順と`weight`の受け渡しは`Icon.test.tsx`で検査している。
+
+<a name="ui-package-scope"></a>
+### `@lism-css/ui`に置く部品の線引き
+
+- **決定と理由**: パッケージに置くのは、汎用のUI語彙（Button・Badge等）と、JSを伴うインタラクティブUI（Accordion・Modal・Tabs等）。どちらでもない部品は、利用者が手で書けない仕組みを持つかで残すかを決める。primitivesの組み合わせと少量のCSSで組めるもの（Chat等）はパッケージに置かず、docsの作例として`b--`のCSSごと紹介する。作例のCSSを利用者の`lism-block`レイヤーへコピーすれば、マークアップを変えずに同じ見た目になる。パッケージに入れると、時刻・既読・footerのような要求が発散しやすい。
+  - ShapeDividerはCSSだけで組める飾り部品だが、セクションの境目の飾りとしてサイトをまたいで使い回せ、Chatのように要求が広がらないので、汎用のUI語彙として置く。中のSVGは利用者が自由に渡す。
+- **関連**: docs側の作例の置き場は[site-ui-sections](#site-ui-sections)、作例のクラスを`b--`にする理由は[class-prefixes](#class-prefixes)。
+
+<a name="ui-primitive-classes"></a>
+### uiコンポーネントがprimitiveクラス・`u--cbox`を使う基準
+
+- **決定と理由**:
+  - primitiveの既定の宣言をそのまま使える部品は、primitiveのクラスを付けたまま`b--`のCSSで差分だけを書く（Alert・Callout・Avatar・Tabs）。異なる宣言が要る部品はprimitiveを外し、`b--`のCSSが自前で持つ（Button）。レイアウトが用途で変わる部品は既定のレイアウトを出力せず、利用者が`layout` propで指定する（AccordionのRoot）。
+  - `u--cbox`はpropsで付けたままにし、色味の調整は部品のCSSで`--cbox-*`変数を上書きして行う。cboxのcolor-mixの計算式をui側へ複製しない。複製すると`_cbox.scss`の計算を変えたときにuiだけ取り残される。
+
+<a name="ui-css-layer-order"></a>
+### uiのコンポーネントCSSのレイヤー順序の宣言
+
+- **決定と理由**:
+  - `packages/lism-ui/src/components/*/_style.css`の各先頭に`@layer lism-base, lism-block;`を置く。各コンポーネントは自分の`_style.css`をimportするので、出力位置は利用側のバンドラが決める。`lism-css/main.css`より前に出力されると`lism-block`が最初のレイヤーとして登録され、`lism-base`より弱くなる（#644では`a`要素のButtonに下線とリンク色が残った）。`@layer`文は登録済みのレイヤーの位置を変えず、未登録のレイヤーを宣言順に後ろへ足すので、先頭の2層を固定すれば、後から読まれる`main.css`の宣言で残りの層が正しい順に並ぶ。
+  - コンポーネントCSSの自動読み込みはやめない。`style.css`に一本化すると、利用者に`style.css`の読み込みを求める破壊的変更になり、使う部品のCSSだけを読み込む利点も失う。
+  - `dist/style.css`は全部品の`_style.css`を結合するので、`build-css.js`が先頭の1つだけ残し、1つも無ければビルドを失敗させる。部品ごとのCSS（`dist/components/*/_style.css`）は各自の宣言を残す。
+- **守る条件**:
+  - 宣言するのは`lism-base`と`lism-block`の2層だけにする。全層を書くと、コア側でレイヤーを増減するたびにui側も直すことになる。ui側のCSSが使うレイヤーは`lism-block`だけにする。
+  - 宣言は`src`の`_style.css`に書く。Astro版は`src`の`_style.css`を読むので、ビルド時に`dist`へ足す方式では効かない。
+- **関連**: レイヤーの構成は[css-layers](#css-layers)。全`_style.css`の先頭にあることは`packages/lism-ui/src/components/styleLayerOrder.test.ts`で検査している。
+
+<a name="tabs-react-state"></a>
+### React版Tabsの状態の配り方
+
+- **決定と理由**: `Tabs.Root`が`TabsContext`で`tabId`・選択中のindex・選択関数・キー操作・Tabのアンマウント通知を配り、TabとPanelがContextを見て属性とイベントを決める。`Tabs.Item`構成は「indexを自動で振って並べ替えるだけ」にし、`Tabs.Item`を使わない手動構成と同じ経路に通す。Astro版の手動構成は`setTabs`（DOMスクリプト）で動くので、React版も利用者に状態管理を書かせずに動かす。
+- **守る条件**:
+  - React版では`setTabs`を`useEffect`から呼ぶ方式にしない。DOM属性を直接書き換えるのでReactのstateとずれ、リスナーを解除できずStrictModeや再マウントで重複する。
+  - 手動構成で利用者が指定するのは`index`だけにする。`tabId`はContextの値をpropsより優先する。Accordionの`accID`と同じ規約。
+  - キー移動は同じtablist内のタブをDOM順にたどり、移動先のindexは`aria-controls`から戻す。ディープリンクは対象のTabがDOMに実在するかで判定する。手動構成ではタブ数を描画時に知れないため。
+  - 選択中のTabがアンマウントされたら、DOM順で先頭のTabへ選択を移す（そのTabにフォーカスがあればフォーカスも移す）。選択が外れたままだと、残るTabがすべて`tabIndex=-1`・Panelがすべて`hidden`になり、キーボードでタブ群へ戻れなくなる。DOMに要素が残る擬似アンマウント（StrictMode等）は補正しない。
+  - 手動構成では、範囲外のindexを`1`へ戻す補正をしない（Astro版の手動構成と同じ）。補正するのは一度マウントされたTabが外れた場合だけで、一度も存在しないindexの指定は選択なしのまま残す。後から対象のTabが増えたときに、利用者の指定を勝手に別のタブへ移さないため。
+- **関連**: 手動構成の使い方と制約は[Tabsのドキュメント](../apps/site/src/content/ja/ui/Tabs.mdx)。
+
+## パッケージの構成と公開
+
+<a name="package-versions"></a>
+### パッケージごとのバージョンの上げ方
 
-# 意思決定の記録
+- **決定と理由**:
+  - `@lism-css/mcp`はlism-cssと同じバージョンで、lism-cssのリリースごとに出す。mcpはapps/siteから作ったdocs-indexと`skills/lism-css-guide`をビルド時に同梱して配るため、coreに合わせて出し直さないと古い情報を返し続ける。手順は`/release`（`.claude/commands/release.md`の「mcpの特別ルール」）に組み込んである。
+  - それ以外のパッケージ（`@lism-css/ui`・lism-cli / create-lism・`@lism-css/plugin`・`@lism-css/mockup`）はcoreとバージョンを揃えず、自身に変更があったときだけ上げる。揃えると、変更の無いパッケージまで再リリースすることになる。
+  - v1（2026-10-01）で1.0.0にしたのはlism-cssとmcpだけ。uiはベータとして扱うので0.xを続ける。lism-cli・plugin・mockupはもともとcoreに合わせず自身の変更時だけ出す運用なので、v1で揃える理由がなく、各自のバージョンを続ける。
+- **守る条件**: mcpだけは「変更があったときだけ上げる」にしない。docs-indexやガイドの差分を毎回見極めることになり、判断が漏れると古い情報が残る。
+- **前提**（2026-10-01時点）: uiはまだベータとして扱っている。uiを1.0.0にするときは、この項目と[ui-core-dependency](#ui-core-dependency)・[deep-imports](#deep-imports)の互換の範囲を見直す。
+- **関連**: 互換処理を消す時期の目安は[deprecations.md](./deprecations.md)。
 
-## 2026-10-29: `.has--gutter`の余白量の変数を`--gutter-px`にし、`--gutter--base`と`--gutter`は1.xの間だけ互換で残す
+<a name="ui-core-dependency"></a>
+### uiの`lism-css`への依存の指定
 
-#409で`--flow` / `--flow--base`に揃え、`:root`の基準値`--gutter--base`と、`.has--gutter`で基準値に戻す`--gutter`の2層にした。しかし`--{prop}--{token}`はトークンのカタログ用の形で、gutterには`base`以外の値がなく、`base`の定義（`:root`/`body`の初期値にセットされるもの）にも当たらない。また`.has--gutter`の外では`--gutter`が未定義なので、利用側は`--gutter--base`を直接読んでいた。祖先で`--gutter`を上書きすると入れ子の`.has--gutter`だけ基準値に戻り、`.set--bleed`や`-max-sz:full`と余白がずれる。
-
-- 決定: 余白量の変数は`--gutter-px`にする。命名規則の`--{target}-{prop}`（targetは`.has--gutter`、propは`padding-inline`の省略名`px`）に当たり、`:root`で定義できる。
-- 決定: 1.xの間は`--gutter--base`と`.has--gutter`の`--gutter`を互換で残す。`--gutter-px`が`--gutter--base`を参照する向きにして、`:root`での`--gutter--base`の上書きを効かせる。`.set--bleed`・`-max-sz:full`・`--sz--bleed`の参照を`--gutter-px`へ変えるのもv2で行う。1.xで変えると、要素で上書きした`--gutter`が届かなくなる。v2の作業は[deprecations.md](./deprecations.md)に置く。
-- 却下: `:root`に1語の`--gutter`を置いて1本化する案。`:root`で定義する1語の変数はカラートークンと色の計算用の変数だけで、命名規則上は色に見える。
-- 却下: `.has--gutter`で`--gutter`をセットせず`padding-inline: var(--gutter, var(--gutter-px))`にする案。`.has--gutter`の内側で`var(--gutter)`を読むコードが壊れ、`--gutter`が子孫へ引き継がれて`--gutter-px`より優先される。
-- 受容: `:root`以外で`--gutter--base`を上書きしても効かなくなる。`--gutter-px`は`:root`で値が決まって子孫へ引き継がれるため。リポジトリ内に使用例はない。
-
-## 2026-10-26: `b--`と`c--`の本体クラスの併用を許可する
-
-#546で独自クラスを`b--` / `c--`の2分類にしたとき、`lism-css-guide`の併用ルールに「`b--` + `c--`は禁止」を入れたが、理由は残っていなかった。`b--`が持つのは部品のベーススタイルで、モーダルをナビ用・検索用に使い分けるなど、使う場所ごとに見た目を変えたい場面は普通にある。`c--`の`lism-custom`は`b--`の`lism-block`より後ろのレイヤーなので、CSSの記述順に関係なく`c--`が勝つ。
-
-- 決定: `c--searchModal b--modal`のような併用を許可する。
-- 決定: `b--`同士・`c--`同士の併用は禁止のまま。同じレイヤー内でぶつかり、CSSの記述順で結果が変わる。
-- 決定: Modifierのプレフィックスは今までどおり本体クラスに合わせる。`b--btn c--btn--outline`はNG。
-- 却下: 場所ごとの差分を`b--`のModifierにする案。共通部品に特定ページ用の差分が入り込む。
-- 却下: 本体クラス同士は禁止のまま、`c--siteSearch_modal b--modal`のようなElementとの併用だけを許可する案。どの`c--`の子要素でもない部品にも、Element名を付けることになる。
-
-## 2026-10-01: docsの`ui/`は「Blocks / Examples」の2分類にし、作例のURLを`/ui/examples/`へ統一する
-
-2026-08-15に3分類（Blocks / Block Examples / Components）へ再編したが、StepsとTimelineをpatternsのProcessへ移した（#659）結果、Block Examplesの公開ページはChatだけになった。Timelineは`ui/`では`b--timeline`、patternsでは`c--timeline`で書かれており、接頭辞は導入側の運用で変わる。patternsも`_style.css`付きの作例を載せているため、CSSの有無と`b--` / `c--`は置き場所の境界にならない。
-
-- 決定: セクションに仕立てられる作例は`patterns/`へ置く。部品スケールでも、見出し付きのセクションとして成立するなら対象にする。#566の「部品スケールはpatternsへ移さない」を覆す。
-- 決定: セクションにならない部品と、技法の解説が本体のページは`ui/examples/`に置く。CSSの有無と`b--` / `c--`では分けず、ページ内で明示する。2026-08-15の3分類の決定を覆す。
-- 決定: URLは`/ui/examples/{slug}/`。公開実績のある`/ui/components/*`・`/ui/block-examples/*`はリダイレクトする。
-- 却下: URLを変えずラベルだけ統合する案。ディレクトリ名と分類がずれたまま残る。
-- 却下: 作例をdocs側へ移し`ui/`をパッケージ提供物だけにする案。docsのサイドバーは既に9セクションあり、作例が埋もれる。
-
-## 2026-10-01: lism-cssの深いパスは`getLismProps`だけを公開APIにし、uiが使ったものは1.xの間できれば残す
-
-lism-cssの`exports`は`./lib/*`・`./react/*`・`./astro/*`をワイルドカードで公開しており、内部モジュールもすべてimportできる。1.0.0以降は公開APIを壊す変更にメジャー更新が要るため、v1で互換を約束する範囲を決めた。uiのソースは`lism-css/lib/helper/atts`などの内部モジュールをimportしており、`lism-cli ui add`はそのソースを利用者のプロジェクトへそのままコピーする。コピーされたコードは利用者のlism-cssを直接importし、uiを更新しても置き換わらない。
-
-- 決定: `lib/`・`react/`・`astro/`の深いパスのうち、公開APIは`lism-css/lib/getLismProps`だけにする。`lism-css-guide`スキルで利用者に案内しているため。それ以外は内部用とし、`core-components/Lism.mdx`の`getLismProps()`の節で利用者に明示する。`scss/`はdocsで案内しているので公開APIのまま。
-- 決定: uiのソースが一度でもimportした深いパスと名前は、uiが使わなくなっても1.xの間はできれば互換を保つ。公開APIではないので約束はしない。`packages/lism-ui`の`lismCssDeepImports.test.ts`が一覧を持ち、lism-css側で消えていないかと、uiが一覧にない深いパスを使っていないかを検査する。
-- 決定: 内部モジュールを非互換に変えたいときは、なるべく新しいモジュールを別名で足してuiを切り替え、古いほうは2.0.0で消す。やむを得ず1.xで壊すときは、テストの一覧からも外す。
-- 却下: 深いパスをすべて公開APIにする案。内部を整理するたびにメジャー更新が要る。
-- 受容: uiが使うためワイルドカードの`exports`は残す。内部用のモジュールも技術的にはimportできる。
-
-## 2026-10-01: v1で`@lism-css/ui`は0.xのまま据え置き、`lism-css`への依存を`workspace:^`にする
-
-2026-09-30に「v1ではlism-css・ui・mcpを1.0.0にする」と決めたが、uiはまだベータとして扱う。uiは`lism-css`へ`workspace:*`で依存していたため、公開時に固定バージョン（例: `0.31.0`）になっていた。この状態でcoreだけを出すと、利用者のプロジェクトでuiの下に古いlism-cssが別に入る（npmで再現確認済み）。v0.28.1・v0.28.2・v0.29.1もuiを出さずに公開している。
-
-- 決定: v1で1.0.0にするのはlism-cssとmcpだけ。uiは0.xを続ける。2026-09-30の決定のうちuiの部分を覆す。
-- 決定: uiの依存を`workspace:^`にする。公開時に`^{その時点のcoreのバージョン}`になり、下限がテストしたcoreのバージョンを示す。v1ではuiも0.xのまま同時に出し直し、依存を`^1.0.0`にする。
-- 却下: 固定バージョンのままにする案。coreだけが新しくなると、uiのJSは古いlism-css、CSSはプロジェクト直下の新しいlism-cssを使う。固定してもテストした組み合わせにはならず、lism-cssが重複するだけになる。`lism-cli ui add`でコピーされたコードには依存の指定が効かないため、内部モジュールの互換の問題も残る。
-- 受容: uiが使う内部モジュールは1.xの間はできれば互換を保つ（同日の「深いパス」の決定）。
-
-## 2026-09-30: テンプレ種別`base-overlay`を削除し、variant違いは`single-project-variant`で持つ
-
-#366では、`lp`と`web`のAstro版を「共通base ＋ variantごとの差分（overlay）」で配る設計だった。`base-overlay`型はそのための型。しかし#372でLPには採用されず、`single-project-variant`型が作られた。variant間で構造の違い（独自のkeyframesやclass prefix）が大きく、共通baseにする利点が薄いため。以後、この型を使うテンプレは1つも無かった。
-
-- 決定: `base-overlay`型と、CLIの取得・マージ・package名の書き換え処理、テストを削除する。
-- 決定: variant違いのテンプレは`single-project-variant`型で持つ。今後`web`カテゴリを作るときもこれに倣う。プレビューも1サイトにまとめてビルドできる。
-- 却下: 将来の`web`カテゴリ用に残す案。LPで却下した理由は、業種ごとに構造が違う`web`にも当てはまる。
-
-## 2026-09-30: LPテンプレのHTML版はCLIで配らない
-
-#375では、LPテンプレ（`templates/lp/astro/`）のビルド結果をHTML版としてCLIから配る予定だった。`static-html`型とCLIの分岐だけが先に実装されていた。調べると、Astroの出力はminify済みで手編集に向かない。JSは`type="module"`のため、`file://`で開くと動かない。さらにCLIはgigetでGitHubから取得するため、生成物をコミットし、sourceとのずれをCIで検査し続ける必要がある。
-
-- 決定: HTML版は配らない。`static-html`型とstackの`html`、関連するCLIの分岐・文言・テストを削除する。
-- 却下: #375の計画どおり`templates/lp/html/_generated/`を生成してコミットする案。整形・スクリプト変換・ずれ検査を保守し続ける手間に、利用価値が見合わない。
-- 受容: HTMLが欲しい利用者には、Astro版を`npm run build`して`dist/`を使ってもらう。
-
-## 2026-09-30: `@lism-css/mcp`はlism-cssと同じバージョンで出す
-
-同日の決定「1.0.0以降、3つのバージョンは揃えない」のうち、mcpの部分を覆す。mcpはapps/siteから作ったdocs-indexと`skills/lism-css-guide`をビルド時に同梱して配るため、coreのリリースに合わせて出し直さないと古い情報を返し続ける。v0.26.0〜v0.30.0もcoreと同じバージョンで出していたが`/release`に書かれておらず、v0.31.0では出し忘れかけた。
-
-- 決定: lism-cssをリリースするときは、mcpも同じバージョンにして公開する。手順は`/release`に組み込む。
-- 決定: `@lism-css/ui`は同日の決定どおり、変更があったときだけ上げる。
-- 却下: mcpも変更があったときだけ上げる案。docs-indexやガイドに差分があるかを毎回見極めることになり、判断が漏れると古い情報が残る。
-- 対象外: lism-cssを出さずにmcpだけを直して出すときの番号の付け方。
-
-## 2026-09-30: v1ではlism-css・ui・mcpだけを1.0.0にし、以降のバージョンは揃えない
-
-v1リリースに向けて、各パッケージのバージョンの付け方を決めた。現在はlism-css・`@lism-css/ui`・`@lism-css/mcp`が0.30.0で揃い、lism-cli（create-lism）・`@lism-css/plugin`・`@lism-css/mockup`はそれぞれ別のバージョンで上げている。`/release`もパッケージごとにリリースする作り。
-
-- 決定: v1ではlism-css・`@lism-css/ui`・`@lism-css/mcp`の3つを1.0.0にする。利用者が直接使うパッケージで、v1の安定宣言の対象にする。
-- 却下: lism-cli・create-lism・`@lism-css/plugin`・`@lism-css/mockup`も1.0.0に揃える案。これらはcoreのリリースに合わせず、自身の変更があるときだけリリースする運用のため（`/release`のpluginの特別ルール）、v1の時点で揃える理由がない。各自のバージョンを続ける。
-- 決定: 1.0.0以降、3つのバージョンは揃えない。変更のあったパッケージだけを上げる（例: uiだけ直して1.0.1）。
-- 却下: v1以降も3つを常に同じバージョンにする案。変更の無いパッケージまで再リリースすることになる。
-
-## 2026-09-29: `@lism-css/ui`のコンポーネントCSSは先頭で`lism-base, lism-block`の順序だけを宣言する
-
-各コンポーネントは自分の`_style.css`をimportしており、そのCSSの出力位置は利用側のバンドラが決める。`lism-css/main.css`より前に出力されると`lism-block`が最初のレイヤーとして登録され、`lism-base`より弱くなる（#644）。`a`要素の`Button`に下線とリンク色が残った。
-
-- 決定: `packages/lism-ui/src/components/*/_style.css`の各先頭に`@layer lism-base, lism-block;`を置き、全ファイルにあることをテストで検査する。`@layer`文は登録済みのレイヤーの位置を変えず、未登録のレイヤーを宣言順に後ろへ足す。先頭の2層を固定すれば、後から読まれる`main.css`の宣言で残りの層が正しい順に並ぶ。ui側のCSSが使うレイヤーは`lism-block`だけ。
-- 却下: 6層すべてを宣言する案。レイヤーを増減するたびにui側も直すことになる（`lism-component`の削除がその例）。
-- 却下: コンポーネント側のCSSの自動読み込みをやめ、`style.css`に一本化する案。利用者に`style.css`の読み込みを求める破壊的変更になり、使うコンポーネントのCSSだけを読み込む利点も失う。
-- 却下: ビルド時に`dist`のCSSへ宣言を付与する案。Astro版は`src`の`_style.css`を読むため効かない。
-- 決定: `dist/style.css`は全コンポーネントの`_style.css`を結合するため、同じ宣言がコンポーネントの数だけ入る。`packages/lism-ui/build-css.js`がコンパイル後に先頭の1つだけ残し、1つも無ければビルドを失敗させる。共有の`compileCssTree`と`dist/components/*/_style.css`は変えない。
-
-## 2026-09-28: 後方互換用の`lism-component`レイヤーを削除する
-
-v0.26.0で`c--`を`b--`へ移行したとき（#546, #559）、旧`c--`の配置先だった`lism-component`は宣言だけ残した。宣言から消すと、利用者CSSの`@layer lism-component`が初出の位置で登録され、優先度が変わるため。空のレイヤーが公開文書の6層の表記と食い違うという報告があり、v1へ持ち越さずに互換を切る。
-
-- 決定: `@layer`宣言から`lism-component`を外し、`lism-base → lism-block → lism-trait → lism-primitive → lism-custom → lism-utility`の6層にする。2026-08-15のレイヤー順の決定のうち`lism-component`の部分を覆す。
-- 却下: 宣言を残し、公開文書へ後方互換レイヤーの注記を足す案。v1へ持ち越したくない互換のために、利用者向けの説明を増やすことになる。
-- 受容: `@layer lism-component`を書いた利用者CSSや`@lism-css/ui` v0.26.0未満のCSSは、エラーにならず優先度だけが変わる（lism-cssより後に読み込むと`lism-utility`より強く、前に読み込むと最弱）。移行先はv0.26.0で案内済みの`lism-block` / `lism-custom`で、リリースノートに破壊的変更として書く。
-
-## 2026-09-19: React版Tabsの手動構成はContextで状態を配り、`setTabs`は使わない
-
-#87の問題12。React版は`Tabs.Item`内のTab・Panelにだけ状態とイベントを設定しており、`Tabs.Root`へList・Tab・Panelを直接置く手動構成は表示されるだけで動かなかった。Astro版は同じ構成が`setTabs`（DOMスクリプト）で動くため、React版も利用者に状態管理を書かせずに動かす。
-
-- 決定: Rootが`TabsContext`で`tabId`・選択中のindex・選択関数・キー操作を配り、TabとPanelがContextを見て属性とイベントを決める。Item構成は「indexを自動採番して並べ替えるだけ」にし、両構成を同じイベント経路に通す。
-- 却下: `useEffect`から`setTabs`を呼ぶ方式。DOM属性を直接書き換えるためReactのstateとずれ、リスナーを解除できずStrictMode・再マウントで重複する。
-- 決定: 手動構成で利用者が指定するのは`index`だけ。`tabId`はContextの値をpropsより優先する（Accordionと同じ規約）。初期選択は`defaultIndex`→`isActive`付きのTab→`1`の順。`isActive`はAstro版の書き方をそのまま移せるようにするための互換。
-- 決定: キー移動はtablist内のタブをDOM順にたどり、移動先のindexは`aria-controls`から復元する。ディープリンクは対象タブがDOMに実在するかで判定する。
-- 決定: 選択中のTabがアンマウントされたら、DOM順で先頭のTabへ選択を移す（そのTabにフォーカスがあった場合はフォーカスも移す）。選択が外れたままだと残るTabがすべて`tabIndex=-1`・Panelがすべて`hidden`になり、キーボードでタブ群へ戻れなくなるため。TabはContextの`onTabUnmount`で自分の消滅を伝えるだけにし、DOMに要素が残っている擬似アンマウント（StrictMode等）は補正しない。
-- 受容: 手動構成はタブ数を描画時に知れないため、範囲外のindexを`1`へ戻すフォールバックは行わない（Astro版の手動構成と同じ）。補正は一度マウントされたTabが外れた場合だけで、一度も存在しないindexの指定は選択なしのまま残す。後から対象のTabが増えた場合に、利用者の指定を勝手に別のタブへ移さないため。
-
-## 2026-09-18: templates の Astro テンプレートを Astro 7 へ更新し、techlog の Markdown 処理も Sätteri へ移行する
-
-`apps/site` の Astro 7 化（#580 PR1 / PR2）に続いて、`templates/*` の Astro テンプレート 5 つを astro 7.3 へ更新した。`lism-cli create` の生成物とプレビューサイトが変わるため、Astro 6 のビルド成果物と撮影画像を退避して比較したうえで採用した。
-
-- 決定: techlog の Markdown / MDX 処理は `unified()` を維持せず Sätteri へ移行する。Astro 7 の既定であり、`unified()` は「まだ移植できない場合」の代替として残る位置付けのため、テンプレートの出発点としては既定に合わせる。remark プラグイン 3 つと `rehype-autolink-headings` は `src/lib/satteri/` の MDAST / HAST プラグインに移植し、記事の書き方は変えない。
-- 決定: 見出しアンカーは HAST プラグインで `github-slugger` により先に `id` を付けてから `<a>` を追加する。Astro の見出し ID プラグインはユーザープラグインより後に走り、既存の `id` があればそれを採用するため、この順序で `render()` の `headings.slug` と一致する。
-- 決定: techlog は `apps/site` と同じく `smartPunctuation: { dashes: false }` にする。見出し中の `b-- / c--` のようなクラス接頭辞がダッシュに変換されていた。他の 4 テンプレートは Markdown 設定を持たない。
-- 決定: `compressHTML` は Astro 7 の既定（`'jsx'`）のままにする。5 テンプレートの全撮影ページで Astro 6 のビルドとピクセル一致した（差分は写真の再エンコードと記事本文の更新だけ）。`apps/site` が `true` にしたのはドキュメントの出力差分を抑えるためで、テンプレートには当てはまらない。
-- 受容: `@lism-css/icons` 0.3.0 の peer `astro` が `^5 || ^6` のため、astro 7 では unmet peer の警告が出る。icons リポジトリ側で peer を広げるまで警告のみで動作に影響はない。
-- 受容: Astro 7 は 4KB 未満の CSS を `<style>` へインライン化するため、lp の `_animations.css` は外部ファイルではなくページ内に出力される。
-
-## 2026-09-18: Markdown / MDX の処理を Sätteri へ移行し、`--` のダッシュ変換を止める
-
-Astro 7 の既定プロセッサである Sätteri へ `apps/site` の Markdown / MDX パイプラインを切り替えた（#580）。`@astrojs/mdx` 8 は MDX も `markdown.processor` へ委譲するため、`## 見出し {#id}` の見出し ID 指定が MDX でも使え、`hov.mdx` のリンク用空要素（`c--scrollTarget`）によるアンカー位置のずれを解消できる。remark / rehype プラグイン 3 つは `src/lib/satteri/` に Sätteri プラグインとして移植し、Astro 7 化直後のビルド成果物と全件比較して差分を分類した。
-
-- 決定: `:::type` は MDAST プラグインで `<Callout type>` の `mdxJsxFlowElement` に変換し、`Callout.astro` をそのまま使う。HAST 側でコンポーネント相当の要素を組み立てる案は、プリセット（色・アイコン）の二重管理になるので採らない。
-- 決定: 未対応の `:::type` / `::name` はコンパイルエラーにする。Sätteri は未処理の directive を黙って捨てるため、typo が本文の欠落として出る。旧パイプラインで素の `<div>` として出ていた `:::caution`（`is--wrapper.mdx`）は `:::warning` に直した。
-- 決定: `smartPunctuation: { dashes: false }` にする。本文中のクラス名（`u--cbox`、`set--bxsh` 等）の `--` が em ダッシュに変換されていた（11 ページ）。プロース中に `--` / `---` をダッシュとして使っている箇所は無い。引用符と省略記号の変換は残す。
-- 受容: Sätteri は表のセル・行の間に改行を入れる。HTML の表では表示に影響しない。ブロック要素間の改行数の差も同様。`en/css-methodology` の先頭の引用符が閉じ記号から開き記号（`“`）に変わる差は、正しい方向への修正として受け入れる。
-- 対象外: `docs-md` 統合の HTML → Markdown 変換は引き続き unified（`rehype-parse` / `rehype-remark` / `remark-stringify`）を使う。`@astrojs/markdown-remark` と `unified()` プロセッサは `apps/site` から外した。
-
-## 2026-09-18: Astro 7 へ更新し、compressHTML は true で v6 の空白処理を維持する
-
-dev サーバーのコールドスタートでページ用 CSS が `<head>` に出ず、大きな FOUC が起きていた（#580）。原因は Astro 6 の dev サーバー内部の不具合 2 件の組み合わせで 6.x にバックポートは無く、head メタデータの機構が再設計された Astro 7 へ上げて根本対応した。Vite 8（Rolldown）と Rust コンパイラに切り替わるため、`dev` ブランチのビルド成果物と全件比較して差分を分類したうえで採用した。
-
-- 決定: `compressHTML: true` を明示し、v6 の空白処理を維持する。Astro 7 の既定 `'jsx'` はインライン要素間の空白まで落とし、全ページの出力が変わる。`'jsx'` の採用は効果と差分を別途見てから決める。
-- 決定: `disableServerTreeshake`（#624）は削除する。Rolldown では tree-shaking の有無で SSR コンパイル（約 6.1 秒）も全体（約 19 秒）も変わらなかった（各 2 回計測）。
-- 決定: `@lism-css/plugin` の purge は、リネーム後の CSS を `this.emitFile` で出し直す。Rolldown は `generateBundle` の `bundle` への新キー代入を無視するため、キーを付け替える旧方式では CSS が出力されない。 plugin の devDependencies の vite は 7 のままにし（monorepo 内の Vite 7 利用者である mockup と型を揃えるため）、Rolldown の検証は `vite8`（`npm:vite@8`）エイリアスのテストで行う。
-- 決定: `lism-css` の `lint` と `typecheck` は turbo で自身の `build` にも依存させる。この 2 つは自パッケージの `dist` の型定義（`lism-css/lib/*` の自己参照 exports）で型を解決するため、`^build` だけだと `build` と同時に走り、dist の再生成と競合して型解決が壊れる。`dev` では turbo キャッシュで dist が残っていたため表面化せず、lockfile の変化でキャッシュが切れた本 PR の CI で lint が落ちた。
-- 受容: Rust コンパイラは入れ子 CSS の子セレクタ（`> code` 等）にもスコープ属性を付ける。スロット由来の要素を指す箇所（`PropBadge.astro`）だけ `:global()` で除外し、同一コンポーネント内の要素を指す入れ子は触らない。スコープ属性のハッシュ値、タグ間の空白の有無、CSS 関数引数の空白、インライン JS の minify 結果、生成アセットのハッシュ名の差は同値として受け入れる。
-- 対象外: `templates/*` の Astro テンプレート 5 つは別 issue で追従する。
-
-## 2026-09-17: apps/siteのデプロイをWorkers BuildsからGitHub Actionsへ移す
-
-#511ではWorkers Builds（Git連携）を採用したが、本番ビルドが約9分とVercel時代の約4分より長くなった。同じコミットをGitHub Actionsのランナーでビルドすると約5.5分で、公開リポジトリのActionsは無料・無制限。Workers Buildsのビルドキャッシュはpnpmストアと`node_modules/.astro`だけでturboのキャッシュが残らず、依存3パッケージを毎回ビルドしていた（#624）。
-
-- 決定: mainへのpushで`.github/workflows/deploy.yml`が`pnpm build:site`と`wrangler deploy`を実行する。`.turbo`を`actions/cache`で保存・復元する。除外パスはWorkers Buildsの監視パス除外と同じにする。
-- 決定: Cloudflareの認証はGitHub secrets（APIトークンとアカウントID）で行う。トリガーはmainのpush限定なのでforkからのPRには露出しない。
-- 決定: Workers BuildsのGit連携は最初のActionsデプロイが成功した後に解除する（二重デプロイの防止）。プレビューURLとPRコメントは無くなるが、非本番ビルドは既にOFFで実質の変化はない。
-- 却下: VercelのリモートキャッシュをWorkers Buildsに足す案（Vercel依存が残る）。turboの`cacheDir`を`node_modules/.astro`配下に向けてWorkers Buildsのキャッシュに載せる案（7日で失効・パス基準未確認の仕様に依存する）。
-- 対象外: apps/siteのコンパイル自体の軽量化は#624の2として別途扱う。
-
-## 2026-09-17: 公式サイトの配信を Vercel から Cloudflare Workers へ移し、DNS ゾーンも Cloudflare に置く
-
-apps/site は完全な静的サイトで、Vercel でのデプロイは昔の名残だった。Vercel の`headers`設定はパスパターン式のため、存在しない`.md`の404にも`text/markdown`が付く不整合（#506）を直せなかった。Worker の Custom Domain に必要なため、Vercel DNS にあった`lism-css.com`のゾーンも Cloudflare へ移管した（#511。2026-09-17完了、Vercel 側のプロジェクト・ドメイン・DNSゾーンは削除済みでロールバック手段は無い）。
-
-- 決定: 配信は Cloudflare Workers の静的アセット配信＋Workers Builds の Git 連携（`main`への push で本番デプロイ）。`@astrojs/cloudflare`アダプターは使わない。設定は`apps/site/wrangler.jsonc`・`public/_headers`・`public/_redirects`で管理し、`workers_dev: false`もダッシュボードではなく`wrangler.jsonc`で持つ（ダッシュボードだけの変更はデプロイで戻る）。
-- 決定: `.md`の`Content-Type`（charset付き）は`_headers`に書かず、`run_worker_first`の小さな Worker（`apps/site/worker/index.ts`）で成功応答と304にだけ付ける。`_headers`だと404にも付いて #506 が再発する。
-- 決定: HSTS（Vercel と同じ2年）は`_headers`の`/*`ルールで付ける。ダッシュボードの HSTS 設定は max-age の上限が12か月で再現できない。www→apex は Redirect Rule で301（Vercel 時代は307）、HTTP→HTTPS はゾーン設定 Always Use HTTPS。
-- 却下: Cloudflare Pages（新規は Workers が公式推奨）。小文字 URL の meta refresh リダイレクト76件を`_redirects`で301化する案（移行と独立した変更のためスコープ外）。
-- 受容: リダイレクト応答に HSTS が付かない、存在しない URL の404に`X-Robots-Tag: noindex`が付く。
-
-## 2026-09-13: weightの解釈をアイコンパッケージへ委ねる
-
-`@lism-css/icons`がweightを受け取るようになり、コアの変換は重複した責務になった。また、コアがweightを線幅へ変換すると、外部パッケージ固有のweight指定を妨げる。アイコン側の更新ごとにサイト・テンプレートの依存範囲を書き換える手間もなくす。
-
-- 決定: `Icon`はweightを外部コンポーネントへそのまま渡し、ネイティブ要素には出力しない。値の解釈と線幅への変換はアイコンパッケージが担う。
-- 決定: weightの段階値と線幅指定との優先順位はサイトのicons解説ページに集約し、Icon解説と配布用スキルから参照する。
-- 決定: サイト・テンプレートの`@lism-css/icons`依存は`*`とし、実際に使うバージョンはlockfileで管理する。既存プロジェクトへの新版取り込み時はlockfileを更新する。
-- 却下: コアに`@lism-css/icons`固有のweight変換を残す案と、依存範囲をアイコンのリリースごとに書き換える運用。
-
-## 2026-09-13: アイコンパッケージを`lism-css/icons`リポジトリへ分離する
-
-アイコンパッケージは`lism-css`に依存せず独立性が高く、同じリポジトリに置くとアイコンの追加要望や不具合報告が本体のissueに混ざる。2026-09-10の「モノレポ内で公開する」は、別リポジトリ案を「公開→こちらで再生成の二段階が毎回発生する」として却下していたが、#618で全アイコンがオリジナル設計になり、#619でコアがSVGデータを持たなくなったため、モノレポ側で再生成が要るのは`@lism-css/ui`の既定アイコン8個だけになった。これを手動同期にすれば二段階の問題は消える。この決定を覆す。
-
-- 決定: リポジトリは`lism-css/icons`、ブランチは`main`のみ、タグは`v{バージョン}`。npmの`@lism-css/icons`は新リポジトリから公開する。
-- 決定: `@lism-css/ui`の既定アイコン（`src/helper/icons.ts`）はビルド時生成をやめ、ローカルでビルドしたiconsリポジトリの`dist/data.js`を読む`gen:icons --source`の手動同期でコミットする。`lism-cli ui add`がGitHub上のこのファイルを配信するため、生成物はコミット対象のまま。
-- 決定: `apps/site`・templatesはnpmの`@lism-css/icons`を固定バージョンで参照する。`workspace:*`を使わないので`lism-cli create`の置換対象から外れる。
-- 却下: `git filter-repo`で履歴を引き継ぐ案。履歴が数コミットしかなく、#616はコア側の変更と一体のコミットだった。
-- 却下: `@lism-css/ui`がnpmの`@lism-css/icons`にdevDependencyとして依存する案。アイコン側を先に公開しないとuiがビルドできない順序制約が残る。
-- 対象外: docsの`packages/icons`ページは`lism-css.com`に残す。
-
-## 2026-09-12: アイコンのSVGデータをコアから分離する
-
-コア収録アイコンを用途や利用頻度で選び続ける必要をなくし、描画機能とアイコンデータの責務を分ける。2026-09-10のコア34個への絞り込み方針を置き換える。
-
-- 決定: `lism-css`はSVGデータを持たず、`Icon`の名前指定プリセットを廃止する。コンポーネント・SVG文字列・SVG子要素を描画する機能は維持する。
-- 決定: UIの既定アイコンは`lism-ui`に持たせる。SVGの原本は`packages/icons`に集約し、必要なデータを生成して手作業での二重管理を避ける。
-- 決定: templates・patterns・サイトのサンプルでは`@lism-css/icons`のコンポーネントをimportする。
-- 却下: UIで使うアイコンだけをコアに残す案。UIの既定値はUI側で完結させる。
-
-## 2026-09-12: 公式サイトのワークスペースは `apps/site` と呼ぶ
-
-「docs」がリポジトリ内で3つの意味を持っていた。サイト本体の `apps/docs`、プロジェクト文書の `docs/`、サイトのURLパス `/docs/`。AIエージェントへの指示で取り違えが起きるため、サイト本体を `apps/site` へ改名した。Cloudflare Workers移行（#511）ではWorker名やWorkers Buildsのルートディレクトリを登録するので、その前に最終名へ揃えておく。
-
-- 決定: ワークスペースは `apps/site`、パッケージ名は `lism-site`、ルートスクリプトは `dev:site` / `build:site` / `format:site` / `check:site`。
-- 決定: `generate-lastmod-map.ts` は旧パス `apps/docs` の履歴も読み、内容変更なしのワークスペース移動だけを更新日時から除外する。全URLのlastmodがリネーム日になるのを防ぐため。
-- 却下: `apps/web` は意味が広い。`@lism-css/site` はスコープを変える必要がないため見送り。
-- 対象外: URLパス `/docs/`、コンテンツディレクトリ `src/content`、エージェント名・コマンド名（`lism-docs-editor`・`docs-update` 等）は変えない。
-
-## 2026-09-10: text-transform のクラス値は省略せず uppercase / lowercase にする
-
-Property Class の値名は「6文字以上で意味が通るものは省略可」として `-tt:upper` / `-tt:lower` を使っていた。ただし `uppercase` は Tailwind 等でも省略されずに使われる語で、CSSを知っている人ほど `-tt:uppercase` と書いてしまう。実際に自前スキルの例文でも存在しない `-tt:uppercase` を書いていた。実装は `config/defaults/props.ts` の `tt` を参照する。
-
-- 決定: クラス名は `-tt:uppercase` / `-tt:lowercase` に変更し、`-tt:upper` / `-tt:lower` はCSSから削除する。
-- 決定: props の `tt="upper"` / `tt="lower"` は互換として残し、`shorthands` で `-tt:uppercase` / `-tt:lowercase` に解決する。
-- 決定: このリポジトリで管理する docs・templates・patterns・mockup は props も `uppercase` / `lowercase` に揃える。
-- 対象外: `fit` / `between` / `current` は Tailwind と同じ略し方で定着しており、`currentColor` はキャメルケースが扱いづらいため維持する。
-
-## 2026-09-10: `lh` トークンは固定値のままにし、値を `1.125`〜`2` に下げる
-
-`--lh--xs`〜`--lh--xl` は `1.25`〜`2.25` で、中央の `m` が `1.75` と高めだった。`lts` と同じく base からの相対値（`calc`）にする案も検討したが、`lh` は body にセットしない独立スケールで、`hl` や `lts` のような「本文の既定」を意味する base が当てはまらない。
-
-- 決定: 固定値のまま `m` を `1.5` に据え、`xs: 1.125` / `s: 1.25` / `l: 1.75` / `xl: 2` の 0.25 刻み（`xs` だけ 0.125 刻み）にする。キー名は `m` のまま。
-- 却下: `--lh--base` を置いて `xs`〜`xl` を `calc()` で連動させる案。`lh` には body の既定という意味の base がなく、名前が実態と合わない。base の上書きで全体を動かしたい場面も `lts` ほどない。
-- 対象外: `hl` と `lh` の既定値の対応関係。16px 時にたまたま一致する程度のものなので、ドキュメントでも互いの値を関連づけて説明しない。
-
-## 2026-09-10: コアを34個に絞り、用途に応じて追加アイコンを使う
-
-コア候補39個を見直し、塗り版と組み合わせるアイコンや用途の限られるアイコンは追加パッケージへ寄せる。サンプルの装飾はコア内で置き換えられるが、施設案内など意味のあるアイコンは依存を避けるためだけに別の形へ変えない。
-
-- 決定: `cart`・`star`・`heart`・`lock`・`lock-open`をコアから外し、`@lism-css/icons`で提供する。収録対象は`packages/icons/scripts/config.mjs`の`coreIconNames`で管理する。
-- 決定: docsのButton・Callout・Badge・Timelineなどのサンプルとinteriorは、コア内の別アイコンへ置き換える。
-- 決定: ryokanの日英ページは`@lism-css/icons`の`Cart`と`Book`を使う。依存は共通のLPテンプレートへ追加する。
-- 却下: 追加依存を避けることを優先し、売店のカートや書斎の本も別アイコンへ置き換える案。
-
-## 2026-09-10: 半塗りの星は線と塗りを分け、既存の塗り版も残す
-
-既存の`star-half`は輪郭まで塗りパスになっており、線幅では太さを変えられない。評価表示で半塗りを使いつつ、通常の`star`と輪郭の太さを揃えられるようにする。
-
-- 決定: 既存の形状は`star-half-fill`へ名前を変え、塗りだけのアイコンとして残す。
-- 決定: 新しい`star-half`は`star`の外周を線で描き、その背面に左半分の塗りを置く。中央の境界線は描かない。線幅の変更は外周だけに効き、塗り領域は固定する。
-- 決定: どちらも`@lism-css/icons`専用とする。コア候補は39個を維持し、全体は47個になる。
-- 対象外: 任意の割合で星を塗り分ける評価コンポーネント。
-
-## 2026-09-10: コア候補は一般的なWebサイトで使う線アイコン39個とする
-
-現在用意しているアイコンは、会員ページやショップを含む一般的なWebサイトに必要なUIを想定して選んでいる。UIコンポーネントとナビゲーションの用途だけに絞ると、ユーザー・カート・ログインなどの基本的な用途が抜ける。
-
-- 決定: 線アイコン40個のうち、`book`を除く39個をコア候補とする。対象は`packages/icons/scripts/config.mjs`の`coreIconNames`で管理する。
-- 決定: `book`と塗りアイコン6個は`@lism-css/icons`専用とする。同パッケージにはコア候補を含む46個すべてを収録する。
-- 却下: コアをUI用8個と操作・ナビゲーション用10個の計18個に絞る案。
-- 対象外: 別ファイルで管理しているロゴの収録先。コアへの実装反映はPhase 2で行う。
-
-## 2026-09-10: `dot`を廃止し、iconsパッケージにも移さない
-
-`dot`はdocs・templates・packagesに利用箇所がなく、塗り専用で`weight`にも追従しないため、残す必要がない。
-
-- 決定: `dot`をコアのプリセットから削除する。`@lism-css/icons`にも収録しない。
-- 決定: 正本の`dot`アートボードと生成入力からも削除する。
-- 却下: コアに残す案と、iconsパッケージへ移す案。
-- 対象外: `info`や`dots`などの内部にある小さな点。これらは決定済みの線描画円を維持する。
-
-## 2026-09-10: コアのアイコンは厳選した線アイコンだけにし、残りは `@lism-css/icons` としてモノレポ内で公開する
-
-`lism-css` の Icon プリセットは1つのオブジェクトにまとめてバンドルされ、tree-shaking が効かない。fill 系や用途の限られるアイコンまで含めるとコアが肥大する一方、`@lism-css/ui` は Alert / Callout / Modal / Popover で8個のプリセットを名前で参照しているため、コアからプリセットを全廃はできない。
-
-- 決定: `lism-css` のプリセットは厳選した線アイコンだけにする。下限は `@lism-css/ui` が参照する `lightbulb` / `alert` / `warning` / `check-circle` / `question` / `info` / `note` / `x` に、ナビ系（caret・arrow・menu・dots・search・check）を足したもの。fill 系はコアから外す（現在の利用は templates の interior `caret-down-fill` と docs の Badge `star-fill` のみ）。
-- 決定: 残りは `@lism-css/icons` として `packages/icons/` に置く。exports は `lism-css` と同じ形（`/react` は dist、`/astro` は生成した `.astro` をそのまま配布）。コンポーネントは `lism-css` に依存しない素の SVG で、`strokeWidth`（既定 1.5）を受ける。`<Icon icon={X} weight="bold">` はコアが `weight` を `strokeWidth` へ変換して渡す。
-- 決定: コアのプリセットも同じ SVG 源から生成する（厳選リスト＋生成物）。Phosphor Icons の著作権表示と MIT 本文は `THIRD_PARTY_LICENSES` のようなファイルで両パッケージに同梱し、`files` に含める。
-- 却下: 別リポジトリで管理する。プリセット・`@lism-css/ui` の参照名・docs の一覧・templates・スキルが全部このリポジトリにあり、別リポジトリだと「公開→こちらで再生成」の二段階が毎回発生する。iconsパッケージがコアに依存しない設計なら、外部からアイコンだけの貢献を受けたい・独立した見せ方をしたい・`.ai` が増えて重い、のいずれかが起きた時点で `git subtree split` で切り出せる。
-- 対象外: `thin` ウェイトと、`weight` 以外の名前付き API。要望が出るまで足さない。
-
-## 2026-09-10: アイコンの正本は Illustrator ファイル1つにし、書き出した SVG をリポジトリのビルド入力にする
-
-Phosphor 由来もオリジナルも1か所で管理したい。Figma は `<circle>` と円弧を3次ベジェへ展開して書き出すため、svgo で円弧を戻してもドットが残り、Phosphor raw の2〜3倍のデータになる。Illustrator の「スクリーン用に書き出し」は `<circle>` / `<polyline>` / `<line>` と線属性を保つことを実際の書き出しで確認した。
-
-- 決定: 正本は `lism-icons.ai` 1ファイル。24×24pt のアートボード1枚＝アイコン1個、アートボード名＝アイコン名。線は中央揃え・1.5pt・round cap / join。Phosphor raw（256グリッド）は線幅ごと 9.375% に縮小して配置する。
-- 決定: 「スクリーン用に書き出し」（SVG、プレゼンテーション属性、小数3桁、オブジェクトID最小、レスポンシブ無し）で全アートボードを一括書き出しし、そのSVGをリポジトリに置いてビルド入力にする。書き出したSVGは手で編集しない（直すなら `.ai` を直して出し直す）。正規化（背景 `<rect>`・`id`・`data-name`・`<g>` の除去、`currentColor` 化、線幅とキャップのルート `<svg>` への寄せ、`stroke-linejoin="miter"` 等の例外だけ要素に残す）と `presets.ts` / コンポーネントの生成はスクリプトが行う。
-- 決定: `.ai` は git LFS で管理し、PDF互換オフで保存する（4アイコンで PDF互換オン 602KB → オフ 244KB → 未使用パネル項目の削除後 142KB）。ビルド入力はSVGなので CI に LFS は不要。
-- 却下: Figma を正本にする（データ肥大に加え、取り込みに API トークンと座席が要る）。書き出しSVGを直接編集する運用（`.ai` と乖離する）。
-- 受容: Phosphor 由来のアイコンは `.ai` を経由すると円弧 `a` が `c` になり、raw より数%大きくなる（chat-teardrop-dots で 305 → 316 バイト）。LFS 未導入の共同作業者の手元では `.ai` がポインタファイルになる（SVG とコードには影響しない）。
-
-## 2026-09-10: Icon プリセットを線データに切り替え、太さは `weight` / `strokeWidth` で変える（24グリッド）
-
-現行のプリセットは Phosphor v2 の塗りアウトラインパスで、`caret-down` / `caret-right` / `arrow-down` / `arrow-right` の4つだけ bold 相当、他は regular のため、混ぜると太さが揃わない。太さ違いを名前で増やすとパスが丸ごと重複する。Phosphor v2 のウェイトは別パスだが、公式サイトの raw ダウンロードと `phosphor-icons/core` の `raw/` には線描画の元データがあり、線幅で太さを変えられる。
-
-- 決定: プリセットは線描画（`fill="none" stroke="currentColor"`）の内部マークアップとし、線幅・キャップ・ジョインはルート `<svg>` の属性に持たせる。太さは `weight` の3段階（light 1 / regular 1.5 / bold 2）と、`strokeWidth` / `stroke-width` の素通しで変える。明示の `strokeWidth` が `weight` より優先。描画は React / Astro 両方に既にある `__html` 経路を使う。
-- 決定: viewBox は `0 0 24 24`。Phosphor regular（256グリッドで16）は 1.5 になり、heroicons outline や lucide（24グリッド・stroke 2）と同じ土俵で数値を比べられる。既存の `menu-2` も 24 グリッド。
-- 決定: `getProps.ts` のマージ順を「プリセットの既定 → 利用側の値」に直す。現在は `exProps = { ...exProps, ...presetIconData }` でプリセットが後勝ちなので、利用側の `strokeWidth` が上書きされる。`_icon.scss` に `stroke-width` の既定は入れない。`.a--icon` は lucide 等の外部アイコンにも付き、CSS は属性より強いため 24 グリッドの `stroke-width="2"` を壊す。
-- 決定: 点（ドット）は塗り円ではなく半径 0.375 の線描画円（線幅 1.5）で描く。lucide / heroicons と同じ方式で、regular では Phosphor と同じ直径 2.25 になり、`weight` に追従して 1.75 〜 2.75 に変わる。半径が最小線幅の半分以下なので穴は開かない。塗りのままにするのは `dot`（箇条書き用の大きな点）と fill 系だけ。
-- 却下: `caret-down-bold` のようなウェイト別の名前分割（塗りパスの複製で、thin / light に広がらない）。viewBox 16 / 32 / 48（数字はきれいだが他ライブラリと数値互換がない）。Phosphor 忠実の bold 2.25（lucide の 2 との差は 16px 表示で 0.2px 未満なので丸める）。
-- 受容: プリセットに `fill` 属性で色を付ける使い方は効かなくなり、`c` で指定する（リポジトリ内に該当なし、docs でも案内していない）。既存の太字4種は 2.25 相当から 2 へわずかに細くなる。ドット付きアイコンの bold は、Phosphor 公式 bold（ドット半径も拡大）と完全には一致しない。
-
-## 2026-09-05: OG画像の余白は文字とロゴの見える端を実測して整える
-
-apps/site のOG画像は、行の内部余白やロゴ内の文字位置により、指定した余白と見た目の距離が一致しない。長いタイトル・説明文の画像を確認し、生成PNG上の文字やロゴの端を実測して配置を調整した。実装は `apps/site/src/lib/ogImage.tsx` の `renderOgSvg` を参照する。
-
-- 決定: 上下の罫線は、それぞれ画像の上端・下端から64px内側を配置の基準とする。文字やロゴとの間隔は罫線の内側の端から測る。
-- 決定: タイトル上の余白と説明文との間隔は、行の内部余白を含めた見た目で整える。指定値を機械的に揃えない。
-- 決定: テキストは左寄せにし、右下のロゴ側へ広く余白を取る。説明文はタイトルより小さくし、両方の字間を少し広げる。
-- 決定: タイトル・説明文とも最大2行で省略し、長文がロゴの領域へ伸びるのを防ぐ。
-- 決定: ロゴは黒いマークの高さが実測36px。末尾の「CSS」の最後の「S」から下の罫線まで36px、画像右端まで32pxになる配置を採用する。下位置の端数は、黒いマークより文字の下端が上にある分の補正なので、切りのよい値へ丸めない。
-
-## 2026-09-05: apps/site のOG画像を無地レイアウトで描き直し、フォントをサブセットTTFで同梱する
-
-サイトリニューアルに合わせて記事ページのOG画像を作り直す。従来は背景JPEGを敷いてタイトルだけを Noto Sans JP で描いており、サイト本体の書体と揃っていなかった。ローカルの `.cache/og/` はVercelのビルドで復元されず本番では効いていない一方、キーにテンプレート版や説明文を含まないため、デザイン変更後に古い画像が残る事故の原因になっていた。
-
-- 決定: 背景JPEGをやめ、無地の背景に上下2本の罫線・タイトル・説明文・右下ロゴを satori で描く。説明文を画像に入れるのは、X のリンクカードが説明文をどこにも表示せず、画像内の説明文だけが内容を伝えるため。
-- 決定: フォントをサイト本体と同じ Gen Interface JP に揃える。npm配布は woff2 のみで satori が読めないため、リリースzipのTTFを常用漢字・人名用漢字＋記事の実文字でサブセットして `src/assets/og/` にコミットする。収録文字の一覧 `og-font-chars.txt` を、サブセット化とビルド時照合が参照する唯一の正とする。
-- 決定: title / description にフォント未収録の文字があればビルドを止める。satori は未収録文字を空白で描いてエラーにしないため、放置すると文字の欠けた画像が公開される。
-- 決定: ローカルキャッシュ `.cache/og/` を廃止する。本番ビルドでは元々効いておらず、無地描画なら全160枚が約2秒で終わる。
-- 却下: takumi への乗り換え。同一レイアウトの実測で処理時間は同等で、必要な `lineClamp`・省略記号・複数フォントのフォールバックは satori にある。sharp は Astro の画像最適化でも使うため依存からは消えない。
-- 却下: Noto Sans JP をフォールバックに残す案と、ビルド時にリリースzipを取得してサブセットする案。前者は400と600で3MBを抱え続け、後者は毎回58MBの取得がCIとホスティング先のビルドで走る。
-- 受容: 記事の title / description に新しい文字が入ったらビルドが失敗する。`pnpm --filter lism-site og:font` を再実行してTTFと文字一覧をコミットし直す運用になる。
-
-## 2026-09-05: `u--divide` / `u--enclose` をコアから外し、Opt-in の追加 CSS 例として案内する
-
-`u--divide` / `u--enclose` は `gap` と子要素の `box-shadow` で区切り線を描く仕組みで、`border` と比べて描画がやや粗く安定しない。フレックスボックスで子要素自体が折り返すと行末にも線が出るなど見え方が崩れる。並び方向が切り替わるレイアウトの区切り線は `bdw` のブレイクポイント切り替えで `border` として描けるため、コアに持つ必要は薄い。将来より良い実装が出たときに互換を抱えないためにも外す。
-
-- 決定: `_divide.scss` を削除し、`util` prop のプリセット型からも `divide` / `enclose` を外す。
-- 決定: Utility Class ドキュメントの Opt-in 節に、`@layer lism-utility` へ追加する CSS 例として残す。`u--enclose` も同じ仕組みなのでセットで移す。
-- 決定: docs のパターンプレビューと templates の使用箇所は `bd` 系へ置き換える。縦並びは親 `bd-be` + 各子 `bd-bs`、横並び（Footer の Cluster）は先頭以外の子に `bd-s`（`bd-s={i > 0}`）。templates に Opt-in の CSS を持ち込まない。
-- 却下: `u--divide` だけ外して `u--enclose` を残す。同じ描画方式で同じ弱点を持つ。
-- 受容: 利用側で `u--divide` / `u--enclose` を使っていた箇所は、Opt-in の CSS を追加するか `bd` 系へ置き換える必要がある。changelog に破壊的変更として記載する。
-
-## 2026-09-05: 余白トークンに `45` を追加し、`80` を削除する。10刻みは縦のリズム用、5刻みは水平方向用
-
-余白トークンの主軸 `--s10` 〜 `--s80` は係数がフィボナッチ数列（1, 2, 3, 5, 8, 13, 21, 34）で、タイポグラフィの「縦のリズム」を作るための設計。水平方向の gap や padding はこのリズムに縛られなくてよく、5 刻みの `--s5` / `15` / `25` / `35` はそのために隣同士のちょうど中間値として置いている。`40`（40px）と `50`（64px）の間は水平方向の gap としてまだ使う範囲だが中間値がなく、逆に `80`（272px）はトークンで扱うサイズを超えていて、リポジトリ内でも使用箇所がなかった。
-
-- 決定: `--s45: calc(var(--s-unit) * 6.5)`（≒ 52px）を追加する。既存の中間値と同じく、隣の係数 5 と 8 のちょうど中間にする。
-- 決定: 5 刻みは `50` まで。`50` を超えるサイズは水平方向には使わないので中間値を置かない。「50 までは 5 刻み」で覚えやすい。
-- 決定: `--s80` を削除し、主軸は `--s70`（≒ 168px）まで。これ以上のサイズはトークンではなく個別の値で指定する。
-- 却下: `45` の係数を 6（48px = 3rem）にする。切りのいい数だが、中間値の規則から外れる。
-- 受容: `p="80"` 等を使っていた利用側では効かなくなる。changelog に破壊的変更として記載する。
-
-## 2026-09-05: `lts` トークンは `--lts--base` からの相対値にし、base の既定を `0em` にする
-
-`--lts--xs` 〜 `--lts--xl` は固定の em 値で、`--lts--base` だけ変えても他は動かなかった。フォントを変えて基本字間を少し詰めたい場合、結局 5 つ全部を上書きすることになる。`xs` 〜 `xl` を `calc(var(--lts--base) ± n)` にすれば base の上書きだけで連動するが、`normal` は `calc()` に入れられないため base の既定を `0em` にする必要がある。
-
-- 決定: `--lts--base: 0em`、`xs` 〜 `xl` は `calc(var(--lts--base) ± n)`（`n` は従来の値）。描画は `normal` と同じ。
-- 決定: `--lts--base` の上書きは `:root` で行う前提にする。`var()` は宣言元の `:root` で置換されるため、子孫要素で base を上書きしても `xs` 〜 `xl` には伝わらない。
-- 却下: `lts` を TOKEN_SCOPE に登録して `set--lts` で部分上書きできるようにする。用途がなく、公開クラスが増えるだけ。必要になったら 1 行で追加できる。
-- 受容: 利用側が `--lts--base: normal` と書くと `xs` 〜 `xl` の `calc()` が無効になる。長さで指定することをドキュメントに明記する。
-
-## 2026-09-05: docs の本文フォントは 16px を下限にし、広い画面でだけ少し大きくする
-
-apps/site は `set--cqUnit` で `--REM` を流体化し、本文・サイドバー・目次・プレビュー枠のフォントを狭い幅で 16px より少し小さく（0.95rem〜1rem）していた。日本語フォントはスマホで 16px だとやや大きく見えるため日本語基準で縮める、という日本では一般的な調整だったが、英語では少し小さい印象になっていた。フォントを Inter + Noto Sans JP から Gen Interface JP に変えたことで、日本語の字面が英数字側に寄って全体に小さくなり、日英でサイズ感の差がなくなった。これで縮める理由が消え、逆に広い画面で少し大きくする方向に変えた。
-
-- 決定: `--REM` は 16px を下限にし、幅 800px〜1000px で 16px → 16.8px（1.05rem）へ大きくする。定義は `apps/site/src/styles/_theme.scss` の `.set--cqUnit`。
-- 決定: `set--cqUnit`（と対で使う `set--s`）を付けるのは記事本文（`.c--article`）だけ。サイドバー（SiteNav）・目次（TableOfContents）・プレビュー枠（PreviewArea）からは外す。下限が 1rem になったため、狭い要素に付けても root と同じ 16px にしかならない。
-- 却下: 従来どおり狭い幅で 16px 未満に縮める。Gen Interface JP では日本語も英語も小さく見えすぎる。
-- 受容: 800px 未満では流体化せず 16px 固定。`.c--article` の祖先にコンテナ指定がないため、cqw は実質ビューポート幅として働く。
-
-## 2026-09-03: ドキュメントの iframe プレビューは等倍で埋め込む（zoom / transform で縮小しない）
-
-apps/site の PreviewFrame は、狭い本文幅でも広いビューポートのレイアウトを見せるため、iframe を表示幅より広く描画して CSS zoom で縮めていた。しかし Safari 26.3 以前は親の zoom を iframe 内へ伝えないため、中身の高さにフィットさせる処理が崩れてスクロールバーが出た。補正を入れれば直るが、縮小前提の高さ計算と、旧 WebKit の zoom バグ（width・margin・calc() の扱い。Safari 26.4 で修正）への対処が残り続ける。
-
-- 決定: 中身は等倍で埋め込む。サイズ切替はモバイル 380px・タブレット 640px・デスクトップは本文幅で、いずれも本物のビューポート幅になる。広い画面で見たい場合は「別タブで表示」を使う。
-- 却下: zoom を残して補正する案（コミット cf2de844 の状態）。Chrome と旧 Safari で挙動が分かれ、幅の整数丸めで 1px 未満のはみ出しが出るなど保守が重い。
-- 却下: transform: scale() での縮小。iframe 内の dialog アニメーションで表示位置がずれる。
-- 受容: 目次ありの MDX ページでは本文幅（880px）までしか見えない。
-
-## 2026-08-15: Chatを`@lism-css/ui`から削除し、docsの作例へ移す
-
-Chatはprimitives（Grid・Frame・Flow・Decorator・cbox）の組み合わせと少量のCSSで組めるため、汎用UI語彙でもJS付きインタラクティブUIでもなく、パッケージ内で立ち位置が浮いていた。時刻・既読・footer等の要求も発散しやすい。
-
-- 決定: `@lism-css/ui`から削除し、docsの`/ui/block-examples/chat/`で`b--chat`の作例として紹介する。作例のCSSを`@layer lism-block`へコピーすれば、マークアップ変更なしで同じ見た目になる。
-- 決定: パッケージに残すかの線引きは「手で書けない仕組みを持つか」。ShapeDividerはSVGパス生成があるので残す。
-- 決定: docsの`ui/`は「Blocks / Block Examples / Components」の3分類にする。
-- 却下: `c--chat`として紹介する。`b--`は「ベーススタイルをCSS管理する基礎部品」の印でパッケージ提供物専用ではない。利用者のプロジェクトにも`lism-block`レイヤーがあり、コピーしたCSSを`lism-block`へ置き`lism-custom`で上書きする運用はアーキテクチャそのまま。
-- 却下: Patterns / Parts セクションの新設。上記3分類に吸収した。
-
-## 2026-08-15: `@lism-css/ui`のクラスを`c--*`から`b--*`へ一括移行し、`c--`のまま残すものを固定する
-
-#545の規約でuiの提供物は`b--`（ベーススタイルをCSS管理）と決めたため、#550で9ファミリーのプレフィックスを一括で置き換えた。
-
-- 決定: 後方互換の`c--*`併記はしない破壊的変更。要素`_x`・モディファイア`--x`の形式は不変。`b--navMenu` / `b--shapeDivider`のcamelCaseは維持する。
-- 決定: レイヤー順は`lism-base → lism-block → lism-trait → lism-primitive → lism-component → lism-custom → lism-utility`。`b--`のベーススタイルは利用者が明示的に足す`is--*` / `has--*` / `l--*`等に常に負ける位置に置く。
-- 決定: `skills/lism-css-guide/antipatterns.md`の`.c--button:hover`は`c--`のまま残す。Custom Class一般のNG例であり、`b--`化すると「`b--`はCSS管理してよい」規約と矛盾する。
-- 決定: docs独自クラス（`c--snsLinks`・`c--preview_*`等）、templates独自クラス（`c--ryokan-*`・`c--header_menuNav`等）、`packages/plugin/src/purge/shared.test.ts`のフィクスチャも`c--`のまま。
-- 決定: primitiveクラスを残すかの基準。primitiveの既定宣言をそのまま使うなら残し（Alert / Callout / Avatar / Tabs）、異なる宣言が要るなら外してCSSが自前で持つ（Button）。レイアウトが任意なら既定出力を廃止し`layout` propで指定する（Accordion Root）。
-- 決定: `u--cbox`はpropsのまま維持し、色味の調整はCSS側の`--cbox-*`変数で行う。cboxのcolor-mix計算式をui側へ複製しない。
-
-## 2026-08-05: mockupの共有viteキャッシュはrename占有で排他する
-
-`@lism-css/mockup`は依存最適化のviteキャッシュを複数プロセスで共有する。viteはキャッシュのcommitを連続の`renameSync`で行い、プロセス間の排他が無いため、同じcacheDirへ同時に書くと片方がENOTEMPTY / ENOENTで失敗し、負けた側はブラウザ表示が壊れる。
-
-- 決定: 共有パスを`<共有パス>.inuse.<pid>`へrenameして原子的に占有する（`packages/mockup/src/core/cache-claim.ts`の`claimViteCacheDir`）。各プロセスが書くのは自分のpid名のディレクトリだけで、renameの元になるのは共有パスと死んだpidの残骸のみ。残骸は次の起動で回収する。
-- 決定: 占有できなければ`null`を返し、呼び出し側はプロセス固有ディレクトリへ退避する。キャッシュ再利用を諦めて毎回事前バンドルするだけで機能は同じなので、この関数は例外を投げない。
-- 却下: stale回収専用の第2ロックで直列化する案。回収用mutexがクラッシュで残ると、以後の回収が止まる。
-- 却下: stale回収をせず、取れなければ常に退避する案。クラッシュ1回でOSのtmp掃除まで共有キャッシュが使えなくなる。
-- 受容: pid再利用によるABA。生きたプロセスの占有ディレクトリを他プロセスが動かす操作は存在しないが、pidの再利用だけは区別できない。
+- **決定と理由**: `@lism-css/ui`は`lism-css`へ`workspace:^`で依存する（`packages/lism-ui/package.json`）。公開時に`^{その時点のcoreのバージョン}`になり、下限がテストしたcoreのバージョンを示す。coreだけを更新しても、利用者のプロジェクトでuiの下に別バージョンのlism-cssが重複して入らない。
+- **守る条件**:
+  - 固定バージョンになる指定（`workspace:*`）に戻さない。coreだけが新しくなると、uiのJSは古いlism-css、CSSはプロジェクト直下の新しいlism-cssを使う。固定してもテストした組み合わせにはならず、lism-cssが重複するだけになる（npmで再現確認済み）。
+  - 依存の下限は公開時のローカルのcoreのバージョンになるので、同時リリースではcoreを先にpublishする（`/release`の手順に組み込み済み）。
+- **関連**: `lism-cli ui add`でコピーされたコードには依存の指定が効かない。その互換は[deep-imports](#deep-imports)で扱う。
+
+<a name="deep-imports"></a>
+### lism-cssの深いパスの公開範囲
+
+- **決定と理由**:
+  - `lism-css/lib/*`・`lism-css/react/*`・`lism-css/astro/*`の深いパスのうち、公開APIは`lism-css/lib/getLismProps`だけにする。`lism-css-guide`スキルで利用者に案内しているため。それ以外は内部用とし、利用者にはapps/siteの`core-components/Lism.mdx`の`getLismProps()`の節で示す。`lism-css/scss/*`はdocsで案内しているので公開API。1.0.0以降は公開APIを壊す変更にメジャー更新が要るため、内部を整理するたびにメジャー更新が要らないよう約束する範囲を絞った。
+  - uiのソースが一度でもimportした深いパスと名前は、uiが使わなくなっても1.xの間はできれば互換を保つ。公開APIではないので約束はしない。`lism-cli ui add`はuiのソースを利用者のプロジェクトへそのままコピーし、コピーされたコードは利用者のlism-cssを直接importする。uiを更新してもコピーは置き換わらないので、lism-cssだけを更新した利用者の環境で壊れるのを避ける。一覧は`packages/lism-ui/src/components/lismCssDeepImports.test.ts`が持ち、lism-css側で消えていないかと、uiが一覧に無い深いパスを使っていないかを検査する。
+  - 内部モジュールを非互換に変えたいときは、なるべく新しいモジュールを別名で足してuiを切り替え、古いほうは2.0.0で消す。既にコピーされたコードは古いモジュールを使い続けられる。やむを得ず1.xで壊すときは、テストの一覧からも外す。
+- **受容**: uiが使うため、`packages/lism-css/package.json`の`exports`はワイルドカードのまま残す。内部用のモジュールも技術的にはimportできる。
+- **関連**: v2で行う削除作業は[deprecations.md](./deprecations.md)の「uiが使わなくなった深いパス」。uiの依存の指定は[ui-core-dependency](#ui-core-dependency)。
+
+<a name="icons-repo"></a>
+### アイコンパッケージの置き場とuiへの反映方法
+
+- **決定と理由**:
+  - `@lism-css/icons`は別リポジトリ`lism-css/icons`で開発・公開する。アイコンパッケージは`lism-css`に依存せず独立性が高く、同じリポジトリに置くとアイコンの追加要望や不具合報告が本体のissueに混ざる。コアがSVGデータを持たなくなり（[icon-data](#icon-data)）、このリポジトリで再生成が要るのは`@lism-css/ui`の既定アイコンだけになったので、別リポジトリにしても「アイコンを公開してからこちらで再生成」の二段階は毎回は起きない。
+  - uiの既定アイコン（`packages/lism-ui/src/helper/icons.ts`）は、ローカルでビルドしたiconsリポジトリの`dist/data.js`を`gen:icons --source`（`packages/lism-ui/scripts/generate-icons.mjs`）で読む手動同期で更新し、生成物をコミットする。`lism-cli ui add`がGitHub上の`packages/lism-ui/src/helper`をそのまま配信するため、ビルド時生成にはしない。手順はルートの`CLAUDE.md`。
+- **守る条件**: uiがnpmの`@lism-css/icons`にdevDependencyとして依存して読む形にしない。アイコン側を先に公開しないとuiがビルドできない順序制約が残る。
+- **関連**: iconsリポジトリ側の判断は[lism-css/iconsのdecisions.md](https://github.com/lism-css/icons/blob/main/docs/decisions.md)。解説ページはapps/siteの`packages/icons.mdx`に置いている。
+
+<a name="icons-dependency-range"></a>
+### サイト・テンプレートの`@lism-css/icons`依存の指定
+
+- **決定と理由**: apps/siteと`templates/*`の`package.json`は`@lism-css/icons`を`*`で指定し、実際に使うバージョンはルートの`pnpm-lock.yaml`で決める。アイコン側のリリースごとにサイト・テンプレートの依存範囲を書き換える手間をなくすため。新版を取り込むときはlockfileを更新する。
+- **守る条件**: `workspace:`プロトコルで指定しない。`lism-cli create`は`workspace:`の依存を公開版の`^x.y.z`へ置き換えるが（`packages/lism-cli/src/commands/create.ts`の`rewriteWorkspaceDeps`）、置き換えに使う版数は`packages/lism-cli/tsup.config.ts`で焼き込んだ公開Lismパッケージにしか無く、知らない依存にはlism-cssの版数が入る。`*`ならこの置換の対象から外れ、生成したプロジェクトにもそのまま残る。
+- **関連**: iconsリポジトリの置き場は[icons-repo](#icons-repo)。
+
+## ビルド・開発ツール
+
+<a name="turbo-self-build"></a>
+### lism-cssの`lint`・`typecheck`のビルド依存
+
+- **決定と理由**: `turbo.json`で`lism-css#lint`と`lism-css#typecheck`は、`^build`に加えて自身の`build`にも依存させる。この2つは自パッケージの`dist`の型定義で型を解決する（`packages/lism-css/astro/`などが`lism-css/lib/*`を自己参照のexportsでimportする）。`^build`だけだと`build`と同時に走り、distの再生成と競合して型解決が壊れる。
+- **守る条件**: turboのキャッシュでdistが残っていると問題が表面化しない。ローカルやキャッシュの効いたCIで通ることを、この依存を外す根拠にしない（lockfileの変化でキャッシュが切れたCIで初めてlintが落ちた）。
+
+<a name="plugin-purge-emit"></a>
+### `@lism-css/plugin`のpurgeが出力し直すCSSの出し方
+
+- **決定と理由**: purgeでファイル名が変わるCSSは、`generateBundle`で元のアセットを`bundle`から消し、`this.emitFile`で出し直す（`packages/plugin/src/purge/vite.ts`の`lismPurge`）。Rolldown（Vite 8）は`generateBundle`の`bundle`への新キー代入を無視するため、キーを付け替える方式ではCSSが出力されない。
+- **守る条件**: pluginはpeerでVite 6〜8を受けるので、Rollup（Vite 7まで）とRolldown（Vite 8）の両方で出力される方式にする。Rolldownでの検証は`vite8`（`npm:vite@8`）エイリアスを使う`packages/plugin/src/purge/vite.test.ts`で行う。
+- **前提**（2026-09-18時点）: pluginのdevDependenciesのviteは7のままにしている。monorepo内のVite 7の利用者である`@lism-css/mockup`と型を揃えるため。
+
+<a name="mockup-vite-cache"></a>
+### mockupの共有viteキャッシュの排他
+
+- **決定と理由**: `@lism-css/mockup`は依存最適化のviteキャッシュを複数プロセスで共有する。viteはキャッシュのcommitを連続の`renameSync`で行い、プロセス間の排他が無いため、同じcacheDirへ同時に書くと片方が失敗してブラウザ表示が壊れる。そこで共有パスを`<共有パス>.inuse.<pid>`へrenameして原子的に占有する（`packages/mockup/src/core/cache-claim.ts`の`claimViteCacheDir`）。占有できなければ`null`を返し、呼び出し側はプロセス固有のディレクトリへ退避する。退避してもキャッシュを再利用せず毎回事前バンドルするだけで機能は同じなので、この関数は例外を投げない。
+- **守る条件**:
+  - 各プロセスが書くのは自分のpid名のディレクトリだけにし、renameの元になるのは共有パスと死んだpidの残骸だけにする。
+  - 死んだpidの残骸は次の起動で回収する。回収しないと、クラッシュ1回でOSのtmp掃除まで共有キャッシュが使えなくなる。
+  - 残骸の回収を、回収専用の別のロックで直列化しない。そのロックがクラッシュで残ると、以後の回収が止まる。
+- **受容**: pidの再利用によるABA。生きたプロセスの占有ディレクトリを他プロセスが動かす操作は無いが、pidの再利用だけは区別できない。
+
+## テンプレート・CLI
+
+<a name="template-variant-type"></a>
+### variant違いのテンプレートの持ち方
+
+- **決定と理由**: 同じカテゴリのvariant違い（LPの業種別など）は、`single-project-variant`型で1プロジェクトの`src/pages/{variant}/`に並べる。variant間では独自のkeyframesやclass prefixなど構造の違いが大きく、「共通base＋variantごとの差分」で配っても共通にできる部分が薄い。1プロジェクトなのでプレビューも1サイトにまとめてビルドできる。型の仕組みと追加手順は[cli-guide.md](./cli-guide.md#テンプレ運用)と`templates/manifest.ts`の`SingleProjectVariantTemplateDef`にある。
+- **守る条件**: まだテンプレートの無い`web`カテゴリ（`templates/manifest.ts`の`CategoryId`）を作るときも、この型に倣う。業種ごとに構造が違う点はLPと同じなので、共通base＋差分（旧`base-overlay`型）を復活させる理由にならない。
+
+<a name="template-html-dist"></a>
+### LPテンプレートのHTML版の配布
+
+- **決定と理由**: LPテンプレート（`templates/lp/astro/`）のビルド結果をHTML版としてCLIから配らない。Astroの出力はminify済みで手編集に向かず、JSは`type="module"`なので`file://`で開くと動かない。配るには生成物を整形・変換してコミットし、sourceとのずれをCIで検査し続ける必要があり、その保守に利用価値が見合わない。
+- **前提**（2026-09-30時点）: `lism-cli create`はgigetでGitHub上の`templates/`を取得するため、配るファイルはリポジトリにコミットしておく必要がある。
+- **受容**: HTMLが欲しい利用者には、Astro版をビルドした`dist/`を使ってもらう。
+
+<a name="templates-markdown"></a>
+### techlogテンプレートのMarkdown / MDX処理
+
+- **決定と理由**: `templates/blog/astro/techlog`のMarkdown / MDX処理は`unified()`を使わず、Sätteriにする。テンプレートは利用者の出発点なので、Astro 7の既定に合わせる。独自の記法（`:::type`、URL単独段落のLinkCard、`[[slug]]`、見出しアンカー）は`src/lib/satteri/`のMDAST / HASTプラグインで持つ。Sätteriを選んだ理由、未対応の`:::type`をコンパイルエラーにする理由、`smartPunctuation`の`--`のダッシュ変換を止める理由は`apps/site`と同じ（[site-markdown](#site-markdown)）。techlogで変換を止めているのは、記事の見出しにクラス接頭辞（`b-- / c--`）を書くため。
+- **前提**（2026-09-18時点）: Astro 7の既定プロセッサはSätteriで、`unified()`はremark / rehypeプラグインをまだ移植できない場合の代替という位置付け。
+- **関連**: 見出しIDをAstroより先に付ける理由は`src/lib/satteri/heading-anchor.mjs`の冒頭コメント。
+
+<a name="templates-compress-html"></a>
+### テンプレートの`compressHTML`
+
+- **決定と理由**: テンプレートの`compressHTML`はAstro 7の既定（`'jsx'`）のままにし、`astro.config.mjs`に書かない。`apps/site`が`true`にしているのはドキュメントの出力差分を抑えるためで（[site-compress-html](#site-compress-html)）、利用者の出発点になるテンプレートには当てはまらない。
+- **前提**（2026-09-18時点）: Astro 6からの更新時、5テンプレートの全撮影ページがAstro 6のビルドとピクセル一致した（差分は写真の再エンコードと記事本文の更新だけ）。
+- **受容**: `'jsx'`はインライン要素間の空白も落とすので、空白が見た目に要る箇所はマークアップで明示する（`{' '}`等）。
+
+## ドキュメントサイト（apps/site）
+
+<a name="site-workspace-name"></a>
+### サイトのワークスペース名
+
+- **決定と理由**: サイト本体のワークスペースは`apps/site`、パッケージ名は`lism-site`、ルートスクリプトは`*:site`の形にする。「docs」がサイト本体・プロジェクト文書の`docs/`・サイトのURLパス`/docs/`の3つを指し、AIエージェントへの指示で取り違えが起きていたため。
+- **守る条件**:
+  - URLパス`/docs/`、コンテンツディレクトリ`src/content`、エージェント名・コマンド名（`lism-docs-editor`・`docs-update`等）は改名の対象にしない。公開URLや運用の呼び名を変えずに済ませるため。
+  - `apps/site/scripts/generate-lastmod-map.ts`は旧パス`apps/docs`の履歴も読み、内容の変わらないワークスペース移動を更新として数えない。外すと全URLのlastmodが改名日になる。
+
+<a name="site-hosting"></a>
+### サイトの配信先と配信設定の置き場
+
+- **決定と理由**:
+  - 静的サイトをCloudflare Workersの静的アセット配信で出す。`@astrojs/cloudflare`アダプターは使わない（サーバー処理が要らない）。Workerのカスタムドメインに必要なため、`lism-css.com`のDNSゾーンもCloudflareに置く。Vercelから移したのは、Vercelの`headers`がパスパターン式で、存在しない`.md`の404にも`text/markdown`が付く不整合（#506）を直せなかったため。
+  - 配信設定は`apps/site/wrangler.jsonc`・`public/_headers`・`public/_redirects`に置き、コードで管理する。`workers_dev: false`もダッシュボードではなく`wrangler.jsonc`で持つ。
+  - `.md`のcharset付き`Content-Type`は、`run_worker_first`で`.md`だけに挟む`apps/site/worker/index.ts`で成功応答と304にだけ付ける。応答ヘッダーの仕様は[docs-md.md](./docs-md.md#mdの応答ヘッダー)。
+  - HSTSは`_headers`の`/*`ルールで付ける。www→apexの301（Redirect Rule）とHTTP→HTTPS（Always Use HTTPS）は、ファイルで持てないのでゾーン設定で持つ。
+- **守る条件**:
+  - Workerの設定をダッシュボードだけで変えない。次の`wrangler deploy`で`wrangler.jsonc`の内容へ戻る。
+  - `.md`の`Content-Type`を`_headers`へ移さない。`_headers`は存在しない`.md`の404にも当たり、#506が再発する。
+- **前提**（2026-09-17時点）:
+  - Cloudflare Pagesは新規利用ではWorkersが公式に推奨されていたので採らなかった。
+  - ダッシュボードのHSTS設定はmax-ageの上限が12か月で、Vercel時代と同じ値を出せなかった。
+  - Vercel側のプロジェクト・ドメイン・DNSゾーンは削除済みで、Vercelへ戻す手段は無い。
+- **受容**: `_redirects`やRedirect Ruleのリダイレクト応答にはHSTSが付かない。存在しない`.md`の404にも`_headers`の`X-Robots-Tag: noindex`が付く。
+- **関連**: ビルドとデプロイの実行場所は[サイトのビルドとデプロイの実行場所](#site-deploy)。
+
+<a name="site-deploy"></a>
+### サイトのビルドとデプロイの実行場所
+
+- **決定と理由**: 本番のビルドとデプロイはGitHub Actions（`.github/workflows/deploy.yml`）で行う。`main`へのpushで`build:site`と`wrangler deploy`を実行し、`.turbo`を`actions/cache`で引き継いで変更のない依存パッケージのビルドを省く。Cloudflare側のビルド（Workers BuildsのGit連携）は使わない。同じコミットのビルドがActionsの方が速く、turboのキャッシュも残せるため。
+- **守る条件**:
+  - Workers BuildsのGit連携を有効に戻さない。Actionsと二重にデプロイされる。
+  - Cloudflareの認証はGitHub secrets（APIトークンとアカウントID）で行い、secretsを使うjobのトリガーは`main`へのpushに限る。forkからのPRにsecretsを渡さないため。
+- **前提**（2026-09-17時点）:
+  - 本番ビルドはWorkers Buildsで約9分、同じコミットをActionsのランナーで約5.5分（Vercel時代は約4分）。公開リポジトリのActionsは無料・無制限。
+  - Workers Buildsのビルドキャッシュはpnpmストアと`node_modules/.astro`だけでturboのキャッシュが残らず、依存3パッケージを毎回ビルドしていた（#624）。VercelのリモートキャッシュをWorkers Buildsで使う案はVercelへの依存が残り、turboの`cacheDir`を`node_modules/.astro`配下へ向ける案は7日で失効することと、パスの扱いが未確認の仕様に頼ることから採らなかった。
+- **受容**: PRごとのプレビュービルドとPRへのコメントは無い。
+- **関連**: 公開の手順・除外パス・secretsの扱いは[docs-update.md](./docs-update.md#公開する)。
+
+<a name="site-markdown"></a>
+### サイトのMarkdown / MDX処理
+
+- **決定と理由**:
+  - Markdown / MDXの処理はAstro 7の既定のSätteriで行う。`@astrojs/mdx`もMDXを`markdown.processor`へ委ねるため、`## 見出し {#id}`の見出しID指定（`headingAttributes`）がMDXでも使える。自前のプラグインは`apps/site/src/lib/satteri/`のMDAST / HASTプラグインで持つ。`docs-md` integrationのHTML→Markdown変換はこの対象に入らず、unifiedのまま（[docs-md.md](./docs-md.md)）。
+  - `:::type`はMDASTプラグイン（`directive-callout.ts`）で`<Callout type>`の`mdxJsxFlowElement`に変換し、`Callout.astro`をそのまま使う。HAST側でコンポーネント相当の要素を組み立てると、プリセット（色・アイコン）を二重に持つことになる。
+  - 未対応の`:::type` / `::name`はコンパイルエラーにする。Sätteriは処理されなかったdirectiveを黙って捨てるので、typoが本文の欠落として公開される。
+  - `smartPunctuation`はダッシュの変換だけを止め（`dashes: false`）、引用符と省略記号の変換は残す。本文や見出しのクラス名・接頭辞（`u--cbox`、`b-- / c--`等）の`--`がダッシュに変換されるため。この理由はtechlogテンプレートにも当てはまる（[techlogテンプレートのMarkdown / MDX処理](#templates-markdown)）。
+- **守る条件**: ダッシュの変換を戻すなら、クラス名を含む本文・見出しが変わらないことを確かめる。
+- **前提**（2026-09-18時点）: 本文中でダッシュの意味で`--` / `---`を書いている箇所は無かった。
+- **関連**: プラグインごとの処理は[apps/site/spec.md](../apps/site/spec.md)。
+
+<a name="site-compress-html"></a>
+### サイトの`compressHTML`
+
+- **決定と理由**: `apps/site`は`compressHTML: true`を明示し、Astro 6と同じ空白処理を保つ。Astro 7の既定`'jsx'`はインライン要素の間の空白まで落とし、全ページの出力が変わる。`'jsx'`へ切り替えるかは、効果と出力の差分を見て別に決める（未検討）。テンプレートの設定は[テンプレートの`compressHTML`](#templates-compress-html)。
+
+<a name="site-ui-sections"></a>
+### docsの`ui/`の分類と作例の置き場
+
+- **決定と理由**:
+  - `ui/`は「Blocks（`@lism-css/ui`の提供物）」と「Examples（`ui/examples/`）」の2分類にする。セクションに仕立てられる作例は、部品の大きさでも見出し付きのセクションとして成り立つなら`patterns/`へ置く。セクションにならない部品と、技法の解説が本体のページは`ui/examples/`へ置く。
+  - CSSの有無と`b--` / `c--`では置き場を分けず、ページ内で明示する。同じTimelineが`ui/`では`b--timeline`、patternsでは`c--timeline`で書かれ、patternsも`_style.css`付きの作例を載せており、どちらも境界にならないため。
+  - パッケージから外した部品（Chat等）は、`ui/examples/`に`b--`の作例として載せる。作例のCSSを利用者が`@layer lism-block`へコピーすれば、マークアップを変えずに同じ見た目になる。パッケージに残すかの線引きは[`@lism-css/ui`に置く部品の線引き](#ui-package-scope)、接頭辞の意味は[独自クラスの接頭辞の使い分けと併用](#class-prefixes)。
+  - 作例のURLは`/ui/examples/{slug}/`。公開実績のある旧URL（`/ui/components/*`・`/ui/block-examples/*`等）は`apps/site/src/config/redirects.ts`でリダイレクトする。
+- **守る条件**: ディレクトリ名・URLと分類をそろえる。ラベルだけを変えると、ディレクトリ名と分類がずれたまま残る。
+- **前提**（2026-10-01時点）: 作例をdocs側へ移して`ui/`をパッケージの提供物だけにする案は、docsのサイドバーがすでに9セクションあり作例が埋もれるので採らなかった。
+
+<a name="og-image-font"></a>
+### OG画像の描画方式とフォント
+
+- **決定と理由**:
+  - 記事ページのOG画像は、無地の背景に上下2本の罫線・タイトル・説明文・右下のロゴを`apps/site/src/lib/ogImage.tsx`の`renderOgSvg`（satori）で描く。説明文を画像に入れるのは、Xのリンクカードが説明文を表示せず、画像の中の説明文だけが内容を伝えるため。
+  - フォントはサイト本体と同じGen Interface JPにする。satoriが読めるTTFを、リリースzipから常用漢字・人名用漢字と記事の実際の文字でサブセットして`src/assets/og/`にコミットする（`scripts/subset-og-font.ts`）。収録文字の一覧`og-font-chars.txt`を、サブセット化とビルド時の照合の両方が参照する唯一の正とする。
+  - title / descriptionにフォント未収録の文字があればビルドを止める（`src/lib/pageHelpers.ts`の`generateOgImage`）。satoriは未収録の文字を空白で描いてエラーにしないので、放置すると文字の欠けた画像が公開される。
+  - OG画像はビルドのたびに描き直し、キャッシュを持たない。以前のローカルキャッシュはキーにテンプレートの版や説明文を含まず、デザインを変えた後も古い画像が残る原因になっていた。
+- **守る条件**: キャッシュを足すなら、キーに描画に関わる入力（テンプレート・フォント・title・description）をすべて含める。
+- **前提**（2026-09-05時点）:
+  - Gen Interface JPのnpm配布はwoff2だけで、satoriはwoff2を読めない。
+  - Noto Sans JPをフォールバックに残すと400と600で3MBを抱え続け、ビルドのたびにリリースzipを取得してサブセットすると毎回58MBの取得が走る。
+  - 無地の描画なら全160枚が約2秒で終わる。
+  - takumiは同じレイアウトの実測で処理時間が同等で、必要な`lineClamp`・省略記号・複数フォントのフォールバックはsatoriにあったので乗り換えなかった。
+- **受容**: 記事のtitle / descriptionに新しい文字が入るとビルドが失敗し、`og:font`を実行してTTFと文字一覧をコミットし直す運用になる。
+
+<a name="preview-iframe"></a>
+### iframeプレビューの縮小方式
+
+- **決定と理由**: ドキュメントのiframeプレビュー（`apps/site/src/components/Preview/PreviewFrame.astro`）は中身を等倍で埋め込み、`zoom` / `transform`で縮小しない。サイズ切替のモバイル・タブレットは本物のビューポート幅で描き、デスクトップは本文幅にする。広い画面での表示は「別タブで表示」で見せる。縮小すると、中身の高さに合わせる計算とブラウザごとの`zoom`の扱いの違いへの補正が残り続けるため。
+- **守る条件**: 縮小を入れ直すなら、iframe内のdialogアニメーションの表示位置を崩さないこと（`transform: scale()`ではずれた）。
+- **前提**（2026-09-03時点）: Safari 26.3以前は親の`zoom`をiframe内へ伝えず、高さのフィットが崩れてスクロールバーが出た。旧WebKitには`zoom`時のwidth・margin・`calc()`の扱いの不具合もあった（Safari 26.4で修正）。`zoom`を残して補正する案は、Chromeと旧Safariで挙動が分かれ、幅の整数丸めで1px未満のはみ出しが出るなど保守が重かった。
+- **受容**: 目次のあるMDXページでは、デスクトップ表示が本文幅までしか見えない。

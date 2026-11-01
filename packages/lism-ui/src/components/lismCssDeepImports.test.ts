@@ -8,7 +8,7 @@ const testFile = fileURLToPath(import.meta.url);
 const srcDir = resolve(dirname(testFile), '..');
 
 // `lism-cli ui add`でコピーされたコードは利用者のlism-cssを直接importする。
-// uiのソースが一度でも使った深いパスと名前は、使わなくなっても1.xの間はできれば残す。やむを得ず壊すときはこの一覧からも外す（docs/decisions.md）
+// uiのソースが一度でも使った深いパスと名前は、使わなくなっても1.xの間はできれば残す。やむを得ず壊すときはこの一覧からも外す（docs/decisions.md#deep-imports）
 const PROTECTED: Record<string, string[]> = {
   'lism-css/lib/getLismProps': ['default', 'LayoutType'],
   'lism-css/lib/getMaybeCssVar': ['default'],

@@ -7,7 +7,7 @@ import { getLangFromUrl, t } from '@/lib/i18n';
 import SrcCode from '@/components/mdx/SrcCode.astro';
 
 /**
- * iframe プレビュー。中身は等倍で埋め込む（zoom / transform で縮小しない。docs/decisions.md 参照）。
+ * iframe プレビュー。中身は等倍で埋め込む（zoom / transform で縮小しない。docs/decisions.md#preview-iframe 参照）。
  * 高さは iframe 内の PreviewSizeReporter から通知される中身の高さにフィットさせ、
  * 上限は --ar（アスペクト比）から求めた高さ。上限を超える分は iframe 内でスクロールする。
  *
