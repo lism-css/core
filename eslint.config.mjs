@@ -19,6 +19,8 @@ export default defineConfig(
       '**/.turbo/**',
       // 言語別テンプレ overlay（配布用の差分ファイル。tsconfig の project service 対象外）
       '**/.lang/**',
+      // skill 同梱の補助スクリプト（配布用の独立 Node スクリプト。tsconfig の project service 対象外）
+      'skills/*/scripts/**',
       'apps/catalog/.storybook/**',
       'apps/catalog/storybook-static/**',
       'eslint.config.mjs',
